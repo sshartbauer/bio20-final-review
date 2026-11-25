@@ -204,10 +204,30 @@ main p,main li,.qtext,.keynote,.fignote,.note{max-width:75ch}
 
 .steps{padding-left:1.4em}.steps li{margin:.6em 0;max-width:75ch}.steps .btn{margin:6px 6px 0 0}
 .fbar[hidden]{display:none}.panel>h3:first-child{margin-top:0}
+
+.autorow label{display:flex;flex-direction:column;gap:4px;font-weight:700}
+.autorow input[type=number]{width:7.5em;min-height:44px;border:2px solid var(--line);background:var(--surface);color:var(--fg);border-radius:8px;padding:6px 10px;font-size:1rem}
+
+#btnLog{display:none}
+@media (min-width:900px){
+  #btnLog{display:block;order:2;margin-top:auto;width:100%}
+  #btnSet{margin-top:0!important}
+  #foot{display:none}
+  #about .sheet{max-width:640px;border-radius:16px;margin:auto;max-height:85vh}
+}
+
+@media (min-width:900px){
+  .top #fbar{display:flex;flex-direction:column;align-items:stretch;gap:6px;padding:0;margin:0;grid-column:auto;grid-row:auto}
+  .top #fbar .btn{width:100%;text-align:left}
+  .top #fbar .fsum{flex:none}
+  .fbar.off .fsum{visibility:hidden}.fbar.off .btn{opacity:.45}
+  #filters{grid-row:1}#filters:not([hidden]){margin-top:20px}
+  #main{padding-top:24px}
+}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
-<header class="top"><div class="brand"><h1>BIOSC-020 Final Exam Review<span class="sub">Study guide sets 1 and 2</span></h1><button class="iconbtn" id="btnSet" aria-haspopup="dialog">Settings</button></div>
+<header class="top"><div class="brand"><h1>BIOSC-020 Final Exam Review<span class="sub">Study guide sets 1 and 2</span></h1><button class="iconbtn" id="btnLog" aria-haspopup="dialog">Changelog</button><button class="iconbtn" id="btnSet" aria-haspopup="dialog">Settings</button></div>
 <nav aria-label="Study modes"><div class="tabs" role="tablist" id="tabs"></div></nav>
 </header>
 <div class="fbar" id="fbar"><button class="btn sm" id="btnFilt" aria-expanded="false" aria-controls="filters">Choose concepts (<span id="fcount">All</span>)</button><span class="fsum" id="fsum"></span></div>
@@ -216,6 +236,7 @@ main p,main li,.qtext,.keynote,.fignote,.note{max-width:75ch}
 <footer id="foot" style="margin-top:28px"></footer>
 </div>
 <div class="settings" id="settings" hidden></div>
+<div class="settings" id="about" hidden></div>
 <script>/* Concept notes. One entry per concept. Strings are bullets, strings starting with two spaces are sub-bullets,
    {k:"..."} is a highlighted exam note, {f:"..."} is a figure-only (supplemental) note, {html:"..."} is raw html.
    Slide numbers are the page numbers of the two final study guide PDFs (set 1 = old material, set 2 = new material). */
@@ -973,10 +994,13 @@ let cur="notes";
 $("#tabs").innerHTML=TABS.map(t=>`<button class="tab" role="tab" id="tab-${t[0]}" data-t="${t[0]}" aria-selected="false" aria-controls="main">${t[1]}</button>`).join("");
 $("#tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(b)go(b.dataset.t)});
 $("#tabs").addEventListener("keydown",e=>{if(e.key!=="ArrowRight"&&e.key!=="ArrowLeft")return;const i=TABS.findIndex(t=>t[0]===cur),n=(i+(e.key==="ArrowRight"?1:-1)+TABS.length)%TABS.length;go(TABS[n][0]);$("#tab-"+TABS[n][0]).focus()});
+const wide=matchMedia("(min-width:900px)");
+function placeFbar(){const f=$("#fbar"),top=$(".top");if(wide.matches){if(f.parentNode!==top)top.insertBefore(f,$(".top nav"))}else if(f.parentNode===top)top.after(f)}
+wide.addEventListener&&wide.addEventListener("change",()=>{placeFbar();$("#fbar").hidden=!!NOFILTER[cur]&&!wide.matches});
 function go(t,keep){
-  cur=t;$$(".tab").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t));
+  if(t!=="cards")stopAuto();cur=t;$$(".tab").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t));
   try{history.replaceState(null,"","#"+t)}catch(e){}
-  $("#fbar").hidden=!!NOFILTER[t];if(NOFILTER[t])$("#filters").hidden=true;
+  placeFbar();$("#fbar").hidden=!!NOFILTER[t]&&!wide.matches;$("#btnFilt").disabled=!!NOFILTER[t];$("#fbar").classList.toggle("off",!!NOFILTER[t]);if(NOFILTER[t]){$("#filters").hidden=true;$("#btnFilt").setAttribute("aria-expanded","false")}
   render();if(!keep)window.scrollTo({top:0,behavior:"auto"});
 }
 function render(){({guide:renderGuide,notes:renderNotes,cards:renderCards,quiz:renderQuiz,diagrams:renderDiagrams,drills:renderDrills,progress:renderProgress})[cur]()}
@@ -999,7 +1023,7 @@ function renderGuide(){
   <p>On Notes, Flashcards and Quiz, the <b>Choose concepts</b> button at the top lets you pick one concept, a whole set, or everything. Your choice is remembered. Use it to work through one topic at a time or to focus on set 2 first.</p></div>
   <div class="panel"><h3>What each part does</h3><ul>
   <li><b>Notes:</b> one section per concept with the slide numbers. Tap a section to open it. <i>Open all</i> and <i>Close all</i> are at the top.</li>
-  <li><b>Flashcards:</b> tap the card to flip it. Swipe left or right on a phone, or click the card and use Space and the arrow keys.</li>
+  <li><b>Flashcards:</b> tap the card to flip it. Swipe left or right on a phone, or click the card and use Space and the arrow keys. <i>Play through the cards</i> at the bottom flips and advances automatically, with seconds you choose for the question and the answer.</li>
   <li><b>Quiz:</b> one question at a time with instant feedback. At the end you can retry only your misses.</li>
   <li><b>Diagrams:</b> pick Mitochondrion or Chloroplast. <i>Guide me</i> walks you through the steps with an explanation for each blank. <i>Test your knowledge</i> hides the answers so you fill them in.</li>
   <li><b>Drills:</b> ${DRILLS.map(d=>d.title).join(", ")}. Each one says which slides it covers.</li>
@@ -1013,7 +1037,7 @@ function renderGuide(){
   <li>Clearing your browser data erases your progress, so export a copy first if you want to keep it.</li>
   <li>After your first visit the page works offline.</li></ul></div>
   <div class="panel"><h3>Found a mistake?</h3>
-  <p>Open the <b>About, changelog and reporting errors</b> section at the bottom of any page. Tell us the tab and the item so it can be checked against the slides.</p></div>`;
+  <p>Open <b>Changelog</b> in the sidebar (on a phone, the <b>About, changelog and reporting errors</b> section at the bottom of the page). Tell us the tab and the item so it can be checked against the slides.</p></div>`;
 }
 /* ===== topic filter ===== */
 function renderFilters(){
@@ -1068,28 +1092,53 @@ $("#main").addEventListener("click",e=>{
 /* ===== flashcards ===== */
 let deck=null,pos=0,flipped=false,cOnlyAgain=false;
 function buildDeck(shuf){deck=CARDS.filter(c=>sel.has(c.t)&&(!cOnlyAgain||P.cards[c.id]==="again"));if(shuf)deck=shuffle(deck);pos=0;flipped=false}
+let playing=false,autoT=0;
+const AU=()=>P.auto||(P.auto={q:5,a:5,loop:1});
+function stopAuto(){playing=false;clearTimeout(autoT)}
+function autoStep(){
+  if(!playing)return;if(cur!=="cards"||document.hidden||!deck||!deck.length){stopAuto();if(cur==="cards")renderCards();return}
+  if(!flipped){flipped=true}
+  else if(pos>=deck.length-1&&!AU().loop){stopAuto();autoDone=true;renderCards();return}
+  else{pos=(pos+1)%deck.length;flipped=false}
+  renderCards();
+}
+let autoDone=false;
+function resched(){clearTimeout(autoT);if(playing)autoT=setTimeout(autoStep,(flipped?AU().a:AU().q)*1000)}
+document.addEventListener("visibilitychange",()=>{if(document.hidden&&playing){stopAuto();if(cur==="cards")renderCards()}});
+function autoPanel(){
+  const u=AU(),d=playing?"disabled":"";
+  return `<div class="panel" id="autop"><h3>Play through the cards</h3>
+  <p class="small muted">Shows each question, flips to the answer, then moves to the next card. Set how many seconds to spend on each side. Change the times while paused.</p>
+  <div class="row autorow"><label>Seconds on question <input type="number" id="aQ" min="1" max="120" step="1" inputmode="numeric" value="${u.q}" ${d}></label>
+  <label>Seconds on answer <input type="number" id="aA" min="1" max="120" step="1" inputmode="numeric" value="${u.a}" ${d}></label></div>
+  <div class="row"><label class="row" style="gap:8px"><input type="checkbox" id="aLoop" ${u.loop?"checked":""} ${d} style="width:24px;height:24px"> Start over at the end</label></div>
+  <div class="row"><button class="btn primary" id="cPlay" aria-pressed="${playing}">${playing?"Pause":"Play"}</button><span class="small muted" aria-live="polite">${playing?"Playing. Tap the card or use Previous and Next to take over.":autoDone?"Reached the last card.":""}</span></div></div>`;
+}
 function renderCards(){
   if(!deck)buildDeck(false);
   const k=Object.values(P.cards).filter(v=>v==="know").length,a=Object.values(P.cards).filter(v=>v==="again").length;
   let h=`<h2>Flashcards</h2><div class="row"><label class="row" style="gap:8px"><input type="checkbox" id="cAgain" ${cOnlyAgain?"checked":""} style="width:24px;height:24px"> Only cards marked "Review again"</label></div>`;
-  if(!deck.length){h+=`<div class="panel">${cOnlyAgain?"No cards are marked Review again in these concepts.":"No cards in the selected concepts."}</div>`;$("#main").innerHTML=h;return}
+  if(!deck.length){stopAuto();h+=`<div class="panel">${cOnlyAgain?"No cards are marked Review again in these concepts.":"No cards in the selected concepts."}</div>`;$("#main").innerHTML=h;return}
   if(pos>=deck.length)pos=0;const c=deck[pos],m=P.cards[c.id];
   h+=`<p class="small muted" aria-live="polite">Card ${pos+1} of ${deck.length}${m?` (marked: ${m==="know"?"got it":"review again"})`:""}. Tap the card or press Space to flip. Swipe or use the arrow keys to move.</p>
   <div class="meter" aria-hidden="true"><i style="width:${(pos+1)/deck.length*100}%"></i></div><p></p>
   <div class="card ${flipped?"back":""}" id="card" tabindex="0" role="button" aria-label="Flashcard. ${flipped?"Answer side":"Question side"}. Press Space to flip."><div class="corner"><span>${esc(tShort(c.t))}</span><span>${flipped?"answer":"question"}</span></div><div class="txt">${flipped?c.b:c.f}</div><div class="hint">${flipped?"tap to see the question":"tap to see the answer"}</div></div>
   <div class="fcbtns"><button class="btn" id="cPrev">Previous</button><button class="btn" id="cNext">Next</button><button class="btn primary" id="cKnow">Got it</button><button class="btn" id="cAgainB">Review again</button><button class="btn wide ghost" id="cShuf">Shuffle deck</button></div>
-  <p class="small muted">Marked so far across all cards: ${k} got it, ${a} review again, ${CARDS.length-k-a} unmarked.</p>`;
-  $("#main").innerHTML=h;
+  <p class="small muted">Marked so far across all cards: ${k} got it, ${a} review again, ${CARDS.length-k-a} unmarked.</p>`+autoPanel();
+  $("#main").innerHTML=h;resched();
 }
-function cflip(){flipped=!flipped;renderCards();const c=$("#card");c&&c.focus({preventScroll:true})}
-function cmove(d){if(!deck.length)return;pos=(pos+d+deck.length)%deck.length;flipped=false;renderCards();const c=$("#card");c&&c.focus({preventScroll:true})}
+function cflip(){autoDone=false;flipped=!flipped;renderCards();const c=$("#card");c&&c.focus({preventScroll:true})}
+function cmove(d){autoDone=false;if(!deck.length)return;pos=(pos+d+deck.length)%deck.length;flipped=false;renderCards();const c=$("#card");c&&c.focus({preventScroll:true})}
 function cmark(v){if(!deck.length)return;P.cards[deck[pos].id]=v;save();if(cOnlyAgain&&v==="know"){buildDeck(false);flipped=false;renderCards();return}cmove(1)}
 $("#main").addEventListener("click",e=>{
   if(cur!=="cards")return;const t=e.target;
   if(t.closest("#card"))cflip();else if(t.id==="cPrev")cmove(-1);else if(t.id==="cNext")cmove(1);else if(t.id==="cKnow")cmark("know");else if(t.id==="cAgainB")cmark("again");
   else if(t.id==="cShuf"){buildDeck(true);renderCards()}
+  else if(t.id==="cPlay"){if(playing)stopAuto();else{playing=true;autoDone=false}renderCards()}
 });
-$("#main").addEventListener("change",e=>{if(e.target.id==="cAgain"){cOnlyAgain=e.target.checked;buildDeck(false);renderCards()}});
+$("#main").addEventListener("change",e=>{const i=e.target;if(i.id==="cAgain"){cOnlyAgain=i.checked;buildDeck(false);renderCards()}
+  else if(i.id==="aQ"||i.id==="aA"){let v=Math.round(+i.value);if(!(v>=1))v=5;v=Math.min(120,v);i.value=v;AU()[i.id==="aQ"?"q":"a"]=v;save()}
+  else if(i.id==="aLoop"){AU().loop=i.checked?1:0;save()}});
 $("#main").addEventListener("keydown",e=>{
   if(cur!=="cards"||document.activeElement.id!=="card")return;
   if(e.key===" "||e.key==="Enter"){e.preventDefault();cflip()}else if(e.key==="ArrowRight"){e.preventDefault();cmove(1)}else if(e.key==="ArrowLeft"){e.preventDefault();cmove(-1)}
@@ -1547,6 +1596,10 @@ $("#main").addEventListener("click",e=>{if(cur!=="drills")return;
 /* Newest first. Add an entry here and in CHANGELOG.md for every release. */
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
+ {v:"1.4",date:"2026-11-25",items:[
+  "Choose concepts now sits at the top of the left sidebar, above the study modes. It is dimmed on tabs that do not use it.",
+  "Changelog button now sits above Settings in the sidebar and opens the changelog and reporting info in a pop-up. Phones keep it at the bottom of the page.",
+  "Flashcards can now play through on their own. Set the seconds on the question and on the answer (1 to 120), choose whether to start over at the end, and press Play. Tap the card or use Previous and Next to take over, and it pauses when you switch tabs or leave the page."]},
  {v:"1.3",date:"2026-11-25",items:[
   "New How to use tab with a suggested study routine, what each tab does, reading settings, and how progress is saved. It opens automatically on your first visit."]},
  {v:"1.2",date:"2026-11-25",items:[
@@ -1564,11 +1617,15 @@ const CHANGELOG=[
   "Answer keys for the diagrams were checked against Prof. Shane's key."]}
 ];
 /* ===== footer: about, changelog, report an error ===== */
-$("#foot").innerHTML=`<details class="topic"><summary><span class="tname">About, changelog and reporting errors</span></summary><div class="tbody">
-<p>A free study tool for the BIOSC-020 final exam, shared with permission of Prof. Shane. Content follows the typed text of the two final exam study guide slide sets. Figures on the slides are supplemental.</p>
+const ABOUT=`<p>A free study tool for the BIOSC-020 final exam, shared with permission of Prof. Shane. Content follows the typed text of the two final exam study guide slide sets. Figures on the slides are supplemental.</p>
 <p>Found a mistake? <a href="${REPO}/issues/new" target="_blank" rel="noopener">Report it on GitHub</a> and say which tab and item it was.</p>
 <h3>Changelog</h3>${CHANGELOG.map(c=>`<p><b>Version ${c.v}</b> <span class="muted">${c.date}</span></p><ul>${c.items.map(i=>`<li>${i}</li>`).join("")}</ul>`).join("")}
-<p class="small muted">Fonts: Carlito (SIL Open Font License). Progress and settings are stored only in your browser.</p></div></details>`;
+<p class="small muted">Fonts: Carlito (SIL Open Font License). Progress and settings are stored only in your browser.</p>`;
+$("#foot").innerHTML=`<details class="topic"><summary><span class="tname">About, changelog and reporting errors</span></summary><div class="tbody">${ABOUT}</div></details>`;
+function openAbout(){$("#about").innerHTML=`<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="abt"><div class="row" style="justify-content:space-between"><h2 id="abt">About and changelog</h2><button class="btn" id="aclose">Done</button></div>${ABOUT}</div>`;$("#about").hidden=false;$("#aclose").focus()}
+$("#btnLog").onclick=openAbout;
+$("#about").addEventListener("click",e=>{if(e.target.id==="about"||e.target.id==="aclose"){$("#about").hidden=true;$("#btnLog").focus()}});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#about").hidden){$("#about").hidden=true;$("#btnLog").focus()}});
 const h0=location.hash.slice(1);go(TABS.some(t=>t[0]===h0)?h0:(P.seen?"notes":"guide"),true);
 if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
 </script></body></html>

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4 (2026-11-25)
+- Choose concepts now sits at the top of the left sidebar, above the study modes. It is dimmed on tabs that do not use it.
+- Changelog button now sits above Settings in the sidebar and opens the changelog and reporting info in a pop-up. Phones keep it at the bottom of the page.
+- Flashcards can now play through on their own. Set the seconds on the question and on the answer (1 to 120), choose whether to start over at the end, and press Play. Tap the card or use Previous and Next to take over, and it pauses when you switch tabs or leave the page.
+
 ## 1.3 (2026-11-25)
 - New How to use tab with a suggested study routine, what each tab does, reading settings, and how progress is saved. It opens automatically on your first visit.
 
