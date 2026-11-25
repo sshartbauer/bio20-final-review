@@ -270,6 +270,27 @@ main p,main li,.qtext,.keynote,.fignote,.note{max-width:75ch}
   .top #fbar{max-width:none!important;justify-self:auto!important}
 }
 @media (min-width:1100px){html[data-side=hide]:not([data-tab="diagrams"]) #fbar{padding-left:28px}}
+
+/* amino acid colors */
+.aa{display:inline-block;padding:0 8px;border-radius:999px;font-weight:700;line-height:1.5;border:1.5px solid hsl(var(--h) 55% 38%);background:hsl(var(--h) 85% 87%);color:#111;white-space:nowrap}
+.aa.stop{background:#1b1b1b;color:#fff;border-color:#000}
+:root[data-theme="dark"] .aa,:root[data-theme="amoled"] .aa{background:hsl(var(--h) 45% 26%);color:#fff;border-color:hsl(var(--h) 60% 62%)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .aa{background:hsl(var(--h) 45% 26%);color:#fff;border-color:hsl(var(--h) 60% 62%)}}
+:root[data-theme="hc"] .aa{background:hsl(var(--h) 60% 18%);color:#fff;border:2px solid #fff}
+:root[data-theme="dark"] .aa.stop,:root[data-theme="amoled"] .aa.stop,:root[data-theme="hc"] .aa.stop{background:#000;border-color:#fff}
+.aaleg{line-height:2.1}
+table.mini .aa{padding:0 6px}
+/* pump drill layout */
+.pstep{max-width:440px;margin-left:auto;margin-right:auto}
+.pumpgrid{display:block}
+@media (min-width:860px){
+  .pumpgrid{display:grid;grid-template-columns:minmax(0,370px) minmax(0,1fr);gap:18px;align-items:start}
+  .pstep{position:sticky;top:12px;margin:10px 0}
+  .pstep .qtext{font-size:1em}
+}
+.pfillcol .fill{line-height:2.05;padding:10px 14px}
+.pfillcol .fill input[type=text]{width:7.5em;min-height:32px;padding:2px 8px;font-size:.95rem;margin:0 2px}
+.pfillcol .fill p{margin:.3em 0}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -1390,6 +1411,10 @@ const rnaToDna=r=>[...r].map(b=>b==="U"?"T":b).join("");
 const dnaRev=r=>[...r].reverse().map(b=>({A:"T",U:"A",C:"G",G:"C"})[b]).join("");
 const translate=m=>{const o=[];for(let i=0;i+2<m.length;i+=3){const a=codonAA(m.slice(i,i+3));o.push(a);if(a==="*")break}return o};
 const aaWords=a=>a.map(x=>A3[x]).join("-");
+const AAORD="FLSYCWPHQRIMTNKVADEG";
+const aaPill=x=>x==="*"?`<span class="aa stop">Stop</span>`:`<span class="aa" style="--h:${(AAORD.indexOf(x)*7%20)*18+8}">${A3[x]}</span>`;
+const aaPills=a=>a.map(aaPill).join(" ");
+const aaLegend=()=>`<p class="small aaleg">Amino acid colors: ${[...AAORD].sort((a,b)=>A3[a]<A3[b]?-1:1).map(aaPill).join(" ")} ${aaPill("*")}</p>`;
 const colorSeq=s=>[...s].map(b=>`<span class="${b.toLowerCase()}">${b}</span>`).join("");
 const triplets=s=>s.match(/.{1,3}/g).join(" ");
 function parseAA(s){const t=s.trim().replace(/[,\-–]+/g," ").split(/\s+/).filter(Boolean);if(!t.length)return[];
@@ -1409,9 +1434,9 @@ function mkRandomMut(){
 }
 function drillMut(host){
   const SLIDE=["CTACCCTTTACAGGG","CTACCCTTTGCAGGG","CTACCCTTTCCAGGG","CTACCCTTTTCAGGG"];
-  host.innerHTML=`<p class="note">Slide 24 practice: transcribe and translate each template strand, then say how it differs from the first strand. mRNA is written 5' to 3', the reverse complement of the template. Type amino acids as three-letter names separated by spaces (Pro Cys Lys Gly Stop).</p>
+  host.innerHTML=`<p class="note">Slide 24 practice: transcribe and translate each template strand, then say how it differs from the first strand. mRNA is written 5' to 3', the reverse complement of the template. Type amino acids as three-letter names separated by spaces (Pro Cys Lys Gly Stop). Each amino acid has its own color in the answers, so a silent mutation keeps the same color and a missense mutation changes it.</p>
   <div class="row"><button class="btn primary" data-m="slide" aria-pressed="true">Slide 24 strands</button><button class="btn" data-m="rand">Random strands</button></div>
-  <details class="topic" style="margin-top:10px"><summary><span class="tname">Genetic code (like the codon wheel on slide 24)</span></summary><div class="tbody tblw">${codonTable()}</div></details><div id="mutbody"></div>`;
+  <details class="topic" style="margin-top:10px"><summary><span class="tname">Genetic code (like the codon wheel on slide 24)</span></summary><div class="tbody tblw">${aaLegend()}${codonTable()}</div></details><div id="mutbody"></div>`;
   const body=$("#mutbody",host);
   function item(tpl,refMRNA,label,i){
     const mRNA=revCompRNA(tpl),aa=translate(mRNA),refAA=refMRNA?translate(refMRNA):[];
@@ -1434,12 +1459,12 @@ function drillMut(host){
         const got=parseAA(ib.value),okb=got.join("")===aa.join("");ib.className=okb?"ok":"no";if(okb)s++;
         if(ic){const okc=ic.value===cat;ic.className=okc?"ok":"no";if(okc)s++}
         recDrill("mut",s,n);
-        $(".fbx",w).innerHTML=fbBox(s===n,`<b>${s} of ${n}.</b> ${hints.join(" ")} Answer: mRNA 5'-<span class="seq">${mRNA.match(/.{1,3}/g).map(colorSeq).join(" ")}</span>-3', ${aaWords(aa)}${refMRNA?`, ${cat}`:""}.${explain(cat,refMRNA,mRNA,refAA,aa)}`)}
+        $(".fbx",w).innerHTML=fbBox(s===n,`<b>${s} of ${n}.</b> ${hints.join(" ")} Answer: mRNA 5'-<span class="seq">${mRNA.match(/.{1,3}/g).map(colorSeq).join(" ")}</span>-3', ${aaPills(aa)}${refMRNA?`, ${cat}`:""}.${explain(cat,refMRNA,mRNA,refAA,aa)}`)}
       if(a==="show"){ia.value=mRNA;ib.value=aaWords(aa).replace(/-/g," ");if(ic)ic.value=cat}});
     return w}
   function explain(cat,ref,m,ra,a){if(!ref||cat==="reference")return"";
     let k=0;while(k<m.length&&m[k]===ref[k])k++;const ci=Math.floor(k/3);
-    const t={silent:`The changed codon ${ref.slice(ci*3,ci*3+3)} → ${m.slice(ci*3,ci*3+3)} still codes for ${A3[ra[ci]]}, so the protein is the same.`,missense:`Codon ${ci+1} changed from ${ref.slice(ci*3,ci*3+3)} (${A3[ra[ci]]}) to ${m.slice(ci*3,ci*3+3)} (${A3[a[ci]]}), a different amino acid.`,nonsense:`Codon ${ci+1} changed from ${ref.slice(ci*3,ci*3+3)} (${A3[ra[ci]]}) to ${m.slice(ci*3,ci*3+3)}, a stop codon, so translation ends early.`,"no change":"Same strand as the first one."};
+    const t={silent:`The changed codon ${ref.slice(ci*3,ci*3+3)} → ${m.slice(ci*3,ci*3+3)} still codes for ${aaPill(ra[ci])}, so the protein is the same.`,missense:`Codon ${ci+1} changed from ${ref.slice(ci*3,ci*3+3)} (${aaPill(ra[ci])}) to ${m.slice(ci*3,ci*3+3)} (${aaPill(a[ci])}), a different amino acid.`,nonsense:`Codon ${ci+1} changed from ${ref.slice(ci*3,ci*3+3)} (${aaPill(ra[ci])}) to ${m.slice(ci*3,ci*3+3)}, a stop codon, so translation ends early.`,"no change":"Same strand as the first one."};
     return " "+(t[cat]||"")}
   function slide(){body.innerHTML="";SLIDE.forEach((t,i)=>body.appendChild(item(t,i?revCompRNA(SLIDE[0]):null,i?"Strand "+(i+1):"Strand 1 (reference)",i)))}
   let rn=0;
@@ -1452,7 +1477,7 @@ function drillMut(host){
 }
 function codonTable(){
   let h=`<table class="mini"><thead><tr><th>1st</th>${[...BASES].map(b=>`<th>2nd ${b}</th>`).join("")}</tr></thead><tbody>`;
-  for(const a of BASES){h+=`<tr><th>${a}</th>`;for(const b of BASES){h+=`<td>${[...BASES].map(c=>a+b+c+" "+A3[codonAA(a+b+c)]).join("<br>")}</td>`}h+="</tr>"}
+  for(const a of BASES){h+=`<tr><th>${a}</th>`;for(const b of BASES){h+=`<td>${[...BASES].map(c=>a+b+c+" "+aaPill(codonAA(a+b+c))).join("<br>")}</td>`}h+="</tr>"}
   return h+"</tbody></table>"}
 
 /* ================= 3. Na+/K+ pump stepper + fill in ================= */
@@ -1479,7 +1504,7 @@ function pumpSVG(s){
   return g+"</svg>"}
 function drillPump(host){
   let s=0;
-  host.innerHTML=`<div class="panel"><h3 style="margin-top:0">Pump stepper</h3><div class="diagram" id="psvg"></div><p id="pcap" class="qtext" aria-live="polite"></p><p id="ptxt" class="small muted"></p><div class="row"><button class="btn" id="pb">Back</button><button class="btn primary" id="pn">Next step</button><button class="btn ghost" id="pr">Restart</button></div></div><h3>Fill in the blanks (slide 9)</h3><p class="note">19 blanks. Blanks 9 to 11 are the three mechanisms and can go in any order.</p><div id="pfill"></div>`;
+  host.innerHTML=`<div class="pumpgrid"><div class="panel pstep"><h3 style="margin-top:0">Pump stepper</h3><div class="diagram" id="psvg"></div><p id="pcap" class="qtext" aria-live="polite"></p><p id="ptxt" class="small muted"></p><div class="row"><button class="btn" id="pb">Back</button><button class="btn primary" id="pn">Next step</button><button class="btn ghost" id="pr">Restart</button></div></div><div class="pfillcol"><h3 style="margin-top:0">Fill in the blanks (slide 9)</h3><p class="note">19 blanks. Blanks 9 to 11 are the three mechanisms and can go in any order.</p><div id="pfill"></div></div></div>`;
   function draw(){$("#psvg",host).innerHTML=pumpSVG(s);$("#pcap",host).textContent=PUMP[s].t;$("#ptxt",host).textContent="Pump position: "+NAWHY[s];$("#pb",host).disabled=s===0;$("#pn",host).disabled=s===PUMP.length-1}
   $("#pb",host).onclick=()=>{s--;draw()};$("#pn",host).onclick=()=>{s++;draw()};$("#pr",host).onclick=()=>{s=0;draw()};draw();
   const NA=["na+","na","sodium","sodium ions","na+ ions"],K=["k+","k","potassium"];
@@ -1664,6 +1689,8 @@ $("#main").addEventListener("click",e=>{if(cur!=="drills")return;
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "Mutation lab: every amino acid has its own color in the answers, the explanations and the genetic code table, so silent changes keep a color and missense changes switch it.",
+  "Na⁺/K⁺ pump drill: smaller stepper that stays on screen beside the slide 9 paragraph on wide screens, and centered above it on narrow ones.",
   "On wide screens every page except Diagrams now uses a centered, narrower column instead of stretching across the whole window.",
   "Match-the-answer tables in the drills (plant tissues, endomembrane, genetics terms) are narrower and centered.",
   "Sidebar top row now has small icon buttons: hide menu, screen mode (pick a theme) and home (back to How to use).",
