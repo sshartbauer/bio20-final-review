@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.2 (2026-11-25)
+- On screens 900 px wide or more, the study modes (Notes, Flashcards, Quiz, Diagrams, Drills, Progress) and Settings now sit in a left sidebar, and the content uses the full page width. Paragraph text keeps a readable line length. Phones keep the tab strip at the top.
+
 ## 1.1 (2026-11-25)
 - New themes in Settings: AMOLED black (true black background) and High contrast (white on black with yellow accents, thicker borders and a strong focus outline).
 - The diagrams tab follows all four themes.

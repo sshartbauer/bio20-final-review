@@ -183,6 +183,24 @@ svg text{font-family:var(--sans)}
 :root[data-theme="hc"] a{text-decoration:underline;text-decoration-thickness:2px}
 :root[data-theme="hc"] .btn,:root[data-theme="hc"] .panel,:root[data-theme="hc"] .opt,:root[data-theme="hc"] .chip,:root[data-theme="hc"] .tab{border-width:2px}
 :root[data-theme="hc"] :focus-visible{outline:3px solid #FFE45C;outline-offset:2px}
+
+/* wide screens: left sidebar for the study modes, full-width content */
+main p,main li,.qtext,.keynote,.fignote,.note{max-width:75ch}
+@media (min-width:900px){
+  .wrap{max-width:none;padding:0;display:grid;grid-template-columns:240px minmax(0,1fr);grid-template-rows:auto auto 1fr auto;align-items:start}
+  .top{grid-column:1;grid-row:1/-1;position:sticky;top:0;height:100vh;overflow-y:auto;border-bottom:0;border-right:1px solid var(--line);padding:18px 14px;display:flex;flex-direction:column;gap:16px}
+  .brand{display:contents}
+  .brand h1{font-size:1.2em;line-height:1.25}
+  .top nav{order:1}.tabs{flex-direction:column;overflow:visible;padding:0;gap:8px}
+  .tab{width:100%;text-align:left;font-size:1.02em}
+  #btnSet{order:2;margin-top:auto;width:100%}
+  #fbar,#filters,#main,#foot{grid-column:2;margin-left:0;margin-right:0;padding-left:28px;padding-right:28px}
+  #fbar{grid-row:1;padding-top:16px}
+  #filters{grid-row:2}#filters:not([hidden]){margin:10px 28px;padding:10px;width:auto}
+  #main{grid-row:3;padding-bottom:40px}
+  #foot{grid-row:4;padding-bottom:60px}
+  .dframe{height:calc(100vh - 150px)}
+}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -1492,6 +1510,8 @@ $("#main").addEventListener("click",e=>{if(cur!=="drills")return;
 /* Newest first. Add an entry here and in CHANGELOG.md for every release. */
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
+ {v:"1.2",date:"2026-11-25",items:[
+  "On screens 900 px wide or more, the study modes (Notes, Flashcards, Quiz, Diagrams, Drills, Progress) and Settings now sit in a left sidebar, and the content uses the full page width. Paragraph text keeps a readable line length. Phones keep the tab strip at the top."]},
  {v:"1.1",date:"2026-11-25",items:[
   "New themes in Settings: AMOLED black (true black background) and High contrast (white on black with yellow accents, thicker borders and a strong focus outline).",
   "The diagrams tab follows all four themes."]},
