@@ -262,6 +262,8 @@ main p,main li,.qtext,.keynote,.fignote,.note{max-width:75ch}
 .thmenu button:hover{background:var(--surface-2)}
 .thmenu button[aria-checked="true"]::before{content:"\2713";color:var(--accent)}
 .thmenu button[aria-checked="false"]::before{content:"";width:1em}
+
+.mtab{max-width:680px;margin-left:auto;margin-right:auto}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -1286,7 +1288,7 @@ addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(TABS.some(t
 const fbBox=(ok,h)=>`<div class="fb ${ok===true?"good":ok===false?"bad":"warn"}" role="status">${h}</div>`;
 function matchTable(host,cfg){
   /* cfg: {id,title,note,opts:[...],items:[[text,idx],...]} one dropdown per item, 1 point each */
-  const w=document.createElement("div");w.className="panel";
+  const w=document.createElement("div");w.className="panel mtab";
   w.innerHTML=`<h3 style="margin-top:0">${cfg.title} <span class="small muted">(${cfg.items.length} pts)</span></h3>${cfg.note?`<p class="note">${cfg.note}</p>`:""}<div>${cfg.items.map((it,i)=>`<div class="qrow"><label for="${cfg.id}-${i}">${it[0]}</label><select id="${cfg.id}-${i}" data-i="${i}"><option value="">Choose...</option>${cfg.opts.map((o,j)=>`<option value="${j}">${o}</option>`).join("")}</select></div>`).join("")}</div>
   <div class="row" style="margin-top:10px"><button class="btn primary" data-a="chk">Check</button><button class="btn" data-a="clr">Clear</button><span class="score" role="status"></span></div>`;
   host.appendChild(w);
@@ -1656,6 +1658,7 @@ $("#main").addEventListener("click",e=>{if(cur!=="drills")return;
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "Match-the-answer tables in the drills (plant tissues, endomembrane, genetics terms) are narrower and centered.",
   "Sidebar top row now has small icon buttons: hide menu, screen mode (pick a theme) and home (back to How to use).",
   "Removed the intro text above the diagrams so they fit on screen without scrolling.",
   "How to use page is more colorful: colored titles and side bars, black body text, and plain text links such as Open Notes at the end of each step.",

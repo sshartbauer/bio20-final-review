@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- Match-the-answer tables in the drills (plant tissues, endomembrane, genetics terms) are narrower and centered.
 - Sidebar top row now has small icon buttons: hide menu, screen mode (pick a theme) and home (back to How to use).
 - Removed the intro text above the diagrams so they fit on screen without scrolling.
 - How to use page is more colorful: colored titles and side bars, black body text, and plain text links such as Open Notes at the end of each step.
