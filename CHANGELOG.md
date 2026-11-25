@@ -1,6 +1,8 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- How to use page is more colorful: colored titles and side bars, black body text, and plain text links such as Open Notes at the end of each step.
+- Hide menu button at the top of the sidebar (Show menu brings it back), remembered between visits. The sidebar collapses by itself on the Diagrams tab so the diagrams are larger.
 - Choose concepts now sits at the top of the left sidebar, above the study modes. It is dimmed on tabs that do not use it.
 - Changelog button now sits above Settings in the sidebar and opens the changelog and reporting info in a pop-up. Phones keep it at the bottom of the page.
 - Flashcards can now play through on their own. Set the seconds on the question and on the answer (1 to 120), choose whether to start over at the end, and press Play. Tap the card or use Previous and Next to take over, and it pauses when you switch tabs or leave the page.

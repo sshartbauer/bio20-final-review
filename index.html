@@ -202,7 +202,7 @@ main p,main li,.qtext,.keynote,.fignote,.note{max-width:75ch}
   .dframe{height:calc(100vh - 150px)}
 }
 
-.steps{padding-left:1.4em}.steps li{margin:.6em 0;max-width:75ch}.steps .btn{margin:6px 6px 0 0}
+.steps{padding-left:1.4em}.steps li{margin:.6em 0;max-width:75ch}
 .fbar[hidden]{display:none}.panel>h3:first-child{margin-top:0}
 
 .autorow label{display:flex;flex-direction:column;gap:4px;font-weight:700}
@@ -224,10 +224,32 @@ main p,main li,.qtext,.keynote,.fignote,.note{max-width:75ch}
   #filters{grid-row:1}#filters:not([hidden]){margin-top:20px}
   #main{padding-top:24px}
 }
+
+.sidebtn{display:none}#btnHide{display:none}
+@media (min-width:900px){
+  #btnHide{display:block;order:-1;width:100%;text-align:left}
+  #btnShow:not([hidden]){display:inline-flex;align-items:center;position:fixed;top:10px;left:10px;z-index:30;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+  html[data-side=hide] .wrap{grid-template-columns:0 minmax(0,1fr)}
+  html[data-side=hide] .top{display:none}
+  html[data-side=hide] #fbar{padding-left:132px}
+  html[data-side=hide] #fbar[hidden]~#main{padding-top:72px}
+}
+
+/* colorful guide */
+:root{--c1:#1F66A8;--c2:#8A3F9E;--c3:#B34A12;--c4:#2C7A4B;--c5:#B0412B;--c6:#0E7C86}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--c1:#6DB6F2;--c2:#D49AE6;--c3:#F2A36B;--c4:#6FD39A;--c5:#F29A85;--c6:#5CC8D0}}
+:root[data-theme="dark"],:root[data-theme="amoled"],:root[data-theme="hc"]{--c1:#6DB6F2;--c2:#D49AE6;--c3:#F2A36B;--c4:#6FD39A;--c5:#F29A85;--c6:#5CC8D0}
+.guide>h2{color:var(--c1);font-size:1.7em}
+.guide p,.guide li{color:var(--fg)}
+.gp{border-left:8px solid var(--gc)}.gp h3{color:var(--gc);font-size:1.3em}
+.c1{--gc:var(--c1)}.c2{--gc:var(--c2)}.c3{--gc:var(--c3)}.c4{--gc:var(--c4)}.c5{--gc:var(--c5)}.c6{--gc:var(--c6)}
+.gp li::marker{color:var(--gc);font-weight:700}
+.golink{color:var(--accent);font-weight:700;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:2px}
+.golink:hover{text-decoration-thickness:3px}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
-<header class="top"><div class="brand"><h1>BIOSC-020 Final Exam Review<span class="sub">Study guide sets 1 and 2</span></h1><button class="iconbtn" id="btnLog" aria-haspopup="dialog">Changelog</button><button class="iconbtn" id="btnSet" aria-haspopup="dialog">Settings</button></div>
+<header class="top"><button class="btn sm" id="btnHide" aria-expanded="true" aria-controls="tabs">Hide menu</button><div class="brand"><h1>BIOSC-020 Final Exam Review<span class="sub">Study guide sets 1 and 2</span></h1><button class="iconbtn" id="btnLog" aria-haspopup="dialog">Changelog</button><button class="iconbtn" id="btnSet" aria-haspopup="dialog">Settings</button></div>
 <nav aria-label="Study modes"><div class="tabs" role="tablist" id="tabs"></div></nav>
 </header>
 <div class="fbar" id="fbar"><button class="btn sm" id="btnFilt" aria-expanded="false" aria-controls="filters">Choose concepts (<span id="fcount">All</span>)</button><span class="fsum" id="fsum"></span></div>
@@ -235,6 +257,7 @@ main p,main li,.qtext,.keynote,.fignote,.note{max-width:75ch}
 <main id="main" tabindex="-1"></main>
 <footer id="foot" style="margin-top:28px"></footer>
 </div>
+<button class="btn sidebtn" id="btnShow" aria-expanded="false" aria-controls="tabs" hidden>Show menu</button>
 <div class="settings" id="settings" hidden></div>
 <div class="settings" id="about" hidden></div>
 <script>/* Concept notes. One entry per concept. Strings are bullets, strings starting with two spaces are sub-bullets,
@@ -995,49 +1018,59 @@ $("#tabs").innerHTML=TABS.map(t=>`<button class="tab" role="tab" id="tab-${t[0]}
 $("#tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(b)go(b.dataset.t)});
 $("#tabs").addEventListener("keydown",e=>{if(e.key!=="ArrowRight"&&e.key!=="ArrowLeft")return;const i=TABS.findIndex(t=>t[0]===cur),n=(i+(e.key==="ArrowRight"?1:-1)+TABS.length)%TABS.length;go(TABS[n][0]);$("#tab-"+TABS[n][0]).focus()});
 const wide=matchMedia("(min-width:900px)");
-function placeFbar(){const f=$("#fbar"),top=$(".top");if(wide.matches){if(f.parentNode!==top)top.insertBefore(f,$(".top nav"))}else if(f.parentNode===top)top.after(f)}
-wide.addEventListener&&wide.addEventListener("change",()=>{placeFbar();$("#fbar").hidden=!!NOFILTER[cur]&&!wide.matches});
+let sideTemp=null;
+const sideHidden=()=>wide.matches&&(sideTemp!==null?sideTemp:!!P.sbHide);
+function placeFbar(){const f=$("#fbar"),top=$(".top");if(wide.matches&&!sideHidden()){if(f.parentNode!==top)top.insertBefore(f,$(".top nav"))}else if(f.parentNode===top)top.after(f)}
+function applySide(){
+  const h=sideHidden();document.documentElement.setAttribute("data-side",h?"hide":"show");
+  placeFbar();$("#btnHide").setAttribute("aria-expanded",String(!h));$("#btnShow").hidden=!h;
+  $("#fbar").hidden=!!NOFILTER[cur]&&(!wide.matches||h);
+  setTimeout(()=>{const f=$("#dframe");if(f&&f.clientWidth>960)f.style.height=""},60);
+}
+function toggleSide(){const h=!sideHidden();if(cur==="diagrams")sideTemp=h;else{sideTemp=null;P.sbHide=h?1:0;save()}applySide();(h?$("#btnShow"):$("#btnHide")).focus()}
+$("#btnHide").onclick=toggleSide;$("#btnShow").onclick=toggleSide;
+wide.addEventListener&&wide.addEventListener("change",applySide);
 function go(t,keep){
   if(t!=="cards")stopAuto();cur=t;$$(".tab").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t));
   try{history.replaceState(null,"","#"+t)}catch(e){}
-  placeFbar();$("#fbar").hidden=!!NOFILTER[t]&&!wide.matches;$("#btnFilt").disabled=!!NOFILTER[t];$("#fbar").classList.toggle("off",!!NOFILTER[t]);if(NOFILTER[t]){$("#filters").hidden=true;$("#btnFilt").setAttribute("aria-expanded","false")}
+  sideTemp=t==="diagrams"?true:null;applySide();$("#btnFilt").disabled=!!NOFILTER[t];$("#fbar").classList.toggle("off",!!NOFILTER[t]);if(NOFILTER[t]){$("#filters").hidden=true;$("#btnFilt").setAttribute("aria-expanded","false")}
   render();if(!keep)window.scrollTo({top:0,behavior:"auto"});
 }
 function render(){({guide:renderGuide,notes:renderNotes,cards:renderCards,quiz:renderQuiz,diagrams:renderDiagrams,drills:renderDrills,progress:renderProgress})[cur]()}
 
-document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g)go(g.dataset.go)});
+document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g){e.preventDefault();go(g.dataset.go)}});
 function renderGuide(){
   P.seen=1;save();
-  const go=(t,l)=>`<button class="btn sm" data-go="${t}">${l}</button>`;
-  $("#main").innerHTML=`<h2>How to use this tool</h2>
+  const go=(t,l)=>`<a href="#${t}" class="golink" data-go="${t}">${l}</a>`;
+  $("#main").innerHTML=`<div class="guide"><h2>How to use this tool</h2>
   <p>This page covers everything on both final exam study guides. Set 1 is the old material and set 2 is the new material. Every concept has notes, flashcards and quiz questions, and some also have a diagram or a practice tool.</p>
-  <div class="panel"><h3>A study routine that works</h3>
+  <div class="panel gp c2"><h3>A study routine that works</h3>
   <ol class="steps">
-  <li><b>Read the notes</b> for one concept. Yellow boxes are things the guide says are on the exam. Blue boxes come from figures, which the guide says are supplemental. ${go("notes","Open Notes")}</li>
-  <li><b>Test yourself with flashcards.</b> Say the answer out loud before you flip the card, then mark it <i>Got it</i> or <i>Review again</i>. ${go("cards","Open Flashcards")}</li>
-  <li><b>Take the quiz</b> on the same concept. Every answer comes with an explanation, and you can retry only the ones you missed. ${go("quiz","Open Quiz")}</li>
-  <li><b>Practice with a tool</b> if the concept has one: the mitochondrion and chloroplast diagrams, or one of the drills. ${go("diagrams","Open Diagrams")} ${go("drills","Open Drills")}</li>
-  <li><b>Check Progress</b> to see weak concepts, then run the <i>Missed-items mixer</i> drill, which brings back what you got wrong. ${go("progress","Open Progress")}</li>
+  <li><b>Read the notes</b> for one concept. Yellow boxes are things the guide says are on the exam. Blue boxes come from figures, which the guide says are supplemental. ${go("notes","Open Notes")}.</li>
+  <li><b>Test yourself with flashcards.</b> Say the answer out loud before you flip the card, then mark it <i>Got it</i> or <i>Review again</i>. ${go("cards","Open Flashcards")}.</li>
+  <li><b>Take the quiz</b> on the same concept. Every answer comes with an explanation, and you can retry only the ones you missed. ${go("quiz","Open Quiz")}.</li>
+  <li><b>Practice with a tool</b> if the concept has one: the mitochondrion and chloroplast diagrams, or one of the drills. ${go("diagrams","Open Diagrams")} or ${go("drills","Open Drills")}.</li>
+  <li><b>Check Progress</b> to see weak concepts, then run the <i>Missed-items mixer</i> drill, which brings back what you got wrong. ${go("progress","Open Progress")}.</li>
   </ol></div>
-  <div class="panel"><h3>Choose what to study</h3>
-  <p>On Notes, Flashcards and Quiz, the <b>Choose concepts</b> button at the top lets you pick one concept, a whole set, or everything. Your choice is remembered. Use it to work through one topic at a time or to focus on set 2 first.</p></div>
-  <div class="panel"><h3>What each part does</h3><ul>
+  <div class="panel gp c3"><h3>Choose what to study</h3>
+  <p>On Notes, Flashcards and Quiz, the <b>Choose concepts</b> button lets you pick one concept, a whole set, or everything. Your choice is remembered. Use it to work through one topic at a time or to focus on set 2 first.</p></div>
+  <div class="panel gp c4"><h3>What each part does</h3><ul>
   <li><b>Notes:</b> one section per concept with the slide numbers. Tap a section to open it. <i>Open all</i> and <i>Close all</i> are at the top.</li>
   <li><b>Flashcards:</b> tap the card to flip it. Swipe left or right on a phone, or click the card and use Space and the arrow keys. <i>Play through the cards</i> at the bottom flips and advances automatically, with seconds you choose for the question and the answer.</li>
   <li><b>Quiz:</b> one question at a time with instant feedback. At the end you can retry only your misses.</li>
-  <li><b>Diagrams:</b> pick Mitochondrion or Chloroplast. <i>Guide me</i> walks you through the steps with an explanation for each blank. <i>Test your knowledge</i> hides the answers so you fill them in.</li>
+  <li><b>Diagrams:</b> pick Mitochondrion or Chloroplast. <i>Guide me</i> walks you through the steps with an explanation for each blank. <i>Test your knowledge</i> hides the answers so you fill them in. On a wide screen the menu hides itself here to give the diagram more room.</li>
   <li><b>Drills:</b> ${DRILLS.map(d=>d.title).join(", ")}. Each one says which slides it covers.</li>
   <li><b>Progress:</b> your flashcard and quiz results by concept, plus drill scores.</li>
   </ul></div>
-  <div class="panel"><h3>Make it easier to read</h3>
-  <p>Open <b>Settings</b> to change the theme (Light, Dark, AMOLED black or High contrast), text size, and reading spacing. Reading spacing adds room between words, letters and lines, and you can turn on reduced motion there too.</p></div>
-  <div class="panel"><h3>Your progress and your device</h3><ul>
+  <div class="panel gp c5"><h3>Make it easier to read</h3>
+  <p>Open <b>Settings</b> to change the theme (Light, Dark, AMOLED black or High contrast), text size, and reading spacing. Reading spacing adds room between words, letters and lines, and you can turn on reduced motion there too. On a wide screen, <b>Hide menu</b> at the top of the sidebar gives the content the full width.</p></div>
+  <div class="panel gp c6"><h3>Your progress and your device</h3><ul>
   <li>Progress is saved only in this browser on this device. Nothing is sent anywhere.</li>
   <li>To move to another device, use <b>Export</b> on the Progress tab and <b>Import</b> on the other device.</li>
   <li>Clearing your browser data erases your progress, so export a copy first if you want to keep it.</li>
   <li>After your first visit the page works offline.</li></ul></div>
-  <div class="panel"><h3>Found a mistake?</h3>
-  <p>Open <b>Changelog</b> in the sidebar (on a phone, the <b>About, changelog and reporting errors</b> section at the bottom of the page). Tell us the tab and the item so it can be checked against the slides.</p></div>`;
+  <div class="panel gp c1"><h3>Found a mistake?</h3>
+  <p>Open <b>Changelog</b> in the sidebar (on a phone, the <b>About, changelog and reporting errors</b> section at the bottom of the page). Tell us the tab and the item so it can be checked against the slides.</p></div></div>`;
 }
 /* ===== topic filter ===== */
 function renderFilters(){
@@ -1597,6 +1630,8 @@ $("#main").addEventListener("click",e=>{if(cur!=="drills")return;
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "How to use page is more colorful: colored titles and side bars, black body text, and plain text links such as Open Notes at the end of each step.",
+  "Hide menu button at the top of the sidebar (Show menu brings it back), remembered between visits. The sidebar collapses by itself on the Diagrams tab so the diagrams are larger.",
   "Choose concepts now sits at the top of the left sidebar, above the study modes. It is dimmed on tabs that do not use it.",
   "Changelog button now sits above Settings in the sidebar and opens the changelog and reporting info in a pop-up. Phones keep it at the bottom of the page.",
   "Flashcards can now play through on their own. Set the seconds on the question and on the answer (1 to 120), choose whether to start over at the end, and press Play. Tap the card or use Previous and Next to take over, and it pauses when you switch tabs or leave the page."]},
