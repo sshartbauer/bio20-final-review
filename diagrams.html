@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mitochondrion and Chloroplast Diagrams</title>
+<style>
+@font-face{font-family:"Carlito";src:url("fonts/Carlito-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Carlito";src:url("fonts/Carlito-Bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Carlito";src:url("fonts/Carlito-Italic.woff2") format("woff2");font-weight:400;font-style:italic;font-display:swap}
+.emb #theme{display:none!important}
+:root{--bg:#F2F5F8;--surface:#FFFFFF;--surface-2:#E7ECF1;--fg:#141C24;--muted:#566370;--line:#CBD6E0;--accent:#1F66A8;--accent-soft:#D6E5F5;--accent-ink:#FFFFFF;--good:#2C7A4B;--good-soft:#DCEFE3;--bad:#B0412B;--bad-soft:#F6E0DA;--sans:Calibri,"Carlito","Segoe UI",system-ui,sans-serif;--r:10px;--g1:#e4e4e4;--g2:#8c8c8c;--hl:#00D93A;--hl-bg:rgba(0,217,58,.2);--hl-ink:#04210B;--cs-p:#6B4FB8;--cf-p:#E9E3F7;--cs-d:#9A6208;--cf-d:#F8EACB;--cs-n:#0E7C86;--cf-n:#D5EEF0;--src:#C2185B}
+:root[data-theme=dark]{--bg:#0B121B;--surface:#131D29;--surface-2:#1B2736;--fg:#E3EBF2;--muted:#93A5B8;--line:#2A3A4D;--accent:#62AEEA;--accent-soft:#1B2F42;--accent-ink:#0A1413;--good:#63C48D;--good-soft:#173326;--bad:#EC8670;--bad-soft:#3A1F19;--g1:#4a5a6c;--g2:#9fb0c2;--hl:#1FC45A;--hl-ink:#04210B;--cs-p:#A99BF0;--cf-p:#2A2347;--cs-d:#E3AA4F;--cf-d:#3A2D12;--cs-n:#5CC8D0;--cf-n:#12343A;--src:#F07FB0;color-scheme:dark;--hl-bg:rgba(31,196,90,.24)}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:17px;line-height:1.5;margin:0}
+.wrap{padding:0 10px 56px;max-width:1500px;margin:0 auto}
+.top{padding:14px 0 10px;border-bottom:1px solid var(--line);margin-bottom:14px}
+h1{font-size:1.45rem;margin:0 0 8px;line-height:1.2}
+.startpill{display:inline-flex;align-items:center;gap:8px;background:var(--hl);color:var(--hl-ink);font-weight:700;font-size:1rem;padding:7px 14px;border-radius:999px;white-space:nowrap;flex:none;box-shadow:0 0 0 3px var(--hl-bg);animation:sp 1.8s ease-in-out infinite}
+@keyframes sp{0%,100%{box-shadow:0 0 0 3px var(--hl-bg)}50%{box-shadow:0 0 0 8px var(--hl-bg)}}
+@media (prefers-reduced-motion:reduce){.startpill{animation:none}}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{border:1px solid var(--line);background:transparent;padding:7px 14px;border-radius:8px;color:var(--muted);font-weight:700;font-family:inherit;font-size:1rem;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--fg);color:var(--bg)}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:14px;align-items:start}
+@media(max-width:960px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+.panel svg{display:block;width:100%;height:auto}
+.small{font-size:.88rem}.muted{color:var(--muted)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{border:1px solid var(--line);background:var(--surface-2);border-radius:8px;padding:6px 12px;font-weight:700}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.ghost{background:transparent}
+.btn.small{padding:3px 9px;font-size:.88rem}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{border:1.5px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 12px;font-weight:700;min-height:40px}
+.chip:hover{border-color:var(--accent)}
+.chip.used{opacity:.45;text-decoration:line-through}
+.fb{border-radius:8px;padding:8px 10px;margin:8px 0;border:1px solid}
+.fb.good{background:var(--good-soft);border-color:var(--good)}
+.fb.bad{background:var(--bad-soft);border-color:var(--bad)}
+.g{color:var(--good)}.b{color:var(--bad)}
+input[type=text]{font:inherit;padding:7px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg);width:7rem}
+.hq{display:flex;width:100%;margin-top:10px;align-items:center;gap:10px;border:3px solid var(--accent);background:var(--surface);border-radius:10px;padding:10px 14px;font-weight:700;font-size:1.1rem;text-align:left}
+.hq.solved{border-color:var(--good);background:var(--good-soft)}
+.hq.tried{border-color:var(--bad)}
+.hq.sel{outline:6px solid var(--hl);outline-offset:2px;background:var(--hl-bg,rgba(0,217,58,.2))}
+.hq .v{margin-left:auto;min-width:5rem;border-bottom:2px solid var(--fg);text-align:center}
+details{margin-top:10px}summary{cursor:pointer;font-weight:700}
+ul.t{margin:.4rem 0 0 1.1rem;padding:0}
+.bk{cursor:pointer}.bk:focus{outline:none}
+.bk:hover .sh{stroke-width:var(--hw)}
+h2{font-size:1.1rem;margin:0}
+.modes{display:flex;gap:6px;flex-wrap:wrap;align-items:center}.top>.lab,.modes .lab{font-weight:700;color:var(--muted);font-size:.9rem;margin-right:4px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin:0 0 8px;font-size:.92rem}.legend span{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}.panel .legend svg{width:42px;height:26px}
+.hq.src{outline:5px solid var(--src);outline-offset:2px}
+.gh{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.kind{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 9px;border-radius:999px;border:2px solid}
+.k-p{border-color:var(--cs-p);background:var(--cf-p)}.k-d{border-color:var(--cs-d);background:var(--cf-d)}.k-n{border-color:var(--cs-n);background:var(--cf-n)}
+.pill.rect{border-radius:4px;border-width:3px}
+.pill.round{width:3.9rem;height:3.9rem;min-width:0;padding:0;display:inline-flex;align-items:center;justify-content:center;border-radius:50%}
+.pill{display:inline-block;font-size:1.3rem;font-weight:700;line-height:1.2;padding:6px 22px;border-radius:999px;border-width:3px;border-style:solid;min-width:7rem;text-align:center}
+.ans{font-size:1.35rem;font-weight:700;margin:.35rem 0 .1rem}
+.sec{margin:.7rem 0 0}.sec b{display:block;margin-bottom:.3rem;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.sec p{margin:.15rem 0 0}
+.key{display:flex;gap:12px;flex-wrap:wrap;font-size:.85rem;color:var(--muted);margin-top:10px}
+.key i{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin-right:4px;border:3px solid}
+select{font:inherit;padding:6px 8px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg);max-width:100%}
+.step{font-weight:700;color:var(--muted);font-size:.9rem}
+
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:6px 0;margin-bottom:8px}
+.top{gap:22px}
+.grp{display:flex;align-items:center;gap:8px;flex-wrap:nowrap;padding:2px 8px;border:2px solid var(--muted);border-radius:12px;background:var(--surface)}
+.grp .lab,.top>.grp .lab{font-weight:700;color:var(--fg);font-size:.95rem;margin-right:4px;white-space:nowrap}
+.sep{width:1px;height:26px;background:var(--line)}
+.hp ul{columns:2;column-gap:28px}.hp li{break-inside:avoid}
+@media(min-width:961px){
+html,body{height:100%;overflow:hidden}
+.wrap{height:100dvh;display:flex;flex-direction:column;padding:0 10px 10px}
+.top{flex:none}
+.grid{flex:1;min-height:0;align-items:stretch;grid-template-columns:minmax(0,1fr) 400px}
+.lc{display:flex;flex-direction:column;gap:10px;min-height:0}
+.dg{flex:none;display:flex;flex-direction:column}
+#svgbox svg{width:100%;height:auto;max-height:calc(100dvh - 330px)}
+.hp{flex:1;min-height:0;overflow:auto}
+.rp{min-height:0;overflow:auto}
+.hq{margin-top:6px;padding:7px 14px}
+}
+@media(min-width:961px) and (max-height:820px){.rp{font-size:14.5px;line-height:1.32;padding:9px 12px}.rp .sec{margin-top:.4rem}.rp .spk{padding:5px 10px;margin-bottom:6px;gap:2px 16px;font-size:.76rem}.rp .sec b{margin-bottom:.2rem}.rp .eq{padding:2px 8px;margin:.15rem 0;font-size:1rem}.rp ul.bl li{margin:.14rem 0}.rp .srcl{margin-top:.2rem}.rp .ans{font-size:1.2rem;margin:.2rem 0}.hp{font-size:15px}#svgbox svg{max-height:calc(100dvh - 330px)}.hp{padding:8px 14px}.hp ul{margin-top:.2rem}.hp details{margin-top:4px}}
+.eq{font-weight:700;font-size:1.05rem;background:var(--surface-2);border-left:4px solid var(--cs-n);padding:5px 10px;border-radius:6px;margin:.3rem 0}
+ul.bl{margin:.25rem 0 0 1.1rem;padding:0}ul.bl li{margin:.28rem 0}
+.srcl{display:flex;gap:7px;align-items:center;font-size:.88rem;font-weight:700;color:var(--src);margin-top:.35rem}.srcl i{width:13px;height:13px;border-radius:3px;border:3px solid var(--src);flex:none}
+.t li.hl{font-weight:700;color:var(--fg);background:color-mix(in srgb,var(--hpc) 32%,transparent);border-radius:4px;box-shadow:0 0 0 3px color-mix(in srgb,var(--hpc) 32%,transparent)}
+.lgrow{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:42px;margin-bottom:6px}.lgrow .legend{margin:0}.nav{display:flex;gap:8px;flex:none}.nav .btn{padding:7px 16px;font-size:1rem}.nav .btn:disabled{opacity:.45;cursor:default}
+:root{--ims-t:#5B3A91;--mtx-t:#8A4A00;--stroma-t:#2E6B22;--ims:#E3D3F3;--mtx:#FFE0B0;--stroma:#E2F0DA;--thy:#D6E8F8;--hpc:#8FB000;--sp-e:#A87900;--sp-h:#C62828;--sp-n:#1F66A8;--sp-a:#B85C00;--sp-w:#00798A;--sp-c:#6B4FB8}
+:root[data-theme=dark]{--ims-t:#CDB9F5;--mtx-t:#F2BE72;--stroma-t:#8FD99A;--ims:#2B2145;--mtx:#42301A;--stroma:#1B2E22;--thy:#15294A;--hpc:#C6F135;--sp-e:#F2CB45;--sp-h:#FF7B7B;--sp-n:#6DB8FF;--sp-a:#FFA85A;--sp-w:#55D6E6;--sp-c:#C4A8FF}
+.sp-e{color:var(--sp-e)}.sp-h{color:var(--sp-h)}.sp-n{color:var(--sp-n)}.sp-a{color:var(--sp-a)}.sp-w{color:var(--sp-w)}.sp-c{color:var(--sp-c)}
+.spkey{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;font-weight:700;margin-top:.3rem}.spkey span::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:currentColor;margin-right:5px}
+.ihead .btn{white-space:nowrap;flex:none}
+.ihead{flex-wrap:nowrap!important;border:1px solid var(--line);background:color-mix(in srgb,#fff 12%,var(--surface-2));border-radius:8px;padding:6px 10px;margin-bottom:10px}
+.spk{display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;border:1px solid var(--line);background:var(--surface-2);border-radius:8px;padding:7px 10px;margin-bottom:10px;font-size:.8rem;font-weight:700}
+.spk span{display:flex;align-items:center;gap:8px;white-space:nowrap}.spk hr{grid-column:1/-1;width:100%;border:0;border-top:1px solid var(--line);margin:2px 0}.spk .kk{color:var(--fg);font-weight:600}.spk .kk::before{display:none}.spk .kk i{flex:none;width:12px;height:12px;border-radius:3px;border:3px solid;display:inline-block}.spk .kk:last-child{grid-column:1/-1}
+.spk span::before{content:"";flex:none;width:10px;height:10px;border-radius:50%;background:currentColor}
+.sec b{font-size:.84rem!important;color:var(--accent)!important;letter-spacing:.07em;border-bottom:2px solid var(--line);padding-bottom:3px}
+.fb .eq{background:rgba(127,127,127,.15)}
+@media(max-width:960px){.lc,.dg,.panel,#svgbox,.grid>*{min-width:0;max-width:100%}.lgrow{flex-wrap:wrap}.lgrow .legend{flex:1 1 100%}.legend span{white-space:normal}.nav{margin-left:auto}}
+</style></head>
+<body><div class="wrap">
+<h1 class="sr">Mitochondrion and Chloroplast Diagrams</h1>
+<div class="top"><span class="startpill">Start here <span aria-hidden="true">&#10140;</span></span><div class="grp"><span class="lab">1. Pick a diagram</span><div class="tabs" role="tablist" id="tabs" aria-label="Diagram"></div></div><div class="grp modes" id="modes"></div><button class="tab" id="theme" style="margin-left:auto" aria-pressed="false"></button></div>
+<div class="grid"><div class="lc"><div class="panel dg"><div class="lgrow"><div class="legend" id="legend"></div><div class="nav" id="nav"></div></div><div id="svgbox"></div><button class="hq" id="hq"></button></div>
+<div class="panel hp"><h2>Helpful information</h2><ul class="t small" id="help"></ul>
+<details><summary>Layout description (for screen readers and text only use)</summary><ol class="t small" id="lay"></ol></details></div></div>
+<div class="panel rp"><div class="row ihead" style="justify-content:space-between"><b id="info"></b><button class="btn ghost small" id="reset">Reset this diagram</button></div><div class="spk" id="spk" aria-label="Color key for equations"></div><div id="bar" style="margin-top:8px"></div></div></div>
+</div>
+<script>
+const $=(s,e=document)=>e.querySelector(s),$$=(s,e=document)=>[...e.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const mq=matchMedia('(prefers-color-scheme:dark)');let theme=mq.matches?'dark':'light',picked=false;
+function applyTheme(){document.documentElement.dataset.theme=theme;const b=$('#theme');b.textContent=theme==='dark'?'Light mode':'Dark mode';b.setAttribute('aria-pressed',theme==='light')}
+$('#theme').onclick=()=>{picked=true;theme=theme==='dark'?'light':'dark';applyTheme()};
+mq.addEventListener&&mq.addEventListener('change',e=>{if(!picked){theme=e.matches?'dark':'light';applyTheme()}});applyTheme();
+const EMB=window.parent!==window;
+if(EMB){document.documentElement.classList.add('emb');
+ addEventListener('message',e=>{const d=e.data;if(d&&d.type==='theme'&&(d.theme==='dark'||d.theme==='light')){picked=true;theme=d.theme;applyTheme()}});
+ const sendH=()=>{if(innerWidth<=960)parent.postMessage({type:'h',h:document.documentElement.scrollHeight},'*')};
+ addEventListener('load',()=>{parent.postMessage({type:'ready'},'*');sendH();window.ResizeObserver&&new ResizeObserver(sendH).observe(document.body)});addEventListener('resize',sendH)}
+/* blank constructors */
+const proc=(id,x,y,w,h,ans,why,d,seed)=>({id,k:'proc',sh:'wavy',x,y,w,h,ans,why,d:'Process box: '+d,seed:seed||1});
+const prod=(id,x,y,w,h,ans,why,d)=>({id,k:'prod',sh:'rect',x,y,w,h,ans,why,d:'Name box for '+d});
+const num=(id,cx,cy,r,ans,why,d,near)=>({id,k:'num',sh:'circ',cx,cy,r,ans:String(ans),why,d:'Quantity circle for '+d,near:near||{}});
+const item=(n,c,r,name,qty,wn,wq,where)=>[prod(n+'n',r[0],r[1],r[2],r[3],name,wn,where),num(n+'q',c[0],c[1],c[2],qty,wq,where)];
+const boxOf=b=>b.sh==='circ'?[b.cx-b.r,b.cy-b.r,2*b.r,2*b.r]:[b.x,b.y,b.w,b.h];
+
+/* wavy outline */
+function wavy(x,y,w,h,s){const r=26,pts=[];let i=0;const j=a=>{i++;return a*Math.sin(i*2.3+s*1.7)+a*.5*Math.sin(i*5.1+s)};
+ const edge=(x0,y0,x1,y1,nx,ny)=>{const L=Math.hypot(x1-x0,y1-y0),n=Math.max(1,Math.round(L/75));for(let k=0;k<=n;k++){const t=k/n,o=j(4);pts.push([x0+(x1-x0)*t+nx*o,y0+(y1-y0)*t+ny*o])}};
+ edge(x+r,y,x+w-r,y,0,1);edge(x+w,y+r,x+w,y+h-r,1,0);edge(x+w-r,y+h,x+r,y+h,0,1);edge(x,y+h-r,x,y+r,1,0);
+ const n=pts.length,f=v=>v.toFixed(1);let d=`M${f(pts[0][0])} ${f(pts[0][1])}`;
+ for(let k=0;k<n;k++){const p0=pts[(k-1+n)%n],p1=pts[k],p2=pts[(k+1)%n],p3=pts[(k+2)%n];
+  d+=`C${f(p1[0]+(p2[0]-p0[0])/6)} ${f(p1[1]+(p2[1]-p0[1])/6)} ${f(p2[0]-(p3[0]-p1[0])/6)} ${f(p2[1]-(p3[1]-p1[1])/6)} ${f(p2[0])} ${f(p2[1])}`}
+ return d+'Z'}
+/* thick arrow / line helpers (fill = foreground) */
+function thick(x0,y0,x1,y1,w,head){const dx=x1-x0,dy=y1-y0,L=Math.hypot(dx,dy),ux=dx/L,uy=dy/L,px=-uy,py=ux,hl=head?w*1.9:0,hw=w*1.5,bx=x1-ux*hl,by=y1-uy*hl;
+ const P=[[x0+px*w/2,y0+py*w/2],[bx+px*w/2,by+py*w/2]];if(head)P.push([bx+px*hw,by+py*hw],[x1,y1],[bx-px*hw,by-py*hw]);P.push([bx-px*w/2,by-py*w/2],[x0-px*w/2,y0-py*w/2]);
+ return `<polygon points="${P.map(p=>p.map(v=>v.toFixed(1)).join(',')).join(' ')}" fill="var(--fg)"/>`}
+const thin=(a,b,c,d)=>`<line x1="${a}" y1="${b}" x2="${c}" y2="${d}" stroke="var(--fg)" stroke-width="3" marker-end="url(#ah)"/>`;
+const dotted=(a,b,c,d)=>`<line x1="${a}" y1="${b}" x2="${c}" y2="${d}" stroke="var(--muted)" stroke-width="6" stroke-dasharray="4 9" stroke-linecap="round" marker-end="url(#ahm)"/>`;
+const dashed=(a,b,c,d)=>`<line x1="${a}" y1="${b}" x2="${c}" y2="${d}" stroke="var(--muted)" stroke-width="5" stroke-dasharray="16 11" marker-end="url(#ahm)"/>`;
+const lines=s=>{if(s.length<=15||!s.includes(' '))return[s];const m=s.length/2;let best=0,bd=99;[...s].forEach((c,i)=>{if(c===' '&&Math.abs(i-m)<bd){bd=Math.abs(i-m);best=i}});return[s.slice(0,best),s.slice(best+1)]};
+const TX=(cx,cy,s,sz,wt,extra)=>{const L=lines(String(s));return L.map((l,i)=>`<text x="${cx}" y="${(cy+(i-(L.length-1)/2)*sz*1.15+sz*.35).toFixed(1)}" text-anchor="middle" font-size="${sz}" font-weight="${wt||700}" fill="var(--fg)" ${extra||''} style="pointer-events:none">${esc(l)}</text>`).join('')};
+const LBL=(x,y,s,sz,style)=>`<text x="${x}" y="${y}" font-size="${sz}" ${style||'font-weight="700"'} fill="var(--fg)">${s}</text>`;
+const BLU=(x,y,s,z)=>`<text x="${x}" y="${y}" font-size="${z||32}" font-style="italic" fill="var(--accent)">${s}</text>`;
+const DEFS=`<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0 0L10 5L0 10Z" fill="var(--fg)"/></marker><marker id="ahm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="var(--muted)"/></marker>
+<linearGradient id="gr" x1="0" x2="1"><stop offset="0" style="stop-color:var(--g1)"/><stop offset="1" style="stop-color:var(--g2)"/></linearGradient><linearGradient id="gv" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--g1)"/><stop offset="1" style="stop-color:var(--g2)"/></linearGradient></defs>`;
+const poly=(pts,fill)=>`<polygon points="${pts.map(p=>p.join(',')).join(' ')}" fill="${fill}" stroke="var(--fg)" stroke-width="5" stroke-linejoin="round"/>`;
+const printedRect=(x,y,w,h)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="var(--surface)" stroke="var(--fg)" stroke-width="2"/>`;
+const printedProd=(x,y,w,h)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="var(--cf-d)" stroke="var(--cs-d)" stroke-width="3.2"/>`;
+const printedCirc=(cx,cy,r)=>`<circle cx="${cx}" cy="${cy}" r="${r}" fill="var(--surface)" stroke="var(--fg)" stroke-width="2"/>`;
+
+const DG={};
+/* ===================== MITOCHONDRION ===================== */
+(()=>{const B=[];
+ B.push(proc('gly',1187,47,223,75,'Glycolysis','Glycolysis splits one glucose into 2 pyruvate in the cytoplasm. It is the only step outside the mitochondrion.','the box just below the Glucose label, in the cytoplasm',1));
+ B.push(proc('po',1143,320,310,112,'Pyruvate oxidation','Pyruvate oxidation converts each pyruvate to acetyl-CoA in the matrix, releasing CO₂ and making NADH.','the box under pyruvate, in the matrix',2));
+ B.push(proc('cac',1140,587,315,210,'Citric acid cycle','The citric acid cycle finishes oxidizing the carbons of acetyl-CoA, making CO₂, NADH, FADH₂ and a little ATP. It turns once per acetyl-CoA.','the large box under acetyl-CoA, in the matrix',3));
+ B.push(proc('etc',145,393,313,229,'Electron transport chain','The electron transport chain takes electrons from NADH and FADH₂, pumps H⁺ into the intermembrane space, and hands the electrons to O₂, which becomes H₂O.','the large box at the left that the electron circle points to, with the H⁺ arrow',4));
+ B.push(proc('atps',138,643,235,192,'ATP synthase','ATP synthase lets H⁺ flow from the intermembrane space back into the matrix and uses that flow to make ATP from ADP (oxidative phosphorylation).','the lower box at the left, with the arrow to the final product',5));
+ B.push(...item('i1',[850,80,45],[885,50,172,60],'ATP','2','Glycolysis makes ATP directly. The lecture 20 overview slide shows 2 ATP leaving glycolysis.','The net gain from glycolysis is 2 ATP (it spends 2 and makes 4). The lecture 20 overview slide shows 2.','the first product beside glycolysis'));
+ B.push(...item('i2',[850,180,45],[885,152,172,60],'NADH','2','Glycolysis reduces NAD⁺ to NADH. The dotted arrow carries its electrons to the electron box.','1 NADH per pyruvate made, so 2 NADH per glucose.','the second product beside glycolysis, with a dotted arrow to the electron box'));
+ B.push(...item('i3',[1185,182,44],[1225,155,262,60],'Pyruvate','2','The 3-carbon end product of glycolysis.','Glucose has 6 carbons and splits into two 3-carbon pyruvates: 2.','the molecule between glycolysis and pyruvate oxidation'));
+ B.push(...item('i4',[850,333,42],[885,305,172,60],'CO₂','2','Pyruvate oxidation removes one carbon from each pyruvate as CO₂.','1 CO₂ per pyruvate × 2 pyruvate = 2.','the first product of pyruvate oxidation'));
+ B.push(...item('i5',[850,422,42],[885,393,172,60],'NADH','2','Pyruvate oxidation makes one NADH per pyruvate. The dotted arrow carries its electrons to the electron box.','1 NADH per pyruvate × 2 pyruvate = 2.','the second product of pyruvate oxidation, with a dotted arrow to the electron box'));
+ B.push(...item('i6',[1152,512,44],[1190,480,292,60],'Acetyl-CoA','2','The 2-carbon product that enters the citric acid cycle.','1 acetyl-CoA per pyruvate: 2.','the molecule between pyruvate oxidation and the citric acid cycle'));
+ B.push(...item('i7',[850,528,42],[885,500,172,60],'CO₂','4','The cycle releases the remaining carbons as CO₂.','2 CO₂ per turn × 2 turns = 4. With the 2 from pyruvate oxidation, all 6 carbons of glucose leave as CO₂.','the first product of the citric acid cycle'));
+ B.push(...item('i8',[853,622,42],[885,590,172,60],'ATP','2','The cycle makes one ATP per turn directly. The lecture 20 overview slide shows 2 ATP from the citric acid cycle.','1 ATP per turn × 2 turns = 2.','the second product of the citric acid cycle'));
+ B.push(...item('i9',[853,713,42],[885,685,172,60],'FADH₂','2','One step of the cycle makes FADH₂, which gives its electrons to the chain (dotted arrow).','1 FADH₂ per turn × 2 turns = 2.','the third product of the citric acid cycle, with a dotted arrow to the electron box'));
+ B.push(...item('i10',[853,805,42],[885,775,172,60],'NADH','6','The cycle makes NADH at three steps per turn. The dotted arrow carries the electrons to the electron box.','3 NADH per turn × 2 turns = 6.','the fourth product of the citric acid cycle, with a dotted arrow to the electron box'));
+ B.push(...item('i11',[110,320,62],[160,277,140,80],'H₂O','12','Oxygen is the final electron acceptor. It captures 2 e⁻ and 2 H⁺ to form H₂O.','Each H₂O takes 2 e⁻, so 24 e⁻ ÷ 2 = 12 H₂O (this uses 6 O₂).','the product above the electron transport chain'));
+ B.push(...item('i12',[595,788,50],[630,752,157,70],'ATP','28','ATP synthase makes ATP from the H⁺ gradient.','112 H⁺ ÷ 4 H⁺ per ATP = 28 ATP. This matches 10 NADH × 2.5 + 2 FADH₂ × 1.5 = 28. (The lecture 20 overview slide shows 34, which equals 10 × 3 + 2 × 2. This worksheet gives 2.5 and 1.5.)','the product to the right of ATP synthase'));
+ B.push(num('e',555,422,50,24,'The carriers are 2 + 2 + 6 = 10 NADH plus 2 FADH₂ = 12 carriers. Each carries 2 electrons: 24 e⁻.','the electron box',{12:'12 is the number of carriers. Each one carries 2 electrons, so double it.'}));
+ DG.mito={name:'Mitochondrion',vb:[1890,890],B,
+  hq:{ans:'112',why:'10 NADH × 10 H⁺ = 100, plus 2 FADH₂ × 6 H⁺ = 12. Total: 112 H⁺.',near:{28:'28 is the ATP made. The H⁺ pumped is a larger number.',24:'24 is the electron count. Use the H⁺ per NADH and FADH₂ in the helpful information.'}},
+  opts:{proc:['Glycolysis','Pyruvate oxidation','Citric acid cycle','Electron transport chain','ATP synthase','Fermentation','Calvin cycle'],prod:['ATP','NADH','FADH₂','CO₂','H₂O','O₂','Pyruvate','Acetyl-CoA','Glucose','NADPH']},
+  DEF:{'Fermentation':'it regenerates NAD⁺ without oxygen and is not part of this diagram.','Calvin cycle':'it happens in chloroplasts.','O₂':'O₂ is used up at the electron transport chain, not made.','Glucose':'glucose is the starting molecule printed at the top right.','NADPH':'NADPH is the carrier used in chloroplasts.'},
+  help:['One NADH leads to the pumping of 10 H⁺.','One FADH₂ leads to the pumping of 6 H⁺.','2.5 ATP per NADH.','1.5 ATP per FADH₂.','For every 4 H⁺ that pass through ATP synthase, 1 ATP is produced.','Start with 1 glucose.'],
+  stat(){return `<defs></defs>
+  <rect x="15" y="235" width="1860" height="633" rx="105" fill="var(--ims)" stroke="var(--fg)" stroke-width="9"/>
+  <rect x="310" y="280" width="1430" height="572" rx="95" fill="var(--mtx)" stroke="var(--fg)" stroke-width="5"/>
+  ${poly([[45,560],[92,609],[92,672],[373,672],[373,733],[45,733]],'url(#gv)')}
+  ${poly([[45,560],[108,497],[108,528],[492,528],[492,593],[108,593],[108,625]],'url(#gv)')}
+  ${poly([[373,640],[455,702],[373,765]],'url(#gv)')}
+  ${thick(1297,122,1297,160,16,1)}<rect x="1288" y="215" width="18" height="108" fill="var(--fg)"/>${thick(1297,432,1297,482,16,1)}<rect x="1288" y="540" width="18" height="50" fill="var(--fg)"/>
+  <rect x="1408" y="86" width="26" height="14" fill="var(--fg)"/>${thick(505,425,456,425,16,1)}${thick(373,787,542,787,12,1)}
+  ${thin(1187,88,1062,82)}${thin(1187,120,1062,176)}${thin(1145,358,1062,340)}${thin(1140,402,1062,418)}${thin(1148,598,1062,538)}${thin(1140,640,1062,622)}${thin(1140,712,1062,715)}${thin(1140,780,1062,800)}${thin(217,393,217,360)}
+  ${dotted(806,190,646,388)}${dotted(806,424,694,424)}${dotted(815,700,694,466)}${dotted(822,775,644,466)}
+  ${printedProd(595,392,88,61)}${TX(645,422,'e-',34)}${printedRect(1495,62,200,66)}${printedCirc(1470,92,43)}${TX(1470,92,'1',40)}${TX(1595,95,'Glucose',36)}
+  ${LBL(88,225,'Mitochondrion',40)}${BLU(1500,222,'Cytoplasm').replace('font-style','font-weight="700" font-style').replace('var(--accent)','var(--fg)')}${BLU(1500,270,'Intermembrane space').replace('font-style','font-weight="700" font-style').replace('var(--accent)','var(--ims-t)')}${BLU(1500,314,'Matrix').replace('font-style','font-weight="700" font-style').replace('var(--accent)','var(--mtx-t)')}`},
+  top(){return `<g stroke="var(--muted)" stroke-width="3" stroke-dasharray="4 5" style="pointer-events:none"><line x1="148" y1="530" x2="455" y2="530"/><line x1="148" y1="592" x2="455" y2="592"/><line x1="142" y1="672" x2="372" y2="672"/><line x1="142" y1="732" x2="372" y2="732"/></g>${LBL(70,568,'H⁺',34)}`},
+  text:['Glucose (1) is printed at the top right, in the cytoplasm.','Glycolysis is the first process box. Two product boxes sit to its left.','Pyruvate sits below glycolysis, then the matrix begins.','Pyruvate oxidation has two product boxes. Acetyl-CoA sits below it.','The citric acid cycle has four product boxes.','Dotted arrows carry electrons from the NADH and FADH₂ boxes to the electron box at the left.','The electron box feeds the electron transport chain, which has H₂O above it and an H⁺ arrow pointing out of the matrix.','Below it, ATP synthase has an H⁺ arrow pointing back into the matrix and an ATP product box to its right.']};
+})();
+
+/* ===================== CHLOROPLAST ===================== */
+(()=>{const B=[];
+ B.push(proc('ps2',115,195,263,123,'Photosystem II','Photosystem II absorbs light, splits water to replace its electrons (releasing O₂) and passes the electrons on.','the first box at the left, inside the thylakoid',1));
+ B.push(proc('etc',693,203,350,149,'Electron transport chain','The chain between the photosystems pumps H⁺ into the thylakoid space as electrons pass through (the H⁺ arrow points up).','the second box, with the upward H⁺ arrow',2));
+ B.push(proc('ps1',1178,193,257,122,'Photosystem I','Photosystem I re-energizes the electrons, which end up on NADP⁺ to make NADPH.','the third box, with an arrow down to a product',3));
+ B.push(proc('atps',1468,200,358,112,'ATP synthase','ATP synthase lets H⁺ flow out of the thylakoid space into the stroma and makes ATP.','the fourth box at the right, with the downward H⁺ arrow',4));
+ B.push(...item('w',[77,810,62],[125,768,145,82],'H₂O','12','Water enters from outside and is split by photosystem II to replace its electrons.','Each H₂O gives 2 e⁻, and 24 e⁻ are needed (12 NADPH × 2 e⁻ each): 24 ÷ 2 = 12 H₂O.','the input at the bottom left, with a dashed arrow up to photosystem II'));
+ B.push(...item('o',[288,510,68],[345,470,105,80],'O₂','6','O₂ is released when water is split.','2 H₂O gives 1 O₂ (and 4 e⁻), so 12 H₂O gives 6 O₂.','the product with a solid arrow from photosystem II'));
+ B.push(num('e',503,312,44,24,'The Calvin cycle for 1 glucose needs 12 NADPH, and each NADPH takes 2 e⁻: 24 e⁻.','the electron box',{12:'12 is the NADPH made. Each NADPH takes 2 electrons, so double it.'}));
+ B.push(num('c',602,508,68,6,'Glucose has 6 carbons and each turn fixes one CO₂: 6 CO₂.','the CO₂ box',{1:'1 is the glucose. It takes 6 CO₂ to build its 6 carbons.'}));
+ B.push(...item('r',[865,602,50],[910,568,182,67],'RuBP','6','The 5-carbon acceptor that CO₂ attaches to (by rubisco).','1 RuBP per CO₂ fixed: 6.','the molecule below the fixation arrow'));
+ B.push(...item('p',[1168,510,55],[1215,477,135,68],'3PG','12','The 3-carbon product of fixation, which is reduced to G3P in phase II.','6 CO₂ + 6 RuBP gives 12 three-carbon molecules: 12 3PG.','the molecule at the end of the fixation arrow'));
+ B.push(...item('n',[1247,380,50],[1290,350,168,57],'NADPH','12','The electron carrier made at photosystem I, used in the reduction phase.','1 NADPH per 2 e⁻: 24 ÷ 2 = 12. That is one NADPH for each 3PG reduced.','the product below photosystem I'));
+ B.push(...item('a',[1640,375,50],[1685,345,120,57],'ATP','18','ATP made by ATP synthase, used in reduction and regeneration.','1.5 ATP per 2 e⁻: 12 × 1.5 = 18. The Calvin cycle uses 12 in reduction plus 6 in regeneration.','the product below ATP synthase'));
+ B.push(...item('g',[1758,747,45],[1800,715,111,60],'G3P','2','The 3-carbon sugar. Twelve are made in reduction, and this box is what leaves the cycle to make glucose.','Of the 12 G3P, 10 go back to regenerate RuBP and 2 leave. 2 G3P make 1 glucose: 2.','the product at the bottom right, with an arrow to Glucose'));
+ DG.chloro={name:'Chloroplast',vb:[1944,890],B,
+  hq:{ans:'72',why:'18 ATP × 4 H⁺ per ATP = 72 H⁺.',near:{18:'18 is the ATP made. Multiply it by the H⁺ per ATP.',24:'24 is the electron count. Use the ATP made and the 4 H⁺ per ATP.'}},
+  opts:{proc:['Photosystem II','Photosystem I','Electron transport chain','ATP synthase','Rubisco','Calvin cycle'],prod:['H₂O','O₂','CO₂','RuBP','3PG','G3P','NADPH','ATP','NADH','Glucose']},
+  DEF:{'Rubisco':'it is the enzyme that fixes CO₂ onto RuBP, not one of these four membrane complexes.','Calvin cycle':'it is the stroma pathway shown by the three phases along the bottom, not a membrane complex.','NADH':'NADH is the mitochondrial carrier. Chloroplasts use NADPH.','Glucose':'glucose is the final product printed at the bottom right.'},
+  help:['For every 2 e⁻ that enter the electron transport chain, 1 NADPH and 1.5 ATP are produced.','For every 4 H⁺ that pass through ATP synthase, 1 ATP is produced.','Start with 1 glucose (6 CO₂).'],
+  stat(){return `<rect x="12" y="26" width="1902" height="654" rx="125" fill="var(--stroma)" stroke="var(--fg)" stroke-width="4"/>
+  <rect x="30" y="46" width="1866" height="616" rx="108" fill="var(--stroma)" stroke="var(--fg)" stroke-width="7"/>
+  <rect x="82" y="95" width="1763" height="160" rx="42" fill="var(--thy)" stroke="var(--fg)" stroke-width="5"/>
+  ${poly([[987,133],[1560,133],[1560,325],[1503,325],[1503,168],[1022,168],[1018,197],[1018,388],[955,388],[955,197]],'url(#gv)')}
+  ${poly([[987,133],[1050,197],[922,197]],'url(#gv)')}
+  ${poly([[1468,325],[1592,325],[1530,388]],'url(#gv)')}
+  ${thick(392,288,446,300,16,1)}${thick(632,306,686,296,16,1)}${dotted(1058,282,1162,282).replace('stroke-width="6"','stroke-width="4"')}
+  ${thin(335,318,390,452)}${thin(1367,318,1367,342)}${thin(1713,315,1713,338)}
+  ${dashed(182,755,182,335)}${dashed(740,790,740,562)}${dashed(1415,410,1415,487)}${dashed(1747,405,1747,487)}${dashed(1787,405,1787,585)}${dashed(982,562,982,520)}
+  ${thick(832,508,1102,508,12,1)}
+  <path d="M1360 508H1848V690" fill="none" stroke="var(--fg)" stroke-width="12"/>${thick(1848,690,1848,708,12,1).replace('<polygon','<polygon transform="translate(0,0)"')}
+  ${thick(1848,600,1105,600,12,1)}${thick(1715,745,1680,745,16,1)}
+  ${printedProd(660,467,160,81)}${TX(740,508,'CO₂',48)}
+  ${printedRect(1480,715,195,65)}${printedCirc(1450,745,40)}${TX(1450,745,'1',40)}${TX(1578,747,'Glucose',36)}
+  ${printedProd(545,282,68,60)}${TX(580,312,'e-',34)}
+  ${LBL(460,394,'2 electrons yield:',28,'font-weight="400"')}${LBL(460,422,'1 NADPH &amp; 1.5 ATP',28,'font-weight="400"')}
+  ${LBL(1085,312,'e⁻',32)}${LBL(872,497,'Phase I: Fixation',30,'font-style="italic"')}${LBL(1460,497,'Phase II: Reduction',30,'font-style="italic"')}${LBL(1452,590,'Phase III: Regeneration',30,'font-style="italic"')}
+  ${LBL(478,725,'Chloroplast',40)}${BLU(1568,85,'Stroma',38).replace('font-style','font-weight="700" font-style').replace('var(--accent)','var(--stroma-t)')}${BLU(1568,141,'Thylakoid Space',38).replace('font-style','font-weight="700" font-style')}`},
+  top(){return `<g stroke="var(--muted)" stroke-width="3" stroke-dasharray="4 5" style="pointer-events:none"><line x1="955" y1="205" x2="955" y2="345"/><line x1="1018" y1="205" x2="1018" y2="345"/><line x1="1503" y1="212" x2="1503" y2="308"/><line x1="1560" y1="212" x2="1560" y2="308"/></g>${LBL(965,186,'H⁺',30)}`},
+  text:['The chloroplast has an outer envelope, the stroma, and a thylakoid space (the white band across the top).','From left to right inside the thylakoid are four boxes: photosystem II, the electron transport chain, photosystem I and ATP synthase.','Water enters from outside at the bottom left and goes up to the first box. O₂ is released below it.','Electrons (an electron circle) travel from the first box to the second, then to the third. An H⁺ arrow points up at the second box and a larger H⁺ arrow points down at the fourth box.','Photosystem I gives a product below it; ATP synthase gives another.','Along the bottom of the stroma, CO₂ enters phase I (fixation), then phase II (reduction), then phase III (regeneration) returns to RuBP.','The line from phase II turns down to a G3P box that leads to 1 glucose at the bottom right.']};
+})();
+
+/* ===================== GUIDE DATA (mito) ===================== */
+DG.mito.GM={
+ start:{hp:[5],title:'Start here: 1 glucose',w:'Everything on this worksheet is counted for 1 glucose, so begin at Glucose (top right, in the cytoplasm). From there, follow the thick arrows. Each step fills in one blank and explains why it goes there. Purple wavy boxes are processes or protein complexes, gold rectangles are products, and teal circles are numbers.'},
+ gly:{s:['glc'],sl:'The glucose that goes in',w:'The thick arrow from Glucose points into this box, and the box sits in the cytoplasm, outside the mitochondrion. The only stage that takes glucose itself is glycolysis, so it goes here. Its products are drawn to the left and below.',n:'Pyruvate oxidation and the citric acid cycle take pyruvate and acetyl-CoA, not glucose, and they happen inside the matrix. The ETC and ATP synthase are membrane protein complexes inside the mitochondrion.',c:'"Stages of Cellular Respiration" slide: glycolysis splits 1 glucose into 2 pyruvate and sends e⁻ to the ETC.'},
+ i3n:{s:['gly'],sl:'The glycolysis box that makes it',w:'A thick arrow leaves glycolysis and ends at this box, and the next thick arrow carries it into the mitochondrion. Pyruvate is what glycolysis ends with.',n:'Acetyl-CoA is made later by pyruvate oxidation, and glucose was already used up, so neither fits here.',c:'"Stages of Cellular Respiration" slide: glycolysis splits 1 glucose into 2 pyruvate.'},
+ i3q:{hp:[5],h:['eq:1 glucose → 2 pyruvate','Glycolysis splits the 6-carbon glucose into two 3-carbon pyruvate.','This 2 is reused in the next three stages.','src:The starting glucose'],s:['glc'],c:'"Stages of Cellular Respiration" slide: 1 glucose into 2 pyruvate.'},
+ i1n:{s:['gly'],sl:'The glycolysis box that makes it',w:'This box is a product of glycolysis (an arrow points to it) and it has no dotted arrow, so it does not carry electrons. The glycolysis product with no dotted arrow is ATP.',n:'NADH has a dotted arrow to the electron box, and it is in the box below. CO₂ is not released here: both pyruvate keep all 3 of their carbons.'},
+ i1q:{s:['gly'],h:['eq:4 ATP made − 2 ATP spent = 2 ATP','Glycolysis makes 4 ATP and spends 2.','The worksheet counts the net gain.','src:The glycolysis box'],c:'Lecture 20 overview slide shows 2 ATP leaving glycolysis.'},
+ i2n:{s:['gly'],sl:'The glycolysis box that makes it',w:'The dotted arrow leaving this box goes to the electron box. Only the electron carriers (NADH and FADH₂) send electrons there, and glycolysis makes NADH.',n:'FADH₂ is made only in the citric acid cycle. ATP is already in the box above and carries no electrons.',c:'"Stages of Cellular Respiration" slide: glycolysis sends electrons via NADH.'},
+ i2q:{h:['eq:1 NADH × 2 pyruvate = 2 NADH','1 NADH is made per pyruvate.','src:The pyruvate number'],s:['i3q']},
+ po:{s:['i3n'],sl:'The pyruvate that goes in',w:'The thick arrow carries pyruvate into the matrix, and this is the first process box inside the mitochondrion. Its output (acetyl-CoA) is the box below, so this is the stage that converts pyruvate to acetyl-CoA.',n:'Glycolysis is outside the mitochondrion. The citric acid cycle needs acetyl-CoA as its input, but the box above this one holds pyruvate.',c:'"Mitochondrion Anatomy" slide: pyruvate oxidation happens in the matrix. "Stages" slide: converts 2 pyruvate into 2 acetyl-CoA.'},
+ i4n:{s:['po'],sl:'The pyruvate oxidation box that makes it',w:'Pyruvate has 3 carbons and acetyl-CoA has 2. The carbon that is lost leaves as CO₂.',n:'No oxygen is used at this stage, so it is not O₂ or H₂O. This box has no dotted arrow, so it is not an electron carrier.'},
+ i4q:{h:['eq:1 CO₂ × 2 pyruvate = 2 CO₂','1 CO₂ leaves each pyruvate.','src:The pyruvate number'],s:['i3q']},
+ i5n:{s:['po'],sl:'The pyruvate oxidation box that makes it',w:'This box has a dotted arrow to the electron box, so it holds an electron carrier. Pyruvate is oxidized here, and its electrons go to NAD⁺ to make NADH.',n:'FADH₂ is not made at this stage. It comes only from the citric acid cycle.',c:'"Electron Transport Chain" slide: NAD⁺ accepts 2 e⁻, and NADH carries 2 e⁻.'},
+ i5q:{h:['eq:1 NADH × 2 pyruvate = 2 NADH','1 NADH is made per pyruvate.','src:The pyruvate number'],s:['i3q']},
+ i6n:{s:['po'],sl:'The pyruvate oxidation box that makes it',w:'The thick arrow from pyruvate oxidation ends here, and the next arrow feeds the citric acid cycle. Acetyl-CoA is the product of pyruvate oxidation.',n:'Pyruvate was the input to the stage above, so it no longer fits.'},
+ i6q:{h:['eq:1 acetyl-CoA × 2 pyruvate = 2 acetyl-CoA','Each pyruvate becomes 1 acetyl-CoA.','src:The pyruvate number'],s:['i3q'],c:'"Stages of Cellular Respiration" slide: 2 pyruvate into 2 acetyl-CoA.'},
+ cac:{s:['i6n'],sl:'The acetyl-CoA that goes in',w:'It sits right below acetyl-CoA, which is its input, and it has four products. The cycle that finishes breaking acetyl-CoA down to CO₂ is the citric acid cycle.',n:'The ETC and ATP synthase are the membrane complexes with H⁺ arrows. Pyruvate oxidation already happened above.',c:'"Stages of Cellular Respiration" slide: converts 2 acetyl-CoA into 4 CO₂ and sends e⁻ to the ETC.'},
+ i7n:{s:['cac'],sl:'The citric acid cycle box that makes it',w:'This stage finishes breaking down the carbons, and they leave as CO₂.',n:'O₂ is used only at the ETC, so it does not appear here.'},
+ i7q:{h:['eq:2 CO₂ per turn × 2 turns = 4 CO₂','The cycle turns once per acetyl-CoA, so 2 turns.','Check: 2 + 4 = 6 CO₂ in total, one per carbon in glucose.','src:The acetyl-CoA number'],s:['i6q'],c:'"Stages of Cellular Respiration" slide: 2 acetyl-CoA into 4 CO₂.'},
+ i8n:{s:['cac'],sl:'The citric acid cycle box that makes it',w:'This box has no dotted arrow, so the product carries no electrons. The cycle makes ATP directly.',n:'NADH and FADH₂ are the two boxes with dotted arrows.'},
+ i8q:{h:['eq:1 ATP per turn × 2 turns = 2 ATP','The cycle turns once per acetyl-CoA, so 2 turns.','src:The acetyl-CoA number'],s:['i6q'],c:'Lecture 20 overview slide shows 2 ATP from the citric acid cycle.'},
+ i9n:{s:['cac'],sl:'The citric acid cycle box that makes it',w:'This box and the one below it both have dotted arrows, so they are the two electron carriers. FADH₂ is made only by the citric acid cycle, and this worksheet lists it above NADH.',n:'Glycolysis and pyruvate oxidation make NADH but never FADH₂, which is why FADH₂ appears only in this column.'},
+ i9q:{h:['eq:1 FADH₂ per turn × 2 turns = 2 FADH₂','The cycle turns once per acetyl-CoA, so 2 turns.','src:The acetyl-CoA number'],s:['i6q']},
+ i10n:{s:['cac'],sl:'The citric acid cycle box that makes it',w:'The other carrier with a dotted arrow. The cycle makes NADH at three steps in each turn.',n:'It is the same NADH as in glycolysis and pyruvate oxidation. All NADH sends its electrons to the same electron box.'},
+ i10q:{h:['eq:3 NADH per turn × 2 turns = 6 NADH','The cycle turns once per acetyl-CoA, so 2 turns.','src:The acetyl-CoA number'],s:['i6q']},
+ e:{h:['eq:NADH: 2 + 2 + 6 = 10','eq:FADH₂: 2','eq:(10 + 2) carriers × 2 e⁻ = 24 e⁻','Each carrier holds 2 e⁻.','src:Every NADH and FADH₂ number with a dotted arrow'],s:['i2q','i5q','i10q','i9q'],c:'"Electron Transport Chain" slide: NADH and FADH₂ each carry 2 e⁻.'},
+ etc:{s:['e'],sl:'The electrons that go in',w:'The thick arrow from the electron box enters it, it spans the inner membrane, and its H⁺ arrow points out of the matrix into the intermembrane space. That is the electron transport chain: it takes the electrons and pumps H⁺.',n:'ATP synthase has its H⁺ arrow pointing back into the matrix, and it has an arrow to an ATP product.',c:'"Electron Transport Chain" slide: ETC proteins sit in the inner membrane and use the energy to pump H⁺ into the intermembrane space.'},
+ i11n:{s:['etc'],sl:'The electron transport chain that makes it',w:'The small arrow from the ETC leads to this box. Oxygen is the final electron acceptor, and it ends up as water.',n:'The CO₂ came from pyruvate oxidation and the cycle, not the ETC. O₂ is used up at the ETC, so it is not made here.',c:'"Electron Transport Chain" slide: oxygen captures 2 e⁻ and 2 H⁺ to form H₂O.'},
+ i11q:{h:['eq:24 e⁻ ÷ 2 e⁻ per H₂O = 12 H₂O','Oxygen captures 2 e⁻ and 2 H⁺ to form each H₂O.','This uses 6 O₂.','src:The electron number'],s:['e'],c:'"Electron Transport Chain" slide: oxygen captures 2 e⁻ and 2 H⁺ to form H₂O. The filled diagram in Lab 22 also shows 12 H₂O.'},
+ hq:{hp:[0, 1],h:['eq:10 NADH × 10 H⁺ = 100 H⁺','eq:2 FADH₂ × 6 H⁺ = 12 H⁺','eq:100 + 12 = 112 H⁺','src:The NADH and FADH₂ numbers'],s:['i2q','i5q','i10q','i9q'],c:'Uses the 10 and 6 H⁺ values from the worksheet\'s helpful information. The filled diagram in Lab 22 also shows 112.'},
+ atps:{s:['etc'],sl:'The chain that builds the H⁺ gradient',w:'Its H⁺ arrow points back into the matrix, the direction H⁺ flows down its gradient, and an arrow leads to an ATP box. That is ATP synthase.',n:'The ETC takes electrons and pumps H⁺ out. ATP synthase takes no electrons.',c:'"ATP Synthase" slides: H⁺ flows from the intermembrane space through ATP synthase into the matrix to make ATP (oxidative phosphorylation).'},
+ i12n:{s:['atps'],sl:'The ATP synthase that makes it',w:'The arrow from ATP synthase ends here. The H⁺ flow through ATP synthase adds a phosphate to ADP, which makes ATP.',n:'NADH and H₂O come from other stages, and this box has no dotted arrow.'},
+ i12q:{hp:[4, 2, 3],h:['eq:112 H⁺ ÷ 4 H⁺ per ATP = 28 ATP','eq:Check: 10 × 2.5 + 2 × 1.5 = 28 ATP','src:The H⁺ question'],s:['hq'],c:'The Lecture 20 overview slide shows 34 ATP for this stage, which equals 10 × 3 + 2 × 2. This worksheet gives 2.5 and 1.5 per carrier, so its answer is 28. The filled diagram in Lab 22 also shows 28.'},
+ end:{title:'Totals for 1 glucose',w:'ATP: 2 (glycolysis) + 2 (citric acid cycle) + 28 (ATP synthase) = 32. CO₂: 2 + 4 = 6, one per carbon in glucose. H₂O: 12. H⁺ pumped: 112. Your lecture overview slide uses 34 for the chain, which would total 38 ATP. The worksheet\'s 2.5 and 1.5 per carrier give 32, so use those on this diagram.'}};
+DG.mito.guide=['start','gly','i3n','i3q','i1n','i1q','i2n','i2q','po','i4n','i4q','i5n','i5q','i6n','i6q','cac','i7n','i7q','i8n','i8q','i9n','i9q','i10n','i10q','e','etc','i11n','i11q','hq','atps','i12n','i12q','end'];
+DG.mito.gi={};DG.mito.guide.forEach((g,i)=>DG.mito.gi[g]=i);
+/* ===================== GUIDE DATA (chloroplast) ===================== */
+DG.chloro.GM={
+ start:{hp:[2],title:'Start here: 1 glucose',w:'Everything is counted for 1 glucose (6 carbons), printed at the bottom right. The top of the diagram is the light reactions in the thylakoid membrane, which make NADPH, ATP and O₂. The bottom is the Calvin cycle in the stroma, which uses that NADPH and ATP to build glucose from CO₂. First you will name every box by following the electrons from left to right and then the Calvin cycle. After that come the numbers, starting from the 1 glucose. Purple wavy boxes are processes or protein complexes, gold rectangles are products, and teal circles are numbers.'},
+ ps2:{w:'The electron path starts at the left, and this is the first box. A dashed arrow brings water in from below, and the electrons leave to the right. A photosystem that takes its electrons from water is photosystem II. It comes first in the path even though its name says 2.',n:'Photosystem I is the third box, where the electrons end up on NADP⁺. The electron transport chain is the box with the H⁺ arrow, and ATP synthase is the box with the large downward H⁺ arrow.',c:'"Pathway of e-" slide: PSII gets e⁻ from splitting water, releases O₂, and light energizes the electrons.'},
+ wn:{s:['ps2'],sl:'The photosystem II that takes it in',w:'A dashed arrow enters photosystem II from outside the chloroplast. Photosystem II replaces its electrons by splitting water, so the input is H₂O.',n:'CO₂ enters the Calvin cycle at the bottom, and it is already printed. O₂ is a product that leaves photosystem II. Water is the molecule that goes in.',c:'"Pathway of e-" slide: PSII e⁻ are supplied by splitting water.'},
+ on:{s:['ps2'],sl:'The photosystem II that releases it',w:'The thin solid arrow leaves photosystem II, so this is a product of splitting water. The electrons and H⁺ from water go on into the light reactions, and the oxygen atoms are released as O₂.',n:'H₂O is the input on the dashed arrow, and CO₂ is the Calvin cycle input at the bottom. Neither leaves photosystem II.',c:'"Pathway of e-" slide: PSII releases O₂ as a byproduct.'},
+ etc:{s:['ps2'],sl:'The photosystem II that sends electrons in',w:'A thick arrow carries electrons from photosystem II through the electron circle into this box. The H⁺ arrow sits on this box and points up into the thylakoid space, so the passing electrons give the energy to pump H⁺. That is the electron transport chain.',n:'The photosystems absorb light and energize electrons, and they have no H⁺ arrow. ATP synthase has its H⁺ arrow pointing down, away from the thylakoid space.',c:'"Pathway of e-" slide: the ETC slowly releases energy from e⁻ and uses it to pump H⁺ into the thylakoid space.'},
+ ps1:{s:['etc'],sl:'The chain that sends electrons in',w:'The electrons leave the chain along the dotted arrow labeled e⁻ and arrive at this box. Light energizes them again here, and a product leaves downward, which is NADPH. A photosystem that receives its electrons from the chain is photosystem I.',n:'Photosystem II takes its electrons from water at the start of the path. The chain in the middle pumps H⁺ and has no product arrow.',c:'"Pathway of e-" slide: PSI gets e⁻ from the ETC, light energizes them, and e⁻ and H⁺ combine with NADP⁺ to become NADPH.'},
+ nn:{s:['ps1'],sl:'The photosystem I that makes it',w:'The thin arrow from photosystem I leads to this box. Photosystem I hands electrons and H⁺ to NADP⁺, so the product is NADPH. A single dashed arrow then carries it down to phase II (reduction) of the Calvin cycle.',n:'ATP is made by ATP synthase, the box on the right. NADH is the mitochondrial carrier, and chloroplasts use NADPH.',c:'Photosystem I slide: e⁻ and H⁺ combine with NADP⁺ to become NADPH. Calvin Cycle slide: reduction uses NADPH.'},
+ atps:{s:['etc'],sl:'The chain that builds the H⁺ gradient',w:'The large H⁺ arrow points down, from the thylakoid space into the stroma. H⁺ flowing down through a protein that makes ATP is ATP synthase. It sits at the right end of the H⁺ band.',n:'The electron transport chain has the upward H⁺ arrow and takes in electrons. This box takes no electrons.',c:'ATP production slide: H⁺ flows from the thylakoid space to the stroma through ATP synthase to phosphorylate ADP to ATP.'},
+ an:{s:['atps'],sl:'The ATP synthase that makes it',w:'The thin arrow from ATP synthase leads to this box, and ATP synthase turns ADP into ATP. Two dashed arrows carry this product down into the Calvin cycle, one to reduction and one to regeneration.',n:'NADPH has only one dashed arrow, to reduction. A product with two arrows feeds both phases, and the one that regeneration also uses is ATP.',c:'Calvin Cycle slide: reduction uses ATP and NADPH, and regeneration uses ATP.'},
+ rn:{s:['co2'],sl:'The CO₂ that attaches to it',w:'Phase III (regeneration) ends at this box, and a short arrow goes up from it into the fixation arrow. Fixation attaches CO₂ to a 5-carbon acceptor, and regeneration remakes that acceptor, so this is RuBP.',n:'3PG is at the end of the fixation arrow, and G3P is the sugar that leaves at the bottom right.',c:'Calvin Cycle slide: CO₂ is fixed to RuBP by rubisco, and regeneration reforms RuBP (a 5-C molecule).'},
+ pn:{s:['co2','rn'],sl:'The CO₂ and RuBP that combine to make it',w:'The thick fixation arrow from CO₂ ends at this box, and the reduction line leaves from it. Fixation makes a 6-carbon molecule that splits into two 3-carbon molecules, called 3PG.',n:'G3P is made later, after reduction, at the bottom right. RuBP is the box that feeds into the fixation arrow from below.',c:'Calvin Cycle slide: the 6-carbon molecule is split into two 3-carbon molecules (3PG).'},
+ gn:{s:['pn'],sl:'The 3PG that is reduced to it',w:'The reduction line turns down at the right and ends at this box, which has an arrow to Glucose. ATP and NADPH reduce 3PG to G3P, and G3P is what the plant builds glucose from.',n:'RuBP and 3PG already have their boxes earlier on the cycle. Reduction makes G3P, and the arrow to glucose starts here.',c:'Calvin Cycle slide: ATP and NADPH reduce CO₂ to G3P, and G3P is the building block for glucose.'},
+ c:{hp:[2],h:['eq:6 carbons ÷ 1 carbon per CO₂ = 6 CO₂','Glucose has 6 carbons, and each CO₂ brings in 1.','src:The glucose'],s:['glc'],c:'Overall equation slide: 6 H₂O + 6 CO₂ → C₆H₁₂O₆ + 6 O₂.'},
+ rq:{h:['eq:1 RuBP per CO₂ × 6 CO₂ = 6 RuBP','Rubisco attaches each CO₂ to its own RuBP.','src:The CO₂ number'],s:['c'],c:'Calvin Cycle slide: 3 CO₂ are fixed to 3 RuBP by rubisco.'},
+ pq:{h:['eq:6 CO₂ × 2 3PG each = 12 3PG','Each CO₂ joins a RuBP to make a 6-carbon molecule.','That molecule splits into two 3PG.','src:The CO₂ and RuBP numbers'],s:['c','rq'],c:'Calvin Cycle slide: the 6-carbon molecule splits into two 3-carbon molecules (3PG). The slide uses 3 CO₂, so 6 CO₂ doubles it.'},
+ nq:{h:['eq:6 NADPH per 3 CO₂ × 2 = 12 NADPH','That is 1 NADPH for each of the 12 3PG.','src:The 3PG number'],s:['pq'],c:'Calvin Cycle slide: reduction uses 6 ATP and 6 NADPH per 3 CO₂.'},
+ aq:{hp:[0],h:['eq:Reduction 12 + regeneration 6 = 18 ATP','Per 3 CO₂ the slide uses 6 ATP and 3 ATP. Double it for 6 CO₂.','eq:Check: 12 NADPH × 1.5 ATP = 18 ATP','src:The NADPH number'],s:['nq'],c:'Calvin Cycle slide (6 ATP and 3 ATP per 3 CO₂), and the "2 electrons yield 1 NADPH & 1.5 ATP" note printed on the diagram.'},
+ gq:{h:['eq:6 CO₂ ÷ 3 CO₂ × 1 G3P = 2 G3P','Check: 12 G3P made − 10 recycled = 2 G3P.','The 10 recycled G3P rebuild 6 RuBP (5 G3P make 3 RuBP).','2 G3P × 3 carbons = 6 carbons = 1 glucose.','src:The 3PG number'],s:['pq'],c:'Calvin Cycle slide: reduction forms 1 G3P, and 5 G3P are used to reform 3 RuBP (per 3 CO₂).'},
+ e:{hp:[0],h:['eq:12 NADPH × 2 e⁻ = 24 e⁻','The diagram says 2 e⁻ yield 1 NADPH and 1.5 ATP.','src:The NADPH number'],s:['nq'],c:'The "2 electrons yield 1 NADPH & 1.5 ATP" note printed on the diagram.'},
+ wq:{h:['eq:24 e⁻ ÷ 2 e⁻ per H₂O = 12 H₂O','Photosystem II gets 2 e⁻ from each water.','The slide equation shows 6 H₂O because the Calvin cycle makes 6 H₂O back.','src:The electron number'],s:['e'],c:'"Pathway of e-" slide: PSII e⁻ are supplied by splitting water. The Lab 23 filled diagram also shows 12 H₂O.'},
+ oq:{h:['eq:12 H₂O ÷ 2 H₂O per O₂ = 6 O₂','This matches the 6 O₂ in the overall equation.','src:The H₂O number'],s:['wq'],c:'Overall equation slide: 6 O₂. The Lab 23 filled diagram also shows 6 O₂.'},
+ hq:{hp:[1],h:['eq:18 ATP × 4 H⁺ per ATP = 72 H⁺','src:The ATP number'],s:['aq'],c:'ATP production slide and the helpful information (4 H⁺ per ATP). The Lab 23 filled diagram also shows 72.'},
+ end:{title:'Totals for 1 glucose',w:'In: 6 CO₂ and 12 H₂O. Out: 6 O₂ and 1 glucose (2 G3P). Light reactions: 24 e⁻ make 12 NADPH and 18 ATP, with 72 H⁺ flowing through ATP synthase. Calvin cycle: 6 CO₂ join 6 RuBP to make 12 3PG, which are reduced to 12 G3P. Ten G3P rebuild 6 RuBP and 2 leave to make glucose.'}};
+DG.chloro.guide=['start','ps2','wn','on','etc','ps1','nn','atps','an','rn','pn','gn','c','rq','pq','nq','aq','gq','e','wq','oq','hq','end'];
+DG.chloro.gi={};DG.chloro.guide.forEach((g,i)=>DG.chloro.gi[g]=i);
+DG.mito.EX={};DG.mito.start={rings:[[1427,49,268,86]],badge:[1500,4]};DG.mito.EX.glc=DG.mito.start.rings[0];
+DG.chloro.EX={glc:[1410,705,265,80],co2:[660,467,160,81]};DG.chloro.start={rings:[[1410,705,265,80]],badge:[1445,652]};
+
+
+/* ===================== DRILL ENGINE ===================== */
+const newS=m=>({S:{},T:{},first:{},sel:null,msg:'',rg:{tgt:[],alt:[]},mode:m,step:0,seen:new Set([0])});
+let cur='mito';const ST={mito:newS('guide'),chloro:newS('guide')};
+const KN={proc:'Process or protein complex',prod:'Product',num:'Number'},CAT={proc:'p',prod:'d',num:'n'};
+const gmode=()=>!!DG[cur].guide&&ST[cur].mode==='guide';
+const all=()=>DG[cur].B.concat([{id:'hq',k:'num',ans:DG[cur].hq.ans,why:DG[cur].hq.why,near:DG[cur].hq.near,d:'Final question: how many H⁺ ions were pumped out of the membrane'}]);
+const find=id=>all().find(b=>b.id===id);
+function explain(b,c,ok){const D=DG[cur];let t=whyOf(b),tgt=b.sh?[boxOf(b)]:[],alt=[];
+ if(!ok){
+  if(b.k==='num')t=(b.near&&b.near[c]?b.near[c]+' ':`${c} is not it. `)+t;
+  else{const other=all().filter(x=>x.k===b.k&&x.ans===c&&x.id!==b.id);
+   if(other.length){alt=other.map(boxOf);t=`${c} belongs at the dashed outline${other.length>1?'s':''}. This one is ${b.ans}. ${t}`}
+   else t=`${c} is not here${D.DEF[c]?': '+D.DEF[c]:'.'} This one is ${b.ans}. ${t}`}}
+ else if(b.k!=='num')t=`${b.ans}. ${t}`;
+ return {t,tgt,alt}}
+function answer(id,c){const S=ST[cur],b=find(id),ok=String(c)===b.ans;
+ if(!S.first[id]){S.first[id]=ok?1:-1;if(EMB)parent.postMessage({type:'score',k:cur,ok:ok},'*')}
+ const ex=explain(b,c,ok);
+ if(ok){S.S[id]=c;S.msg=`<div class="fb good"><b class="g">Correct.</b> ${ex.t}</div>`;S.rg={tgt:ex.tgt,alt:[]}}
+ else{(S.T[id]=S.T[id]||new Set()).add(c);S.msg=`<div class="fb bad"><b class="b">Not quite.</b> ${ex.t}</div>`;S.rg={tgt:ex.tgt,alt:ex.alt}}
+ render()}
+function choose(id){const S=ST[cur];S.sel=id;S.msg='';S.rg={tgt:[],alt:[]};render();const i=$('#ans');if(i)i.focus()}
+function nextBlank(){const S=ST[cur],L=all(),i0=S.sel?L.findIndex(b=>b.id===S.sel):-1;
+ for(let n=1;n<=L.length;n++){const b=L[(i0+n)%L.length];if(S.S[b.id]==null){choose(b.id);return}}
+ S.sel=null;S.msg=`<div class="fb good"><b class="g">All ${L.length} blanks finished.</b></div>`;render()}
+const RC={tgt:['var(--hl)',''],alt:['var(--bad)','stroke-dasharray:14 8;'],src:['var(--src)','']};
+const ring=(r,cls)=>`<rect x="${r[0]-8}" y="${r[1]-8}" width="${r[2]+16}" height="${r[3]+16}" rx="14" style="pointer-events:none;fill:${RC[cls][0]};fill-opacity:${cls==='tgt'?.28:.15};stroke:${RC[cls][0]};stroke-width:${cls==='tgt'?10:7};${RC[cls][1]}"/>`;
+function blankSvg(b){const S=ST[cur],G=gmode(),cat=CAT[b.k];let v=null,solved=false,tried=false;
+ if(G){solved=vis(b.id);v=solved?b.ans:null}
+ else{v=S.S[b.id];solved=v!=null;tried=!!(S.T[b.id]&&S.T[b.id].size)}
+ const st=tried?'var(--bad)':`var(--cs-${cat})`,fill=`var(--cf-${cat})`;let body='';
+ if(b.sh==='wavy')body=`<path class="sh" d="${wavy(b.x,b.y,b.w,b.h,b.seed)}" fill="${fill}" stroke="${st}" stroke-width="4.5" stroke-linejoin="round" style="--hw:6.5"/>`;
+ else if(b.sh==='rect')body=`<rect class="sh" x="${b.x}" y="${b.y}" width="${b.w}" height="${b.h}" fill="${fill}" stroke="${st}" stroke-width="3.2" style="--hw:5"/>`;
+ else body=`<circle class="sh" cx="${b.cx}" cy="${b.cy}" r="${b.r}" fill="${fill}" stroke="${st}" stroke-width="2.4" style="--hw:4"/>`;
+ if(!G&&solved){const r=boxOf(b);body+=`<circle cx="${r[0]+r[2]-6}" cy="${r[1]+6}" r="17" fill="var(--good)" style="pointer-events:none"/><text x="${r[0]+r[2]-6}" y="${r[1]+14}" text-anchor="middle" font-size="24" font-weight="700" fill="#fff" style="pointer-events:none">✓</text>`}
+ return `<g class="bk" data-id="${b.id}" tabindex="0" role="button" ${G&&!solved?'opacity=".5"':''} aria-label="${esc(b.d)}${solved?', answer '+esc(b.ans):', blank'}">${body}</g>`}
+function blankText(b){const S=ST[cur],G=gmode();let v=null,solved=false;
+ if(G){solved=vis(b.id);v=solved?b.ans:null}else{v=S.S[b.id];solved=v!=null}
+ if(!solved)return '';
+ if(b.sh==='wavy')return TX(b.x+b.w/2,b.y+b.h/2,v,38);
+ if(b.sh==='rect')return TX(b.x+b.w/2+(b.w>160?22:14),b.y+b.h/2,v,34);
+ return TX(b.cx,b.cy,v,Math.max(30,Math.min(46,b.r*.8)))}
+function svg(){const D=DG[cur],S=ST[cur],G=gmode(),order={rect:0,circ:1,wavy:2};
+ let h=`<svg viewBox="0 0 ${D.vb[0]} ${D.vb[1]}" role="img" aria-label="${D.name} diagram with blanks to fill. A text description is in the layout description list.">${DEFS}${D.stat()}`;
+ h+=D.B.slice().sort((a,b)=>order[a.sh]-order[b.sh]).map(blankSvg).join('')+D.top()+`<g style="pointer-events:none">${D.B.map(blankText).join('')}</g>`;
+ h+='<g>';
+ if(G){const id=D.guide[S.step],g=D.GM[id]||{};
+  if(id==='start'){const st=D.start;st.rings.forEach(r=>{h+=ring(r,'tgt')});h+=`<g style="pointer-events:none"><rect x="${st.badge[0]}" y="${st.badge[1]}" width="190" height="42" rx="21" fill="var(--hl)"/><text x="${st.badge[0]+95}" y="${st.badge[1]+29}" text-anchor="middle" font-size="26" font-weight="700" fill="var(--hl-ink)">Start here</text></g>`}
+  else if(id!=='end'&&id!=='hq')h+=ring(boxOf(find(id)),'tgt');
+  (g.s||[]).forEach(x=>{if(x==='hq')return;h+=ring((D.EX||{})[x]||boxOf(find(x)),'src')})}
+ else{h+=S.rg.alt.map(r=>ring(r,'alt')).join('')+S.rg.tgt.map(r=>ring(r,'tgt')).join('');
+  if(S.sel&&S.sel!=='hq'){const r=boxOf(find(S.sel));h+=`<rect x="${r[0]-9}" y="${r[1]-9}" width="${r[2]+18}" height="${r[3]+18}" rx="16" style="pointer-events:none;fill:var(--hl);fill-opacity:.2;stroke:var(--hl);stroke-width:10"/>`}}
+ return h+'</g></svg>'}
+const glabel=id=>id==='start'?'Start: 1 glucose':id==='end'?'Totals':(b=>{const w=b.d.replace(/^(Quantity circle for |Name box for |Process box: )/,'');return `${b.k==='num'?'Number':b.k==='prod'?'Product':'Process'} ${b.ans} (${w.length>42?w.slice(0,40)+'...':w})`})(find(id));
+function tag(b){if(b.k==='proc'){const L=lines(b.ans),W=Math.max(230,Math.max(...L.map(l=>l.length))*23+110),H=L.length>1?150:104,sd=[...b.ans].reduce((a,c)=>a+c.charCodeAt(0),0)%7+1,k=.44;
+  return `<svg role="img" aria-label="${esc(b.ans)}" viewBox="0 0 ${W} ${H}" style="display:block;margin:0 auto;width:${Math.round(W*k)}px;max-width:100%;height:auto"><title>${KN[b.k]}</title><path d="${wavy(10,10,W-20,H-20,sd)}" fill="var(--cf-p)" stroke="var(--cs-p)" stroke-width="7" stroke-linejoin="round"/>${TX(W/2,H/2,b.ans,46)}</svg>`}
+ return `<span class="pill k-${CAT[b.k]}${b.k==='num'?' round':' rect'}" title="${KN[b.k]}">${esc(b.ans)}</span>`}
+function guideBar(){const D=DG[cur],S=ST[cur],id=D.guide[S.step],n=D.guide.length,g=D.GM[id]||{};
+ let h=`<div class="gh"><span class="step">Step ${S.step+1} of ${n}</span><select id="jump" aria-label="Jump to a step">${D.guide.map((x,i)=>`<option value="${i}" ${i===S.step?'selected':''}>${i+1}. ${esc(glabel(x))}</option>`).join('')}</select></div>`;
+ const sec=(t,x)=>x?`<div class="sec"><b>${t}</b><p>${x}</p></div>`:'';const secB=(t,x)=>x?`<div class="sec"><b>${t}</b>${bl(sents(x))}</div>`:'';const secH=(t,a)=>a?`<div class="sec"><b>${t}</b>${fmtH(a,true)}</div>`:'';
+ if(id==='start'||id==='end')h+=`<h2 style="margin:.6rem 0 0">${g.title}</h2>`+(id==='end'?secB('',g.w):secB('',g.w));
+ else{const b=find(id);h+=`<div style="margin:10px 0 6px;text-align:center">${tag(b)}</div><p class="small muted" style="margin:0">${esc(b.d)}</p>`+secB('Why it goes here',g.w)+((!g.h&&g.sl)?`<div class="srcl">Pink outline: ${esc(g.sl)}</div>`:'')+secB('Why not something else',g.n)+secH('Where the number comes from',g.h)}
+
+ return h}
+function bar(){const S=ST[cur],D=DG[cur];let h=S.msg||'';
+ if(!S.sel)return h+`<p style="margin:0">Click a blank on the diagram, or tab to one and press Enter.</p>`;
+ const b=find(S.sel),solved=S.S[b.id]!=null;h+=`<p class="small" style="margin:.3rem 0 6px"><b>${esc(b.d)}</b>${solved?' (finished)':''}</p>`;
+ if(!solved){
+  if(b.k==='num')h+=`<div class="row"><label for="ans" class="small">Answer</label><input type="text" id="ans" inputmode="numeric" autocomplete="off"><button class="btn primary" id="chk">Check</button></div>`;
+  else{const T=S.T[b.id]||new Set();h+=`<div class="chips">`+D.opts[b.k].map(o=>`<button class="chip${T.has(o)?' used':''}" data-v="${esc(o)}" ${T.has(o)?'disabled':''}>${esc(o)}</button>`).join('')+`</div>`}
+  h+=`<div class="row" style="margin-top:8px"><button class="btn ghost small" id="shw">Show answer</button></div>`}
+ else h+=`<div class="row"><button class="btn primary" id="nxt">Next blank</button></div>`;
+ return h}
+const sents=t=>t?String(t).split(/(?<=[.!?])\s+(?=[A-Z"])/):[];
+function bl(a){a=a.filter(Boolean);return a.length?`<ul class="bl">${a.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}
+const SPN={e:'Electrons (e⁻)',h:'Protons (H⁺)',n:'Carriers',a:'ATP',w:'Water, oxygen',c:'Carbon molecules'};const SPT={n:'NADH, FADH₂, NADPH',c:'CO₂, glucose, pyruvate, acetyl-CoA, RuBP, 3PG, G3P',w:'H₂O, O₂'};
+const SPR=/(NADPH|NADH|FADH₂|acetyl-CoA|pyruvate|glucose|CO₂|H₂O|O₂|3PG|G3P|RuBP|ATP|e⁻|H⁺)/g;
+const spc=m=>/^(e⁻)$/.test(m)?'e':/^H⁺$/.test(m)?'h':/^(NADPH|NADH|FADH₂)$/.test(m)?'n':m==='ATP'?'a':/^(H₂O|O₂)$/.test(m)?'w':'c';
+function fmtH(arr,withSrc){let h='',li=[];const used=new Set();const fl=()=>{h+=bl(li);li=[]};
+ arr.forEach(x=>{if(x.startsWith('eq:')){fl();h+=`<div class="eq">${esc(x.slice(3)).replace(SPR,m=>{const k=spc(m);used.add(k);return `<span class="sp-${k}">${m}</span>`})}</div>`}else if(x.startsWith('src:')){fl();if(withSrc)h+=`<div class="srcl">Pink outline: ${esc(x.slice(4))}</div>`}else li.push(x)});fl();
+ return h}
+const whyOf=b=>{const g=DG[cur].GM&&DG[cur].GM[b.id];return b.k==='num'&&g&&g.h?fmtH(g.h,false):b.why};
+const goto=i=>{const S=ST[cur];S.step=Math.max(0,Math.min(DG[cur].guide.length-1,i));S.seen.add(S.step);render()};
+function vis(id){const S=ST[cur],D=DG[cur],i=D.gi[id];if(i==null)return false;if(S.seen.has(i))return true;return ((D.GM[D.guide[S.step]]||{}).s||[]).includes(id)}
+function legend(){const sv=x=>`<svg width="42" height="26" viewBox="0 0 42 26" aria-hidden="true">${x}</svg>`;
+ return `<span>${sv('<path d="M4 7C10 2 15 10 21 6S34 3 38 8L37 20C31 24 25 17 20 22S9 23 4 19Z" fill="var(--cf-p)" stroke="var(--cs-p)" stroke-width="2.5"/>')}Process or protein complex</span><span>${sv('<rect x="4" y="5" width="34" height="16" fill="var(--cf-d)" stroke="var(--cs-d)" stroke-width="1.8"/>')}Product</span><span>${sv('<circle cx="21" cy="13" r="10" fill="var(--cf-n)" stroke="var(--cs-n)" stroke-width="1.4"/>')}Number (quantity)</span>`}
+function render(){const S=ST[cur],D=DG[cur],L=all(),G=gmode(),done=L.filter(b=>S.S[b.id]!=null).length,ft=L.filter(b=>S.first[b.id]===1).length;
+ $('#legend').innerHTML=legend();
+ $('#modes').innerHTML=D.guide?`<span class="lab">2. Pick a mode</span>`+[['guide','Guide me'],['test','Test your knowledge']].map(m=>`<button class="tab" role="tab" aria-selected="${S.mode===m[0]}" data-m="${m[0]}">${m[1]}</button>`).join(''):'';
+ $$('[data-m]').forEach(x=>x.onclick=()=>{S.mode=x.dataset.m;render()});
+ $('#spk').innerHTML=Object.keys(SPN).map(k=>`<span class="sp-${k}" title="${SPT[k]||''}">${SPN[k]}</span>`).join('')+(G?`<hr><span class="kk"><i style="background:var(--hl);border-color:var(--hl)"></i>This step</span><span class="kk"><i style="border-color:var(--src)"></i>Where it comes from</span><span class="kk"><i style="background:var(--hpc);border-color:var(--hpc)"></i>Used from Helpful information</span>`:'');$('#nav').innerHTML=G?`<button class="btn" id="gprev" ${S.step===0?'disabled':''}>Back</button><button class="btn primary" id="gnext" ${S.step===D.guide.length-1?'disabled':''}>Next step</button>`:'';$('#svgbox').innerHTML=svg();$('#bar').innerHTML=G?guideBar():bar();
+ $('#info').textContent=G?'Guide me':`${done} of ${L.length} blanks finished, ${ft} right on the first try`;
+ $('#reset').textContent=G?'Restart guide':'Reset this diagram';
+ const hq=$('#hq'),gi=D.gi||{};let hs=false,hsrc=false,hsel=false;
+ if(G){hs=vis('hq');hsel=D.guide[S.step]==='hq';hsrc=((D.GM[D.guide[S.step]]||{}).s||[]).includes('hq')}
+ else{hs=S.S.hq!=null;hsel=S.sel==='hq'}
+ hq.className='hq'+(hs?' solved':!G&&S.T.hq&&S.T.hq.size?' tried':'')+(hsel?' sel':'')+(hsrc?' src':'');
+ hq.innerHTML=`<span>How many H⁺ ions were pumped out of the membrane?</span><span class="v">${hs?(G?D.hq.ans:S.S.hq):''}</span>`;
+ hq.setAttribute('aria-label','Final question: how many H plus ions were pumped out of the membrane'+(hs?', answer '+(G?D.hq.ans:S.S.hq):', blank'));
+ $$('.bk').forEach(g=>{const go=()=>G?goto(D.gi[g.dataset.id]):choose(g.dataset.id);g.onclick=go;g.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}}});
+ if(G){const p=$('#gprev'),n=$('#gnext'),j=$('#jump');if(p)p.onclick=()=>goto(S.step-1);if(n)n.onclick=()=>goto(S.step+1);if(j)j.onchange=()=>goto(+j.value)}
+ else{
+  $$('[data-v]').forEach(x=>x.onclick=()=>answer(S.sel,x.dataset.v));
+  const c=$('#chk'),inp=$('#ans');if(c){const go=()=>{const n=parseFloat(inp.value);if(isNaN(n)){S.msg='<div class="fb bad">Enter a number.</div>';render();return}answer(S.sel,String(n))};c.onclick=go;inp.onkeydown=e=>{if(e.key==='Enter')go()}}
+  const sh=$('#shw');if(sh)sh.onclick=()=>{const b=find(S.sel);if(!S.first[b.id])S.first[b.id]=-1;S.S[b.id]=b.ans;const ex=explain(b,b.ans,true);const t=b.k==='num'?whyOf(b):`${b.ans}. ${b.why}`;S.msg=`<div class="fb good"><b class="g">Answer: ${esc(b.ans)}.</b> ${t}</div>`;S.rg={tgt:ex.tgt,alt:[]};render()};
+  const nx=$('#nxt');if(nx)nx.onclick=nextBlank}
+ const hps=new Set(G?((D.GM[D.guide[S.step]]||{}).hp||[]):[]);$('#help').innerHTML=D.help.map((x,i)=>`<li${hps.has(i)?' class="hl"':''}>${esc(x)}</li>`).join('');
+ $('#lay').innerHTML=D.text.map(x=>`<li>${esc(x)}</li>`).join('')+`<li>Blanks in reading order: ${D.B.map(b=>esc(b.d)).join('; ')}.</li>`}
+$('#hq').onclick=()=>{if(gmode())goto(DG[cur].gi.hq);else choose('hq')};
+$('#reset').onclick=()=>{const m=ST[cur].mode;ST[cur]=newS(m);render()};
+document.addEventListener('keydown',e=>{if(!gmode()||/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName))return;if(e.key==='ArrowRight')goto(ST[cur].step+1);if(e.key==='ArrowLeft')goto(ST[cur].step-1)});
+function tabs(){$('#tabs').innerHTML=['mito','chloro'].map(k=>`<button class="tab" role="tab" aria-selected="${k===cur}" data-k="${k}">${DG[k].name}</button>`).join('');
+ $$('.tab[data-k]').forEach(t=>t.onclick=()=>{cur=t.dataset.k;tabs();render()})}
+tabs();render();
+</script></body></html>

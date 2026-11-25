@@ -1,0 +1,1498 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BIOSC-020 Final Exam Review</title><meta name="theme-color" content="#17589B">
+<meta name="description" content="Free study tool for the BIOSC-020 final exam: notes, flashcards, quiz, diagrams and drills.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%2317589B%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2716%27 text-anchor=%27middle%27 fill=%27white%27 font-family=%27sans-serif%27 font-weight=%27bold%27%3EB20%3C/text%3E%3C/svg%3E"><link rel="manifest" href="manifest.webmanifest">
+<style>@font-face{font-family:"Carlito";src:url("fonts/Carlito-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Carlito";src:url("fonts/Carlito-Bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Carlito";src:url("fonts/Carlito-Italic.woff2") format("woff2");font-weight:400;font-style:italic;font-display:swap}
+:root{
+  --bg:#F3F6F9;--surface:#FFFFFF;--surface-2:#E8EDF2;--fg:#111A22;--muted:#4A5866;--line:#B9C6D2;
+  --accent:#17589B;--accent-soft:#D9E8F7;--accent-ink:#FFFFFF;
+  --good:#1F7A42;--good-soft:#DCF0E3;--bad:#B03A24;--bad-soft:#F8E1DB;--warn:#8A5A00;--warn-soft:#FBEFD0;
+  --s1:#8A3F9E;--s2:#B34A12;--label:#B34A12;--label-ink:#FFFFFF;
+  --sans:Carlito,Calibri,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+  --fs:1.0625rem;--lh:1.55;--ws:.06em;--ls:0;--r:12px;color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0B121B;--surface:#131D29;--surface-2:#1C2837;--fg:#EAF1F7;--muted:#A5B5C5;--line:#3A4B5E;
+  --accent:#6DB6F2;--accent-soft:#1B3047;--accent-ink:#06121D;
+  --good:#6FD39A;--good-soft:#16352A;--bad:#F29A85;--bad-soft:#40211A;--warn:#EBB65A;--warn-soft:#3A2E12;
+  --s1:#D49AE6;--s2:#F2A36B;--label:#F2A36B;--label-ink:#1A1208;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0B121B;--surface:#131D29;--surface-2:#1C2837;--fg:#EAF1F7;--muted:#A5B5C5;--line:#3A4B5E;
+  --accent:#6DB6F2;--accent-soft:#1B3047;--accent-ink:#06121D;
+  --good:#6FD39A;--good-soft:#16352A;--bad:#F29A85;--bad-soft:#40211A;--warn:#EBB65A;--warn-soft:#3A2E12;
+  --s1:#D49AE6;--s2:#F2A36B;--label:#F2A36B;--label-ink:#1A1208;color-scheme:dark}
+:root[data-size="s"]{--fs:.97rem}:root[data-size="l"]{--fs:1.2rem}:root[data-size="xl"]{--fs:1.38rem}
+:root[data-space="roomy"]{--lh:1.8;--ws:.14em;--ls:.01em}
+:root[data-space="double"]{--lh:2.1;--ws:.22em;--ls:.02em}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:150px}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:var(--fs);line-height:var(--lh);word-spacing:var(--ws);letter-spacing:var(--ls);overflow-wrap:break-word}
+h1,h2,h3,h4{line-height:1.25;margin:0;text-wrap:balance}
+h2{font-size:1.45em;margin:.2em 0 .4em}h3{font-size:1.15em;margin:1.2em 0 .4em}
+p{margin:.5em 0}ul{margin:.3em 0;padding-left:1.25em}li{margin:.2em 0}
+a{color:var(--accent)}
+.muted{color:var(--muted)}.small{font-size:.88em}.sr{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+button,select,input,textarea{font:inherit;color:var(--fg);word-spacing:inherit;letter-spacing:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.skip{position:absolute;left:8px;top:-60px;background:var(--accent);color:var(--accent-ink);padding:8px 12px;border-radius:8px;z-index:50}.skip:focus{top:8px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 12px 80px}
+
+/* header */
+.top{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 0 6px}
+.brand{display:flex;align-items:center;gap:8px;justify-content:space-between}
+.brand h1{font-size:1.2em}.brand .sub{display:block;font-size:.8em;color:var(--muted);font-weight:400}
+.iconbtn{min-height:44px;min-width:44px;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:6px 12px;font-weight:700}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:8px 0 2px;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;min-height:44px;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:10px;padding:6px 14px;font-weight:700;white-space:nowrap}
+.tab[aria-selected="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.fbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding-top:10px}
+.fsum{flex:1;min-width:0;font-size:.88em;color:var(--muted)}
+.btn{min-height:44px;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 14px;font-weight:700}
+.btn:hover:not(:disabled){border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent}.btn:disabled{opacity:.45;cursor:default}
+.btn.sm{min-height:40px;padding:4px 10px;font-size:.92em}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+
+/* filter drawer */
+.filters{margin:10px 0;padding:10px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+.filters[hidden]{display:none}
+.fgroup+.fgroup{margin-top:12px;border-top:2px solid var(--line);padding-top:10px}
+.fhead{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
+.gtitle{font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:.85em;padding:6px 12px;border-radius:8px;color:#fff}
+.gtitle.g1{background:var(--s1)}.gtitle.g2{background:var(--s2)}
+:root[data-theme="dark"] .gtitle{color:#10151B}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .gtitle{color:#10151B}}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{min-height:40px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px;font-size:.88em}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip[aria-pressed="true"]::before{content:"\2713\00a0"}
+
+/* generic panels */
+main{padding-top:14px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin:10px 0}
+.stack{display:flex;flex-direction:column;gap:12px}
+.tag{font-size:.78em;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.pill{display:inline-block;font-size:.78em;font-weight:700;border-radius:999px;padding:2px 10px;background:var(--surface-2);color:var(--muted);margin-right:4px}
+.pill.g1{background:var(--s1);color:#fff}.pill.g2{background:var(--s2);color:#fff}
+.note{font-size:.92em;color:var(--muted);border-left:4px solid var(--line);padding-left:10px;margin:.6em 0}
+.fb{border-radius:10px;padding:10px 12px;margin-top:10px;border-left:6px solid var(--line);background:var(--surface-2)}
+.fb.good{background:var(--good-soft);border-left-color:var(--good)}.fb.bad{background:var(--bad-soft);border-left-color:var(--bad)}.fb.warn{background:var(--warn-soft);border-left-color:var(--warn)}
+.meter{height:8px;background:var(--surface-2);border-radius:99px;overflow:hidden}.meter>i{display:block;height:100%;background:var(--accent)}
+.score{font-weight:700;color:var(--accent)}
+.tblw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:middle}
+th{background:var(--surface-2);font-size:.85em}
+table.mini{margin:.5em 0;font-size:.95em}
+
+/* notes */
+.topic{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);margin:10px 0}
+.topic>summary{list-style:none;cursor:pointer;padding:12px 14px;display:flex;gap:10px;align-items:center;min-height:52px;font-weight:700}
+.topic>summary::-webkit-details-marker{display:none}
+.topic>summary::after{content:"+";margin-left:auto;font-size:1.4em;color:var(--accent);flex:none}
+.topic[open]>summary::after{content:"\2212"}
+.topic .tname{flex:1;min-width:0}
+.tbody{padding:2px 14px 14px;border-top:1px solid var(--line)}
+.tbody ul{list-style:none;padding:0;margin:.5em 0}
+.tbody li{padding-left:1.1em;position:relative;margin:.35em 0}
+.tbody li::before{content:"\2022";position:absolute;left:0;color:var(--accent);font-weight:700}
+.tbody li.l1{margin-left:1.3em}.tbody li.l2{margin-left:2.6em}
+.tbody li.l1::before{content:"\2013"}.tbody li.l2::before{content:"\00b7"}
+.keynote{background:var(--warn-soft);border-left:6px solid var(--warn);padding:8px 12px;border-radius:8px;margin:.7em 0;font-weight:700}
+.fignote{background:var(--accent-soft);border-left:6px solid var(--accent);padding:8px 12px;border-radius:8px;margin:.7em 0;font-size:.93em}
+.fignote::before{content:"From the figure (supplemental). ";font-weight:700}
+.para b{background:var(--good-soft);padding:0 4px;border-radius:4px}
+.tact{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+
+/* flashcards */
+.card{min-height:230px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;cursor:pointer;user-select:none;position:relative;padding:34px 18px 40px;border:3px solid var(--accent);border-radius:16px;background:var(--surface);width:100%;font-size:1.2em}
+.card.back{background:var(--accent);color:var(--accent-ink)}
+.card .corner{position:absolute;top:8px;left:12px;right:12px;display:flex;justify-content:space-between;font-size:.62em;font-weight:700;opacity:.85}
+.card .hint{position:absolute;bottom:8px;font-size:.6em;opacity:.8}
+.card .txt{max-width:36ch}
+.fcbtns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.fcbtns .wide{grid-column:1/-1}
+
+/* quiz and drills */
+.opts{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.opt{text-align:left;border:2px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 12px;min-height:48px;display:flex;gap:10px;align-items:flex-start}
+.opt .k{font-weight:700;color:var(--muted);min-width:1.2em}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.ok{border-color:var(--good);background:var(--good-soft)}.opt.no{border-color:var(--bad);background:var(--bad-soft);border-style:dashed}
+.opt.ok::after{content:"\2713 correct";margin-left:auto;font-weight:700;color:var(--good);white-space:nowrap}
+.opt.no::after{content:"\2717 your pick";margin-left:auto;font-weight:700;color:var(--bad);white-space:nowrap}
+.qtext{font-size:1.1em;font-weight:700}
+.dgrid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+.dcard{display:flex;flex-direction:column;gap:6px;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:12px;min-height:110px}
+.dcard:hover{border-color:var(--accent)}.dcard b{font-size:1.05em}.dcard span{color:var(--muted);font-size:.9em}
+input[type=text],select{min-height:44px;border:2px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 10px;font-size:1rem;max-width:100%}
+input[type=text]{width:100%}
+input.ok,select.ok{border-color:var(--good);background:var(--good-soft)}input.no,select.no{border-color:var(--bad);border-style:dashed;background:var(--bad-soft)}
+.fill input[type=text]{width:9em;min-width:5em;margin:2px 3px}
+.fill .num{font-size:.7em;vertical-align:super;font-weight:700;color:var(--accent)}
+.fill{line-height:2.4}
+.seq{font-weight:700;letter-spacing:.14em;word-spacing:.4em;font-size:1.15em}
+.seq .a{color:#1d7a46}.seq .t,.seq .u{color:#b3382a}.seq .c{color:#2a62a8}.seq .g{color:#9a6208}
+:root[data-theme="dark"] .seq .a{color:#6FD39A}:root[data-theme="dark"] .seq .t,:root[data-theme="dark"] .seq .u{color:#F29A85}:root[data-theme="dark"] .seq .c{color:#7FB2F0}:root[data-theme="dark"] .seq .g{color:#EBB65A}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .seq .a{color:#6FD39A}:root:not([data-theme="light"]) .seq .t,:root:not([data-theme="light"]) .seq .u{color:#F29A85}:root:not([data-theme="light"]) .seq .c{color:#7FB2F0}:root:not([data-theme="light"]) .seq .g{color:#EBB65A}}
+.diagram{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:8px}
+.diagram svg{display:block;width:100%;height:auto;max-width:100%}
+svg text{font-family:var(--sans)}
+.dframe{width:100%;border:0;display:block;height:calc(100vh - 210px);min-height:560px;background:var(--bg)}
+.qrow{display:grid;grid-template-columns:1fr minmax(8em,12em);gap:8px;align-items:center;border-bottom:1px solid var(--line);padding:8px 0}
+@media (max-width:560px){.qrow{grid-template-columns:1fr}}
+
+/* progress */
+.stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.stat .box{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:10px;text-align:center}
+.stat .box b{display:block;font-size:1.5em;color:var(--accent)}
+.prow{display:grid;grid-template-columns:minmax(0,1.4fr) 1fr 1fr;gap:6px 10px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}
+@media (max-width:560px){.prow{grid-template-columns:1fr 1fr}.prow .pn{grid-column:1/-1;font-weight:700}}
+.settings{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:40;display:flex;align-items:flex-end;justify-content:center}
+.settings[hidden]{display:none}
+.sheet{background:var(--bg);width:100%;max-width:560px;max-height:90vh;overflow:auto;border-radius:16px 16px 0 0;padding:14px 16px 24px}
+@media (min-width:700px){.settings{align-items:center}.sheet{border-radius:16px}}
+.sgroup{margin:14px 0}.sgroup>b{display:block;margin-bottom:6px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{min-height:44px;border:2px solid var(--line);background:var(--surface);border-radius:10px;padding:6px 12px}
+.seg button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);font-weight:700}
+.legend{display:flex;gap:10px;flex-wrap:wrap;font-size:.85em;color:var(--muted)}
+.hot{outline:3px solid var(--good);outline-offset:1px}
+@media (max-width:600px){.wrap{padding:0 10px 80px}h2{font-size:1.3em}.brand h1{font-size:1.05em}.panel{padding:12px}.card{min-height:210px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+:root[data-motion="reduce"] *{animation:none!important;transition:none!important}
+
+.hdr button,#btnSet{white-space:nowrap;flex:none}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+<header class="top"><div class="brand"><h1>BIOSC-020 Final Exam Review<span class="sub">Study guide sets 1 and 2</span></h1><button class="iconbtn" id="btnSet" aria-haspopup="dialog">Settings</button></div>
+<nav aria-label="Study modes"><div class="tabs" role="tablist" id="tabs"></div></nav>
+</header>
+<div class="fbar" id="fbar"><button class="btn sm" id="btnFilt" aria-expanded="false" aria-controls="filters">Choose concepts (<span id="fcount">All</span>)</button><span class="fsum" id="fsum"></span></div>
+<div class="filters" id="filters" hidden></div>
+<main id="main" tabindex="-1"></main>
+<footer id="foot" style="margin-top:28px"></footer>
+</div>
+<div class="settings" id="settings" hidden></div>
+<script>/* Concept notes. One entry per concept. Strings are bullets, strings starting with two spaces are sub-bullets,
+   {k:"..."} is a highlighted exam note, {f:"..."} is a figure-only (supplemental) note, {html:"..."} is raw html.
+   Slide numbers are the page numbers of the two final study guide PDFs (set 1 = old material, set 2 = new material). */
+const GROUPS = [
+ {set:1, title:"Set 1: old material", sub:"Study guide slide set 1 of 2"},
+ {set:2, title:"Set 2: new material", sub:"Study guide slide set 2 of 2"}
+];
+const TOPICS = [
+/* ================= SET 1 ================= */
+{id:"s1-metric", set:1, name:"Metric prefixes and conversions", slides:"2", notes:[
+ {k:"The exam has a partially filled out table with 12 blank spaces."},
+ {html:`<table class="mini"><thead><tr><th>Metric prefix</th><th>Power of prefix</th><th>Conversion factor</th></tr></thead><tbody>
+ <tr><td>giga- (G)</td><td>10<sup>9</sup></td><td>1 Gg = 10<sup>9</sup> g</td></tr>
+ <tr><td>mega- (M)</td><td>10<sup>6</sup></td><td>1 Mg = 10<sup>6</sup> g</td></tr>
+ <tr><td>kilo- (k)</td><td>10<sup>3</sup></td><td>1 kg = 10<sup>3</sup> g</td></tr>
+ <tr><td>unit</td><td>10<sup>0</sup> or 1</td><td>1 gram</td></tr>
+ <tr><td>milli- (m)</td><td>10<sup>-3</sup></td><td>1 mg = 10<sup>-3</sup> g</td></tr>
+ <tr><td>micro- (µ)</td><td>10<sup>-6</sup></td><td>1 µg = 10<sup>-6</sup> g</td></tr>
+ <tr><td>nano- (n)</td><td>10<sup>-9</sup></td><td>1 ng = 10<sup>-9</sup> g</td></tr></tbody></table>`},
+ "Seven prefix rows, three columns each. Any of the prefix, power, or conversion factor cells can be blank."
+]},
+{id:"s1-science", set:1, name:"Basic vs applied science", slides:"3", notes:[
+ "<b>Basic science</b>: seeks to expand knowledge regardless of the short-term application of that knowledge.",
+ "  It is not focused on developing a product or a service of immediate public or commercial value.",
+ "  The immediate goal of basic science is knowledge for knowledge's sake.",
+ "<b>Applied science</b>: aims to use science to solve real-world problems.",
+ "  Examples on the slide: improve a crop yield, find a cure for a particular disease, or save animals threatened by a natural disaster."
+]},
+{id:"s1-philic", set:1, name:"Hydrophilic and hydrophobic molecules", slides:"4", notes:[
+ "<b>Hydrophilic</b> (\"water loving\"): molecules that DO MIX with H<sub>2</sub>O.",
+ "  Contain polar covalent bonds or charges (anions / cations).",
+ "  Examples: ions (Na<sup>+</sup>, Cl<sup>-</sup>), nucleic acids (DNA and RNA), and all water-soluble proteins.",
+ "<b>Hydrophobic</b> (\"water fearing\"): molecules that DON'T MIX with H<sub>2</sub>O.",
+ "  Contain non-polar covalent bonds.",
+ "  Examples: lipids and non-polar proteins.",
+ {f:"Figures on the slide: NaCl dissolved in H₂O, DNA surrounded by H₂O, a soluble protein surrounded by H₂O, and oil separating from H₂O."}
+]},
+{id:"s1-water", set:1, name:"Water properties from hydrogen bonds", slides:"5", notes:[
+ "H<sub>2</sub>O properties due to H-bonds provide the cellular environment.",
+ "<b>Solvency</b>: dissolves salts.",
+ "<b>Adhesion and cohesion</b>",
+ "  <b>Cohesion</b>: water attracted to water.",
+ "  <b>Adhesion</b>: water attracted to polar surfaces.",
+ "<b>High heat capacity</b>: absorbs heat without changing temperature."
+]},
+{id:"s1-ph", set:1, name:"pH and the pH scale", slides:"6", notes:[
+ "The pH scale is a simplified way to indicate the number of H<sup>+</sup> ions in solution.",
+ "Ranges from 0 to 14.",
+ "  pH below 7 is <b>acidic</b>.",
+ "  pH above 7 is <b>basic</b>.",
+ "  pH of 7 is <b>neutral</b>."
+]},
+{id:"s1-buffers", set:1, name:"Physiological buffers", slides:"7", notes:[
+ "Physiological buffers reduce changes in pH.",
+ "<b>Intracellular</b> pH is regulated by the <b>phosphate</b> buffer system: H<sub>2</sub>PO<sub>4</sub><sup>-</sup> / HPO<sub>4</sub><sup>2-</sup>.",
+ "<b>Blood</b> pH is regulated by the <b>bicarbonate</b> buffer system: CO<sub>2</sub> + H<sub>2</sub>O ⇌ H<sub>2</sub>CO<sub>3</sub> ⇌ HCO<sub>3</sub><sup>-</sup> + H<sup>+</sup>.",
+ {k:"The exam will not test specific knowledge of the chemical equations."}
+]},
+{id:"s1-metab", set:1, name:"Monomers, polymers and metabolism", slides:"8", notes:[
+ "Cells use monomers from the diet to build polymers for function.",
+ "<b>Metabolism</b>: the sum of all chemical reactions in the body.",
+ "<b>Catabolism</b>: breaking down larger molecules into smaller ones.",
+ "<b>Anabolism</b>: the metabolic process of building larger molecules from smaller ones.",
+ {f:"Figure: catabolism example is glycogen to glucose, breakdown releases energy (ATP for muscle contraction and neuron function, GTP for protein synthesis and cell signaling). Anabolism example is amino acids to a polypeptide (protein), a synthesis that takes up energy."}
+]},
+{id:"s1-dogma", set:1, name:"Transcription and translation: the flow of information", slides:"9", notes:[
+ "The flow of genetic information is summarized as <b>DNA → RNA → protein</b>.",
+ "Each gene along a DNA molecule directs synthesis of a messenger RNA (mRNA).",
+ "  DNA is <b>transcribed</b> into RNA.",
+ "The mRNA molecule interacts with the cell's protein-synthesizing machinery to direct production of a polypeptide.",
+ "  RNA is <b>translated</b> into amino acids at the ribosome."
+]},
+{id:"s1-genes", set:1, name:"Genes, gene expression, template strand", slides:"10 to 11", notes:[
+ "<b>Gene</b>: a region of DNA that contains information to make a functional molecule, typically a protein or RNA.",
+ "<b>Gene expression</b>: a gene is said to be expressed when the information in the gene is turned into a function.",
+ "<b>Transcription</b>: synthesis of mRNA from DNA.",
+ "<b>Translation</b>: synthesis of a protein from mRNA.",
+ "<b>Template strand</b>: the DNA strand that is transcribed into mRNA.",
+ "<b>Non-template (coding) strand</b>: the DNA strand that is not transcribed into mRNA."
+]},
+{id:"s1-rnapol", set:1, name:"Three RNA polymerases in eukaryotes", slides:"12", notes:[
+ "<b>RNA polymerase I</b>: ribosomal RNA (rRNA) genes.",
+ "<b>RNA polymerase II</b>: protein-coding genes (messenger RNA or mRNA).",
+ "<b>RNA polymerase III</b>: transfer RNA (tRNA) genes."
+]},
+{id:"s1-trna", set:1, name:"tRNA, ribosomes, codons and anticodons", slides:"13 to 15", notes:[
+ "Translation in eukaryotes requires <b>transfer RNA (tRNA)</b>. tRNAs are RNA molecules that carry amino acids.",
+ "Ribosomes couple the tRNA anticodon to the mRNA codon.",
+ "  Ribosomal RNAs (rRNAs) and proteins make up the large and small subunits.",
+ "  rRNAs catalyze the peptide bond between two amino acids.",
+ "  The small subunit facilitates codon-anticodon coupling during protein synthesis.",
+ "  mRNA has a codon triplet. tRNA has an anticodon triplet.",
+ "tRNA transfers amino acids to the growing polypeptide in a ribosome.",
+ "  Each tRNA carries a specific amino acid on its 3' end.",
+ "  Each tRNA has an anticodon that base-pairs with a complementary codon on mRNA.",
+ "  tRNA molecules translate mRNA messages into amino acids using codon-anticodon pairing."
+]},
+{id:"s1-protein", set:1, name:"Levels of protein structure", slides:"16", notes:[
+ "<b>Primary</b>: linear, unbranched amino acid sequence linked by covalent peptide bonds.",
+ "<b>Secondary</b>: portions of the polypeptide form alpha helices or beta pleated sheets due to H-bonds in the protein.",
+ "<b>Tertiary</b>: overall 3-dimensional shape caused by amino acid R-group interactions.",
+ "<b>Quaternary</b>: more than one polypeptide chain, caused by amino acid R-group interactions."
+]},
+{id:"s1-dest", set:1, name:"Protein destinations and ribosome populations", slides:"17 to 18", notes:[
+ "Three locations where proteins can end up: <b>inside the cell</b> (cytosol), <b>secreted</b> from the cell, or in a <b>membrane</b>.",
+ "Ribosomes carry out protein synthesis. Two populations in the cell:",
+ "  <b>Free ribosomes</b> in the cytosol: synthesize proteins that function in the cytosol (the solution inside the cell).",
+ "  <b>Bound ribosomes</b> attached to the endoplasmic reticulum (ER): make membrane proteins and proteins that are secreted from the cell.",
+ {f:"Figure: inside-the-cell proteins come from free ribosomes. Secreted and membrane proteins come from ribosomes on the ER, travel by vesicle to the Golgi apparatus, then by vesicle to the plasma membrane."}
+]},
+{id:"s1-insglu", set:1, name:"Secreted proteins: insulin and glucagon", slides:"19", notes:[
+ "The pancreas synthesizes two important cell signaling molecules.",
+ "<b>Insulin</b>: a protein synthesized by beta cells of the pancreas.",
+ "  Lowers blood glucose.",
+ "  Causes cellular uptake of glucose from the blood stream.",
+ "<b>Glucagon</b>: a protein synthesized by alpha cells of the pancreas.",
+ "  Raises blood glucose.",
+ "  Causes cellular release of glucose into the blood stream."
+]},
+{id:"s1-endo", set:1, name:"Endomembrane system", slides:"20 to 21", notes:[
+ "<b>Rough ER</b>",
+ "  Continuous with the nuclear envelope.",
+ "  Studded with ribosomes.",
+ "  Facilitates protein folding in the lumen.",
+ "  Sends transport vesicles to the Golgi apparatus.",
+ "<b>Smooth ER</b>",
+ "  Continuous with the rough ER.",
+ "  No ribosomes.",
+ "  Synthesizes phospholipids for the cell membrane.",
+ "  Stores Ca<sup>2+</sup>.",
+ "<b>Golgi apparatus</b>",
+ "  Receives vesicles from the ER.",
+ "  Attaches polysaccharides to proteins (glycosylation).",
+ "  Sorts and repackages proteins for the new destination: secreted proteins or plasma membrane proteins."
+]},
+{id:"s1-mut", set:1, name:"Point mutations: silent, missense, nonsense", slides:"22 to 24", notes:[
+ "Mutations are nucleotide changes in the DNA of a cell.",
+ "<b>Nucleotide-pair substitution</b>: replaces one nucleotide and its partner with another pair of nucleotides.",
+ "  In the <b>promoter</b>: gene expression is affected.",
+ "  In an <b>intron</b>: gene expression and protein sequence are unaffected.",
+ "  In an <b>exon</b>: the amino acid sequence may be affected, with three outcomes:",
+ "    <b>Silent</b> mutations code for the same amino acid.",
+ "    <b>Missense</b> mutations code for an incorrect amino acid.",
+ "    <b>Nonsense</b> mutations change an amino acid codon into a stop codon. Most lead to a nonfunctional protein.",
+ {k:"Slide 24 practice: transcribe and translate each template DNA. Use the codon wheel (genetic code) on the slide. Answers below, mRNA written 5' to 3'."},
+ {html:`<table class="mini"><thead><tr><th>Template DNA</th><th>mRNA</th><th>a.a. sequence</th><th>Result</th></tr></thead><tbody>
+ <tr><td>5'-CTACCCTTTACAGGG-3'</td><td>5'-CCCUGUAAAGGGUAG-3'</td><td>Pro-Cys-Lys-Gly-Stop</td><td>reference</td></tr>
+ <tr><td>5'-CTACCCTTT<b>G</b>CAGGG-3'</td><td>5'-CCCUG<b>C</b>AAAGGGUAG-3'</td><td>Pro-Cys-Lys-Gly-Stop</td><td>silent</td></tr>
+ <tr><td>5'-CTACCCTTT<b>C</b>CAGGG-3'</td><td>5'-CCCUG<b>G</b>AAAGGGUAG-3'</td><td>Pro-<b>Trp</b>-Lys-Gly-Stop</td><td>missense</td></tr>
+ <tr><td>5'-CTACCCTTT<b>T</b>CAGGG-3'</td><td>5'-CCCUG<b>A</b>AAAGGGUAG-3'</td><td>Pro-<b>Stop</b></td><td>nonsense</td></tr></tbody></table>`},
+ {f:"The mRNA is complementary and antiparallel to the template, so it reads 5' to 3' as the reverse complement of the template."}
+]},
+{id:"s1-cycle", set:1, name:"Human life cycle", slides:"25", notes:[
+ "<b>Zygote</b> (fertilized egg) = 2n (diploid). The zygote develops into an adult through <b>mitosis</b>.",
+ "<b>Adult</b> = 2n (diploid).",
+ "<b>Gametes</b> (sperm and egg) are the only type of human cells produced by <b>meiosis</b>. Gametes are 1n (haploid).",
+ "<b>Fertilization</b>: when gametes fuse to form a zygote."
+]},
+{id:"s1-genet", set:1, name:"Genetics terminology", slides:"26", notes:[
+ "<b>Alleles</b>: alternate versions of a gene.",
+ "  Diploid organisms have two alleles for each gene.",
+ "  A dominant allele masks a recessive allele.",
+ "  A dominant allele is indicated by an uppercase letter. A recessive allele is indicated by a lowercase letter.",
+ "<b>Genotype</b>: genetic makeup of the organism.",
+ "  <b>Homozygous</b>: identical alleles. Homozygous dominant (AA). Homozygous recessive (aa).",
+ "  <b>Heterozygous</b>: different alleles (Aa).",
+ "<b>Phenotype</b>: physical appearance of the organism, determined by genotype."
+]},
+{id:"s1-ar", set:1, name:"Autosomal recessive disease", slides:"27", notes:[
+ "Disease is caused by a <b>recessive</b> allele. Two copies of the recessive allele are required to be affected.",
+ "  Examples: cystic fibrosis and sickle cell disease.",
+ "<b>Carrier</b>: an individual who carries one recessive allele. Carriers have the diseased allele but are not affected, because they have the healthy dominant allele.",
+ {html:`<table class="mini"><thead><tr><th>Possible offspring genotype</th><th>Probability</th><th>Affected by cystic fibrosis?</th></tr></thead><tbody>
+ <tr><td>AA</td><td>¼</td><td>No</td></tr><tr><td>Aa</td><td>½</td><td>No</td></tr><tr><td>aa</td><td>¼</td><td>Yes</td></tr></tbody></table>`},
+ {f:"The probabilities on the slide come from a cross of two carriers (Aa × Aa)."}
+]},
+{id:"s1-ad", set:1, name:"Autosomal dominant disease", slides:"28", notes:[
+ "Disease is caused by a <b>dominant</b> allele. Only one copy of the dominant allele is required to be affected.",
+ "  Example: Huntington's disease.",
+ {html:`<table class="mini"><thead><tr><th>Possible offspring genotype</th><th>Probability</th><th>Affected by Huntington's?</th></tr></thead><tbody>
+ <tr><td>HH</td><td>¼</td><td>Yes</td></tr><tr><td>Hh</td><td>½</td><td>Yes</td></tr><tr><td>hh</td><td>¼</td><td>No</td></tr></tbody></table>`},
+ {f:"The probabilities on the slide come from a cross of two heterozygotes (Hh × Hh)."}
+]},
+{id:"s1-chrom", set:1, name:"Chromatin, histones and nucleosomes", slides:"29 to 30", notes:[
+ "<b>Chromatin</b> is a complex of DNA and histone proteins.",
+ "  <b>Euchromatin</b> is open DNA that can be transcribed.",
+ "  <b>Heterochromatin</b> is tightly wound DNA that cannot be transcribed.",
+ "<b>Nucleosomes</b> consist of histone proteins.",
+ "  Provide structural support to DNA.",
+ "  Affect gene expression (epigenetics).",
+ {f:"Figure: a histone octamer is made of core histones (H2A, H2B, H3, H4) with DNA wrapped around it. Histone tails and epigenetic marks such as methyl groups can change how tightly the chromatin is packed."}
+]},
+
+/* ================= SET 2 ================= */
+{id:"s2-enz", set:2, name:"Enzymes, substrate, active site, induced fit", slides:"2 to 3", notes:[
+ "Enzymes catalyze reactions. The enzyme active site binds the substrate with high specificity.",
+ "<b>Substrate</b>: the reactant that an enzyme acts on.",
+ "  While bound, the catalytic activity of the enzyme converts substrate to product.",
+ "<b>Active site</b>: region on the enzyme, often a pocket or groove, that binds to the substrate.",
+ "<b>Induced fit</b>: when the substrate binds, the enzyme changes shape to improve substrate fit for catalysis.",
+ "<b>Conformational shape change</b>: any alteration in a protein's 3D shape."
+]},
+{id:"s2-ea", set:2, name:"Transition state and activation energy", slides:"4 to 5", notes:[
+ "Chemical reactions between molecules involve breaking and forming bonds.",
+ "<b>Transition state</b>: the molecule becomes unstable enough to break bonds.",
+ "<b>Activation energy (E<sub>A</sub>)</b>: the initial energy needed to break the bonds of the reactants.",
+ "Enzymes use a variety of mechanisms to <b>lower E<sub>A</sub></b>:",
+ "  1. Amino acid <b>R-groups</b> in the active site may participate in the reaction.",
+ "  2. Substrates may be <b>oriented</b> to facilitate the reaction.",
+ "  3. Substrates may be <b>stretched</b> to make the bonds easier to break.",
+ "The Na<sup>+</sup>/K<sup>+</sup> ATPase reduces E<sub>A</sub> for ATP breakdown."
+]},
+{id:"s2-energy", set:2, name:"Exergonic and endergonic reactions", slides:"6", notes:[
+ "Energy release is about chemical bond changes.",
+ "<b>Exergonic reaction</b>: energy releasing process.",
+ "  Products have <b>stronger</b> chemical bonds than reactants.",
+ "<b>Endergonic reaction</b>: energy consuming process.",
+ "  Products have <b>weaker</b> chemical bonds than reactants.",
+ {f:"Figure: ATP → ADP + P is the exergonic example (energy released, ΔG less than 0). ADP + P → ATP is the endergonic example (energy required, ΔG greater than 0)."}
+]},
+{id:"s2-pump", set:2, name:"Na⁺/K⁺ ATPase pump, six steps and practice paragraph", slides:"7 to 9", notes:[
+ "The Na<sup>+</sup>/K<sup>+</sup> ATPase pump uses ATP to move <b>3 Na<sup>+</sup> out</b> and <b>2 K<sup>+</sup> in</b>.",
+ "<b>Phosphorylation</b>: a phosphate group is added to another molecule, often a protein or sugar.",
+ "<b>Dephosphorylation</b>: a phosphate group is removed.",
+ {k:"Steps to know:"},
+ "  Step 1: Three Na<sup>+</sup> bind to the ion binding site.",
+ "  Step 2: The substrate, ATP, binds and is hydrolyzed to ADP and P. This leads to pump phosphorylation.",
+ "  Step 3: Conformational shape change of the protein leads to release of Na<sup>+</sup> to the extracellular side.",
+ "  Step 4: K<sup>+</sup> binds to the ion binding site.",
+ "  Step 5: Pump dephosphorylation occurs.",
+ "  Step 6: Conformational shape change of the protein leads to release of K<sup>+</sup> to the cytoplasmic side.",
+ {k:"Practice fill-in-the-blank exam question (slide 9). Answers are in bold. Try the Drills tab version first."},
+ {html:`<p class="para">The first step of the pump cycle begins when three <b>Na<sup>+</sup></b> ions bind to specific ion-binding sites on the pump. In the second step, the substrate, <b>ATP</b>, binds the Na<sup>+</sup>/K<sup>+</sup> pump at a specific groove known as the <b>active site</b>. The pump changes shape to improve substrate fit in a theory known as <b>induced fit</b>. ATP is <b>hydrolyzed</b> to ADP + P, and the phosphate group attaches to the pump in a process known as <b>phosphorylation</b>. This reaction is an <b>exergonic</b> reaction because it releases energy. The pump uses a variety of mechanisms to lower the <b>activation energy</b> required for ATP hydrolysis: 1) Amino acid <b>R-groups</b> in the active site may participate in the reaction, 2) Substrates may be <b>oriented</b> to facilitate the reaction, and 3) Substrates may be <b>stretched</b> to make bonds easier to break.</p>
+ <p class="para">The third step involves a <b>conformational shape change</b> of the protein. This releases three <b>Na<sup>+</sup></b> ions across the membrane to the <b>extracellular</b> side. In the fourth step, 2 <b>K<sup>+</sup></b> ions bind to the pump. The fifth step is the removal of the phosphate group in a process known as <b>dephosphorylation</b>. The sixth step involves another <b>conformational shape change</b> of the protein, leading to the pump releasing two <b>K<sup>+</sup></b> ions to the <b>cytoplasmic</b> side. The Na<sup>+</sup>/K<sup>+</sup> pump restarts the cycle.</p>`}
+]},
+{id:"s2-redox", set:2, name:"Redox: gaining and losing electrons", slides:"10", notes:[
+ "During cellular respiration, <b>glucose is oxidized</b> and <b>O<sub>2</sub> is reduced</b>.",
+ "Transfer of electrons (e<sup>-</sup>) between reactants is an oxidation-reduction (redox) reaction.",
+ "  Oxidation and reduction occur together.",
+ "  <b>Oxidation</b>: loss of e<sup>-</sup> or H from a substance.",
+ "  <b>Reduction</b>: addition (gain) of e<sup>-</sup> or H to a substance.",
+ "<b>OIL RIG</b>: Oxidation Is Loss, Reduction Is Gain (of e<sup>-</sup> or H)."
+]},
+{id:"s2-mito", set:2, name:"Mitochondrion anatomy", slides:"11", notes:[
+ "The <b>matrix</b> is where pyruvate oxidation and the citric acid cycle occur.",
+ "The <b>inner membrane</b> is where the electron transport chain and ATP synthase are located.",
+ {f:"Figure: mitochondrion with outer membrane, inner membrane, intermembrane space and matrix. See the Diagrams tab to label it."}
+]},
+{id:"s2-stages", set:2, name:"Four stages of cellular respiration", slides:"12", notes:[
+ "Harvesting energy from glucose by cellular respiration has four stages:",
+ "  1. <b>Glycolysis</b>: splits 1 glucose into 2 pyruvate and sends e<sup>-</sup> to the ETC.",
+ "  2. <b>Pyruvate oxidation</b>: converts 2 pyruvate into 2 acetyl-CoA.",
+ "  3. <b>Citric acid cycle (CAC)</b>: converts 2 acetyl-CoA into 4 CO<sub>2</sub> and sends e<sup>-</sup> to the ETC.",
+ "  4. <b>Electron transport chain (ETC)</b>: uses e<sup>-</sup> from carriers to synthesize ATP.",
+ {f:"Figure: glycolysis happens in the cytosol. Pyruvate oxidation, the citric acid cycle, and the ETC with ATP synthase happen in the mitochondrion. Electrons travel to the ETC via NADH, and via NADH and FADH₂ from the citric acid cycle."}
+]},
+{id:"s2-etc", set:2, name:"Electron transport chain", slides:"13 to 14", notes:[
+ "The ETC consists of proteins embedded in the <b>mitochondrial inner membrane</b>.",
+ "  NADH and FADH<sub>2</sub> pass e<sup>-</sup> to the ETC, where they are transferred in a series of redox reactions, each releasing a small amount of energy.",
+ "  The energy yielded is used to <b>pump H<sup>+</sup> into the intermembrane space</b>.",
+ "  <b>Oxygen is the final e<sup>-</sup> acceptor</b>. It captures 2 e<sup>-</sup> and 2 H<sup>+</sup> to form H<sub>2</sub>O.",
+ "Electrons are passed to electron carriers (NAD<sup>+</sup> and FAD) rather than directly to O<sub>2</sub>.",
+ "  NAD<sup>+</sup> can accept 2 e<sup>-</sup>. NADH is carrying 2 e<sup>-</sup>.",
+ "  FAD can accept 2 e<sup>-</sup>. FADH<sub>2</sub> is carrying 2 e<sup>-</sup>. (The slide abbreviates these as FADH.)",
+ {f:"Figure: protein complexes I to IV, with Q and cytochrome c moving electrons. NADH gives up its electrons at complex I and FADH₂ at complex II. H⁺ is pumped across the inner membrane."}
+]},
+{id:"s2-atps", set:2, name:"ATP synthase and oxidative phosphorylation", slides:"15 to 16", notes:[
+ "ATP synthase catalyzes phosphorylation of ADP to ATP in the presence of O<sub>2</sub>. This is termed <b>oxidative phosphorylation</b>.",
+ "H<sup>+</sup> flows down its concentration gradient through ATP synthase to drive ADP phosphorylation to ATP.",
+ "The high [H<sup>+</sup>] in the <b>intermembrane space</b> flows through ATP synthase into the <b>matrix</b>.",
+ "The energy from H<sup>+</sup> flowing through ATP synthase is used to phosphorylate ADP to ATP.",
+ "Because oxygen is used in the process that initially builds the H<sup>+</sup> gradient responsible for ATP synthase activity, the addition of a phosphate to ADP is called oxidative phosphorylation."
+]},
+{id:"s2-endo", set:2, name:"Endosymbiosis theory", slides:"17", notes:[
+ "Evidence of endosymbiosis (mitochondria and chloroplasts):",
+ "  They have <b>double membranes</b>.",
+ "  They have their own <b>ribosomes</b>.",
+ "  They have their own <b>DNA</b>.",
+ "  Their genomes are <b>circular</b>."
+]},
+{id:"s2-wall", set:2, name:"Plant cell walls and cellulose", slides:"18", notes:[
+ "Cellulose is a major component of plant cell walls.",
+ "<b>Primary cell walls</b>",
+ "  Contain cellulose.",
+ "  The wall stretches when the cell is growing.",
+ "<b>Secondary cell walls</b>",
+ "  Contain cellulose.",
+ "  Contain <b>lignin</b> for strength.",
+ "  Form inside the primary cell wall.",
+ "  Produced after the cell completes growth.",
+ "<b>Middle lamella</b>",
+ "  Contains <b>pectin</b> between two cells.",
+ "  Provides adhesion."
+]},
+{id:"s2-tissue", set:2, name:"Plant tissue systems", slides:"19", notes:[
+ "<b>Dermal tissue</b> serves as a protective outer coating.",
+ "  <b>Guard cells</b>: specialized epidermal cells that facilitate gas exchange in leaves.",
+ "<b>Vascular tissue</b> facilitates transport of materials and provides mechanical support.",
+ "  <b>Xylem</b> transports water and minerals.",
+ "  <b>Phloem</b> transports sucrose.",
+ "<b>Ground tissue</b>: tissue that is neither dermal nor vascular.",
+ "  Includes cells specialized for storage, photosynthesis, and support."
+]},
+{id:"s2-xylem", set:2, name:"Xylem and phloem cell types", slides:"20", notes:[
+ "<b>Vessels</b>: wide cells found in the xylem.",
+ "  Efficient at transporting water and minerals.",
+ "  Dead at maturity.",
+ "<b>Tracheids</b>: narrow cells found in the xylem.",
+ "  Less efficient at transporting water and minerals.",
+ "  Dead at maturity.",
+ "<b>Sieve-tube elements</b>: sugar-conducting cells of the phloem.",
+ "  Alive at maturity."
+]},
+{id:"s2-photo", set:2, name:"Photosynthesis overview", slides:"21", notes:[
+ "Chloroplasts convert light energy (absorbed by pigments) to chemical energy in carbohydrates.",
+ "6 H<sub>2</sub>O + 6 CO<sub>2</sub> → C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> + 6 O<sub>2</sub>",
+ "<b>Water is oxidized, CO<sub>2</sub> is reduced.</b>"
+]},
+{id:"s2-chloro", set:2, name:"Chloroplast structure", slides:"22 to 23", notes:[
+ "Photosynthesis occurs in the <b>thylakoids and stroma</b>.",
+ "Plants and algae contain chloroplasts, which contain pigment molecules.",
+ "<b>Three-membrane system</b>",
+ "  <b>Double membrane</b> enclosing the <b>stroma</b>.",
+ "  <b>Thylakoids</b> form the third (innermost) membrane.",
+ "The thylakoid membrane contains pigments (chlorophyll a/b, xanthophyll, carotene) that capture solar energy.",
+ "  The <b>thylakoid space</b> is within this membrane.",
+ {f:"Figure: thylakoids stack into grana. The thylakoid lumen is the same space as the thylakoid space."}
+]},
+{id:"s2-light", set:2, name:"Light reactions: photosystems, ETC, ATP synthase", slides:"24 to 26", notes:[
+ "<b>Membrane organization</b>: PSII (photosystem 2), PSI (photosystem 1), the ETC, and ATP synthase are all in the <b>thylakoid membrane</b>.",
+ "Electrons pass from <b>PSII → ETC → PSI → NADP<sup>+</sup></b>.",
+ "  As electrons move through the ETC, energy is extracted. That energy is used to pump H<sup>+</sup> into the thylakoid space.",
+ "  NADP<sup>+</sup> accepts electrons to produce <b>NADPH</b>.",
+ "<b>ATP production</b>: H<sup>+</sup> flows from the thylakoid space to the stroma, through ATP synthase, to phosphorylate ADP to ATP.",
+ "<b>Pathway of e<sup>-</sup></b>",
+ "  <b>Photosystem II</b>: e<sup>-</sup> supplied by hydrolysis (splitting water). Releases O<sub>2</sub> as a byproduct. Light energizes electrons.",
+ "  <b>Electron transport chain</b>: e<sup>-</sup> supplied by PSII. Redox reactions slowly release energy from e<sup>-</sup>. Energy from e<sup>-</sup> is used to pump H<sup>+</sup> into the thylakoid space.",
+ "  <b>Photosystem I</b>: e<sup>-</sup> supplied by the ETC. Light energizes electrons. e<sup>-</sup> and H<sup>+</sup> combine with NADP<sup>+</sup> to become NADPH."
+]},
+{id:"s2-calvin", set:2, name:"Calvin cycle and G3P", slides:"27", notes:[
+ "ATP and NADPH are used to reduce CO<sub>2</sub> to G3P in three steps.",
+ "<b>1. CO<sub>2</sub> fixation</b>",
+ "  3 CO<sub>2</sub> are fixed (attached) to 3 RuBP by <b>rubisco</b> (enzyme).",
+ "  A 6-carbon molecule is split into two 3-carbon molecules (3PG).",
+ "<b>2. CO<sub>2</sub> reduction</b>",
+ "  6 ATP used.",
+ "  6 NADPH used.",
+ "  Forms 1× G3P.",
+ "<b>3. Regeneration of RuBP</b>",
+ "  3 ATP used.",
+ "  5× G3P used to reform 3× RuBP (a 5-carbon molecule).",
+ "<b>G3P is an important building block.</b> Plants and algae synthesize the following from G3P: amino acids, triglycerides, glucose, sucrose, starch, and cellulose.",
+ {f:"Adding the steps: 6 ATP + 3 ATP = 9 ATP and 6 NADPH for each turn that fixes 3 CO₂ and nets 1 G3P. This sum is arithmetic from the slide numbers."}
+]},
+{id:"s2-rmp", set:2, name:"Resting membrane potential", slides:"28 to 29", notes:[
+ "The Na<sup>+</sup>/K<sup>+</sup> pump establishes concentration gradients and leads to the resting membrane potential.",
+ "<b>Potential difference</b>: voltage difference between two points due to separated electrical charges.",
+ "<b>Resting membrane potential</b>: the potential difference across the plasma membrane of a neuron at rest.",
+ "  <b>-70 millivolts</b>.",
+ "  The negative sign means the inside of the neuron is negative compared to the outside.",
+ "  Maintained by the sodium-potassium pump, which actively transports <b>3 Na<sup>+</sup> outside</b> the axon and <b>2 K<sup>+</sup> inside</b>.",
+ "  The charge difference (inside of the axon negative compared to outside) is due to unequal ion distribution."
+]},
+{id:"s2-neuron", set:2, name:"Neuron anatomy", slides:"30 to 31", notes:[
+ "<b>Dendrites</b>: receive information, typically through neurotransmitters.",
+ "<b>Cell body (soma)</b>: contains the nucleus and ribosomes.",
+ "<b>Axon</b>: propagates the action potential to the axon terminal.",
+ "<b>Axon terminal</b>: end of the axon. Releases neurotransmitters onto the target cell."
+]},
+{id:"s2-channels", set:2, name:"Voltage-gated Na⁺ and K⁺ channels", slides:"32 to 33", notes:[
+ "Two voltage-gated membrane proteins propagate the action potential and are located along the axon.",
+ "<b>Na<sup>+</sup> channel</b>: allows Na<sup>+</sup> to pass through the membrane <b>into</b> the cell. The interior of the membrane becomes <b>positive</b>.",
+ "<b>K<sup>+</sup> channel</b>: allows K<sup>+</sup> to pass through the membrane <b>out of</b> the cell. The interior of the membrane becomes <b>negative</b>.",
+ "Opening and closing of the voltage-gated Na<sup>+</sup> and K<sup>+</sup> ion channels gives rise to the action potential.",
+ "<b>Action potential</b>: a rapid change in membrane potential."
+]},
+{id:"s2-ap", set:2, name:"Action potential and its phases", slides:"34 to 36", notes:[
+ "Action potentials are measured in millivolts (mV) at a point along the axon, using an electrode.",
+ "<b>Action potential (the nerve impulse)</b>: a rapid, short-lived reversal in charge difference across the membrane.",
+ "  Occurs down the length of the axon.",
+ "  The electrical signal is propagated by Na<sup>+</sup> and K<sup>+</sup> channels.",
+ "Specific terms describe the direction of changes in membrane potential relative to the resting membrane potential (RMP) in an excitable cell:",
+ "  1. <b>Resting</b>: the neuron establishes a negative membrane potential using Na<sup>+</sup>/K<sup>+</sup> pumps (3 Na<sup>+</sup> out, 2 K<sup>+</sup> in).",
+ "  2. <b>Depolarization</b>: potential moves from RMP to a positive membrane potential using voltage-gated Na<sup>+</sup> channels. <b>Na<sup>+</sup> influx</b>.",
+ "  3. <b>Repolarization</b>: potential returns to the RMP using voltage-gated K<sup>+</sup> channels. <b>K<sup>+</sup> efflux</b>.",
+ "  4. <b>Hyperpolarization</b>: potential becomes more negative than the RMP using voltage-gated K<sup>+</sup> channels. <b>K<sup>+</sup> efflux</b>.",
+ "  5. <b>Resting</b>: the neuron reestablishes RMP using Na<sup>+</sup>/K<sup>+</sup> pumps (3 Na<sup>+</sup> out, 2 K<sup>+</sup> in).",
+ {f:"Graph on slide 34: membrane potential (mV) against time. Depolarization is the rising line, repolarization is the falling line, hyperpolarization is the dip below resting, then the potential returns to rest. The graph's vertical axis runs from -100 to +50 mV."}
+]},
+{id:"s2-synapse", set:2, name:"The synapse and Ca²⁺ channels", slides:"37 to 38", notes:[
+ "The terminal of one neuron (<b>presynaptic cell</b>) lies close to a dendrite of another neuron (<b>postsynaptic cell</b>).",
+ "  The region between the neurons is called the <b>synaptic cleft</b>.",
+ "  A synapse includes the pre- and postsynaptic membranes and the synaptic cleft.",
+ "Action potentials do not cross the cleft.",
+ "<b>Voltage-gated Ca<sup>2+</sup> channels</b> on the presynaptic membrane promote release of neurotransmitter-filled vesicles.",
+ {f:"Figure sequence: 1) action potential reaches the terminal, 2) voltage-gated Ca²⁺ channels open, 3) calcium enters the axon terminal, 4) neurotransmitter is released and diffuses across the cleft, 5) it binds to receptors on the postsynaptic cell, 6) neurotransmitter is removed from the cleft."}
+]},
+{id:"s2-drugs", set:2, name:"Drugs and the synapse", slides:"39 to 40", notes:[
+ "Many drugs affect the nervous system by interfering with or promoting the action of neurotransmitters.",
+ "  <b>Stimulants</b> increase activity of the CNS.",
+ "  <b>Depressants</b> decrease activity of the CNS.",
+ "A drug can:",
+ "  <b>Block transmitter uptake</b>. Example: cocaine prevents recycling of dopamine by the presynaptic neuron.",
+ "  <b>Mimic the action of a neurotransmitter</b>.",
+ "    Natural opioids: endorphins.",
+ "    Synthetic opioids: morphine, Vicodin, fentanyl."
+]}
+];
+/* Flashcards: [topic id, front, back]. Card ids are a hash of topic + front, so reordering never breaks saved progress. */
+const CARDS = [
+/* ---- Set 1 ---- */
+["s1-metric","giga- (G): power and conversion","10<sup>9</sup>. 1 Gg = 10<sup>9</sup> g"],
+["s1-metric","mega- (M): power and conversion","10<sup>6</sup>. 1 Mg = 10<sup>6</sup> g"],
+["s1-metric","kilo- (k): power and conversion","10<sup>3</sup>. 1 kg = 10<sup>3</sup> g"],
+["s1-metric","unit: power and conversion","10<sup>0</sup> or 1. 1 gram"],
+["s1-metric","milli- (m): power and conversion","10<sup>-3</sup>. 1 mg = 10<sup>-3</sup> g"],
+["s1-metric","micro- (µ): power and conversion","10<sup>-6</sup>. 1 µg = 10<sup>-6</sup> g"],
+["s1-metric","nano- (n): power and conversion","10<sup>-9</sup>. 1 ng = 10<sup>-9</sup> g"],
+["s1-metric","What does the metric prefix part of the exam look like?","A partially filled out table with 12 blank spaces (prefix, power, conversion factor)."],
+["s1-science","Basic science","Seeks to expand knowledge regardless of the short-term application. Not focused on a product or service of immediate public or commercial value. Knowledge for knowledge's sake."],
+["s1-science","Applied science","Uses science to solve real-world problems, for example improving crop yield, finding a cure for a disease, or saving animals threatened by a natural disaster."],
+["s1-philic","Hydrophilic molecules","\"Water loving.\" DO MIX with H<sub>2</sub>O. Have polar covalent bonds or charges. Examples: ions, DNA and RNA, water-soluble proteins."],
+["s1-philic","Hydrophobic molecules","\"Water fearing.\" DON'T MIX with H<sub>2</sub>O. Have non-polar covalent bonds. Examples: lipids and non-polar proteins."],
+["s1-water","Three water properties that come from H-bonds","Solvency (dissolves salts), adhesion and cohesion, high heat capacity."],
+["s1-water","Cohesion vs adhesion","Cohesion: water attracted to water. Adhesion: water attracted to polar surfaces."],
+["s1-water","High heat capacity","Water absorbs heat without changing temperature."],
+["s1-ph","pH scale","Simplified way to indicate the number of H<sup>+</sup> ions in solution. Runs 0 to 14. Below 7 acidic, above 7 basic, 7 neutral."],
+["s1-buffers","Intracellular buffer system","Phosphate buffer: H<sub>2</sub>PO<sub>4</sub><sup>-</sup> / HPO<sub>4</sub><sup>2-</sup>."],
+["s1-buffers","Blood buffer system","Bicarbonate buffer: CO<sub>2</sub> + H<sub>2</sub>O ⇌ H<sub>2</sub>CO<sub>3</sub> ⇌ HCO<sub>3</sub><sup>-</sup> + H<sup>+</sup>. (Equations are not tested.)"],
+["s1-metab","Metabolism","The sum of all chemical reactions in the body."],
+["s1-metab","Catabolism","Breaking down larger molecules into smaller ones."],
+["s1-metab","Anabolism","The metabolic process of building larger molecules from smaller ones."],
+["s1-dogma","Flow of genetic information","DNA → RNA → protein. DNA is transcribed into RNA. RNA is translated into amino acids at the ribosome."],
+["s1-genes","Gene","A region of DNA that contains information to make a functional molecule, typically a protein or RNA."],
+["s1-genes","Gene expression","A gene is expressed when the information in the gene is turned into a function."],
+["s1-genes","Transcription vs translation","Transcription: synthesis of mRNA from DNA. Translation: synthesis of a protein from mRNA."],
+["s1-genes","Template strand vs coding strand","Template: the DNA strand transcribed into mRNA. Non-template (coding): the DNA strand that is not transcribed."],
+["s1-rnapol","RNA polymerase I, II and III","I: rRNA genes. II: protein-coding genes (mRNA). III: tRNA genes."],
+["s1-trna","tRNA","RNA molecules that carry amino acids. Each carries a specific amino acid on its 3' end and has an anticodon that base-pairs with a complementary mRNA codon."],
+["s1-trna","Codon vs anticodon","Codon: triplet on mRNA. Anticodon: triplet on tRNA that pairs with the codon."],
+["s1-trna","What makes up the ribosome subunits?","Ribosomal RNAs (rRNAs) and proteins make up the large and small subunits."],
+["s1-trna","What do rRNAs do in the ribosome?","Catalyze the peptide bond between two amino acids."],
+["s1-trna","What does the small subunit do?","Facilitates codon-anticodon coupling during protein synthesis."],
+["s1-protein","Primary structure","Linear, unbranched amino acid sequence linked by covalent peptide bonds."],
+["s1-protein","Secondary structure","Portions of the polypeptide form alpha helices or beta pleated sheets due to H-bonds in the protein."],
+["s1-protein","Tertiary structure","Overall 3-dimensional shape caused by amino acid R-group interactions."],
+["s1-protein","Quaternary structure","More than one polypeptide chain, caused by amino acid R-group interactions."],
+["s1-dest","Three locations proteins can end up","Inside the cell (cytosol), secreted from the cell, or in a membrane."],
+["s1-dest","Free ribosomes","In the cytosol. Make proteins that function in the cytosol."],
+["s1-dest","Bound ribosomes","Attached to the endoplasmic reticulum. Make membrane proteins and proteins that are secreted from the cell."],
+["s1-insglu","Insulin","Protein made by beta cells of the pancreas. Lowers blood glucose by causing cellular uptake of glucose from the blood."],
+["s1-insglu","Glucagon","Protein made by alpha cells of the pancreas. Raises blood glucose by causing cellular release of glucose into the blood."],
+["s1-endo","Rough ER","Continuous with the nuclear envelope. Studded with ribosomes. Folds proteins in the lumen. Sends transport vesicles to the Golgi."],
+["s1-endo","Smooth ER","Continuous with the rough ER. No ribosomes. Synthesizes phospholipids for the cell membrane. Stores Ca<sup>2+</sup>."],
+["s1-endo","Golgi apparatus","Receives vesicles from the ER. Attaches polysaccharides to proteins (glycosylation). Sorts and repackages proteins for secretion or the plasma membrane."],
+["s1-mut","Nucleotide-pair substitution","Replaces one nucleotide and its partner with another pair of nucleotides."],
+["s1-mut","Substitution in a promoter","Gene expression is affected."],
+["s1-mut","Substitution in an intron","Gene expression and protein sequence are unaffected."],
+["s1-mut","Silent mutation","Codes for the same amino acid."],
+["s1-mut","Missense mutation","Codes for an incorrect amino acid."],
+["s1-mut","Nonsense mutation","Changes an amino acid codon into a stop codon. Most lead to a nonfunctional protein."],
+["s1-cycle","Human life cycle: ploidy of zygote, adult and gametes","Zygote 2n, adult 2n, gametes (egg and sperm) 1n. Mitosis takes zygote to adult. Meiosis makes gametes. Fertilization fuses gametes."],
+["s1-cycle","Which human cells are produced by meiosis?","Only gametes (sperm and egg). They are haploid."],
+["s1-cycle","Zygote","Fertilized egg. Diploid. Develops into an adult through mitosis."],
+["s1-genet","Allele","An alternate version of a gene. Diploid organisms have two alleles for each gene."],
+["s1-genet","Dominant vs recessive notation","Dominant allele is uppercase and masks the recessive allele. Recessive allele is lowercase."],
+["s1-genet","Homozygous vs heterozygous","Homozygous: identical alleles (AA or aa). Heterozygous: different alleles (Aa)."],
+["s1-genet","Genotype vs phenotype","Genotype: genetic makeup. Phenotype: physical appearance, determined by genotype."],
+["s1-ar","Autosomal recessive disease","Caused by a recessive allele. Two copies are required to be affected. Examples: cystic fibrosis, sickle cell disease."],
+["s1-ar","Carrier","Carries one recessive allele. Has the diseased allele but is not affected because of the healthy dominant allele."],
+["s1-ar","Offspring odds, autosomal recessive (Aa × Aa)","AA ¼ (not affected), Aa ½ (not affected), aa ¼ (affected)."],
+["s1-ad","Autosomal dominant disease","Caused by a dominant allele. Only one copy is required to be affected. Example: Huntington's disease."],
+["s1-ad","Offspring odds, autosomal dominant (Hh × Hh)","HH ¼ (affected), Hh ½ (affected), hh ¼ (not affected)."],
+["s1-chrom","Chromatin","A complex of DNA and histone proteins."],
+["s1-chrom","Euchromatin vs heterochromatin","Euchromatin: open DNA that can be transcribed. Heterochromatin: tightly wound DNA that cannot be transcribed."],
+["s1-chrom","Nucleosomes","Made of histone proteins. Provide structural support to DNA and affect gene expression (epigenetics)."],
+/* ---- Set 2 ---- */
+["s2-enz","Substrate","The reactant that an enzyme acts on. While bound, the enzyme converts it to product."],
+["s2-enz","Active site","Region on the enzyme, often a pocket or groove, that binds the substrate."],
+["s2-enz","Induced fit","When the substrate binds, the enzyme changes shape to improve substrate fit for catalysis."],
+["s2-enz","Conformational shape change","Any alteration in a protein's 3D shape."],
+["s2-ea","Transition state","The molecule becomes unstable enough to break bonds."],
+["s2-ea","Activation energy (E<sub>A</sub>)","The initial energy needed to break the bonds of the reactants."],
+["s2-ea","Three ways enzymes lower E<sub>A</sub>","1) Active-site R-groups participate in the reaction. 2) Substrates are oriented. 3) Substrates are stretched so bonds break more easily."],
+["s2-energy","Exergonic reaction","Energy releasing. Products have stronger chemical bonds than reactants."],
+["s2-energy","Endergonic reaction","Energy consuming. Products have weaker chemical bonds than reactants."],
+["s2-pump","Na<sup>+</sup>/K<sup>+</sup> ATPase stoichiometry","Uses ATP to move 3 Na<sup>+</sup> out and 2 K<sup>+</sup> in."],
+["s2-pump","Phosphorylation vs dephosphorylation","Phosphorylation: a phosphate group is added to another molecule (often a protein or sugar). Dephosphorylation: a phosphate group is removed."],
+["s2-pump","Na<sup>+</sup>/K<sup>+</sup> pump steps 1 to 3","1) Three Na<sup>+</sup> bind the ion binding site. 2) ATP binds and is hydrolyzed to ADP + P, which phosphorylates the pump. 3) Shape change releases Na<sup>+</sup> to the extracellular side."],
+["s2-pump","Na<sup>+</sup>/K<sup>+</sup> pump steps 4 to 6","4) K<sup>+</sup> binds the ion binding site. 5) Pump dephosphorylation. 6) Shape change releases K<sup>+</sup> to the cytoplasmic side."],
+["s2-redox","Oxidation vs reduction","Oxidation: loss of e<sup>-</sup> or H. Reduction: gain of e<sup>-</sup> or H. They occur together (redox)."],
+["s2-redox","OIL RIG","Oxidation Is Loss, Reduction Is Gain (of e<sup>-</sup> or H)."],
+["s2-redox","What is oxidized and what is reduced in cellular respiration?","Glucose is oxidized. O<sub>2</sub> is reduced."],
+["s2-mito","Where in the mitochondrion do pyruvate oxidation and the citric acid cycle occur?","The matrix."],
+["s2-mito","Where are the ETC and ATP synthase located?","The inner membrane."],
+["s2-stages","Four stages of cellular respiration","Glycolysis, pyruvate oxidation, citric acid cycle, electron transport chain (with ATP synthase)."],
+["s2-stages","Glycolysis","Splits 1 glucose into 2 pyruvate and sends e<sup>-</sup> to the ETC."],
+["s2-stages","Pyruvate oxidation","Converts 2 pyruvate into 2 acetyl-CoA."],
+["s2-stages","Citric acid cycle (CAC)","Converts 2 acetyl-CoA into 4 CO<sub>2</sub> and sends e<sup>-</sup> to the ETC."],
+["s2-stages","Electron transport chain (ETC)","Uses e<sup>-</sup> from carriers to synthesize ATP."],
+["s2-etc","What does the ETC do with the energy from electrons?","NADH and FADH<sub>2</sub> pass e<sup>-</sup> through redox reactions that each release a little energy. That energy pumps H<sup>+</sup> into the intermembrane space."],
+["s2-etc","Final electron acceptor of the mitochondrial ETC","Oxygen. It captures 2 e<sup>-</sup> and 2 H<sup>+</sup> to form H<sub>2</sub>O."],
+["s2-etc","Electron carriers: how many electrons?","NAD<sup>+</sup> accepts 2 e<sup>-</sup>. NADH carries 2 e<sup>-</sup>. FAD accepts 2 e<sup>-</sup>. FADH<sub>2</sub> carries 2 e<sup>-</sup>."],
+["s2-atps","Oxidative phosphorylation","ATP synthase phosphorylates ADP to ATP using the energy of H<sup>+</sup> flowing down its gradient. Called oxidative because O<sub>2</sub> is used in building the gradient."],
+["s2-atps","Direction of H<sup>+</sup> flow through mitochondrial ATP synthase","From the intermembrane space (high [H<sup>+</sup>]) into the matrix."],
+["s2-endo","Evidence for endosymbiosis","Mitochondria and chloroplasts have double membranes, their own ribosomes, their own DNA, and circular genomes."],
+["s2-wall","Primary cell wall","Contains cellulose. Stretches when the cell is growing."],
+["s2-wall","Secondary cell wall","Contains cellulose and lignin (for strength). Forms inside the primary wall after the cell completes growth."],
+["s2-wall","Middle lamella","Contains pectin between two cells. Provides adhesion."],
+["s2-tissue","Dermal tissue","Protective outer coating. Includes guard cells, specialized epidermal cells that facilitate gas exchange in leaves."],
+["s2-tissue","Vascular tissue","Transport of materials and mechanical support. Xylem moves water and minerals. Phloem moves sucrose."],
+["s2-tissue","Ground tissue","Neither dermal nor vascular. Includes cells specialized for storage, photosynthesis, and support."],
+["s2-xylem","Vessels","Wide xylem cells. Efficient at transporting water and minerals. Dead at maturity."],
+["s2-xylem","Tracheids","Narrow xylem cells. Less efficient at transporting water and minerals. Dead at maturity."],
+["s2-xylem","Sieve-tube elements","Sugar-conducting cells of the phloem. Alive at maturity."],
+["s2-photo","Photosynthesis equation","6 H<sub>2</sub>O + 6 CO<sub>2</sub> → C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> + 6 O<sub>2</sub>. Water is oxidized, CO<sub>2</sub> is reduced."],
+["s2-chloro","Three-membrane system of the chloroplast","Double membrane enclosing the stroma, plus the thylakoid membrane as the third (innermost) membrane."],
+["s2-chloro","What does the thylakoid membrane contain?","Pigments (chlorophyll a/b, xanthophyll, carotene) that capture solar energy. The thylakoid space is within it."],
+["s2-light","What is located in the thylakoid membrane?","PSII, PSI, the electron transport chain, and ATP synthase."],
+["s2-light","Path of electrons in the light reactions","PSII → ETC → PSI → NADP<sup>+</sup> (making NADPH)."],
+["s2-light","Where do PSII electrons come from?","Splitting water (hydrolysis). O<sub>2</sub> is released as a byproduct. Light energizes the electrons."],
+["s2-light","What does the photosynthetic ETC do?","Redox reactions slowly release energy from e<sup>-</sup>, and that energy pumps H<sup>+</sup> into the thylakoid space."],
+["s2-light","Photosystem I","Receives e<sup>-</sup> from the ETC. Light energizes them. e<sup>-</sup> and H<sup>+</sup> combine with NADP<sup>+</sup> to make NADPH."],
+["s2-light","Direction of H<sup>+</sup> flow through chloroplast ATP synthase","From the thylakoid space to the stroma, phosphorylating ADP to ATP."],
+["s2-calvin","Calvin cycle step 1: CO<sub>2</sub> fixation","3 CO<sub>2</sub> are attached to 3 RuBP by rubisco. The 6-carbon product is split into two 3-carbon molecules (3PG)."],
+["s2-calvin","Calvin cycle step 2: CO<sub>2</sub> reduction","6 ATP and 6 NADPH are used. Forms 1× G3P."],
+["s2-calvin","Calvin cycle step 3: regeneration of RuBP","3 ATP are used. 5× G3P are used to reform 3× RuBP (5-carbon)."],
+["s2-calvin","What do plants and algae make from G3P?","Amino acids, triglycerides, glucose, sucrose, starch, and cellulose."],
+["s2-rmp","Resting membrane potential","-70 mV. The inside of the neuron is negative compared to the outside. Maintained by the Na<sup>+</sup>/K<sup>+</sup> pump (3 Na<sup>+</sup> out, 2 K<sup>+</sup> in)."],
+["s2-rmp","Potential difference","Voltage difference between two points due to separated electrical charges."],
+["s2-neuron","Dendrites","Receive information, typically through neurotransmitters."],
+["s2-neuron","Cell body (soma)","Contains the nucleus and ribosomes."],
+["s2-neuron","Axon","Propagates the action potential to the axon terminal."],
+["s2-neuron","Axon terminal","End of the axon. Releases neurotransmitters onto the target cell."],
+["s2-channels","Voltage-gated Na<sup>+</sup> channel","Lets Na<sup>+</sup> into the cell. The interior becomes positive."],
+["s2-channels","Voltage-gated K<sup>+</sup> channel","Lets K<sup>+</sup> out of the cell. The interior becomes negative."],
+["s2-ap","Action potential","A rapid, short-lived reversal in charge difference across the membrane, running down the length of the axon, propagated by Na<sup>+</sup> and K<sup>+</sup> channels."],
+["s2-ap","Depolarization","Potential moves from RMP to positive. Voltage-gated Na<sup>+</sup> channels. Na<sup>+</sup> influx."],
+["s2-ap","Repolarization","Potential returns to RMP. Voltage-gated K<sup>+</sup> channels. K<sup>+</sup> efflux."],
+["s2-ap","Hyperpolarization","Potential becomes more negative than RMP. Voltage-gated K<sup>+</sup> channels. K<sup>+</sup> efflux."],
+["s2-ap","Resting phases (start and end)","The neuron establishes or reestablishes RMP using Na<sup>+</sup>/K<sup>+</sup> pumps (3 Na<sup>+</sup> out, 2 K<sup>+</sup> in)."],
+["s2-ap","Five phases of an action potential in order","Resting, depolarization, repolarization, hyperpolarization, resting."],
+["s2-synapse","Synapse","The pre- and postsynaptic membranes and the synaptic cleft between them."],
+["s2-synapse","Presynaptic vs postsynaptic cell","Presynaptic: the neuron terminal that releases neurotransmitter. Postsynaptic: the dendrite side that receives it."],
+["s2-synapse","Do action potentials cross the synaptic cleft?","No. Voltage-gated Ca<sup>2+</sup> channels on the presynaptic membrane promote release of neurotransmitter-filled vesicles."],
+["s2-drugs","Stimulants vs depressants","Stimulants increase CNS activity. Depressants decrease CNS activity."],
+["s2-drugs","How cocaine acts","Blocks transmitter uptake: prevents recycling of dopamine by the presynaptic neuron."],
+["s2-drugs","Opioids","Mimic the action of a neurotransmitter. Natural: endorphins. Synthetic: morphine, Vicodin, fentanyl."]
+];
+/* Quiz: [topic id, question, correct answer, [three wrong answers], explanation]. Options are shuffled at run time. Ids are hashed from topic + question. */
+const QUIZ = [
+/* ---- Set 1 ---- */
+["s1-metric","1 µg equals how many grams?","10<sup>-6</sup> g",["10<sup>-3</sup> g","10<sup>-9</sup> g","10<sup>6</sup> g"],"Micro- is 10<sup>-6</sup>. Milli- is 10<sup>-3</sup> and nano- is 10<sup>-9</sup>."],
+["s1-metric","Which prefix has the power 10<sup>3</sup>?","kilo-",["mega-","milli-","giga-"],"Kilo- is 10<sup>3</sup>, mega- is 10<sup>6</sup>, giga- is 10<sup>9</sup>."],
+["s1-metric","1 Mg (megagram) equals","10<sup>6</sup> g",["10<sup>3</sup> g","10<sup>9</sup> g","10<sup>-6</sup> g"],"Mega- is 10<sup>6</sup>."],
+["s1-metric","Which prefix is 10<sup>-9</sup>?","nano-",["micro-","milli-","giga-"],"Nano- is 10<sup>-9</sup>. Giga- is 10<sup>9</sup>, the positive power."],
+["s1-science","A project aimed at improving crop yield is an example of","applied science",["basic science","a control experiment","a placebo trial"],"Applied science uses science to solve real-world problems such as improving crop yield."],
+["s1-science","Basic science is best described as","seeking knowledge regardless of short-term application",["developing a product of commercial value","curing a specific disease","saving animals after a disaster"],"Basic science is knowledge for knowledge's sake."],
+["s1-philic","Which is hydrophilic?","DNA",["A lipid","Oil","A non-polar protein"],"Nucleic acids (DNA and RNA) are hydrophilic. Lipids and non-polar proteins are hydrophobic."],
+["s1-philic","Hydrophobic molecules contain mostly","non-polar covalent bonds",["polar covalent bonds","anions","cations"],"Non-polar bonds do not mix with water. Polar bonds and charges make a molecule hydrophilic."],
+["s1-water","Water attracted to a polar surface is","adhesion",["cohesion","solvency","heat capacity"],"Adhesion is water attracted to polar surfaces. Cohesion is water attracted to water."],
+["s1-water","Water's ability to dissolve salts is called","solvency",["adhesion","cohesion","buffering"],"Solvency is dissolving salts."],
+["s1-water","Absorbing heat without changing temperature describes water's","high heat capacity",["solvency","cohesion","adhesion"],"High heat capacity."],
+["s1-ph","A solution with pH 9 is","basic",["acidic","neutral","impossible on the 0 to 14 scale"],"Above 7 is basic. Below 7 is acidic. 7 is neutral."],
+["s1-ph","The pH scale indicates the number of","H<sup>+</sup> ions in solution",["Na<sup>+</sup> ions in solution","water molecules in solution","hydrogen bonds in solution"],"pH is a simplified way to indicate H<sup>+</sup> ions in solution."],
+["s1-buffers","Which buffer system regulates intracellular pH?","Phosphate",["Bicarbonate","Water","Histone"],"Intracellular pH uses the phosphate buffer. Blood pH uses bicarbonate."],
+["s1-buffers","Which buffer system regulates blood pH?","Bicarbonate",["Phosphate","Hydrogen bond","Protein folding"],"Blood uses the bicarbonate buffer system."],
+["s1-metab","Building larger molecules from smaller ones is","anabolism",["catabolism","hydrolysis only","transcription"],"Anabolism builds. Catabolism breaks down."],
+["s1-metab","The sum of all chemical reactions in the body is","metabolism",["catabolism","anabolism","homeostasis"],"Metabolism is all reactions combined."],
+["s1-metab","Glycogen being broken down to glucose is an example of","catabolism",["anabolism","translation","fertilization"],"Breaking down larger molecules into smaller ones is catabolism."],
+["s1-dogma","The flow of genetic information is","DNA → RNA → protein",["protein → RNA → DNA","RNA → DNA → protein","DNA → protein → RNA"],"DNA is transcribed to RNA, then translated to protein."],
+["s1-dogma","Translation takes place at the","ribosome",["nucleolus","Golgi apparatus","smooth ER"],"RNA is translated into amino acids at the ribosome."],
+["s1-genes","The DNA strand that is transcribed into mRNA is the","template strand",["coding strand","non-template strand","promoter strand"],"The template strand is transcribed. The coding (non-template) strand is not."],
+["s1-genes","A gene is said to be expressed when","its information is turned into a function",["it is replicated","it is mutated","it is silenced by histones"],"Gene expression is turning the information into a function."],
+["s1-genes","Transcription is","synthesis of mRNA from DNA",["synthesis of protein from mRNA","synthesis of DNA from RNA","folding of a protein"],"Transcription makes RNA from DNA. Translation makes protein from mRNA."],
+["s1-rnapol","Which RNA polymerase transcribes protein-coding genes?","RNA polymerase II",["RNA polymerase I","RNA polymerase III","DNA polymerase"],"Pol II makes mRNA. Pol I makes rRNA. Pol III makes tRNA."],
+["s1-rnapol","RNA polymerase III transcribes","tRNA genes",["rRNA genes","mRNA genes","histone genes"],"Pol III: tRNA genes."],
+["s1-rnapol","RNA polymerase I transcribes","rRNA genes",["tRNA genes","protein-coding genes","DNA primers"],"Pol I: rRNA genes."],
+["s1-trna","The anticodon is found on","tRNA",["mRNA","rRNA","DNA"],"tRNA has the anticodon. mRNA has the codon."],
+["s1-trna","Which molecule catalyzes the peptide bond between two amino acids?","rRNA",["tRNA","mRNA","DNA polymerase"],"rRNAs in the ribosome catalyze the peptide bond."],
+["s1-trna","Each tRNA carries its amino acid on its","3' end",["5' end","anticodon","codon"],"Each tRNA carries a specific amino acid on its 3' end."],
+["s1-trna","The ribosome subunit that facilitates codon-anticodon coupling is the","small subunit",["large subunit","nucleolus","vesicle"],"The small subunit facilitates codon-anticodon coupling."],
+["s1-protein","The alpha helix and beta pleated sheet are","secondary structure",["primary structure","tertiary structure","quaternary structure"],"Secondary structure is formed by H-bonds."],
+["s1-protein","Primary structure is held together by","covalent peptide bonds",["hydrogen bonds only","R-group interactions only","ionic bonds only"],"The amino acid sequence is linked by covalent peptide bonds."],
+["s1-protein","More than one polypeptide chain indicates","quaternary structure",["primary structure","secondary structure","tertiary structure"],"Quaternary structure."],
+["s1-protein","Overall 3D shape caused by R-group interactions is","tertiary structure",["primary structure","secondary structure","quaternary structure"],"Tertiary structure."],
+["s1-dest","Which proteins are made on free ribosomes?","Proteins that function in the cytosol",["Secreted proteins","Membrane proteins","Insulin"],"Free ribosomes make cytosolic proteins. Bound ribosomes make membrane and secreted proteins."],
+["s1-dest","Bound ribosomes make proteins that are","membrane proteins or secreted from the cell",["only nuclear","only cytosolic","only mitochondrial"],"Bound ribosomes are attached to the ER."],
+["s1-dest","Which is NOT one of the three places proteins can end up?","Inside the nucleolus only",["Inside the cell","Secreted","In a membrane"],"The slide lists inside the cell, secreted, and membrane."],
+["s1-insglu","Insulin is made by","beta cells of the pancreas",["alpha cells of the pancreas","liver cells","kidney cells"],"Beta cells make insulin. Alpha cells make glucagon."],
+["s1-insglu","Which hormone raises blood glucose?","Glucagon",["Insulin","Both","Neither"],"Glucagon raises blood glucose by causing cells to release glucose into the blood."],
+["s1-insglu","Insulin causes","cellular uptake of glucose from the blood",["release of glucose into the blood","a rise in blood glucose","transcription of glucagon"],"Insulin lowers blood glucose by cellular uptake."],
+["s1-endo","Which organelle is studded with ribosomes and folds proteins in its lumen?","Rough ER",["Smooth ER","Golgi apparatus","Nucleolus"],"Rough ER."],
+["s1-endo","Which organelle stores Ca<sup>2+</sup> and makes phospholipids?","Smooth ER",["Rough ER","Golgi apparatus","Nuclear envelope"],"Smooth ER synthesizes phospholipids and stores Ca<sup>2+</sup>."],
+["s1-endo","Attaching polysaccharides to proteins (glycosylation) happens in the","Golgi apparatus",["rough ER","smooth ER","ribosome"],"The Golgi attaches polysaccharides and sorts proteins."],
+["s1-endo","The rough ER is continuous with the","nuclear envelope",["Golgi apparatus","plasma membrane","mitochondrion"],"Rough ER is continuous with the nuclear envelope."],
+["s1-mut","A substitution that changes an amino acid codon into a stop codon is","nonsense",["silent","missense","frameshift"],"Nonsense mutation."],
+["s1-mut","A substitution that codes for the same amino acid is","silent",["missense","nonsense","a promoter mutation"],"Silent."],
+["s1-mut","A substitution that codes for an incorrect amino acid is","missense",["silent","nonsense","an intron mutation"],"Missense."],
+["s1-mut","A substitution in an intron","does not affect expression or protein sequence",["always makes a stop codon","changes the amino acid sequence","affects gene expression"],"Introns are not in the protein sequence."],
+["s1-mut","A substitution in the promoter","affects gene expression",["has no effect","always creates a stop codon","only changes the intron"],"Promoter changes affect gene expression."],
+["s1-cycle","Which human cells are haploid?","Gametes",["Zygote","Adult body cells","Cells produced by mitosis"],"Gametes (1n) are the only human cells made by meiosis."],
+["s1-cycle","A zygote develops into an adult through","mitosis",["meiosis","fertilization","transcription"],"Mitosis."],
+["s1-cycle","The zygote is","diploid (2n)",["haploid (1n)","triploid (3n)","a gamete"],"The zygote is diploid."],
+["s1-genet","Alleles are","alternate versions of a gene",["different genes","DNA strands","phenotypes"],"Alleles."],
+["s1-genet","Aa is","heterozygous",["homozygous dominant","homozygous recessive","a phenotype"],"Different alleles are heterozygous."],
+["s1-genet","Physical appearance is the","phenotype",["genotype","allele","gamete"],"Phenotype is determined by genotype."],
+["s1-genet","aa is","homozygous recessive",["heterozygous","homozygous dominant","a carrier"],"aa is homozygous recessive."],
+["s1-ar","A carrier of an autosomal recessive disease has genotype","Aa",["AA","aa","XX"],"One recessive allele, not affected."],
+["s1-ar","Two carriers have a child. What is the probability the child is affected?","¼",["½","¾","0"],"Aa × Aa gives AA ¼, Aa ½, aa ¼. Only aa is affected."],
+["s1-ar","Cystic fibrosis and sickle cell disease are examples of","autosomal recessive disease",["autosomal dominant disease","chromatin disorders","silent mutations"],"Both are autosomal recessive."],
+["s1-ad","How many copies of the dominant allele are needed to be affected by an autosomal dominant disease?","One",["Two","Three","None"],"Only one copy of the dominant allele is required."],
+["s1-ad","Huntington's disease is","autosomal dominant",["autosomal recessive","a nonsense mutation of a promoter","caused by missing histones"],"Huntington's is the slide's autosomal dominant example."],
+["s1-ad","Two heterozygous (Hh) parents. Probability of an unaffected child (hh)?","¼",["½","¾","1"],"HH ¼, Hh ½, hh ¼. Only hh is unaffected."],
+["s1-chrom","Open DNA that can be transcribed is","euchromatin",["heterochromatin","a nucleosome","an intron"],"Euchromatin is open."],
+["s1-chrom","Tightly wound DNA that cannot be transcribed is","heterochromatin",["euchromatin","a promoter","mRNA"],"Heterochromatin."],
+["s1-chrom","Chromatin is a complex of","DNA and histone proteins",["RNA and ribosomes","lipids and DNA","DNA and tRNA"],"DNA plus histones."],
+["s1-chrom","Nucleosomes affect gene expression, which is called","epigenetics",["a point mutation","translation","glycosylation"],"Nucleosomes provide structural support to DNA and affect gene expression (epigenetics)."],
+/* ---- Set 2 ---- */
+["s2-enz","The reactant an enzyme acts on is the","substrate",["product","active site","coenzyme"],"Substrate."],
+["s2-enz","The region on the enzyme that binds the substrate is the","active site",["transition state","substrate","allosteric site"],"Active site: often a pocket or groove."],
+["s2-enz","When the substrate binds and the enzyme changes shape to improve fit, this is","induced fit",["conformational denaturation","phosphorylation","oxidation"],"Induced fit."],
+["s2-enz","Any alteration in a protein's 3D shape is a","conformational shape change",["transition state","redox reaction","dephosphorylation"],"Conformational shape change."],
+["s2-ea","Which is NOT a way enzymes lower activation energy?","Adding heat to the reaction",["R-groups in the active site participate","Substrates are oriented","Substrates are stretched"],"The three slide mechanisms are R-groups, orienting, stretching."],
+["s2-ea","The transition state is when a molecule","becomes unstable enough to break bonds",["is fully converted to product","is bound by the active site","has maximum stability"],"Transition state: unstable enough to break bonds."],
+["s2-ea","Activation energy is the","initial energy needed to break the bonds of the reactants",["energy released by the reaction","energy stored in products","energy of the enzyme"],"E<sub>A</sub>."],
+["s2-energy","In an exergonic reaction, products have","stronger chemical bonds than the reactants",["weaker chemical bonds than the reactants","the same bonds as the reactants","no bonds"],"Exergonic releases energy."],
+["s2-energy","ATP → ADP + P is","exergonic",["endergonic","a redox reaction only","a transcription step"],"It releases energy."],
+["s2-energy","An endergonic reaction","consumes energy",["releases energy","has no energy change","is always catalyzed by DNA"],"Products have weaker bonds than reactants."],
+["s2-pump","The Na<sup>+</sup>/K<sup>+</sup> ATPase moves","3 Na<sup>+</sup> out and 2 K<sup>+</sup> in",["2 Na<sup>+</sup> out and 3 K<sup>+</sup> in","3 Na<sup>+</sup> in and 2 K<sup>+</sup> out","3 Na<sup>+</sup> out and 3 K<sup>+</sup> in"],"3 Na<sup>+</sup> out, 2 K<sup>+</sup> in."],
+["s2-pump","In step 2 of the pump cycle, ATP hydrolysis leads to","pump phosphorylation",["pump dephosphorylation","K<sup>+</sup> release","Na<sup>+</sup> binding"],"ATP is hydrolyzed to ADP + P and the pump is phosphorylated."],
+["s2-pump","Step 3 of the pump cycle releases","Na<sup>+</sup> to the extracellular side",["K<sup>+</sup> to the cytoplasmic side","Na<sup>+</sup> to the cytoplasmic side","ATP to the extracellular side"],"Shape change releases Na<sup>+</sup> out."],
+["s2-pump","Step 5 of the pump cycle is","dephosphorylation",["phosphorylation","Na<sup>+</sup> binding","ATP binding"],"The phosphate is removed."],
+["s2-pump","Step 6 releases K<sup>+</sup> to the","cytoplasmic side",["extracellular side","nucleus","stroma"],"K<sup>+</sup> goes in."],
+["s2-pump","The pump is phosphorylated in step","2",["1","3","5"],"Step 2: ATP binds, is hydrolyzed, and the pump is phosphorylated."],
+["s2-redox","OIL RIG: oxidation is","loss of e<sup>-</sup> or H",["gain of e<sup>-</sup> or H","loss of water","gain of ATP"],"Oxidation Is Loss."],
+["s2-redox","In cellular respiration, what is reduced?","O<sub>2</sub>",["Glucose","ATP","NAD<sup>+</sup> only"],"Glucose is oxidized and O<sub>2</sub> is reduced."],
+["s2-redox","Oxidation and reduction","always occur together",["occur in separate cells","never occur together","only occur in plants"],"A redox reaction transfers electrons between reactants."],
+["s2-mito","Pyruvate oxidation and the citric acid cycle occur in the","matrix",["inner membrane","intermembrane space","cytosol"],"Matrix."],
+["s2-mito","The ETC and ATP synthase are located in the","inner membrane",["matrix","outer membrane","cytosol"],"Inner membrane."],
+["s2-stages","Which stage splits 1 glucose into 2 pyruvate?","Glycolysis",["Pyruvate oxidation","Citric acid cycle","Electron transport chain"],"Glycolysis."],
+["s2-stages","Pyruvate oxidation converts 2 pyruvate into","2 acetyl-CoA",["4 CO<sub>2</sub>","2 glucose","ATP only"],"2 acetyl-CoA."],
+["s2-stages","The citric acid cycle converts 2 acetyl-CoA into","4 CO<sub>2</sub>",["2 pyruvate","H<sub>2</sub>O","6 O<sub>2</sub>"],"4 CO<sub>2</sub>, and sends e<sup>-</sup> to the ETC."],
+["s2-stages","The four stages of cellular respiration in order are","glycolysis, pyruvate oxidation, citric acid cycle, ETC",["ETC, glycolysis, citric acid cycle, pyruvate oxidation","glycolysis, citric acid cycle, pyruvate oxidation, ETC","pyruvate oxidation, glycolysis, ETC, citric acid cycle"],"Order matters."],
+["s2-etc","The final electron acceptor of the mitochondrial ETC is","oxygen",["NAD<sup>+</sup>","FAD","ADP"],"O<sub>2</sub> captures 2 e<sup>-</sup> and 2 H<sup>+</sup> to form H<sub>2</sub>O."],
+["s2-etc","The ETC uses energy from electrons to pump H<sup>+</sup> into the","intermembrane space",["matrix","cytosol","stroma"],"Intermembrane space."],
+["s2-etc","NADH is carrying","2 e<sup>-</sup>",["1 e<sup>-</sup>","4 e<sup>-</sup>","no electrons"],"NADH carries 2 e<sup>-</sup>."],
+["s2-etc","Electrons are passed to carriers like NAD<sup>+</sup> and FAD rather than directly to","O<sub>2</sub>",["glucose","ATP","H<sub>2</sub>O"],"Carriers hand them to the ETC."],
+["s2-atps","In mitochondria, H<sup>+</sup> flows through ATP synthase from the","intermembrane space to the matrix",["matrix to the intermembrane space","thylakoid space to the stroma","cytosol to the nucleus"],"High [H<sup>+</sup>] in the intermembrane space."],
+["s2-atps","It is called oxidative phosphorylation because","oxygen is used in the process that builds the H<sup>+</sup> gradient",["glucose is phosphorylated","ATP is oxidized","light is absorbed"],"Oxygen is used to build the gradient."],
+["s2-atps","ATP synthase phosphorylates","ADP to ATP",["ATP to ADP","NADH to NAD<sup>+</sup>","glucose to pyruvate"],"ADP + P → ATP."],
+["s2-endo","Which is evidence for endosymbiosis?","Circular genomes in mitochondria and chloroplasts",["Cell walls of cellulose","Histones in the matrix","Linear chromosomes in chloroplasts"],"Double membranes, own ribosomes, own DNA, circular genomes."],
+["s2-endo","Mitochondria and chloroplasts have","their own ribosomes",["no DNA","a single membrane","linear genomes"],"Own ribosomes and own DNA."],
+["s2-wall","Which wall layer contains lignin?","Secondary cell wall",["Primary cell wall","Middle lamella","Plasma membrane"],"Lignin gives the secondary wall strength."],
+["s2-wall","Pectin is found in the","middle lamella",["primary wall only","secondary wall","xylem vessel"],"Middle lamella: adhesion between two cells."],
+["s2-wall","The wall that stretches when the cell is growing is the","primary cell wall",["secondary cell wall","middle lamella","guard cell"],"Primary."],
+["s2-tissue","Guard cells are part of which tissue?","Dermal tissue",["Vascular tissue","Ground tissue","Xylem"],"Specialized epidermal cells that facilitate gas exchange."],
+["s2-tissue","Phloem transports","sucrose",["water and minerals","oxygen","CO<sub>2</sub>"],"Phloem: sucrose. Xylem: water and minerals."],
+["s2-tissue","Tissue that is neither dermal nor vascular is","ground tissue",["xylem","phloem","epidermis"],"Ground tissue: storage, photosynthesis, support."],
+["s2-tissue","Xylem transports","water and minerals",["sucrose","hormones only","gases"],"Xylem."],
+["s2-xylem","Which xylem cell is wide and efficient at transport?","Vessel",["Tracheid","Sieve-tube element","Guard cell"],"Vessels are wide and efficient."],
+["s2-xylem","Which cell type is alive at maturity?","Sieve-tube element",["Vessel","Tracheid","Both vessel and tracheid"],"Vessels and tracheids are dead at maturity."],
+["s2-xylem","Tracheids are","narrow and less efficient",["wide and efficient","alive at maturity","found in phloem"],"Narrow xylem cells, dead at maturity."],
+["s2-photo","In photosynthesis, water is","oxidized",["reduced","a product","unchanged"],"Water is oxidized and CO<sub>2</sub> is reduced."],
+["s2-photo","The photosynthesis equation is","6 H<sub>2</sub>O + 6 CO<sub>2</sub> → C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> + 6 O<sub>2</sub>",["C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> + 6 O<sub>2</sub> → 6 CO<sub>2</sub> + 6 H<sub>2</sub>O","6 CO<sub>2</sub> → 6 O<sub>2</sub> only","6 H<sub>2</sub>O → 6 CO<sub>2</sub>"],"Reactants are water and CO<sub>2</sub>."],
+["s2-chloro","The third (innermost) membrane of the chloroplast is the","thylakoid membrane",["outer membrane","inner membrane","plasma membrane"],"Double membrane, plus thylakoids."],
+["s2-chloro","The space within the thylakoid membrane is the","thylakoid space",["stroma","matrix","intermembrane space"],"Thylakoid space."],
+["s2-chloro","Pigments that capture solar energy are in the","thylakoid membrane",["stroma","outer membrane","cell wall"],"Chlorophyll a/b, xanthophyll, carotene."],
+["s2-light","Electrons in the light reactions flow","PSII → ETC → PSI → NADP<sup>+</sup>",["PSI → ETC → PSII → NADP<sup>+</sup>","ETC → PSII → PSI → CO<sub>2</sub>","NADP<sup>+</sup> → PSI → PSII → water"],"PSII to ETC to PSI to NADP<sup>+</sup>."],
+["s2-light","The source of electrons for photosystem II is","splitting water",["CO<sub>2</sub>","NADPH","glucose"],"Water is split and O<sub>2</sub> is released."],
+["s2-light","O<sub>2</sub> is released as a byproduct at","photosystem II",["photosystem I","the Calvin cycle","ATP synthase"],"PSII."],
+["s2-light","H<sup>+</sup> is pumped into the","thylakoid space",["stroma","matrix","intermembrane space"],"Thylakoid space."],
+["s2-light","H<sup>+</sup> flows through chloroplast ATP synthase from the","thylakoid space to the stroma",["stroma to the thylakoid space","intermembrane space to the matrix","matrix to the stroma"],"Thylakoid space to stroma."],
+["s2-light","NADPH is made when electrons, H<sup>+</sup> and NADP<sup>+</sup> combine at","photosystem I",["photosystem II","rubisco","ATP synthase"],"PSI."],
+["s2-calvin","The enzyme that fixes CO<sub>2</sub> to RuBP is","rubisco",["ATP synthase","hexokinase","RNA polymerase"],"Rubisco."],
+["s2-calvin","The 6-carbon molecule formed in CO<sub>2</sub> fixation splits into","two 3-carbon molecules (3PG)",["one 5-carbon molecule","three 2-carbon molecules","glucose"],"3PG."],
+["s2-calvin","CO<sub>2</sub> reduction in the Calvin cycle uses","6 ATP and 6 NADPH",["3 ATP and 6 NADPH","6 ATP and 3 NADPH","3 ATP and 3 NADPH"],"Forms 1× G3P."],
+["s2-calvin","Regeneration of RuBP uses","3 ATP and 5× G3P",["6 ATP and 6 NADPH","3 NADPH and 1 G3P","no ATP"],"5× G3P reform 3× RuBP."],
+["s2-calvin","Which is made from G3P?","Starch",["O<sub>2</sub>","NADPH","Chlorophyll only"],"Amino acids, triglycerides, glucose, sucrose, starch, cellulose."],
+["s2-calvin","RuBP is a","5-carbon molecule",["3-carbon molecule","6-carbon molecule","1-carbon molecule"],"Regenerated from G3P."],
+["s2-rmp","The resting membrane potential of a neuron is","-70 mV",["+70 mV","0 mV","-30 mV"],"Negative inside."],
+["s2-rmp","The resting membrane potential is maintained by the","sodium-potassium pump",["voltage-gated Na<sup>+</sup> channel","voltage-gated Ca<sup>2+</sup> channel","ATP synthase"],"3 Na<sup>+</sup> out, 2 K<sup>+</sup> in."],
+["s2-rmp","At rest, the inside of the neuron is","negative compared to the outside",["positive compared to the outside","neutral","the same as the outside"],"Due to unequal ion distribution."],
+["s2-neuron","Which part of the neuron receives information?","Dendrites",["Axon","Axon terminal","Soma only"],"Dendrites."],
+["s2-neuron","The axon","propagates the action potential to the axon terminal",["receives neurotransmitters","contains the nucleus","releases neurotransmitters onto the target cell"],"Axon terminal releases."],
+["s2-neuron","The nucleus and ribosomes are in the","cell body (soma)",["axon","dendrites","axon terminal"],"Soma."],
+["s2-channels","A voltage-gated Na<sup>+</sup> channel lets Na<sup>+</sup>","enter the cell",["leave the cell","stay outside","bind ATP"],"The interior becomes positive."],
+["s2-channels","A voltage-gated K<sup>+</sup> channel lets K<sup>+</sup>","leave the cell",["enter the cell","stay inside","bind ATP"],"The interior becomes negative."],
+["s2-ap","Depolarization is caused by","Na<sup>+</sup> influx through voltage-gated Na<sup>+</sup> channels",["K<sup>+</sup> efflux","Ca<sup>2+</sup> influx","the Na<sup>+</sup>/K<sup>+</sup> pump"],"Na<sup>+</sup> in."],
+["s2-ap","Repolarization is caused by","K<sup>+</sup> efflux through voltage-gated K<sup>+</sup> channels",["Na<sup>+</sup> influx","the Na<sup>+</sup>/K<sup>+</sup> pump alone","Ca<sup>2+</sup> efflux"],"K<sup>+</sup> out returns the potential to RMP."],
+["s2-ap","Hyperpolarization means the potential becomes","more negative than the RMP",["more positive than the RMP","equal to 0","unchanged"],"Via K<sup>+</sup> efflux."],
+["s2-ap","The correct order of phases is","resting, depolarization, repolarization, hyperpolarization, resting",["resting, repolarization, depolarization, hyperpolarization, resting","depolarization, resting, hyperpolarization, repolarization, resting","resting, hyperpolarization, depolarization, repolarization, resting"],"Order matters."],
+["s2-ap","An action potential is","a rapid, short-lived reversal in charge difference across the membrane",["a slow rise in ATP","the resting membrane potential","a neurotransmitter"],"It runs down the axon."],
+["s2-synapse","The region between the pre- and postsynaptic membranes is the","synaptic cleft",["axon terminal","dendrite","soma"],"Synaptic cleft."],
+["s2-synapse","Neurotransmitter vesicle release is promoted by voltage-gated","Ca<sup>2+</sup> channels",["Na<sup>+</sup> channels","K<sup>+</sup> channels","Cl<sup>-</sup> channels"],"On the presynaptic membrane."],
+["s2-synapse","Action potentials","do not cross the synaptic cleft",["cross the cleft directly","are carried by water","are stored in vesicles"],"Neurotransmitters carry the signal across."],
+["s2-drugs","Cocaine","blocks transmitter uptake by preventing dopamine recycling",["mimics endorphins","blocks Ca<sup>2+</sup> channels","is a depressant that binds opioid receptors"],"Cocaine prevents recycling of dopamine by the presynaptic neuron."],
+["s2-drugs","Stimulants","increase activity of the CNS",["decrease activity of the CNS","have no effect on neurotransmitters","only work on muscles"],"Depressants decrease CNS activity."],
+["s2-drugs","Morphine and fentanyl are","synthetic opioids that mimic a neurotransmitter",["natural opioids","stimulants","enzymes"],"Endorphins are the natural opioids."]
+];
+/* ===== core helpers ===== */
+const $=(s,e=document)=>e.querySelector(s),$$=(s,e=document)=>[...e.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function hash(s){let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return (h>>>0).toString(36)}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const strip=h=>String(h).replace(/<[^>]+>/g,'');
+const norm=s=>String(s).toLowerCase().replace(/[^a-z0-9+\- ]/g,'').replace(/\s+/g,' ').trim();
+const topicById={};TOPICS.forEach(t=>topicById[t.id]=t);
+const tShort=id=>{const t=topicById[id];return t?t.name:id};
+CARDS.forEach((c,i)=>{c.id=hash(c[0]+'|'+c[1]);c.t=c[0];c.f=c[1];c.b=c[2]});
+QUIZ.forEach((q,i)=>{q.id=hash(q[0]+'|'+q[1]);q.t=q[0];q.q=q[1];q.a=q[2];q.w=q[3];q.e=q[4]});
+
+/* ===== saved progress ===== */
+const KEY="bio20-final-v1";
+let P={cards:{},quiz:{},drills:{},sel:null,set:{theme:"auto",size:"m",space:"roomy",motion:"auto"},fold:[]};
+try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(s){P=Object.assign(P,s);P.set=Object.assign({theme:"auto",size:"m",space:"roomy",motion:"auto"},s.set||{})}}catch(e){}
+let saveT=0;function save(){clearTimeout(saveT);saveT=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(P))}catch(e){}},200)}
+function recQuiz(id,ok){const d=P.quiz[id]||(P.quiz[id]={r:0,t:0});d.t++;if(ok)d.r++;d.last=ok?1:0;save()}
+function recDrill(id,ok,n){n=n||1;const d=P.drills[id]||(P.drills[id]={r:0,t:0});d.t+=n;if(ok)d.r+=ok===true?n:ok;save()}
+const sel=new Set(P.sel||TOPICS.map(t=>t.id));
+function saveSel(){P.sel=[...sel];save()}
+
+/* ===== settings ===== */
+function applySettings(){
+  const h=document.documentElement,s=P.set;
+  if(s.theme==="auto")h.removeAttribute("data-theme");else h.setAttribute("data-theme",s.theme);
+  h.dataset.size=s.size;h.dataset.space=s.space;
+  if(s.motion==="reduce")h.dataset.motion="reduce";else h.removeAttribute("data-motion");
+  const f=$("#dframe");if(f&&f.contentWindow)try{f.contentWindow.postMessage({type:"theme",theme:themeNow()},"*")}catch(e){}
+}
+const themeNow=()=>P.set.theme==="auto"?(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"):P.set.theme;
+matchMedia("(prefers-color-scheme:dark)").addEventListener&&matchMedia("(prefers-color-scheme:dark)").addEventListener("change",applySettings);
+function openSettings(){
+  const o=(k,v,l)=>`<button data-k="${k}" data-v="${v}" aria-pressed="${P.set[k]===v}">${l}</button>`;
+  $("#settings").innerHTML=`<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="stt"><div class="row" style="justify-content:space-between"><h2 id="stt">Settings</h2><button class="btn" id="sclose">Done</button></div>
+  <div class="sgroup"><b>Theme</b><div class="seg">${o("theme","auto","Follow device")}${o("theme","light","Light")}${o("theme","dark","Dark")}</div></div>
+  <div class="sgroup"><b>Text size</b><div class="seg">${o("size","s","Small")}${o("size","m","Medium")}${o("size","l","Large")}${o("size","xl","Extra large")}</div></div>
+  <div class="sgroup"><b>Reading spacing</b><div class="seg">${o("space","std","Standard")}${o("space","roomy","Roomy")}${o("space","double","Double")}</div><p class="small muted">Adds space between words, letters and lines. Roomy is the default.</p></div>
+  <div class="sgroup"><b>Motion</b><div class="seg">${o("motion","auto","Follow device")}${o("motion","reduce","Reduce motion")}</div></div></div>`;
+  $("#settings").hidden=false;$("#sclose").focus();
+}
+$("#settings").addEventListener("click",e=>{
+  if(e.target.id==="settings"||e.target.id==="sclose"){$("#settings").hidden=true;$("#btnSet").focus();return}
+  const b=e.target.closest("button[data-k]");if(!b)return;P.set[b.dataset.k]=b.dataset.v;save();applySettings();
+  $$("button[data-k]",$("#settings")).forEach(x=>x.setAttribute("aria-pressed",P.set[x.dataset.k]===x.dataset.v));
+});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#settings").hidden){$("#settings").hidden=true;$("#btnSet").focus()}});
+$("#btnSet").onclick=openSettings;
+
+/* ===== tabs ===== */
+const TABS=[["notes","Notes"],["cards","Flashcards"],["quiz","Quiz"],["diagrams","Diagrams"],["drills","Drills"],["progress","Progress"]];
+const NOFILTER={diagrams:1,progress:1,drills:1};
+let cur="notes";
+$("#tabs").innerHTML=TABS.map(t=>`<button class="tab" role="tab" id="tab-${t[0]}" data-t="${t[0]}" aria-selected="false" aria-controls="main">${t[1]}</button>`).join("");
+$("#tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(b)go(b.dataset.t)});
+$("#tabs").addEventListener("keydown",e=>{if(e.key!=="ArrowRight"&&e.key!=="ArrowLeft")return;const i=TABS.findIndex(t=>t[0]===cur),n=(i+(e.key==="ArrowRight"?1:-1)+TABS.length)%TABS.length;go(TABS[n][0]);$("#tab-"+TABS[n][0]).focus()});
+function go(t,keep){
+  cur=t;$$(".tab").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t));
+  try{history.replaceState(null,"","#"+t)}catch(e){}
+  $("#fbar").hidden=!!NOFILTER[t];if(NOFILTER[t])$("#filters").hidden=true;
+  render();if(!keep)window.scrollTo({top:0,behavior:"auto"});
+}
+function render(){({notes:renderNotes,cards:renderCards,quiz:renderQuiz,diagrams:renderDiagrams,drills:renderDrills,progress:renderProgress})[cur]()}
+
+/* ===== topic filter ===== */
+function renderFilters(){
+  const f=$("#filters");
+  f.innerHTML=GROUPS.map(G=>{const ts=TOPICS.filter(t=>t.set===G.set);const on=ts.filter(t=>sel.has(t.id)).length;
+    return `<div class="fgroup"><div class="fhead"><span class="gtitle g${G.set}">${G.title}</span><button class="btn sm" data-g="${G.set}" data-a="all">Select all</button><button class="btn sm" data-g="${G.set}" data-a="none">None</button><span class="small muted">${on} of ${ts.length}</span></div>
+    <div class="chips">${ts.map(t=>`<button class="chip" data-id="${t.id}" aria-pressed="${sel.has(t.id)}">${esc(t.name)}</button>`).join("")}</div></div>`}).join("")+
+    `<div class="row" style="margin-top:12px"><button class="btn sm" data-g="0" data-a="all">Everything</button><button class="btn primary sm" id="fclose">Done</button></div>`;
+  const n=sel.size;$("#fsum").textContent=n===TOPICS.length?`All ${n} concepts`:n===0?"No concepts selected":`${n} of ${TOPICS.length} concepts`;
+  $("#fcount").textContent=n===TOPICS.length?"All":n;
+}
+$("#filters").addEventListener("click",e=>{
+  if(e.target.id==="fclose"){$("#filters").hidden=true;$("#btnFilt").setAttribute("aria-expanded","false");$("#btnFilt").focus();return}
+  const c=e.target.closest(".chip");
+  if(c){sel.has(c.dataset.id)?sel.delete(c.dataset.id):sel.add(c.dataset.id)}
+  const a=e.target.closest("[data-a]");
+  if(a){const g=+a.dataset.g;TOPICS.forEach(t=>{if(g===0||t.set===g){a.dataset.a==="all"?sel.add(t.id):sel.delete(t.id)}})}
+  if(c||a){saveSel();renderFilters();deck=null;qstate=null;render()}
+});
+$("#btnFilt").onclick=()=>{const h=$("#filters").hidden=!$("#filters").hidden;$("#btnFilt").setAttribute("aria-expanded",String(!h))};
+function only(id){sel.clear();sel.add(id);saveSel();renderFilters();deck=null;qstate=null}
+
+/* ===== notes ===== */
+function noteHTML(t){
+  let out="",open=false;
+  const close=()=>{if(open){out+="</ul>";open=false}};
+  t.notes.forEach(n=>{
+    if(typeof n==="string"){if(!open){out+="<ul>";open=true}const m=n.match(/^( *)/)[1].length/2;out+=`<li class="${m?"l"+m:""}">${n.trim()}</li>`}
+    else{close();if(n.k)out+=`<div class="keynote">${n.k}</div>`;else if(n.f)out+=`<div class="fignote">${n.f}</div>`;else if(n.html)out+=`<div class="tblw">${n.html}</div>`}
+  });close();return out;
+}
+let openT=new Set(P.fold||[]);
+function renderNotes(){
+  const ts=TOPICS.filter(t=>sel.has(t.id));
+  let h=`<h2>Notes</h2><p class="muted small">One section per concept, written from the typed text of both study guides. Slide numbers match the PDFs. Yellow boxes are exam notes. Blue boxes come from figures, which the guide says are supplemental.</p>`;
+  if(!ts.length)h+=`<div class="panel">No concepts selected. Use <b>Choose concepts</b> above.</div>`;
+  else h+=`<div class="row"><button class="btn sm" id="nOpen">Open all</button><button class="btn sm" id="nShut">Close all</button></div>`;
+  GROUPS.forEach(G=>{const g=ts.filter(t=>t.set===G.set);if(!g.length)return;
+    h+=`<h3><span class="gtitle g${G.set}">${G.title}</span></h3>`+g.map(t=>`<details class="topic" id="n-${t.id}" ${openT.has(t.id)?"open":""}><summary><span class="pill g${t.set}">Slide${/to/.test(t.slides)?"s":""} ${t.slides}</span><span class="tname">${t.name}</span></summary><div class="tbody">${noteHTML(t)}
+    <div class="tact"><button class="btn sm" data-p="cards" data-id="${t.id}">Flashcards for this</button><button class="btn sm" data-p="quiz" data-id="${t.id}">Quiz on this</button>${t.id==="s2-mito"||t.id==="s2-chloro"||t.id==="s2-stages"||t.id==="s2-light"||t.id==="s2-calvin"||t.id==="s2-etc"||t.id==="s2-atps"?`<button class="btn sm" data-p="diagrams">Open the diagrams</button>`:""}</div></div></details>`).join("");
+  });
+  $("#main").innerHTML=h;
+}
+$("#main").addEventListener("toggle",e=>{const d=e.target;if(d.classList&&d.classList.contains("topic")){const id=d.id.slice(2);d.open?openT.add(id):openT.delete(id);P.fold=[...openT];save()}},true);
+$("#main").addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;
+  if(b.id==="nOpen"){TOPICS.forEach(t=>openT.add(t.id));P.fold=[...openT];save();renderNotes()}
+  if(b.id==="nShut"){openT.clear();P.fold=[];save();renderNotes()}
+  if(b.dataset.p){if(b.dataset.id)only(b.dataset.id);go(b.dataset.p)}
+});
+
+/* ===== flashcards ===== */
+let deck=null,pos=0,flipped=false,cOnlyAgain=false;
+function buildDeck(shuf){deck=CARDS.filter(c=>sel.has(c.t)&&(!cOnlyAgain||P.cards[c.id]==="again"));if(shuf)deck=shuffle(deck);pos=0;flipped=false}
+function renderCards(){
+  if(!deck)buildDeck(false);
+  const k=Object.values(P.cards).filter(v=>v==="know").length,a=Object.values(P.cards).filter(v=>v==="again").length;
+  let h=`<h2>Flashcards</h2><div class="row"><label class="row" style="gap:8px"><input type="checkbox" id="cAgain" ${cOnlyAgain?"checked":""} style="width:24px;height:24px"> Only cards marked "Review again"</label></div>`;
+  if(!deck.length){h+=`<div class="panel">${cOnlyAgain?"No cards are marked Review again in these concepts.":"No cards in the selected concepts."}</div>`;$("#main").innerHTML=h;return}
+  if(pos>=deck.length)pos=0;const c=deck[pos],m=P.cards[c.id];
+  h+=`<p class="small muted" aria-live="polite">Card ${pos+1} of ${deck.length}${m?` (marked: ${m==="know"?"got it":"review again"})`:""}. Tap the card or press Space to flip. Swipe or use the arrow keys to move.</p>
+  <div class="meter" aria-hidden="true"><i style="width:${(pos+1)/deck.length*100}%"></i></div><p></p>
+  <div class="card ${flipped?"back":""}" id="card" tabindex="0" role="button" aria-label="Flashcard. ${flipped?"Answer side":"Question side"}. Press Space to flip."><div class="corner"><span>${esc(tShort(c.t))}</span><span>${flipped?"answer":"question"}</span></div><div class="txt">${flipped?c.b:c.f}</div><div class="hint">${flipped?"tap to see the question":"tap to see the answer"}</div></div>
+  <div class="fcbtns"><button class="btn" id="cPrev">Previous</button><button class="btn" id="cNext">Next</button><button class="btn primary" id="cKnow">Got it</button><button class="btn" id="cAgainB">Review again</button><button class="btn wide ghost" id="cShuf">Shuffle deck</button></div>
+  <p class="small muted">Marked so far across all cards: ${k} got it, ${a} review again, ${CARDS.length-k-a} unmarked.</p>`;
+  $("#main").innerHTML=h;
+}
+function cflip(){flipped=!flipped;renderCards();const c=$("#card");c&&c.focus({preventScroll:true})}
+function cmove(d){if(!deck.length)return;pos=(pos+d+deck.length)%deck.length;flipped=false;renderCards();const c=$("#card");c&&c.focus({preventScroll:true})}
+function cmark(v){if(!deck.length)return;P.cards[deck[pos].id]=v;save();if(cOnlyAgain&&v==="know"){buildDeck(false);flipped=false;renderCards();return}cmove(1)}
+$("#main").addEventListener("click",e=>{
+  if(cur!=="cards")return;const t=e.target;
+  if(t.closest("#card"))cflip();else if(t.id==="cPrev")cmove(-1);else if(t.id==="cNext")cmove(1);else if(t.id==="cKnow")cmark("know");else if(t.id==="cAgainB")cmark("again");
+  else if(t.id==="cShuf"){buildDeck(true);renderCards()}
+});
+$("#main").addEventListener("change",e=>{if(e.target.id==="cAgain"){cOnlyAgain=e.target.checked;buildDeck(false);renderCards()}});
+$("#main").addEventListener("keydown",e=>{
+  if(cur!=="cards"||document.activeElement.id!=="card")return;
+  if(e.key===" "||e.key==="Enter"){e.preventDefault();cflip()}else if(e.key==="ArrowRight"){e.preventDefault();cmove(1)}else if(e.key==="ArrowLeft"){e.preventDefault();cmove(-1)}
+});
+let tx=null;
+$("#main").addEventListener("touchstart",e=>{if(e.target.closest("#card"))tx=e.touches[0].clientX},{passive:true});
+$("#main").addEventListener("touchend",e=>{if(tx==null)return;const dx=e.changedTouches[0].clientX-tx;tx=null;if(Math.abs(dx)>60)cmove(dx<0?1:-1)},{passive:true});
+
+/* ===== quiz ===== */
+let qstate=null,qOnlyMissed=false;
+function buildQuiz(){
+  let pool=QUIZ.filter(q=>sel.has(q.t));
+  if(qOnlyMissed)pool=pool.filter(q=>P.quiz[q.id]&&P.quiz[q.id].last===0);
+  qstate={pool:shuffle(pool),i:0,right:0,done:0,missed:[],ans:null};
+}
+function renderQuiz(){
+  if(!qstate)buildQuiz();const S=qstate;
+  let h=`<h2>Quiz</h2><label class="row" style="gap:8px"><input type="checkbox" id="qMissed" ${qOnlyMissed?"checked":""} style="width:24px;height:24px"> Only questions I missed last time</label>`;
+  if(!S.pool.length){$("#main").innerHTML=h+`<div class="panel">${qOnlyMissed?"No missed questions in these concepts yet.":"No questions in the selected concepts."}</div>`;return}
+  if(S.i>=S.pool.length){
+    h+=`<div class="panel"><h3>Finished</h3><p class="score">${S.right} of ${S.pool.length} correct</p>${S.missed.length?`<p>Review these:</p><ul>${S.missed.map(q=>`<li><b>${esc(tShort(q.t))}</b>: ${q.q}<br><span class="muted">Answer: ${q.a}</span></li>`).join("")}</ul>`:"<p>No misses. Nice run.</p>"}<div class="row"><button class="btn primary" id="qAgain">New round</button>${S.missed.length?`<button class="btn" id="qRetry">Retry the ones I missed</button>`:""}</div></div>`;
+    $("#main").innerHTML=h;return}
+  const q=S.pool[S.i];if(!q.opts)q.opts=shuffle([q.a,...q.w]);
+  const A=S.ans;
+  h+=`<p class="small muted" aria-live="polite">Question ${S.i+1} of ${S.pool.length}. Score so far: ${S.right} of ${S.done}.</p><div class="meter" aria-hidden="true"><i style="width:${S.i/S.pool.length*100}%"></i></div>
+  <div class="panel"><span class="pill g${topicById[q.t].set}">${esc(tShort(q.t))}</span><p class="qtext" id="qq">${q.q}</p><div class="opts" role="group" aria-labelledby="qq">${q.opts.map((o,i)=>{
+    let c="";if(A){if(o===q.a)c="ok";else if(A.pick===o)c="no"}
+    return `<button class="opt ${c}" data-o="${i}" ${A?"disabled":""}><span class="k">${String.fromCharCode(65+i)}.</span><span>${o}</span></button>`}).join("")}</div>
+  ${A?`<div class="fb ${A.ok?"good":"bad"}" role="status"><b>${A.ok?"Correct.":"Not quite."}</b> ${A.ok?"":`The answer is ${q.a}. `}${q.e}</div><div class="row" style="margin-top:10px"><button class="btn primary" id="qNext">${S.i+1>=S.pool.length?"See results":"Next question"}</button></div>`:""}</div>`;
+  $("#main").innerHTML=h;
+  if(A){const nb=$("#qNext");nb&&nb.focus({preventScroll:true})}
+}
+$("#main").addEventListener("click",e=>{
+  if(cur!=="quiz")return;const S=qstate,t=e.target;
+  const o=t.closest(".opt");
+  if(o&&S&&!S.ans){const q=S.pool[S.i],pick=q.opts[+o.dataset.o],ok=pick===q.a;S.ans={pick,ok};S.done++;if(ok)S.right++;else S.missed.push(q);recQuiz(q.id,ok);renderQuiz()}
+  else if(t.id==="qNext"){S.i++;S.ans=null;renderQuiz();window.scrollTo({top:0})}
+  else if(t.id==="qAgain"){buildQuiz();renderQuiz()}
+  else if(t.id==="qRetry"){const m=S.missed;qstate={pool:shuffle(m),i:0,right:0,done:0,missed:[],ans:null};m.forEach(x=>x.opts=null);renderQuiz()}
+});
+$("#main").addEventListener("change",e=>{if(e.target.id==="qMissed"){qOnlyMissed=e.target.checked;buildQuiz();renderQuiz()}});
+
+/* ===== diagrams (mitochondrion and chloroplast, embedded) ===== */
+function renderDiagrams(){
+  $("#main").innerHTML=`<h2>Diagrams</h2><p class="muted small">Mitochondrion and chloroplast, redrawn from the worksheets. Pick a diagram, then use <b>Guide me</b> to walk through it or <b>Test your knowledge</b> to fill in the blanks. Answers for 1 glucose are checked by Prof. Shane.</p>
+  <iframe id="dframe" class="dframe" src="diagrams.html" title="Mitochondrion and chloroplast diagrams" loading="lazy"></iframe>`;
+  $("#dframe").addEventListener("load",()=>{try{$("#dframe").contentWindow.postMessage({type:"theme",theme:themeNow()},"*")}catch(e){}});
+}
+addEventListener("message",e=>{
+  const d=e.data;if(!d||typeof d!=="object")return;const f=$("#dframe");if(!f||e.source!==f.contentWindow)return;
+  if(d.type==="h"&&f.clientWidth<=960)f.style.height=Math.max(480,Math.ceil(d.h)+8)+"px";
+  if(d.type==="score")recDrill("diag-"+d.k,d.ok);
+  if(d.type==="ready")try{f.contentWindow.postMessage({type:"theme",theme:themeNow()},"*")}catch(x){}
+});
+
+addEventListener("resize",()=>{const f=$("#dframe");if(f&&f.clientWidth>960)f.style.height=""});
+/* ===== progress ===== */
+function renderProgress(){
+  const cardKnown=CARDS.filter(c=>P.cards[c.id]==="know").length,cardAgain=CARDS.filter(c=>P.cards[c.id]==="again").length;
+  let qr=0,qt=0,qseen=0;QUIZ.forEach(q=>{const d=P.quiz[q.id];if(d){qseen++;qr+=d.r;qt+=d.t}});
+  const per=TOPICS.map(t=>{const cs=CARDS.filter(c=>c.t===t.id),qs=QUIZ.filter(q=>q.t===t.id);
+    const k=cs.filter(c=>P.cards[c.id]==="know").length;let r=0,n=0,miss=0;qs.forEach(q=>{const d=P.quiz[q.id];if(d){r+=d.r;n+=d.t;if(d.last===0)miss++}});
+    return {t,k,cn:cs.length,r,n,miss,qn:qs.length}});
+  const dr=Object.entries(P.drills).filter(([k,v])=>v.t);
+  $("#main").innerHTML=`<h2>Progress</h2><p class="muted small">Saved in this browser only. Use Export to move it to another device.</p>
+  <div class="stat"><div class="box"><b>${cardKnown}/${CARDS.length}</b>cards marked got it</div><div class="box"><b>${cardAgain}</b>cards to review again</div><div class="box"><b>${qt?Math.round(qr/qt*100)+"%":"none yet"}</b>quiz accuracy (${qt} answers)</div><div class="box"><b>${qseen}/${QUIZ.length}</b>questions tried</div></div>
+  <h3>By concept</h3><div class="panel">${per.map(p=>`<div class="prow"><span class="pn"><span class="pill g${p.t.set}">${p.t.set===1?"Set 1":"Set 2"}</span> ${esc(p.t.name)}</span><span>Cards: ${p.k}/${p.cn}</span><span>Quiz: ${p.n?Math.round(p.r/p.n*100)+"%":"not tried"}${p.miss?`, ${p.miss} missed`:""}</span></div>`).join("")}</div>
+  <h3>Drills</h3><div class="panel">${dr.length?dr.map(([k,v])=>`<div class="prow"><span class="pn">${esc(drillName(k))}</span><span>${v.r} of ${v.t} correct</span><span>${Math.round(v.r/v.t*100)}%</span></div>`).join(""):"<p>No drill results yet.</p>"}</div>
+  <h3>Your data</h3><div class="row"><button class="btn" id="pExp">Export progress</button><label class="btn" for="pImp" style="display:inline-flex;align-items:center">Import progress</label><input type="file" id="pImp" accept="application/json,.json" class="sr"><button class="btn ghost" id="pReset">Reset all progress</button></div><p id="pMsg" class="small" role="status"></p>`;
+}
+const drillName=k=>{if(k.startsWith("diag-"))return "Diagram: "+(k==="diag-mito"?"mitochondrion":k==="diag-chloro"?"chloroplast":k.slice(5));const d=DRILLS.find(x=>x.id===k);return d?d.title:k};
+$("#main").addEventListener("click",e=>{
+  if(cur!=="progress")return;const t=e.target;
+  if(t.id==="pExp"){const b=new Blob([JSON.stringify({app:"bio20-final",v:1,data:P},null,1)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="bio20-final-progress.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);$("#pMsg").textContent="Exported."}
+  if(t.id==="pReset"){if(confirm("Erase all saved progress and settings on this device? This cannot be undone.")){P={cards:{},quiz:{},drills:{},sel:null,set:{theme:"auto",size:"m",space:"roomy",motion:"auto"},fold:[]};localStorage.removeItem(KEY);location.reload()}}
+});
+$("#main").addEventListener("change",e=>{
+  if(e.target.id!=="pImp")return;const f=e.target.files[0];if(!f)return;const r=new FileReader();
+  r.onload=()=>{try{const j=JSON.parse(r.result);if(!j||j.app!=="bio20-final"||!j.data)throw 0;P=Object.assign(P,j.data);P.set=Object.assign({theme:"auto",size:"m",space:"roomy",motion:"auto"},j.data.set||{});save();$("#pMsg").textContent="Imported. Reloading...";setTimeout(()=>location.reload(),600)}catch(x){$("#pMsg").textContent="That file is not a progress export from this page."}};r.readAsText(f);
+});
+
+/* ===== start ===== */
+applySettings();renderFilters();
+addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(TABS.some(t=>t[0]===h)&&h!==cur)go(h)});
+/* ===== shared drill helpers ===== */
+const fbBox=(ok,h)=>`<div class="fb ${ok===true?"good":ok===false?"bad":"warn"}" role="status">${h}</div>`;
+function matchTable(host,cfg){
+  /* cfg: {id,title,note,opts:[...],items:[[text,idx],...]} one dropdown per item, 1 point each */
+  const w=document.createElement("div");w.className="panel";
+  w.innerHTML=`<h3 style="margin-top:0">${cfg.title} <span class="small muted">(${cfg.items.length} pts)</span></h3>${cfg.note?`<p class="note">${cfg.note}</p>`:""}<div>${cfg.items.map((it,i)=>`<div class="qrow"><label for="${cfg.id}-${i}">${it[0]}</label><select id="${cfg.id}-${i}" data-i="${i}"><option value="">Choose...</option>${cfg.opts.map((o,j)=>`<option value="${j}">${o}</option>`).join("")}</select></div>`).join("")}</div>
+  <div class="row" style="margin-top:10px"><button class="btn primary" data-a="chk">Check</button><button class="btn" data-a="clr">Clear</button><span class="score" role="status"></span></div>`;
+  host.appendChild(w);
+  w.addEventListener("click",e=>{const a=e.target.dataset.a;if(!a)return;
+    if(a==="chk"){let s=0;$$("select",w).forEach(sl=>{const it=cfg.items[+sl.dataset.i],ok=sl.value!==""&&+sl.value===it[1];if(ok)s++;sl.className=ok?"ok":"no";
+      let f=sl.parentNode.querySelector(".fbx");if(!f){f=document.createElement("div");f.className="small fbx";sl.parentNode.appendChild(f)}f.textContent=ok?"Correct":"Answer: "+strip(cfg.opts[it[1]])});
+      $(".score",w).textContent=`Score: ${s} / ${cfg.items.length}`;recDrill(cfg.id,s,cfg.items.length)}
+    if(a==="clr"){$$("select",w).forEach(sl=>{sl.value="";sl.className="";const f=sl.parentNode.querySelector(".fbx");f&&f.remove()});$(".score",w).textContent=""}});
+  return w;
+}
+function fillBlock(host,cfg){
+  /* cfg: {id,paras:["text with {1} {2}"],blanks:[{a:[...]}|{g:k,a:[...]}], answers:[...]} */
+  const w=document.createElement("div");w.className="panel fill";const ins=[];
+  w.innerHTML=cfg.paras.map(p=>`<p>${p.replace(/\{(\d+)\}/g,(m,n)=>`<span class="num">${n}</span><input type="text" id="${cfg.id}-b${n}" data-n="${n}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Blank ${n}">`)}</p>`).join("")+
+  `<div class="row"><button class="btn primary" data-a="chk">Check my answers</button><button class="btn" data-a="show">Show answers</button><button class="btn" data-a="clr">Clear</button><span class="score" role="status"></span></div>`;
+  host.appendChild(w);
+  const inputs=$$("input",w);
+  w.addEventListener("click",e=>{const a=e.target.dataset.a;if(!a)return;
+    if(a==="chk"){let s=0;const used={};
+      inputs.forEach((inp,i)=>{const b=cfg.blanks[i],v=norm(inp.value);let ok=false;
+        if(b.g!=null){const grp=cfg.blanks.map((x,k)=>x.g===b.g?k:-1).filter(k=>k>=0);for(const k of grp){if(!used[k]&&cfg.blanks[k].a.some(x=>norm(x)===v)&&v){used[k]=1;ok=true;break}}}
+        else ok=!!v&&b.a.some(x=>norm(x)===v);
+        inp.className=ok?"ok":"no";if(ok)s++});
+      $(".score",w).textContent=`Score: ${s} / ${inputs.length}. Green means correct, dashed red means revisit.`;recDrill(cfg.id,s,inputs.length)}
+    if(a==="show"){inputs.forEach((inp,i)=>{inp.value=cfg.answers[i];inp.className=""});$(".score",w).textContent="Answers shown. The three mechanisms (blanks 9 to 11) can go in any order."}
+    if(a==="clr"){inputs.forEach(i=>{i.value="";i.className=""});$(".score",w).textContent=""}});
+  return w;
+}
+const FR={"¼":.25,"½":.5,"¾":.75,"⅛":.125};
+function parseFrac(s){s=String(s).trim().toLowerCase().replace(/\s+/g,"");if(!s)return null;
+  if(FR[s]!=null)return FR[s];
+  let m=s.match(/^(\d+)\/(\d+)$/);if(m)return +m[1]/+m[2];
+  m=s.match(/^1in(\d+)$/);if(m)return 1/+m[1];
+  m=s.match(/^([\d.]+)%$/);if(m)return +m[1]/100;
+  if(/^[\d.]+$/.test(s))return +s;return null}
+const fmtFrac=p=>({0:"0",.25:"¼",.5:"½",.75:"¾",1:"1"})[p];
+
+/* ================= 1. Metric prefix table ================= */
+const PFX=[["giga","G",9],["mega","M",6],["kilo","k",3],["unit","",0],["milli","m",-3],["micro","µ",-6],["nano","n",-9]];
+const sup=n=>String(n).replace(/-/g,"⁻").replace(/\d/g,d=>"⁰¹²³⁴⁵⁶⁷⁸⁹"[d]);
+function parsePow(s){s=String(s).toLowerCase().replace(/\s+/g,"").replace(/×/g,"x");
+  s=s.replace(/10([⁰¹²³⁴⁵⁶⁷⁸⁹⁻]+)/,(m,p)=>"10^"+p.replace(/⁻/g,"-").replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]/g,c=>"⁰¹²³⁴⁵⁶⁷⁸⁹".indexOf(c)));
+  let m=s.match(/^10(?:\^|\*\*)\(?([+-]?\d+)\)?$/);if(m)return +m[1];
+  m=s.match(/^1e([+-]?\d+)$/);if(m)return +m[1];
+  if(s==="1")return 0;return null}
+function parseNum(s){s=String(s).toLowerCase().replace(/[,\s]/g,"").replace(/×/g,"x");
+  let m=s.match(/^(-?[\d.]+)(?:x|\*)10(?:\^|\*\*)?\(?([+-]?\d+)\)?$/);if(m)return +m[1]*Math.pow(10,+m[2]);
+  if(/^-?[\d.]+(e[+-]?\d+)?$/.test(s))return +s;return null}
+function drillMetric(host){
+  host.innerHTML=`<div class="row"><button class="btn primary" data-m="tbl" aria-pressed="true">Table (12 blanks)</button><button class="btn" data-m="conv">Unit conversions</button></div><div id="mbody"></div>`;
+  const body=$("#mbody",host);
+  function table(){
+    const cells=[];PFX.forEach((p,r)=>{cells.push({r,c:0});cells.push({r,c:1});if(p[0]!=="unit")cells.push({r,c:2})});
+    const blank=new Set(shuffle(cells).slice(0,12).map(c=>c.r+"-"+c.c));
+    const inp=(k,l)=>`<input type="text" data-k="${k}" aria-label="${l}" autocomplete="off" autocapitalize="off" spellcheck="false">`;
+    let h=`<div class="panel"><p class="small muted">Slide 2 says the exam has a partly filled table with 12 blanks. Type powers like 10^-3 (or 10⁻³, or 1e-3). Type prefixes as words, like milli.</p><div class="tblw"><table><thead><tr><th>Metric prefix</th><th>Power of prefix</th><th>Conversion factor</th></tr></thead><tbody>`;
+    PFX.forEach((p,r)=>{const u=p[0]==="unit";
+      h+=`<tr><td>${blank.has(r+"-0")?inp(r+"-0","Prefix, row "+(r+1)):p[0]+(u?"":"- ("+p[1]+")")}</td><td>${blank.has(r+"-1")?inp(r+"-1","Power of prefix, row "+(r+1)):(u?"10<sup>0</sup> or 1":"10<sup>"+p[2]+"</sup>")}</td><td>${u?"1 gram":(blank.has(r+"-2")?`1 ${p[1]}g = ${inp(r+"-2","Conversion factor, row "+(r+1))} g`:`1 ${p[1]}g = 10<sup>${p[2]}</sup> g`)}</td></tr>`});
+    h+=`</tbody></table></div><div class="row" style="margin-top:10px"><button class="btn primary" data-a="chk">Check</button><button class="btn" data-a="new">New table</button><span class="score" role="status"></span></div><div id="mfb"></div></div>`;
+    body.innerHTML=h;
+    body.onclick=e=>{const a=e.target.dataset.a;if(!a)return;
+      if(a==="new")return table();
+      let s=0,wrong=[];$$("input",body).forEach(i=>{const [r,c]=i.dataset.k.split("-").map(Number),p=PFX[r];let ok=false,v=i.value.trim();
+        if(c===0){const n=norm(v).replace(/-$/,"");ok=n===p[0]||(p[1]&&v===p[1])}
+        else ok=parsePow(v)===p[2];
+        i.className=ok?"ok":"no";if(ok)s++;else wrong.push(c===0?p[0]:`10^${p[2]}`)});
+      $(".score",body).textContent=`Score: ${s} / 12`;recDrill("metric",s,12);
+      $("#mfb",body).innerHTML=wrong.length?fbBox(false,`Check these: ${wrong.join(", ")}. Giga is 10<sup>9</sup>, mega 10<sup>6</sup>, kilo 10<sup>3</sup>, milli 10<sup>-3</sup>, micro 10<sup>-6</sup>, nano 10<sup>-9</sup>.`):fbBox(true,"All 12 correct.")};
+  }
+  let cq=null;
+  function conv(){
+    const L=PFX.filter(p=>p[0]!=="giga"&&p[0]!=="mega"||Math.random()<.3);let a,b;do{a=pick(L);b=pick(L)}while(a===b);
+    const val=pick([2,5,25,350,0.5,1.2,40,7.5,0.08]);const ans=val*Math.pow(10,a[2]-b[2]);cq={a,b,val,ans};
+    const unit=p=>p[0]==="unit"?"g":p[1]+"g";
+    body.innerHTML=`<div class="panel"><p class="qtext">Convert ${val} ${unit(a)} to ${unit(b)}.</p><label for="cv">Your answer (a number, 2.5e-3 or 2.5x10^-3 also work)</label><input type="text" id="cv" autocomplete="off" inputmode="decimal"><div class="row" style="margin-top:10px"><button class="btn primary" data-a="chk">Check</button><button class="btn" data-a="new">New question</button></div><div id="cfb"></div></div>`;
+    body.onclick=e=>{const k=e.target.dataset.a;if(k==="new")return conv();if(k!=="chk")return;
+      const v=parseNum($("#cv").value),ok=v!=null&&Math.abs(v-cq.ans)<=Math.abs(cq.ans)*1e-9;recDrill("metric",ok,1);$("#cv").className=ok?"ok":"no";
+      const d=cq.a[2]-cq.b[2];
+      $("#cfb").innerHTML=fbBox(ok,`${ok?"Correct. ":"Not quite. "}${cq.val} ${unit(cq.a)} = ${fmtNum(cq.ans)} ${unit(cq.b)}. The prefixes differ by 10<sup>${Math.abs(d)}</sup>, and ${unit(cq.a)} is the ${d>0?"larger":"smaller"} unit, so the number ${d>0?"gets bigger":"gets smaller"} when you go to ${unit(cq.b)}.`)}
+  }
+  host.onclick=e=>{const m=e.target.dataset.m;if(!m)return;$$("[data-m]",host).forEach(b=>{b.className="btn"+(b===e.target?" primary":"")});m==="tbl"?table():conv()};
+  table();
+}
+
+function fmtNum(x){x=+x.toPrecision(12);const a=Math.abs(x);if(a!==0&&(a<0.001||a>=1e6)){const e=Math.floor(Math.log10(a)),m=+(x/Math.pow(10,e)).toPrecision(8);return `${m} × 10<sup>${e}</sup> (${x.toExponential().replace("e","e")})`}return String(x)}
+/* ================= 2. Mutation lab ================= */
+const BASES="UCAG",AAS="FFLLSSSSYY**CC*WLLLLPPPPHHQQRRRRIIIMTTTTNNKKSSRRVVVVAAAADDEEGGGG";
+const A3={F:"Phe",L:"Leu",S:"Ser",Y:"Tyr","*":"Stop",C:"Cys",W:"Trp",P:"Pro",H:"His",Q:"Gln",R:"Arg",I:"Ile",M:"Met",T:"Thr",N:"Asn",K:"Lys",V:"Val",A:"Ala",D:"Asp",E:"Glu",G:"Gly"};
+const codonAA=c=>AAS[BASES.indexOf(c[0])*16+BASES.indexOf(c[1])*4+BASES.indexOf(c[2])];
+const CMP={A:"U",T:"A",C:"G",G:"C"};
+const revCompRNA=t=>[...t].reverse().map(b=>CMP[b]).join("");
+const rnaToDna=r=>[...r].map(b=>b==="U"?"T":b).join("");
+const dnaRev=r=>[...r].reverse().map(b=>({A:"T",U:"A",C:"G",G:"C"})[b]).join("");
+const translate=m=>{const o=[];for(let i=0;i+2<m.length;i+=3){const a=codonAA(m.slice(i,i+3));o.push(a);if(a==="*")break}return o};
+const aaWords=a=>a.map(x=>A3[x]).join("-");
+const colorSeq=s=>[...s].map(b=>`<span class="${b.toLowerCase()}">${b}</span>`).join("");
+const triplets=s=>s.match(/.{1,3}/g).join(" ");
+function parseAA(s){const t=s.trim().replace(/[,\-–]+/g," ").split(/\s+/).filter(Boolean);if(!t.length)return[];
+  const inv={};Object.keys(A3).forEach(k=>inv[A3[k].toLowerCase()]=k);
+  if(t.length===1&&/^[a-z*]+$/i.test(t[0])&&t[0].length>3&&!inv[t[0].toLowerCase()]){return [...t[0].toUpperCase()]}
+  return t.map(x=>{const l=x.toLowerCase();if(inv[l])return inv[l];if(l==="*"||l==="stp")return "*";if(x.length===1)return x.toUpperCase();return "?"+x})}
+function mkRandomMut(){
+  const cat=pick(["silent","missense","nonsense"]);const sense=[];const codons=Object.keys(AAS).length&&[];
+  const all=[];for(const a of BASES)for(const b of BASES)for(const c of BASES)all.push(a+b+c);
+  const senseC=all.filter(c=>codonAA(c)!=="*"&&c!=="AUG");
+  const ref=[pick(senseC),pick(senseC),pick(senseC),pick(senseC),pick(["UAA","UAG","UGA"])];
+  for(let t=0;t<400;t++){const i=Math.floor(Math.random()*4),p=Math.floor(Math.random()*3),nb=pick([...BASES].filter(x=>x!==ref[i][p]));
+    const nc=ref[i].slice(0,p)+nb+ref[i].slice(p+1),oa=codonAA(ref[i]),na=codonAA(nc);
+    const c=na==="*"?"nonsense":na===oa?"silent":"missense";
+    if(c===cat){const v=ref.slice();v[i]=nc;return {ref:ref.join(""),mut:v.join(""),pos:i*3+p,cat}}}
+  return mkRandomMut();
+}
+function drillMut(host){
+  const SLIDE=["CTACCCTTTACAGGG","CTACCCTTTGCAGGG","CTACCCTTTCCAGGG","CTACCCTTTTCAGGG"];
+  host.innerHTML=`<p class="note">Slide 24 practice: transcribe and translate each template strand, then say how it differs from the first strand. mRNA is written 5' to 3', the reverse complement of the template. Type amino acids as three-letter names separated by spaces (Pro Cys Lys Gly Stop).</p>
+  <div class="row"><button class="btn primary" data-m="slide" aria-pressed="true">Slide 24 strands</button><button class="btn" data-m="rand">Random strands</button></div>
+  <details class="topic" style="margin-top:10px"><summary><span class="tname">Genetic code (like the codon wheel on slide 24)</span></summary><div class="tbody tblw">${codonTable()}</div></details><div id="mutbody"></div>`;
+  const body=$("#mutbody",host);
+  function item(tpl,refMRNA,label,i){
+    const mRNA=revCompRNA(tpl),aa=translate(mRNA),refAA=refMRNA?translate(refMRNA):[];
+    let cat="reference";
+    if(refMRNA){let k=0;while(k<mRNA.length&&mRNA[k]===refMRNA[k])k++;
+      if(k>=mRNA.length)cat="no change";else{const ci=Math.floor(k/3),oa=refAA[ci],na=aa[ci];cat=na==="*"?"nonsense":na===oa?"silent":"missense"}}
+    const w=document.createElement("div");w.className="panel";
+    const diff=refMRNA?[...tpl].map((b,k)=>b!==rnaToDna(dnaRev(refMRNA))[k]?`<mark style="background:var(--warn-soft);color:inherit;border-radius:3px">${b}</mark>`:b).join(""):tpl;
+    w.innerHTML=`<span class="pill">${label}</span><p>Template DNA, 5'-<span class="seq">${diff}</span>-3'</p>
+    <label for="m${i}a">mRNA, 5' to 3'</label><input type="text" id="m${i}a" autocomplete="off" autocapitalize="characters" spellcheck="false">
+    <label for="m${i}b">Amino acid sequence</label><input type="text" id="m${i}b" autocomplete="off" autocapitalize="off" spellcheck="false">
+    ${refMRNA?`<label for="m${i}c">Compared with the first strand, this is</label><select id="m${i}c"><option value="">Choose...</option><option>silent</option><option>missense</option><option>nonsense</option><option>no change</option></select>`:""}
+    <div class="row" style="margin-top:10px"><button class="btn primary" data-a="chk">Check</button><button class="btn" data-a="show">Show answer</button></div><div class="fbx"></div>`;
+    w.addEventListener("click",e=>{const a=e.target.dataset.a;if(!a)return;
+      const ia=$("#m"+i+"a",w),ib=$("#m"+i+"b",w),ic=$("#m"+i+"c",w);let s=0,n=refMRNA?3:2,hints=[];
+      const mv=ia.value.toUpperCase().replace(/[^ACGU]/g,"");
+      if(a==="chk"){
+        const okm=mv===mRNA;if(!okm&&mv===[...mRNA].reverse().join(""))hints.push("That looks like the mRNA written 3' to 5'. Flip it so it reads 5' to 3'.");else if(!okm&&mv===rnaToDna(mRNA).replace(/T/g,"T"))hints.push("mRNA has U, not T.");else if(!okm&&mv===[...tpl].map(b=>b==="T"?"U":b).join(""))hints.push("That is the template with T changed to U. The mRNA is the complement, read in the opposite direction.");
+        ia.className=okm?"ok":"no";if(okm)s++;
+        const got=parseAA(ib.value),okb=got.join("")===aa.join("");ib.className=okb?"ok":"no";if(okb)s++;
+        if(ic){const okc=ic.value===cat;ic.className=okc?"ok":"no";if(okc)s++}
+        recDrill("mut",s,n);
+        $(".fbx",w).innerHTML=fbBox(s===n,`<b>${s} of ${n}.</b> ${hints.join(" ")} Answer: mRNA 5'-<span class="seq">${mRNA.match(/.{1,3}/g).map(colorSeq).join(" ")}</span>-3', ${aaWords(aa)}${refMRNA?`, ${cat}`:""}.${explain(cat,refMRNA,mRNA,refAA,aa)}`)}
+      if(a==="show"){ia.value=mRNA;ib.value=aaWords(aa).replace(/-/g," ");if(ic)ic.value=cat}});
+    return w}
+  function explain(cat,ref,m,ra,a){if(!ref||cat==="reference")return"";
+    let k=0;while(k<m.length&&m[k]===ref[k])k++;const ci=Math.floor(k/3);
+    const t={silent:`The changed codon ${ref.slice(ci*3,ci*3+3)} → ${m.slice(ci*3,ci*3+3)} still codes for ${A3[ra[ci]]}, so the protein is the same.`,missense:`Codon ${ci+1} changed from ${ref.slice(ci*3,ci*3+3)} (${A3[ra[ci]]}) to ${m.slice(ci*3,ci*3+3)} (${A3[a[ci]]}), a different amino acid.`,nonsense:`Codon ${ci+1} changed from ${ref.slice(ci*3,ci*3+3)} (${A3[ra[ci]]}) to ${m.slice(ci*3,ci*3+3)}, a stop codon, so translation ends early.`,"no change":"Same strand as the first one."};
+    return " "+(t[cat]||"")}
+  function slide(){body.innerHTML="";SLIDE.forEach((t,i)=>body.appendChild(item(t,i?revCompRNA(SLIDE[0]):null,i?"Strand "+(i+1):"Strand 1 (reference)",i)))}
+  let rn=0;
+  function rand(){body.innerHTML="";const m=mkRandomMut(),t0=rnaToDna(dnaRev(m.ref)).split("").reverse().join(""),t1=rnaToDna(dnaRev(m.mut)).split("").reverse().join("");
+    const tp=r=>[...r].reverse().map(b=>({A:"T",U:"A",C:"G",G:"C"})[b]).join("");
+    body.appendChild(item(tp(m.ref),null,"Reference strand",100+rn));body.appendChild(item(tp(m.mut),revCompRNA(tp(m.ref)),"Mutated strand",101+rn));rn+=2;
+    const b=document.createElement("div");b.className="row";b.innerHTML=`<button class="btn" id="mnew">New random pair</button>`;b.onclick=rand;body.appendChild(b)}
+  host.addEventListener("click",e=>{const m=e.target.dataset.m;if(!m)return;$$("[data-m]",host).forEach(b=>b.className="btn"+(b===e.target?" primary":""));m==="slide"?slide():rand()});
+  slide();
+}
+function codonTable(){
+  let h=`<table class="mini"><thead><tr><th>1st</th>${[...BASES].map(b=>`<th>2nd ${b}</th>`).join("")}</tr></thead><tbody>`;
+  for(const a of BASES){h+=`<tr><th>${a}</th>`;for(const b of BASES){h+=`<td>${[...BASES].map(c=>a+b+c+" "+A3[codonAA(a+b+c)]).join("<br>")}</td>`}h+="</tr>"}
+  return h+"</tbody></table>"}
+
+/* ================= 3. Na+/K+ pump stepper + fill in ================= */
+const PUMP=[
+ {t:"Resting state. The pump is open to the cytoplasm. Three Na⁺ are nearby.",open:"in",na:[[250,285],[320,300],[390,285]],k:[[470,100],[520,60]],P:0,a:""},
+ {t:"Step 1: Three Na⁺ bind to the ion binding site.",open:"in",na:[[305,222],[320,205],[335,222]],k:[[470,100],[520,60]],P:0,a:""},
+ {t:"Step 2: ATP binds and is hydrolyzed to ADP + P. This leads to pump phosphorylation.",open:"in",na:[[305,222],[320,205],[335,222]],k:[[470,100],[520,60]],P:1,a:"ATP → ADP + P"},
+ {t:"Step 3: A conformational shape change releases Na⁺ to the extracellular side.",open:"out",na:[[250,70],[320,55],[390,70]],k:[[470,100],[520,60]],P:1,a:""},
+ {t:"Step 4: K⁺ binds to the ion binding site.",open:"out",na:[[250,70],[320,55],[390,70]],k:[[308,148],[332,148]],P:1,a:""},
+ {t:"Step 5: The pump is dephosphorylated.",open:"out",na:[[250,70],[320,55],[390,70]],k:[[308,148],[332,148]],P:0,a:"P released",drop:1},
+ {t:"Step 6: A conformational shape change releases K⁺ to the cytoplasmic side. The cycle restarts.",open:"in",na:[[250,70],[320,55],[390,70]],k:[[270,290],[370,290]],P:0,a:""}
+];
+const NAWHY=["Resting: open to the cytoplasm side (bottom).","Open to the cytoplasm side (bottom). Na⁺ is bound.","Open to the cytoplasm side (bottom). The pump carries a phosphate.","Now open to the extracellular side (top). Na⁺ is released out.","Open to the extracellular side (top). K⁺ is bound.","Open to the extracellular side (top). The phosphate has left.","Open to the cytoplasm side (bottom). K⁺ is released in."];
+function pumpSVG(s){
+  const st=PUMP[s],cav=st.open==="in"?"290,240 350,240 335,185 305,185":"290,120 350,120 335,175 305,175";
+  let g=`<svg viewBox="0 0 640 340" role="img" aria-label="Na+/K+ pump, ${NAWHY[s]}"><rect x="0" y="140" width="640" height="80" style="fill:var(--surface-2)"/>
+  <text x="14" y="30" font-size="20" font-weight="700" style="fill:var(--muted)">Extracellular side (outside)</text><text x="14" y="330" font-size="20" font-weight="700" style="fill:var(--muted)">Cytoplasmic side (inside)</text>
+  <rect x="250" y="118" width="140" height="124" rx="16" style="fill:var(--accent);opacity:.9"/><polygon points="${cav}" style="fill:var(--surface)"/>`;
+  if(st.P&&!st.drop)g+=`<circle cx="395" cy="${st.open==="in"?226:132}" r="15" style="fill:#E6B800;stroke:var(--fg);stroke-width:2"/><text x="395" y="${st.open==="in"?232:138}" text-anchor="middle" font-size="18" font-weight="700" style="fill:#000">P</text>`;
+  if(st.drop)g+=`<circle cx="470" cy="150" r="15" style="fill:#E6B800;stroke:var(--fg);stroke-width:2"/><text x="470" y="156" text-anchor="middle" font-size="18" font-weight="700" style="fill:#000">P</text>`;
+  st.na.forEach(p=>g+=`<circle cx="${p[0]}" cy="${p[1]}" r="17" style="fill:#2C6EC4;stroke:var(--fg);stroke-width:2"/><text x="${p[0]}" y="${p[1]+6}" text-anchor="middle" font-size="15" font-weight="700" style="fill:#fff">Na⁺</text>`);
+  st.k.forEach(p=>g+=`<circle cx="${p[0]}" cy="${p[1]}" r="17" style="fill:#E07A1F;stroke:var(--fg);stroke-width:2"/><text x="${p[0]}" y="${p[1]+6}" text-anchor="middle" font-size="16" font-weight="700" style="fill:#000">K⁺</text>`);
+  if(st.a)g+=`<text x="450" y="290" font-size="20" font-weight="700" style="fill:var(--fg)">${st.a}</text>`;
+  return g+"</svg>"}
+function drillPump(host){
+  let s=0;
+  host.innerHTML=`<div class="panel"><h3 style="margin-top:0">Pump stepper</h3><div class="diagram" id="psvg"></div><p id="pcap" class="qtext" aria-live="polite"></p><p id="ptxt" class="small muted"></p><div class="row"><button class="btn" id="pb">Back</button><button class="btn primary" id="pn">Next step</button><button class="btn ghost" id="pr">Restart</button></div></div><h3>Fill in the blanks (slide 9)</h3><p class="note">19 blanks. Blanks 9 to 11 are the three mechanisms and can go in any order.</p><div id="pfill"></div>`;
+  function draw(){$("#psvg",host).innerHTML=pumpSVG(s);$("#pcap",host).textContent=PUMP[s].t;$("#ptxt",host).textContent="Pump position: "+NAWHY[s];$("#pb",host).disabled=s===0;$("#pn",host).disabled=s===PUMP.length-1}
+  $("#pb",host).onclick=()=>{s--;draw()};$("#pn",host).onclick=()=>{s++;draw()};$("#pr",host).onclick=()=>{s=0;draw()};draw();
+  const NA=["na+","na","sodium","sodium ions","na+ ions"],K=["k+","k","potassium"];
+  fillBlock($("#pfill",host),{id:"pump",paras:[
+   "The first step of the pump cycle begins when three {1} ions bind to specific ion-binding sites on the pump. In the second step, the substrate, {2}, binds the Na⁺/K⁺ pump at a specific groove known as the {3}. The pump changes shape to improve substrate fit in a theory known as {4}. ATP is {5} to ADP + P, and the phosphate group attaches to the pump in a process known as {6}. This reaction is an {7} reaction because it releases energy. The pump uses a variety of mechanisms to lower the {8} required for ATP hydrolysis: 1) Amino acid {9} in the active site may participate in the reaction, 2) Substrates may be {10} to facilitate the reaction, and 3) Substrates may be {11} to make bonds easier to break.",
+   "The third step involves a {12} of the protein. This releases three {13} ions across the membrane to the {14} side. In the fourth step, 2 {15} ions bind to the pump. The fifth step is the removal of the phosphate group in a process known as {16}. The sixth step involves another {17} of the protein, leading to the pump releasing two {18} ions to the {19} side. The Na⁺/K⁺ pump restarts the cycle."],
+   blanks:[{a:NA},{a:["atp","adenosine triphosphate"]},{a:["active site"]},{a:["induced fit"]},{a:["hydrolyzed","hydrolysed","hydrolysis","broken down"]},{a:["phosphorylation"]},{a:["exergonic"]},{a:["activation energy","ea","e a"]},
+    {g:1,a:["r-groups","r groups","r-group","r group","rgroups"]},{g:1,a:["oriented","orientated"]},{g:1,a:["stretched"]},
+    {a:["conformational shape change","conformational change","conformation change","conformational shape"]},{a:NA},{a:["extracellular","extracellular side","outside"]},{a:K},{a:["dephosphorylation"]},{a:["conformational shape change","conformational change","conformation change","conformational shape"]},{a:K},{a:["cytoplasmic","cytoplasm","cytosolic","intracellular"]}],
+   answers:["Na⁺","ATP","active site","induced fit","hydrolyzed","phosphorylation","exergonic","activation energy","R-groups","oriented","stretched","conformational shape change","Na⁺","extracellular","K⁺","dephosphorylation","conformational shape change","K⁺","cytoplasmic"]});
+}
+
+/* ================= 4. Action potential grapher ================= */
+const APH=[["Resting","Na⁺/K⁺ pump","3 Na⁺ out, 2 K⁺ in","Establishes the negative resting membrane potential (-70 mV)."],
+ ["Depolarization","Voltage-gated Na⁺ channel","Na⁺ influx","Potential moves from the RMP to a positive membrane potential."],
+ ["Repolarization","Voltage-gated K⁺ channel","K⁺ efflux","Potential returns to the RMP."],
+ ["Hyperpolarization","Voltage-gated K⁺ channel","K⁺ efflux","Potential becomes more negative than the RMP."],
+ ["Resting","Na⁺/K⁺ pump","3 Na⁺ out, 2 K⁺ in","Neuron reestablishes the RMP."]];
+function apCurve(){
+  const pts=[];for(let t=0;t<=12;t+=.05){const g1=Math.exp(-Math.pow((t-3.3)/.55,2)),sk=t>3.3?Math.exp(-Math.pow((t-3.3)/1.1,2)):g1;const g2=Math.exp(-Math.pow((t-6.6)/1.3,2));pts.push([t,-70+110*sk-16*g2*(t>4.2?1:0)])}
+  return pts}
+function apSegs(p){
+  let pk=0;p.forEach((q,i)=>{if(q[1]>p[pk][1])pk=i});
+  let a=p.findIndex(q=>q[1]>-69.3),c=p.findIndex((q,i)=>i>pk&&q[1]<=-70),d=p.findIndex((q,i)=>i>c&&q[1]>=-70.4&&(i>pk+5)&&q[1]>-70.4&&p[i-1][1]<=-70.4);
+  const e=p.length-1;let hEnd=p.findIndex((q,i)=>i>c+3&&q[1]>-70.3);if(hEnd<0)hEnd=Math.min(p.length-1,c+80);
+  return [[0,a],[a,pk],[pk,c],[c,hEnd],[hEnd,e]]}
+function drillAP(host){
+  const X=t=>70+t*45,Y=v=>260-(v+100)*1.7,P=apCurve(),S=apSegs(P);
+  const COL=["#4A6FA5","#C0392B","#D68910","#7D3C98","#4A6FA5"];
+  function svg(hi,mark){
+    const segs=S.map((s,i)=>{const d=P.slice(s[0],s[1]+1).map((q,k)=>(k?"L":"M")+X(q[0]).toFixed(1)+" "+Y(q[1]).toFixed(1)).join("");
+      return `<path d="${d}" fill="none" style="stroke:${hi===i?COL[i]:"var(--fg)"};stroke-width:${hi===i?8:3.5}" stroke-linecap="round"/>`}).join("");
+    const marks=mark?S.map((s,i)=>{const m=P[Math.floor((s[0]+s[1])/2)];return `<g><circle cx="${X(m[0])}" cy="${Y(m[1])-(i===3?-30:i===1?0:i===2?0:28)}" r="17" style="fill:${COL[i]}"/><text x="${X(m[0])}" y="${Y(m[1])-(i===3?-30:i===1?0:i===2?0:28)+6}" text-anchor="middle" font-size="17" font-weight="700" style="fill:#fff">${i+1}</text></g>`}).join(""):"";
+    return `<svg viewBox="0 0 640 300" role="img" aria-label="Action potential graph, membrane potential in millivolts against time. It rests, rises sharply, falls back, dips below rest, then returns to rest."><line x1="60" y1="${Y(-100)}" x2="620" y2="${Y(-100)}" style="stroke:var(--fg);stroke-width:2"/><line x1="60" y1="${Y(50)}" x2="60" y2="${Y(-100)}" style="stroke:var(--fg);stroke-width:2"/>
+    ${[50,0,-50,-100].map(v=>`<line x1="55" x2="620" y1="${Y(v)}" y2="${Y(v)}" style="stroke:var(--line);stroke-width:1"/><text x="50" y="${Y(v)+5}" text-anchor="end" font-size="15" style="fill:var(--muted)">${v>0?"+"+v:v}</text>`).join("")}
+    <line x1="60" x2="620" y1="${Y(-70)}" y2="${Y(-70)}" style="stroke:var(--accent);stroke-width:2;stroke-dasharray:6 6"/><text x="622" y="${Y(-70)-6}" text-anchor="end" font-size="15" font-weight="700" style="fill:var(--accent)">RMP -70 mV</text>
+    <text x="14" y="150" font-size="15" style="fill:var(--muted)" transform="rotate(-90 14 150)">Membrane potential (mV)</text><text x="600" y="296" text-anchor="end" font-size="15" style="fill:var(--muted)">Time</text>${segs}${marks}</svg>`}
+  host.innerHTML=`<p class="note">Shape follows slide 34. Only the -70 mV resting value is given on the slides as a number to know. Explore the five phases, then label them yourself.</p><div class="row"><button class="btn primary" data-m="exp" aria-pressed="true">Explore</button><button class="btn" data-m="lab">Label it</button></div><div id="apb"></div>`;
+  const body=$("#apb",host);
+  function explore(){let i=0;
+    body.innerHTML=`<div class="panel"><div class="diagram" id="apg"></div><div id="apinfo" aria-live="polite"></div><div class="row"><button class="btn" id="ab">Back</button><button class="btn primary" id="an">Next phase</button></div></div>`;
+    function d(){$("#apg",body).innerHTML=svg(i,false);const h=APH[i];$("#apinfo",body).innerHTML=`<p class="qtext"><span style="color:${COL[i]}">&#9632;</span> Phase ${i+1} of 5: ${h[0]}</p><div class="tblw"><table><tbody><tr><th>Main protein</th><td>${h[1]}</td></tr><tr><th>Ion movement</th><td>${h[2]}</td></tr><tr><th>What happens</th><td>${h[3]}</td></tr></tbody></table></div>`;$("#ab",body).disabled=i===0;$("#an",body).disabled=i===4}
+    $("#ab",body).onclick=()=>{i--;d()};$("#an",body).onclick=()=>{i++;d()};d()}
+  function label(){
+    const ph=["Resting","Depolarization","Repolarization","Hyperpolarization"],pr=["Na⁺/K⁺ pump","Voltage-gated Na⁺ channel","Voltage-gated K⁺ channel"],io=["Na⁺ influx","K⁺ efflux","3 Na⁺ out, 2 K⁺ in"];
+    const sel=(id,o)=>`<select id="${id}" aria-label="${id}"><option value="">Choose...</option>${o.map(x=>`<option>${x}</option>`).join("")}</select>`;
+    body.innerHTML=`<div class="panel"><div class="diagram">${svg(-1,true)}</div><p class="small muted">Numbers 1 to 5 mark the five parts of the curve in time order. Describe each one. 3 points each.</p>
+    ${[0,1,2,3,4].map(i=>`<div class="panel" style="margin:8px 0"><b><span style="color:${COL[i]}">&#9632;</span> Part ${i+1}</b><div class="qrow"><label for="p${i}">Phase</label>${sel("p"+i,ph)}</div><div class="qrow"><label for="q${i}">Main protein</label>${sel("q"+i,pr)}</div><div class="qrow"><label for="r${i}">Ion movement</label>${sel("r"+i,io)}</div></div>`).join("")}
+    <div class="row"><button class="btn primary" id="ach">Check</button><button class="btn" id="acl">Clear</button><span class="score" role="status" id="asc"></span></div></div>`;
+    $("#ach",body).onclick=()=>{let s=0;[0,1,2,3,4].forEach(i=>{[["p",0],["q",1],["r",2]].forEach(([k,c])=>{const e=$("#"+k+i,body),ok=e.value===APH[i][c].replace("Resting","Resting");e.className=ok?"ok":"no";if(ok)s++})});$("#asc",body).textContent=`Score: ${s} / 15`;recDrill("ap",s,15)};
+    $("#acl",body).onclick=()=>$$("select",body).forEach(e=>{e.value="";e.className=""});
+  }
+  host.addEventListener("click",e=>{const m=e.target.dataset.m;if(!m)return;$$("[data-m]",host).forEach(b=>b.className="btn"+(b===e.target?" primary":""));m==="exp"?explore():label()});
+  explore();
+}
+
+/* ================= 5. Protein destination router ================= */
+const ROUTE_NODES=["Free ribosome","Bound ribosome","Rough ER","Smooth ER","Transport vesicle","Golgi apparatus","Cytosol","Plasma membrane","Outside the cell (secreted)"];
+const SCEN=[
+ {n:"Insulin",d:"Made by beta cells of the pancreas and secreted from the cell.",path:["Bound ribosome","Rough ER","Transport vesicle","Golgi apparatus","Transport vesicle","Outside the cell (secreted)"]},
+ {n:"Glucagon",d:"Made by alpha cells of the pancreas and secreted from the cell.",path:["Bound ribosome","Rough ER","Transport vesicle","Golgi apparatus","Transport vesicle","Outside the cell (secreted)"]},
+ {n:"A plasma membrane protein",d:"A membrane protein that ends up in the plasma membrane.",path:["Bound ribosome","Rough ER","Transport vesicle","Golgi apparatus","Transport vesicle","Plasma membrane"]},
+ {n:"A protein that works in the cytosol",d:"Functions in the solution inside the cell.",path:["Free ribosome","Cytosol"]}];
+const ROUTE_WHY={"Free ribosome":"Free ribosomes in the cytosol make proteins that function in the cytosol.","Bound ribosome":"Bound ribosomes on the ER make membrane proteins and secreted proteins.","Rough ER":"The rough ER is studded with ribosomes and folds proteins in its lumen, then sends transport vesicles to the Golgi.","Transport vesicle":"Vesicles carry the protein between compartments.","Golgi apparatus":"The Golgi receives vesicles from the ER, attaches polysaccharides (glycosylation), and sorts and repackages proteins for the new destination.","Cytosol":"Cytosolic proteins stay in the cytosol.","Plasma membrane":"Membrane proteins end up in the plasma membrane.","Outside the cell (secreted)":"Secreted proteins leave the cell."};
+function drillRouter(host){
+  let si=0,path=[];
+  host.innerHTML=`<div class="panel"><h3 style="margin-top:0">Build the route</h3><div class="row" id="rsc"></div><p class="qtext" id="rq"></p><p class="small muted">Tap the steps in order, from where the protein is made to where it ends up. Smooth ER is in the list as a distractor.</p>
+  <ol id="rpath" class="small" style="min-height:2.2em" aria-live="polite"></ol><div class="row" id="rpal"></div><div class="row" style="margin-top:10px"><button class="btn" id="run">Undo</button><button class="btn" id="rcl">Clear</button><button class="btn primary" id="rch">Check route</button></div><div id="rfb"></div></div><div id="rmatch"></div>`;
+  function draw(){const S=SCEN[si];
+    $("#rsc",host).innerHTML=SCEN.map((s,i)=>`<button class="chip" data-s="${i}" aria-pressed="${i===si}">${s.n}</button>`).join("");
+    $("#rq",host).innerHTML=`<b>${S.n}.</b> ${S.d}`;
+    $("#rpath",host).innerHTML=path.length?path.map(p=>`<li>${p}</li>`).join(""):"<li class='muted'>No steps yet</li>";
+    $("#rpal",host).innerHTML=ROUTE_NODES.map(n=>`<button class="btn sm" data-n="${esc(n)}">${n}</button>`).join("")}
+  host.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+    if(b.dataset.s!=null){si=+b.dataset.s;path=[];$("#rfb",host).innerHTML="";draw()}
+    else if(b.dataset.n){path.push(b.dataset.n);draw()}
+    else if(b.id==="run"){path.pop();draw()}
+    else if(b.id==="rcl"){path=[];$("#rfb",host).innerHTML="";draw()}
+    else if(b.id==="rch"){const S=SCEN[si],ok=path.length===S.path.length&&path.every((p,i)=>p===S.path[i]);recDrill("router",ok,1);
+      $("#rfb",host).innerHTML=fbBox(ok,`${ok?"Correct route.":"Not quite."} Route: ${S.path.join(" → ")}.<ul>${[...new Set(S.path)].map(p=>`<li><b>${p}</b>: ${ROUTE_WHY[p]}</li>`).join("")}</ul>`)}});
+  draw();
+  matchTable($("#rmatch",host),{id:"router-org",title:"Which part of the endomembrane system?",opts:["Rough ER","Smooth ER","Golgi apparatus"],items:[
+   ["Continuous with the nuclear envelope",0],["Studded with ribosomes",0],["Facilitates protein folding in the lumen",0],["Sends transport vesicles to the Golgi apparatus",0],
+   ["No ribosomes",1],["Synthesizes phospholipids for the cell membrane",1],["Stores Ca²⁺",1],["Continuous with the rough ER",1],
+   ["Receives vesicles from the ER",2],["Attaches polysaccharides to proteins (glycosylation)",2],["Sorts and repackages proteins for a new destination",2]]});
+}
+
+/* ================= 6. Plant tissue sorter ================= */
+function drillPlant(host){
+  host.innerHTML="";
+  matchTable(host,{id:"plant-tissue",title:"Which tissue system?",opts:["Dermal tissue","Vascular tissue","Ground tissue"],items:[
+   ["Protective outer coating",0],["Guard cells (gas exchange in leaves)",0],["Transport of materials and mechanical support",1],["Xylem",1],["Phloem",1],["Neither dermal nor vascular",2],["Cells specialized for storage",2],["Cells specialized for photosynthesis",2],["Cells specialized for support",2]]});
+  matchTable(host,{id:"plant-cells",title:"Which cell type?",opts:["Vessel","Tracheid","Sieve-tube element"],items:[
+   ["Wide cell in the xylem, efficient at moving water and minerals",0],["Narrow cell in the xylem, less efficient at moving water and minerals",1],["Sugar-conducting cell of the phloem",2],["Alive at maturity",2],["The xylem cell that is more efficient",0],["The xylem cell that is less efficient",1]]});
+  matchTable(host,{id:"plant-transport",title:"What does it transport?",opts:["Water and minerals","Sucrose"],items:[["Xylem",0],["Phloem",1],["Vessels",0],["Sieve-tube elements",1],["Tracheids",0]]});
+  matchTable(host,{id:"plant-wall",title:"Which layer of the plant cell wall?",opts:["Primary wall","Secondary wall","Middle lamella"],items:[
+   ["Stretches while the cell is growing",0],["Contains lignin for strength",1],["Forms inside the primary wall after the cell completes growth",1],["Contains pectin and provides adhesion between two cells",2],["Contains cellulose and is made while the cell is growing",0]]});
+}
+
+/* ================= 7. Genetics probability trainer ================= */
+function drillGen(host){
+  let mode="ar",q=null;
+  function gam(g){return [g[0],g[1]]}
+  function sortG(a,b,L,l){const x=[a,b].sort((p,q)=>(p===L?0:1)-(q===L?0:1));return x.join("")}
+  function newQ(first){
+    const L=mode==="ar"?"A":"H",l=L.toLowerCase(),opts=[L+L,L+l,l+l];
+    let p1,p2;if(first){p1=p2=L+l}else{p1=pick(opts);p2=pick(opts)}
+    const kids=[];gam(p1).forEach(a=>gam(p2).forEach(b=>kids.push(sortG(a,b,L,l))));
+    const aff=mode==="ar"?kids.filter(k=>k===l+l).length/4:kids.filter(k=>k!==l+l).length/4;
+    const carr=kids.filter(k=>k===L+l).length/4;
+    q={L,l,p1,p2,kids,aff,carr,unaff:1-aff};render()}
+  function render(){
+    const dis=mode==="ar"?"autosomal recessive disease (cystic fibrosis style)":"autosomal dominant disease (Huntington's style)";
+    const qs=mode==="ar"?[["aff","Probability a child is affected"],["carr","Probability a child is a carrier"]]:[["aff","Probability a child is affected"],["unaff","Probability a child is unaffected"]];
+    host.innerHTML=`<div class="row"><button class="btn ${mode==="ar"?"primary":""}" data-m="ar">Autosomal recessive</button><button class="btn ${mode==="ad"?"primary":""}" data-m="ad">Autosomal dominant</button></div>
+    <div class="panel"><p class="note">${dis}. In a recessive disease, ${q.l+q.l} is affected and ${q.L+q.l} is a carrier. In a dominant disease, ${q.L+q.L} and ${q.L+q.l} are affected.</p><p class="qtext">Parents: ${q.p1} × ${q.p2}</p>
+    ${qs.map(x=>`<div class="qrow"><label for="g-${x[0]}">${x[1]}</label><input type="text" id="g-${x[0]}" data-k="${x[0]}" inputmode="text" autocomplete="off" placeholder="1/4, ¼, 0.25 or 25%"></div>`).join("")}
+    <div class="row" style="margin-top:10px"><button class="btn primary" id="gck">Check and show Punnett square</button><button class="btn" id="gnx">New cross</button></div><div id="gfb"></div></div><div id="gterm"></div>`;
+    $("#gck",host).onclick=()=>{let s=0;$$("input",host).forEach(i=>{const v=parseFrac(i.value),ok=v!=null&&Math.abs(v-q[i.dataset.k])<1e-9;i.className=ok?"ok":"no";if(ok)s++});recDrill("genetics",s,qs.length);
+      const cnt={};q.kids.forEach(k=>cnt[k]=(cnt[k]||0)+1);
+      $("#gfb",host).innerHTML=fbBox(s===qs.length,`<b>${s} of ${qs.length}.</b> Affected: ${fmtFrac(q.aff)}, ${mode==="ar"?"carrier: "+fmtFrac(q.carr):"unaffected: "+fmtFrac(q.unaff)}.`)+
+      `<div class="tblw"><table class="mini" aria-label="Punnett square"><thead><tr><th></th><th>${q.p2[0]}</th><th>${q.p2[1]}</th></tr></thead><tbody><tr><th>${q.p1[0]}</th><td>${sortG(q.p1[0],q.p2[0],q.L,q.l)}</td><td>${sortG(q.p1[0],q.p2[1],q.L,q.l)}</td></tr><tr><th>${q.p1[1]}</th><td>${sortG(q.p1[1],q.p2[0],q.L,q.l)}</td><td>${sortG(q.p1[1],q.p2[1],q.L,q.l)}</td></tr></tbody></table></div><p class="small muted">Counts: ${Object.entries(cnt).map(([k,v])=>`${k} ${v}/4`).join(", ")}.</p>`};
+    $("#gnx",host).onclick=()=>newQ(false);
+    matchTable($("#gterm",host),{id:"gen-terms",title:"Genetics terms",opts:["Homozygous dominant","Homozygous recessive","Heterozygous"],items:[["AA",0],["aa",1],["Aa",2],["HH",0],["hh",1],["Hh",2],["Identical alleles, both dominant",0],["Different alleles",2]]});
+  }
+  host.addEventListener("click",e=>{const m=e.target.dataset.m;if(m&&m!==mode){mode=m;newQ(true)}});
+  newQ(true);
+}
+
+/* ================= 8. Missed-items mixer ================= */
+function drillMixer(host){
+  let S=null,timer=null,timed=false;
+  function weight(q){const d=P.quiz[q.id];if(!d)return 2;return 1+(d.last===0?4:0)+Math.round((1-d.r/d.t)*3)}
+  function start(){
+    const qp=QUIZ.filter(q=>sel.has(q.t)),cp=CARDS.filter(c=>sel.has(c.t)&&P.cards[c.id]==="again");
+    const items=[];const bag=[];qp.forEach(q=>{for(let i=0;i<weight(q);i++)bag.push(q)});
+    const used=new Set();while(items.length<Math.min(8,qp.length)&&bag.length){const q=pick(bag);if(!used.has(q.id)){used.add(q.id);items.push({k:"q",q,opts:shuffle([q.a,...q.w])})}if(used.size>=qp.length)break}
+    shuffle(cp).slice(0,3).forEach(c=>items.push({k:"c",c}));
+    S={items:shuffle(items),i:0,right:0,done:0,ans:null,rev:false};draw()}
+  function draw(){clearInterval(timer);
+    if(!S){host.innerHTML=`<div class="panel"><p>A mixed round of up to 11 items. Questions you missed before come up more often, and any flashcards you marked "Review again" are mixed in as self-graded recall.</p><label class="row" style="gap:8px"><input type="checkbox" id="mt" style="width:24px;height:24px" ${timed?"checked":""}> Show a 45 second countdown (off by default)</label><div class="row" style="margin-top:10px"><button class="btn primary" id="ms">Start a round</button></div></div>`;
+      $("#ms",host).onclick=()=>{timed=$("#mt",host).checked;start()};return}
+    if(S.i>=S.items.length){host.innerHTML=`<div class="panel"><h3>Round complete</h3><p class="score">${S.right} of ${S.done} correct</p><div class="row"><button class="btn primary" id="mr">Another round</button></div></div>`;$("#mr",host).onclick=()=>{S=null;start()};recDrill("mixer",S.right,S.done);return}
+    const it=S.items[S.i];let h=`<p class="small muted" aria-live="polite">Item ${S.i+1} of ${S.items.length}. Score: ${S.right} of ${S.done}.${timed&&!S.ans&&!S.rev?` <b id="mclock">45</b> s left.`:""}</p><div class="meter" aria-hidden="true"><i style="width:${S.i/S.items.length*100}%"></i></div>`;
+    if(it.k==="q"){const q=it.q;h+=`<div class="panel"><span class="pill g${topicById[q.t].set}">${esc(tShort(q.t))}</span><p class="qtext" id="mq">${q.q}</p><div class="opts">${it.opts.map((o,i)=>{let c="";if(S.ans){if(o===q.a)c="ok";else if(S.ans.pick===o)c="no"}return `<button class="opt ${c}" data-o="${i}" ${S.ans?"disabled":""}><span class="k">${String.fromCharCode(65+i)}.</span><span>${o}</span></button>`}).join("")}</div>${S.ans?fbBox(S.ans.ok,`<b>${S.ans.ok?"Correct.":S.ans.pick==null?"Time is up.":"Not quite."}</b> ${S.ans.ok?"":"The answer is "+q.a+". "}${q.e}`)+`<div class="row" style="margin-top:10px"><button class="btn primary" id="mn">Next</button></div>`:""}</div>`}
+    else{const c=it.c;h+=`<div class="panel"><span class="pill g${topicById[c.t].set}">${esc(tShort(c.t))}</span> <span class="pill">Recall</span><p class="qtext">${c.f}</p>${S.rev?`<div class="fb">${c.b}</div><p>Did you get it?</p><div class="row"><button class="btn primary" id="mg">Got it</button><button class="btn" id="mw">Not yet</button></div>`:`<button class="btn primary" id="mrv">Show the answer</button>`}</div>`}
+    host.innerHTML=h;
+    if(timed&&!S.ans&&!S.rev){let t=45;timer=setInterval(()=>{t--;const c=$("#mclock",host);if(c)c.textContent=t;if(t<=0){clearInterval(timer);if(it.k==="q"&&!S.ans){S.ans={pick:null,ok:false};S.done++;recQuiz(it.q.id,false);draw()}}},1000)}
+  }
+  host.addEventListener("click",e=>{if(!S)return;const it=S.items[S.i];if(!it)return;const t=e.target;
+    const o=t.closest(".opt");
+    if(o&&it.k==="q"&&!S.ans){const pick=it.opts[+o.dataset.o],ok=pick===it.q.a;S.ans={pick,ok};S.done++;if(ok)S.right++;recQuiz(it.q.id,ok);draw();const n=$("#mn",host);n&&n.focus({preventScroll:true})}
+    else if(t.id==="mn"){S.i++;S.ans=null;S.rev=false;draw()}
+    else if(t.id==="mrv"){S.rev=true;clearInterval(timer);draw()}
+    else if(t.id==="mg"||t.id==="mw"){const ok=t.id==="mg";S.done++;if(ok){S.right++;P.cards[it.c.id]="know";save()}S.i++;S.rev=false;draw()}});
+  S=null;draw();
+}
+
+/* ===== drills registry and hub ===== */
+const DRILLS=[
+ {id:"metric",title:"Metric prefix table",desc:"Slide 2. Fill the 12-blank table, then practice conversions.",run:drillMetric},
+ {id:"mut",title:"Mutation lab",desc:"Slides 22 to 24. Transcribe, translate, then call it silent, missense or nonsense.",run:drillMut},
+ {id:"pump",title:"Na⁺/K⁺ pump stepper and fill-in",desc:"Slides 7 to 9. Watch the six steps, then fill the exam paragraph.",run:drillPump},
+ {id:"ap",title:"Action potential grapher",desc:"Slides 28 to 36. Explore the phases, then label the curve.",run:drillAP},
+ {id:"router",title:"Protein destination router",desc:"Slides 17 to 21. Free or bound ribosome, ER, Golgi, and where the protein ends up.",run:drillRouter},
+ {id:"plant",title:"Plant tissue sorter",desc:"Slides 18 to 20. Tissue systems, xylem and phloem cells, wall layers.",run:drillPlant},
+ {id:"genetics",title:"Genetics probability trainer",desc:"Slides 26 to 28. Crosses, carriers and affected odds with a Punnett square.",run:drillGen},
+ {id:"mixer",title:"Missed-items mixer",desc:"Mixed round that favors what you missed. Optional timer.",run:drillMixer}
+];
+let activeDrill=null;
+function renderDrills(){
+  if(!activeDrill){
+    $("#main").innerHTML=`<h2>Drills</h2><p class="muted small">Interactive practice for the exam formats the slides describe. The mitochondrion and chloroplast diagrams are in the Diagrams tab.</p><div class="dgrid">${DRILLS.map(d=>`<button class="dcard" data-d="${d.id}"><b>${d.title}</b><span>${d.desc}</span></button>`).join("")}<button class="dcard" data-p="diagrams"><b>Mitochondrion and chloroplast diagrams</b><span>Guide me and Test your knowledge modes.</span></button></div>`;return}
+  const d=DRILLS.find(x=>x.id===activeDrill);
+  $("#main").innerHTML=`<div class="row"><button class="btn" id="dback">All drills</button></div><h2>${d.title}</h2><div id="dhost"></div>`;
+  d.run($("#dhost"));
+}
+$("#main").addEventListener("click",e=>{if(cur!=="drills")return;
+  const c=e.target.closest(".dcard");if(c){if(c.dataset.p)return go(c.dataset.p);activeDrill=c.dataset.d;renderDrills();window.scrollTo({top:0})}
+  if(e.target.id==="dback"){activeDrill=null;renderDrills();window.scrollTo({top:0})}});
+/* Newest first. Add an entry here and in CHANGELOG.md for every release. */
+const REPO="https://github.com/sshartbauer/bio20-final-review";
+const CHANGELOG=[
+ {v:"1.0",date:"2026-11-25",items:[
+  "First release for the BIOSC-020 final exam.",
+  "Notes: one section per concept (44 concepts) covering both final study guides, set 1 (old material) and set 2 (new material), with slide numbers.",
+  "Flashcards and quiz for every concept, with explanations on every quiz answer.",
+  "Diagrams tab: mitochondrion and chloroplast with Guide me and Test your knowledge modes.",
+  "Drills: metric prefix table, mutation lab, Na⁺/K⁺ pump stepper with the slide 9 fill-in, action potential grapher, protein destination router, plant tissue sorter, genetics probability trainer, and a missed-items mixer.",
+  "Settings: theme, text size, reading spacing, reduced motion. Works on phones. Progress saves on your device, with export and import.",
+  "Answer keys for the diagrams were checked against Prof. Shane's key."]}
+];
+/* ===== footer: about, changelog, report an error ===== */
+$("#foot").innerHTML=`<details class="topic"><summary><span class="tname">About, changelog and reporting errors</span></summary><div class="tbody">
+<p>A free study tool for the BIOSC-020 final exam, shared with permission of Prof. Shane. Content follows the typed text of the two final exam study guide slide sets. Figures on the slides are supplemental.</p>
+<p>Found a mistake? <a href="${REPO}/issues/new" target="_blank" rel="noopener">Report it on GitHub</a> and say which tab and item it was.</p>
+<h3>Changelog</h3>${CHANGELOG.map(c=>`<p><b>Version ${c.v}</b> <span class="muted">${c.date}</span></p><ul>${c.items.map(i=>`<li>${i}</li>`).join("")}</ul>`).join("")}
+<p class="small muted">Fonts: Carlito (SIL Open Font License). Progress and settings are stored only in your browser.</p></div></details>`;
+const h0=location.hash.slice(1);go(TABS.some(t=>t[0]===h0)?h0:"notes",true);
+if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script></body></html>
