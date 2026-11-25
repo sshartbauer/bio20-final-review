@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3 (2026-11-25)
+- New How to use tab with a suggested study routine, what each tab does, reading settings, and how progress is saved. It opens automatically on your first visit.
+
 ## 1.2 (2026-11-25)
 - On screens 900 px wide or more, the study modes (Notes, Flashcards, Quiz, Diagrams, Drills, Progress) and Settings now sit in a left sidebar, and the content uses the full page width. Paragraph text keeps a readable line length. Phones keep the tab strip at the top.
 

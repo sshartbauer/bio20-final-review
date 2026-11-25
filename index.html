@@ -201,6 +201,9 @@ main p,main li,.qtext,.keynote,.fignote,.note{max-width:75ch}
   #foot{grid-row:4;padding-bottom:60px}
   .dframe{height:calc(100vh - 150px)}
 }
+
+.steps{padding-left:1.4em}.steps li{margin:.6em 0;max-width:75ch}.steps .btn{margin:6px 6px 0 0}
+.fbar[hidden]{display:none}.panel>h3:first-child{margin-top:0}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -928,7 +931,7 @@ QUIZ.forEach((q,i)=>{q.id=hash(q[0]+'|'+q[1]);q.t=q[0];q.q=q[1];q.a=q[2];q.w=q[3
 
 /* ===== saved progress ===== */
 const KEY="bio20-final-v1";
-let P={cards:{},quiz:{},drills:{},sel:null,set:{theme:"auto",size:"m",space:"roomy",motion:"auto"},fold:[]};
+let P={seen:0,cards:{},quiz:{},drills:{},sel:null,set:{theme:"auto",size:"m",space:"roomy",motion:"auto"},fold:[]};
 try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(s){P=Object.assign(P,s);P.set=Object.assign({theme:"auto",size:"m",space:"roomy",motion:"auto"},s.set||{})}}catch(e){}
 let saveT=0;function save(){clearTimeout(saveT);saveT=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(P))}catch(e){}},200)}
 function recQuiz(id,ok){const d=P.quiz[id]||(P.quiz[id]={r:0,t:0});d.t++;if(ok)d.r++;d.last=ok?1:0;save()}
@@ -964,8 +967,8 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#settings").hid
 $("#btnSet").onclick=openSettings;
 
 /* ===== tabs ===== */
-const TABS=[["notes","Notes"],["cards","Flashcards"],["quiz","Quiz"],["diagrams","Diagrams"],["drills","Drills"],["progress","Progress"]];
-const NOFILTER={diagrams:1,progress:1,drills:1};
+const TABS=[["guide","How to use"],["notes","Notes"],["cards","Flashcards"],["quiz","Quiz"],["diagrams","Diagrams"],["drills","Drills"],["progress","Progress"]];
+const NOFILTER={guide:1,diagrams:1,progress:1,drills:1};
 let cur="notes";
 $("#tabs").innerHTML=TABS.map(t=>`<button class="tab" role="tab" id="tab-${t[0]}" data-t="${t[0]}" aria-selected="false" aria-controls="main">${t[1]}</button>`).join("");
 $("#tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(b)go(b.dataset.t)});
@@ -976,8 +979,42 @@ function go(t,keep){
   $("#fbar").hidden=!!NOFILTER[t];if(NOFILTER[t])$("#filters").hidden=true;
   render();if(!keep)window.scrollTo({top:0,behavior:"auto"});
 }
-function render(){({notes:renderNotes,cards:renderCards,quiz:renderQuiz,diagrams:renderDiagrams,drills:renderDrills,progress:renderProgress})[cur]()}
+function render(){({guide:renderGuide,notes:renderNotes,cards:renderCards,quiz:renderQuiz,diagrams:renderDiagrams,drills:renderDrills,progress:renderProgress})[cur]()}
 
+document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g)go(g.dataset.go)});
+function renderGuide(){
+  P.seen=1;save();
+  const go=(t,l)=>`<button class="btn sm" data-go="${t}">${l}</button>`;
+  $("#main").innerHTML=`<h2>How to use this tool</h2>
+  <p>This page covers everything on both final exam study guides. Set 1 is the old material and set 2 is the new material. Every concept has notes, flashcards and quiz questions, and some also have a diagram or a practice tool.</p>
+  <div class="panel"><h3>A study routine that works</h3>
+  <ol class="steps">
+  <li><b>Read the notes</b> for one concept. Yellow boxes are things the guide says are on the exam. Blue boxes come from figures, which the guide says are supplemental. ${go("notes","Open Notes")}</li>
+  <li><b>Test yourself with flashcards.</b> Say the answer out loud before you flip the card, then mark it <i>Got it</i> or <i>Review again</i>. ${go("cards","Open Flashcards")}</li>
+  <li><b>Take the quiz</b> on the same concept. Every answer comes with an explanation, and you can retry only the ones you missed. ${go("quiz","Open Quiz")}</li>
+  <li><b>Practice with a tool</b> if the concept has one: the mitochondrion and chloroplast diagrams, or one of the drills. ${go("diagrams","Open Diagrams")} ${go("drills","Open Drills")}</li>
+  <li><b>Check Progress</b> to see weak concepts, then run the <i>Missed-items mixer</i> drill, which brings back what you got wrong. ${go("progress","Open Progress")}</li>
+  </ol></div>
+  <div class="panel"><h3>Choose what to study</h3>
+  <p>On Notes, Flashcards and Quiz, the <b>Choose concepts</b> button at the top lets you pick one concept, a whole set, or everything. Your choice is remembered. Use it to work through one topic at a time or to focus on set 2 first.</p></div>
+  <div class="panel"><h3>What each part does</h3><ul>
+  <li><b>Notes:</b> one section per concept with the slide numbers. Tap a section to open it. <i>Open all</i> and <i>Close all</i> are at the top.</li>
+  <li><b>Flashcards:</b> tap the card to flip it. Swipe left or right on a phone, or click the card and use Space and the arrow keys.</li>
+  <li><b>Quiz:</b> one question at a time with instant feedback. At the end you can retry only your misses.</li>
+  <li><b>Diagrams:</b> pick Mitochondrion or Chloroplast. <i>Guide me</i> walks you through the steps with an explanation for each blank. <i>Test your knowledge</i> hides the answers so you fill them in.</li>
+  <li><b>Drills:</b> ${DRILLS.map(d=>d.title).join(", ")}. Each one says which slides it covers.</li>
+  <li><b>Progress:</b> your flashcard and quiz results by concept, plus drill scores.</li>
+  </ul></div>
+  <div class="panel"><h3>Make it easier to read</h3>
+  <p>Open <b>Settings</b> to change the theme (Light, Dark, AMOLED black or High contrast), text size, and reading spacing. Reading spacing adds room between words, letters and lines, and you can turn on reduced motion there too.</p></div>
+  <div class="panel"><h3>Your progress and your device</h3><ul>
+  <li>Progress is saved only in this browser on this device. Nothing is sent anywhere.</li>
+  <li>To move to another device, use <b>Export</b> on the Progress tab and <b>Import</b> on the other device.</li>
+  <li>Clearing your browser data erases your progress, so export a copy first if you want to keep it.</li>
+  <li>After your first visit the page works offline.</li></ul></div>
+  <div class="panel"><h3>Found a mistake?</h3>
+  <p>Open the <b>About, changelog and reporting errors</b> section at the bottom of any page. Tell us the tab and the item so it can be checked against the slides.</p></div>`;
+}
 /* ===== topic filter ===== */
 function renderFilters(){
   const f=$("#filters");
@@ -1510,6 +1547,8 @@ $("#main").addEventListener("click",e=>{if(cur!=="drills")return;
 /* Newest first. Add an entry here and in CHANGELOG.md for every release. */
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
+ {v:"1.3",date:"2026-11-25",items:[
+  "New How to use tab with a suggested study routine, what each tab does, reading settings, and how progress is saved. It opens automatically on your first visit."]},
  {v:"1.2",date:"2026-11-25",items:[
   "On screens 900 px wide or more, the study modes (Notes, Flashcards, Quiz, Diagrams, Drills, Progress) and Settings now sit in a left sidebar, and the content uses the full page width. Paragraph text keeps a readable line length. Phones keep the tab strip at the top."]},
  {v:"1.1",date:"2026-11-25",items:[
@@ -1530,6 +1569,6 @@ $("#foot").innerHTML=`<details class="topic"><summary><span class="tname">About,
 <p>Found a mistake? <a href="${REPO}/issues/new" target="_blank" rel="noopener">Report it on GitHub</a> and say which tab and item it was.</p>
 <h3>Changelog</h3>${CHANGELOG.map(c=>`<p><b>Version ${c.v}</b> <span class="muted">${c.date}</span></p><ul>${c.items.map(i=>`<li>${i}</li>`).join("")}</ul>`).join("")}
 <p class="small muted">Fonts: Carlito (SIL Open Font License). Progress and settings are stored only in your browser.</p></div></details>`;
-const h0=location.hash.slice(1);go(TABS.some(t=>t[0]===h0)?h0:"notes",true);
+const h0=location.hash.slice(1);go(TABS.some(t=>t[0]===h0)?h0:(P.seen?"notes":"guide"),true);
 if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
 </script></body></html>
