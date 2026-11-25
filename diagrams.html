@@ -8,7 +8,7 @@
 @font-face{font-family:"Carlito";src:url("fonts/Carlito-Italic.woff2") format("woff2");font-weight:400;font-style:italic;font-display:swap}
 .emb #theme{display:none!important}
 :root{--bg:#F2F5F8;--surface:#FFFFFF;--surface-2:#E7ECF1;--fg:#141C24;--muted:#566370;--line:#CBD6E0;--accent:#1F66A8;--accent-soft:#D6E5F5;--accent-ink:#FFFFFF;--good:#2C7A4B;--good-soft:#DCEFE3;--bad:#B0412B;--bad-soft:#F6E0DA;--sans:Calibri,"Carlito","Segoe UI",system-ui,sans-serif;--r:10px;--g1:#e4e4e4;--g2:#8c8c8c;--hl:#00D93A;--hl-bg:rgba(0,217,58,.2);--hl-ink:#04210B;--cs-p:#6B4FB8;--cf-p:#E9E3F7;--cs-d:#9A6208;--cf-d:#F8EACB;--cs-n:#0E7C86;--cf-n:#D5EEF0;--src:#C2185B}
-:root[data-theme=dark]{--bg:#0B121B;--surface:#131D29;--surface-2:#1B2736;--fg:#E3EBF2;--muted:#93A5B8;--line:#2A3A4D;--accent:#62AEEA;--accent-soft:#1B2F42;--accent-ink:#0A1413;--good:#63C48D;--good-soft:#173326;--bad:#EC8670;--bad-soft:#3A1F19;--g1:#4a5a6c;--g2:#9fb0c2;--hl:#1FC45A;--hl-ink:#04210B;--cs-p:#A99BF0;--cf-p:#2A2347;--cs-d:#E3AA4F;--cf-d:#3A2D12;--cs-n:#5CC8D0;--cf-n:#12343A;--src:#F07FB0;color-scheme:dark;--hl-bg:rgba(31,196,90,.24)}
+:root[data-theme=dark],:root[data-theme=amoled],:root[data-theme=hc]{--bg:#0B121B;--surface:#131D29;--surface-2:#1B2736;--fg:#E3EBF2;--muted:#93A5B8;--line:#2A3A4D;--accent:#62AEEA;--accent-soft:#1B2F42;--accent-ink:#0A1413;--good:#63C48D;--good-soft:#173326;--bad:#EC8670;--bad-soft:#3A1F19;--g1:#4a5a6c;--g2:#9fb0c2;--hl:#1FC45A;--hl-ink:#04210B;--cs-p:#A99BF0;--cf-p:#2A2347;--cs-d:#E3AA4F;--cf-d:#3A2D12;--cs-n:#5CC8D0;--cf-n:#12343A;--src:#F07FB0;color-scheme:dark;--hl-bg:rgba(31,196,90,.24)}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:17px;line-height:1.5;margin:0}
 .wrap{padding:0 10px 56px;max-width:1500px;margin:0 auto}
@@ -94,7 +94,7 @@ ul.bl{margin:.25rem 0 0 1.1rem;padding:0}ul.bl li{margin:.28rem 0}
 .t li.hl{font-weight:700;color:var(--fg);background:color-mix(in srgb,var(--hpc) 32%,transparent);border-radius:4px;box-shadow:0 0 0 3px color-mix(in srgb,var(--hpc) 32%,transparent)}
 .lgrow{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:42px;margin-bottom:6px}.lgrow .legend{margin:0}.nav{display:flex;gap:8px;flex:none}.nav .btn{padding:7px 16px;font-size:1rem}.nav .btn:disabled{opacity:.45;cursor:default}
 :root{--ims-t:#5B3A91;--mtx-t:#8A4A00;--stroma-t:#2E6B22;--ims:#E3D3F3;--mtx:#FFE0B0;--stroma:#E2F0DA;--thy:#D6E8F8;--hpc:#8FB000;--sp-e:#A87900;--sp-h:#C62828;--sp-n:#1F66A8;--sp-a:#B85C00;--sp-w:#00798A;--sp-c:#6B4FB8}
-:root[data-theme=dark]{--ims-t:#CDB9F5;--mtx-t:#F2BE72;--stroma-t:#8FD99A;--ims:#2B2145;--mtx:#42301A;--stroma:#1B2E22;--thy:#15294A;--hpc:#C6F135;--sp-e:#F2CB45;--sp-h:#FF7B7B;--sp-n:#6DB8FF;--sp-a:#FFA85A;--sp-w:#55D6E6;--sp-c:#C4A8FF}
+:root[data-theme=dark],:root[data-theme=amoled],:root[data-theme=hc]{--ims-t:#CDB9F5;--mtx-t:#F2BE72;--stroma-t:#8FD99A;--ims:#2B2145;--mtx:#42301A;--stroma:#1B2E22;--thy:#15294A;--hpc:#C6F135;--sp-e:#F2CB45;--sp-h:#FF7B7B;--sp-n:#6DB8FF;--sp-a:#FFA85A;--sp-w:#55D6E6;--sp-c:#C4A8FF}
 .sp-e{color:var(--sp-e)}.sp-h{color:var(--sp-h)}.sp-n{color:var(--sp-n)}.sp-a{color:var(--sp-a)}.sp-w{color:var(--sp-w)}.sp-c{color:var(--sp-c)}
 .spkey{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;font-weight:700;margin-top:.3rem}.spkey span::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:currentColor;margin-right:5px}
 .ihead .btn{white-space:nowrap;flex:none}
@@ -105,6 +105,9 @@ ul.bl{margin:.25rem 0 0 1.1rem;padding:0}ul.bl li{margin:.28rem 0}
 .sec b{font-size:.84rem!important;color:var(--accent)!important;letter-spacing:.07em;border-bottom:2px solid var(--line);padding-bottom:3px}
 .fb .eq{background:rgba(127,127,127,.15)}
 @media(max-width:960px){.lc,.dg,.panel,#svgbox,.grid>*{min-width:0;max-width:100%}.lgrow{flex-wrap:wrap}.lgrow .legend{flex:1 1 100%}.legend span{white-space:normal}.nav{margin-left:auto}}
+:root[data-theme=amoled]{--bg:#000;--surface:#080808;--surface-2:#131313;--line:#2C2C2C;--accent-soft:#10202F;--accent-ink:#000;--good-soft:#0C2219;--bad-soft:#2A120D;--cf-p:#1C1733;--cf-d:#2A200B;--cf-n:#0B2428;color-scheme:dark}
+:root[data-theme=hc]{--bg:#000;--surface:#000;--surface-2:#1A1A1A;--fg:#FFF;--muted:#E6E6E6;--line:#FFF;--accent:#FFE45C;--accent-soft:#2B2600;--accent-ink:#000;--good:#7CFFA8;--good-soft:#00330F;--bad:#FF9E94;--bad-soft:#4A0A04;--g1:#333;--g2:#fff;--cs-p:#D7C9FF;--cs-d:#FFD27A;--cs-n:#8FF0F7;--src:#FF9FC8;--sp-e:#FFE45C;--sp-h:#FF9E94;--sp-n:#9AD0FF;--sp-a:#FFC088;--sp-w:#7FEFFA;--sp-c:#D7C9FF;color-scheme:dark}
+:root[data-theme=hc] :focus-visible{outline:3px solid #FFE45C;outline-offset:2px}
 </style></head>
 <body><div class="wrap">
 <h1 class="sr">Mitochondrion and Chloroplast Diagrams</h1>
@@ -118,12 +121,12 @@ ul.bl{margin:.25rem 0 0 1.1rem;padding:0}ul.bl li{margin:.28rem 0}
 const $=(s,e=document)=>e.querySelector(s),$$=(s,e=document)=>[...e.querySelectorAll(s)];
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const mq=matchMedia('(prefers-color-scheme:dark)');let theme=mq.matches?'dark':'light',picked=false;
-function applyTheme(){document.documentElement.dataset.theme=theme;const b=$('#theme');b.textContent=theme==='dark'?'Light mode':'Dark mode';b.setAttribute('aria-pressed',theme==='light')}
-$('#theme').onclick=()=>{picked=true;theme=theme==='dark'?'light':'dark';applyTheme()};
+function applyTheme(){document.documentElement.dataset.theme=theme;const b=$('#theme');b.textContent=theme==='light'?'Dark mode':'Light mode';b.setAttribute('aria-pressed',theme==='light')}
+$('#theme').onclick=()=>{picked=true;theme=theme==='light'?'dark':'light';applyTheme()};
 mq.addEventListener&&mq.addEventListener('change',e=>{if(!picked){theme=e.matches?'dark':'light';applyTheme()}});applyTheme();
 const EMB=window.parent!==window;
 if(EMB){document.documentElement.classList.add('emb');
- addEventListener('message',e=>{const d=e.data;if(d&&d.type==='theme'&&(d.theme==='dark'||d.theme==='light')){picked=true;theme=d.theme;applyTheme()}});
+ addEventListener('message',e=>{const d=e.data;if(d&&d.type==='theme'&&(['dark','light','amoled','hc'].includes(d.theme))){picked=true;theme=d.theme;applyTheme()}});
  const sendH=()=>{if(innerWidth<=960)parent.postMessage({type:'h',h:document.documentElement.scrollHeight},'*')};
  addEventListener('load',()=>{parent.postMessage({type:'ready'},'*');sendH();window.ResizeObserver&&new ResizeObserver(sendH).observe(document.body)});addEventListener('resize',sendH)}
 /* blank constructors */

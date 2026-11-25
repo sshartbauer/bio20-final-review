@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1 (2026-11-25)
+- New themes in Settings: AMOLED black (true black background) and High contrast (white on black with yellow accents, thicker borders and a strong focus outline).
+- The diagrams tab follows all four themes.
+
 ## 1.0 (2026-11-25)
 - First release for the BIOSC-020 final exam.
 - Notes: one section per concept (44 concepts) covering both final study guides, set 1 (old material) and set 2 (new material), with slide numbers.

@@ -66,7 +66,7 @@ button{cursor:pointer}
 .fhead{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
 .gtitle{font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:.85em;padding:6px 12px;border-radius:8px;color:#fff}
 .gtitle.g1{background:var(--s1)}.gtitle.g2{background:var(--s2)}
-:root[data-theme="dark"] .gtitle{color:#10151B}
+:root[data-theme="dark"] .gtitle{color:#10151B}:root[data-theme="amoled"] .gtitle{color:#10151B}:root[data-theme="hc"] .gtitle{color:#10151B}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .gtitle{color:#10151B}}
 .chips{display:flex;gap:6px;flex-wrap:wrap}
 .chip{min-height:40px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px;font-size:.88em}
@@ -139,7 +139,7 @@ input.ok,select.ok{border-color:var(--good);background:var(--good-soft)}input.no
 .fill{line-height:2.4}
 .seq{font-weight:700;letter-spacing:.14em;word-spacing:.4em;font-size:1.15em}
 .seq .a{color:#1d7a46}.seq .t,.seq .u{color:#b3382a}.seq .c{color:#2a62a8}.seq .g{color:#9a6208}
-:root[data-theme="dark"] .seq .a{color:#6FD39A}:root[data-theme="dark"] .seq .t,:root[data-theme="dark"] .seq .u{color:#F29A85}:root[data-theme="dark"] .seq .c{color:#7FB2F0}:root[data-theme="dark"] .seq .g{color:#EBB65A}
+:root[data-theme="dark"] .seq .a{color:#6FD39A}:root[data-theme="dark"] .seq .t,:root[data-theme="dark"] .seq .u{color:#F29A85}:root[data-theme="dark"] .seq .c{color:#7FB2F0}:root[data-theme="dark"] .seq .g{color:#EBB65A}:root[data-theme="amoled"] .seq .a{color:#6FD39A}:root[data-theme="amoled"] .seq .t,:root[data-theme="amoled"] .seq .u{color:#F29A85}:root[data-theme="amoled"] .seq .c{color:#7FB2F0}:root[data-theme="amoled"] .seq .g{color:#EBB65A}:root[data-theme="hc"] .seq .a{color:#6FD39A}:root[data-theme="hc"] .seq .t,:root[data-theme="hc"] .seq .u{color:#F29A85}:root[data-theme="hc"] .seq .c{color:#7FB2F0}:root[data-theme="hc"] .seq .g{color:#EBB65A}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .seq .a{color:#6FD39A}:root:not([data-theme="light"]) .seq .t,:root:not([data-theme="light"]) .seq .u{color:#F29A85}:root:not([data-theme="light"]) .seq .c{color:#7FB2F0}:root:not([data-theme="light"]) .seq .g{color:#EBB65A}}
 .diagram{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:8px}
 .diagram svg{display:block;width:100%;height:auto;max-width:100%}
@@ -169,6 +169,20 @@ svg text{font-family:var(--sans)}
 :root[data-motion="reduce"] *{animation:none!important;transition:none!important}
 
 .hdr button,#btnSet{white-space:nowrap;flex:none}
+
+:root[data-theme="amoled"]{
+  --bg:#000;--surface:#080808;--surface-2:#131313;--fg:#EAF1F7;--muted:#A0AEBB;--line:#2C2C2C;
+  --accent:#6DB6F2;--accent-soft:#10202F;--accent-ink:#000;
+  --good:#6FD39A;--good-soft:#0C2219;--bad:#F29A85;--bad-soft:#2A120D;--warn:#EBB65A;--warn-soft:#241B08;
+  --s1:#D49AE6;--s2:#F2A36B;--label:#F2A36B;--label-ink:#000;color-scheme:dark}
+:root[data-theme="hc"]{
+  --bg:#000;--surface:#000;--surface-2:#1A1A1A;--fg:#FFF;--muted:#E6E6E6;--line:#FFF;
+  --accent:#FFE45C;--accent-soft:#2B2600;--accent-ink:#000;
+  --good:#7CFFA8;--good-soft:#00330F;--bad:#FF9E94;--bad-soft:#4A0A04;--warn:#FFD54F;--warn-soft:#3A2D00;
+  --s1:#F0B6FF;--s2:#FFB77A;--label:#FFD54F;--label-ink:#000;color-scheme:dark}
+:root[data-theme="hc"] a{text-decoration:underline;text-decoration-thickness:2px}
+:root[data-theme="hc"] .btn,:root[data-theme="hc"] .panel,:root[data-theme="hc"] .opt,:root[data-theme="hc"] .chip,:root[data-theme="hc"] .tab{border-width:2px}
+:root[data-theme="hc"] :focus-visible{outline:3px solid #FFE45C;outline-offset:2px}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -917,7 +931,7 @@ matchMedia("(prefers-color-scheme:dark)").addEventListener&&matchMedia("(prefers
 function openSettings(){
   const o=(k,v,l)=>`<button data-k="${k}" data-v="${v}" aria-pressed="${P.set[k]===v}">${l}</button>`;
   $("#settings").innerHTML=`<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="stt"><div class="row" style="justify-content:space-between"><h2 id="stt">Settings</h2><button class="btn" id="sclose">Done</button></div>
-  <div class="sgroup"><b>Theme</b><div class="seg">${o("theme","auto","Follow device")}${o("theme","light","Light")}${o("theme","dark","Dark")}</div></div>
+  <div class="sgroup"><b>Theme</b><div class="seg">${o("theme","auto","Follow device")}${o("theme","light","Light")}${o("theme","dark","Dark")}${o("theme","amoled","AMOLED black")}${o("theme","hc","High contrast")}</div></div>
   <div class="sgroup"><b>Text size</b><div class="seg">${o("size","s","Small")}${o("size","m","Medium")}${o("size","l","Large")}${o("size","xl","Extra large")}</div></div>
   <div class="sgroup"><b>Reading spacing</b><div class="seg">${o("space","std","Standard")}${o("space","roomy","Roomy")}${o("space","double","Double")}</div><p class="small muted">Adds space between words, letters and lines. Roomy is the default.</p></div>
   <div class="sgroup"><b>Motion</b><div class="seg">${o("motion","auto","Follow device")}${o("motion","reduce","Reduce motion")}</div></div></div>`;
@@ -1478,6 +1492,9 @@ $("#main").addEventListener("click",e=>{if(cur!=="drills")return;
 /* Newest first. Add an entry here and in CHANGELOG.md for every release. */
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
+ {v:"1.1",date:"2026-11-25",items:[
+  "New themes in Settings: AMOLED black (true black background) and High contrast (white on black with yellow accents, thicker borders and a strong focus outline).",
+  "The diagrams tab follows all four themes."]},
  {v:"1.0",date:"2026-11-25",items:[
   "First release for the BIOSC-020 final exam.",
   "Notes: one section per concept (44 concepts) covering both final study guides, set 1 (old material) and set 2 (new material), with slide numbers.",
