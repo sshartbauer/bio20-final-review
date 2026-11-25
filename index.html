@@ -246,6 +246,12 @@ main p,main li,.qtext,.keynote,.fignote,.note{max-width:75ch}
 .gp li::marker{color:var(--gc);font-weight:700}
 .golink{color:var(--accent);font-weight:700;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:2px}
 .golink:hover{text-decoration-thickness:3px}
+
+@media (min-width:900px){
+  .dframe{height:calc(100vh - 70px)}
+  html[data-side=hide] #fbar[hidden]~#main:has(.dframe){padding-top:64px}
+  html[data-side=hide] #main:has(.dframe) .dframe{height:calc(100vh - 104px)}
+}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -1216,7 +1222,7 @@ $("#main").addEventListener("change",e=>{if(e.target.id==="qMissed"){qOnlyMissed
 
 /* ===== diagrams (mitochondrion and chloroplast, embedded) ===== */
 function renderDiagrams(){
-  $("#main").innerHTML=`<h2>Diagrams</h2><p class="muted small">Mitochondrion and chloroplast, redrawn from the worksheets. Pick a diagram, then use <b>Guide me</b> to walk through it or <b>Test your knowledge</b> to fill in the blanks. Answers for 1 glucose are checked by Prof. Shane.</p>
+  $("#main").innerHTML=`<h2 style="position:absolute;left:-9999px">Diagrams</h2>
   <iframe id="dframe" class="dframe" src="diagrams.html" title="Mitochondrion and chloroplast diagrams" loading="lazy"></iframe>`;
   $("#dframe").addEventListener("load",()=>{try{$("#dframe").contentWindow.postMessage({type:"theme",theme:themeNow()},"*")}catch(e){}});
 }
@@ -1630,6 +1636,7 @@ $("#main").addEventListener("click",e=>{if(cur!=="drills")return;
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "Removed the intro text above the diagrams so they fit on screen without scrolling.",
   "How to use page is more colorful: colored titles and side bars, black body text, and plain text links such as Open Notes at the end of each step.",
   "Hide menu button at the top of the sidebar (Show menu brings it back), remembered between visits. The sidebar collapses by itself on the Diagrams tab so the diagrams are larger.",
   "Choose concepts now sits at the top of the left sidebar, above the study modes. It is dimmed on tabs that do not use it.",

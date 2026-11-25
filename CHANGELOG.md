@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- Removed the intro text above the diagrams so they fit on screen without scrolling.
 - How to use page is more colorful: colored titles and side bars, black body text, and plain text links such as Open Notes at the end of each step.
 - Hide menu button at the top of the sidebar (Show menu brings it back), remembered between visits. The sidebar collapses by itself on the Diagrams tab so the diagrams are larger.
 - Choose concepts now sits at the top of the left sidebar, above the study modes. It is dimmed on tabs that do not use it.
