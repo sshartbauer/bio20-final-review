@@ -1150,7 +1150,7 @@ const STEPS={notes:[1,"Read the notes","Read one concept","Open one concept and 
   progress:[5,"Check your progress","See your weak spots","Find your weak concepts, then run the Missed-items mixer in Practice on them."]};
 const NEXT={notes:[["cards","Step 2: Flashcards"]],cards:[["quiz","Step 3: Quiz"]],quiz:[["drills","Step 4: Practice"],["print","Optional: print a practice test","btn"]],drills:[["progress","Step 5: Progress"]],progress:[["notes","Back to step 1: Notes for the next concept"]]};
 const USESEL={notes:1,cards:1,quiz:1};
-const whereChoose=()=>`Choose more or fewer concepts <span class="cn-side">on the left</span><span class="cn-above">with the Choose concepts button above</span>.`;
+const whereChoose=()=>`Choose more or fewer concepts <span class="cn-side">on the left</span><span class="cn-above">with this button: <button type="button" class="btn sm" data-openfilt>Choose concepts</button></span>.`;
 function updateBars(t){
   const sb=$("#stepbar"),nb=$("#nextbar"),st=STEPS[t];
   if(!st||t==="diagrams"){sb.hidden=true;nb.hidden=true;return}
@@ -1253,6 +1253,7 @@ $("#filters").addEventListener("click",e=>{
   if(a){const g=+a.dataset.g;TOPICS.forEach(t=>{if(g===0||t.set===g){a.dataset.a==="all"?sel.add(t.id):sel.delete(t.id)}})}
   if(c||a){saveSel();renderFilters();deck=null;qstate=null;render()}
 });
+document.addEventListener("click",e=>{if(e.target.closest("[data-openfilt]")){$("#filters").hidden=false;$("#btnFilt").setAttribute("aria-expanded","true");scrollTo({top:0});$("#filters").scrollIntoView({block:"start"})}});
 $("#btnFilt").onclick=()=>{const h=$("#filters").hidden=!$("#filters").hidden;$("#btnFilt").setAttribute("aria-expanded",String(!h))};
 function only(id){sel.clear();sel.add(id);saveSel();renderFilters();deck=null;qstate=null}
 
@@ -1924,6 +1925,7 @@ document.addEventListener("click",e=>{if(cur!=="print")return;const id=e.target.
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "On phones, the note about choosing concepts now has its own Choose concepts button right in it, because the main button scrolls out of view.",
   "New look for the How to use page: a header with a diagram illustration, concept, quiz and flashcard counts, and a route of five cards, one per study step.",
   "The five study steps now use a teal to purple color scheme in the menu, the step banners and the route cards, in every theme.",
   "Reporting a mistake now points to a Canvas message, with a show-my-name and show-my-email button, instead of GitHub.",
