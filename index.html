@@ -386,6 +386,37 @@ table.mini .aa{padding:0 6px}
 
 .hbtn{width:48px;padding:0}.hbtn svg{display:block}
 @media (max-width:600px){.hbtn{width:44px;padding:0}}
+
+/* calm feedback */
+.fb.bad{background:var(--accent-soft);border-left-color:var(--accent)}
+.opt.no{border-color:var(--muted);background:var(--surface-2);border-style:dashed}
+.opt.no::after{content:"your pick";color:var(--muted)}
+input.no,select.no{border-color:var(--muted);background:var(--surface-2)}
+.noscore{display:none}
+html[data-scores=hide] .scoreline{display:none}html[data-scores=hide] .noscore{display:inline}
+/* read aloud and guided mode */
+.say{display:inline-flex;align-items:center;gap:6px}
+.tact{display:flex;flex-wrap:wrap;gap:8px}
+.hbtns{display:flex;flex-wrap:wrap;gap:12px}
+.hero .btn.big.alt{background:var(--surface);color:var(--fg);border:2px solid var(--c1)}
+.btn.big{min-height:52px;font-size:1.05em;padding:10px 22px}
+.gpick{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin:8px 0 16px}
+.gpick .btn{min-height:56px;text-align:left;justify-content:flex-start}
+html[data-guided] #tabs,html[data-guided] #fbar,html[data-guided] #btnShow,html[data-guided] #btnHide,html[data-guided] #filters,html[data-guided] .tact [data-p]{display:none!important}
+/* handout labels */
+.hbtn{flex-direction:column;gap:2px;width:76px;min-height:54px;font-size:.78em;padding:4px 2px}
+@media (max-width:600px){.hbtn{width:70px;padding:4px 2px}}
+/* low-stim mode */
+:root[data-theme="lowstim"]{--bg:#EEEBE5;--surface:#F8F6F2;--surface-2:#E6E2DA;--fg:#2A2A2A;--muted:#55554F;--line:#C4BFB4;--accent:#46636F;--accent-soft:#DCE4E6;--accent-ink:#FFFFFF;--good:#4C6B55;--good-soft:#E1E8E0;--bad:#6B5A4C;--bad-soft:#E8E2DA;--warn:#6B5A2E;--warn-soft:#EDE6D2;--s1:#6A6A8C;--s2:#6B6A55;--label:#566A85;--label-ink:#FFFFFF;--c1:#46636F;--c2:#566A85;--c3:#64648A;--c4:#76647E;--c5:#7E6478;--c6:#566A85;--kink:#FFFFFF;--hg:var(--surface);color-scheme:light}
+:root[data-theme="lowstim"] *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+:root[data-theme="lowstim"] .hero svg{display:none}
+:root[data-theme="lowstim"] .hl{background:var(--warn-soft)}
+/* handout bars: buttons flush left, color bar on the right */
+.hbar{gap:0;padding:0;overflow:hidden;border:1px solid var(--hc);border-right-width:10px;border-radius:12px;align-items:stretch}
+.hbtn{border-radius:0;align-self:stretch;width:76px;min-height:58px;padding:6px 2px}
+.hbtn+.hbtn{box-shadow:inset 1px 0 0 rgba(255,255,255,.4)}
+.htitle{align-self:center;padding:8px 12px}
+@media (max-width:600px){.hbar{padding:0;gap:0}.hbtn{width:68px;padding:6px 2px}.htitle{padding:6px 10px}}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -1117,8 +1148,8 @@ QUIZ.forEach((q,i)=>{q.id=hash(q[0]+'|'+q[1]);q.t=q[0];q.q=q[1];q.a=q[2];q.w=q[3
 
 /* ===== saved progress ===== */
 const KEY="bio20-final-v1";
-let P={seen:0,cards:{},quiz:{},drills:{},sel:null,set:{theme:"auto",size:"m",space:"roomy",motion:"auto"},fold:[]};
-try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(s){P=Object.assign(P,s);P.set=Object.assign({theme:"auto",size:"m",space:"roomy",motion:"auto"},s.set||{})}}catch(e){}
+let P={seen:0,cards:{},quiz:{},drills:{},sel:null,set:{theme:"auto",size:"m",space:"roomy",motion:"auto",scores:"show",rate:"1"},fold:[]};
+try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(s){P=Object.assign(P,s);P.set=Object.assign({theme:"auto",size:"m",space:"roomy",motion:"auto",scores:"show",rate:"1"},s.set||{})}}catch(e){}
 let saveT=0;function save(){clearTimeout(saveT);saveT=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(P))}catch(e){}},200)}
 function recQuiz(id,ok){const d=P.quiz[id]||(P.quiz[id]={r:0,t:0});d.t++;if(ok)d.r++;d.last=ok?1:0;save()}
 function recDrill(id,ok,n){n=n||1;const d=P.drills[id]||(P.drills[id]={r:0,t:0});d.t+=n;if(ok)d.r+=ok===true?n:ok;save()}
@@ -1130,18 +1161,20 @@ function applySettings(){
   const h=document.documentElement,s=P.set;
   if(s.theme==="auto")h.removeAttribute("data-theme");else h.setAttribute("data-theme",s.theme);
   h.dataset.size=s.size;h.dataset.space=s.space;
-  if(s.motion==="reduce")h.dataset.motion="reduce";else h.removeAttribute("data-motion");
+  h.dataset.scores=s.scores;if(s.motion==="reduce"||s.theme==="lowstim")h.dataset.motion="reduce";else h.removeAttribute("data-motion");
   const f=$("#dframe");if(f&&f.contentWindow)try{f.contentWindow.postMessage({type:"theme",theme:themeNow()},"*")}catch(e){}
 }
-const themeNow=()=>P.set.theme==="auto"?(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"):P.set.theme;
+const themeNow=()=>P.set.theme==="auto"?(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"):P.set.theme==="lowstim"?"light":P.set.theme;
 matchMedia("(prefers-color-scheme:dark)").addEventListener&&matchMedia("(prefers-color-scheme:dark)").addEventListener("change",applySettings);
 function openSettings(){
   const o=(k,v,l)=>`<button data-k="${k}" data-v="${v}" aria-pressed="${P.set[k]===v}">${l}</button>`;
   $("#settings").innerHTML=`<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="stt"><div class="row" style="justify-content:space-between"><h2 id="stt">Settings</h2><button class="btn" id="sclose">Done</button></div>
-  <div class="sgroup"><b>Theme</b><div class="seg">${o("theme","auto","Follow device")}${o("theme","light","Light")}${o("theme","dark","Dark")}${o("theme","amoled","AMOLED black")}${o("theme","hc","High contrast")}</div></div>
+  <div class="sgroup"><b>Theme</b><div class="seg">${o("theme","auto","Follow device")}${o("theme","light","Light")}${o("theme","dark","Dark")}${o("theme","amoled","AMOLED black")}${o("theme","hc","High contrast")}${o("theme","lowstim","Low-stim mode")}</div></div>
   <div class="sgroup"><b>Text size</b><div class="seg">${o("size","s","Small")}${o("size","m","Medium")}${o("size","l","Large")}${o("size","xl","Extra large")}</div></div>
   <div class="sgroup"><b>Reading spacing</b><div class="seg">${o("space","std","Standard")}${o("space","roomy","Roomy")}${o("space","double","Double")}</div><p class="small muted">Adds space between words, letters and lines. Roomy is the default.</p></div>
-  <div class="sgroup"><b>Motion</b><div class="seg">${o("motion","auto","Follow device")}${o("motion","reduce","Reduce motion")}</div></div></div>`;
+  <div class="sgroup"><b>Motion</b><div class="seg">${o("motion","auto","Follow device")}${o("motion","reduce","Reduce motion")}</div></div>
+  <div class="sgroup"><b>Read aloud speed</b><div class="seg">${o("rate","0.8","Slow")}${o("rate","1","Normal")}${o("rate","1.2","Fast")}</div><p class="small muted">Read aloud buttons are on Notes, Flashcards and Quiz.</p></div>
+  <div class="sgroup"><b>Scores in the quiz</b><div class="seg">${o("scores","show","Show")}${o("scores","hide","Hide")}</div><p class="small muted">Hide removes the running score and the final score. The Progress tab still shows your results.</p></div></div>`;
   $("#settings").hidden=false;$("#sclose").focus();
 }
 $("#settings").addEventListener("click",e=>{
@@ -1154,22 +1187,23 @@ $("#btnSet").onclick=openSettings;
 
 /* ===== tabs ===== */
 const TABS=[["guide","How to use"],["notes","Notes"],["cards","Flashcards"],["quiz","Quiz"],["diagrams","Diagrams"],["drills","Practice"],["progress","Progress"],["print","Print and handouts"]];
-const STEPS={notes:[1,"Read the notes","Read one concept","Open one concept and read it all the way through. Yellow boxes are exam notes."],
-  cards:[2,"Test yourself with flashcards","Test yourself","Say the answer out loud before you flip the card, then mark it Got it or Review again."],
-  quiz:[3,"Take the quiz","Check what you know","Answer each question, then read the explanation. Retry the ones you miss."],
+const STEPS={notes:[1,"Read the notes","Read one concept","Pick one concept. Read it from top to bottom. Yellow boxes are on the exam."],
+  cards:[2,"Test yourself with flashcards","Test yourself","Read the question. Say the answer out loud. Flip the card. Then tap Got it or Review again."],
+  quiz:[3,"Take the quiz","Check what you know","Pick an answer. Then read why. You can try the ones you missed again."],
   diagrams:[4,"Practice with a diagram","Practice with a diagram",""],
-  drills:[4,"Practice","Diagrams and drills","Pick a diagram or a drill below. Each one tells you what to do, step by step."],
-  progress:[5,"Check your progress","See your weak spots","Find your weak concepts, then run the Missed-items mixer in Practice on them."]};
+  drills:[4,"Practice","Diagrams and drills","Pick a diagram or a drill. Each one tells you what to do."],
+  progress:[5,"Check your progress","See your weak spots","See which concepts are hard for you. Then use the Missed-items mixer in Practice."]};
 const NEXT={notes:[["cards","Step 2: Flashcards"]],cards:[["quiz","Step 3: Quiz"]],quiz:[["drills","Step 4: Practice"],["print","Optional: print a practice test","btn"]],drills:[["progress","Step 5: Progress"]],progress:[["notes","Back to step 1: Notes for the next concept"]]};
 const USESEL={notes:1,cards:1,quiz:1};
 const whereChoose=()=>`Choose more or fewer concepts <span class="cn-side">on the left</span><span class="cn-above">with this button: <button type="button" class="btn sm" data-openfilt>Choose concepts</button></span>.`;
 function updateBars(t){
   const sb=$("#stepbar"),nb=$("#nextbar"),st=STEPS[t];
+  if(G){guidedBars();return}
   if(!st||t==="diagrams"){sb.hidden=true;nb.hidden=true;return}
   sb.style.setProperty("--sk","var(--c"+st[0]+")");sb.innerHTML=`<span class="pill stepno">Step ${st[0]} of 5</span> <b>${st[1]}.</b> ${st[3]}${USESEL[t]?` <span class="cnote">${whereChoose()}</span>`:""}`;sb.hidden=false;
   nb.innerHTML=`<span class="nlab">Done with this step?</span>${NEXT[t].map(n=>`<a href="#${n[0]}" class="btn${n[2]?"":" primary"}" data-go="${n[0]}">${n[1]}</a>`).join("")}`;nb.hidden=false}
 const NOFILTER={diagrams:1};
-let cur="notes";
+let cur="notes",G=null;
 $("#tabs").innerHTML=TABS.map(t=>{const st=STEPS[t[0]];if(t[0]==="diagrams")return"";
   const b=`<button class="tab" id="tab-${t[0]}" data-t="${t[0]}" aria-current="false" aria-controls="main">${st?`<span class="tnum" aria-hidden="true">${st[0]}</span><span class="tlab">${t[1]}<small>${st[2]}</small></span>`:`<span class="tlab">${t[1]}<small>${t[0]==="print"?"Optional PDFs":"Start here"}</small></span>`}</button>`;
   return t[0]==="notes"?`<div class="stepsh" id="stepsH">Study steps, in order</div>`+b:b}).join("");
@@ -1187,7 +1221,7 @@ function applySide(){
 }
 function toggleSide(){const h=!sideHidden();if(cur==="diagrams")sideTemp=h;else{sideTemp=null;P.sbHide=h?1:0;save()}applySide();(h?$("#btnShow"):$("#btnHide")).focus()}
 $("#btnHide").onclick=toggleSide;$("#btnShow").onclick=toggleSide;
-const THEMES=[["auto","Follow device"],["light","Light"],["dark","Dark"],["amoled","AMOLED black"],["hc","High contrast"]];
+const THEMES=[["auto","Follow device"],["light","Light"],["dark","Dark"],["amoled","AMOLED black"],["hc","High contrast"],["lowstim","Low-stim mode"]];
 function closeTheme(focus){$("#thmenu").hidden=true;$("#btnTheme").setAttribute("aria-expanded","false");if(focus)$("#btnTheme").focus()}
 $("#btnTheme").onclick=()=>{const m=$("#thmenu");if(!m.hidden){closeTheme();return}
   m.innerHTML=THEMES.map(t=>`<button role="menuitemradio" data-th="${t[0]}" aria-checked="${P.set.theme===t[0]}">${t[1]}</button>`).join("");
@@ -1199,20 +1233,21 @@ document.addEventListener("click",e=>{if(!$("#thmenu").hidden&&!e.target.closest
 $("#btnHome").onclick=()=>go("guide");
 wide.addEventListener&&wide.addEventListener("change",applySide);
 function go(t,keep){
+  stopSay();
   if(t!=="cards")stopAuto();cur=t;$$(".tab").forEach(b=>b.setAttribute("aria-current",(b.dataset.t===t||(t==="diagrams"&&b.dataset.t==="drills"))?"page":"false"));
   try{history.replaceState(null,"","#"+t)}catch(e){}
-  document.documentElement.setAttribute("data-tab",t);updateBars(t);sideTemp=t==="diagrams"?true:null;applySide();if(NOFILTER[t]){$("#filters").hidden=true;$("#btnFilt").setAttribute("aria-expanded","false")}
+  document.documentElement.setAttribute("data-tab",t);updateBars(t);sideTemp=(t==="diagrams"||G)?true:null;applySide();if(NOFILTER[t]){$("#filters").hidden=true;$("#btnFilt").setAttribute("aria-expanded","false")}
   render();if(!keep)window.scrollTo({top:0,behavior:"auto"});
 }
-function render(){({guide:renderGuide,notes:renderNotes,cards:renderCards,quiz:renderQuiz,diagrams:renderDiagrams,drills:renderDrills,progress:renderProgress,print:renderPrint})[cur]()}
+function render(){if(G&&(G.step<0||G.step>2))return renderGuidedPage();({guide:renderGuide,notes:renderNotes,cards:renderCards,quiz:renderQuiz,diagrams:renderDiagrams,drills:renderDrills,progress:renderProgress,print:renderPrint})[cur]()}
 
 document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g){e.preventDefault();go(g.dataset.go)}});
 function renderGuide(){
   P.seen=1;save();
   const go=(t,l)=>`<a href="#${t}" class="golink" data-go="${t}">${l}</a>`;
   $("#main").innerHTML=`<div class="guide"><section class="hero"><div class="hero-t"><p class="eyebrow">Final exam review</p><h2>How to use this tool</h2>
-  <p>This page covers everything on both final exam study guides. Set 1 is the old material and set 2 is the new material. Every concept has notes, flashcards and quiz questions, and some also have a diagram or a practice tool.</p>
-  <a href="#notes" class="btn big" data-go="notes">Start with step 1: Notes</a>
+  <p>This tool covers both final exam study guides. Set 1 is the old material. Set 2 is the new material. Every concept has notes, flashcards and quiz questions. Some also have a diagram or a drill.</p>
+  <div class="hbtns"><a href="#notes" class="btn big" data-go="notes">Start with step 1: Notes</a><button type="button" class="btn big alt" id="gStart">Guided mode: one concept at a time</button></div>
   <div class="hchips"><div class="hchip"><b>${TOPICS.length}</b><span>concepts</span></div><div class="hchip"><b>${QUIZ.length}</b><span>quiz questions</span></div><div class="hchip"><b>${CARDS.length}</b><span>flashcards</span></div></div></div>
   <svg viewBox="0 0 460 330" aria-hidden="true"><g fill="none" stroke-linecap="round"><g stroke="var(--c1)"><polygon points="60,60 90,43 120,60 120,94 90,111 60,94" stroke-opacity=".3"/><polygon points="120,94 150,77 180,94 180,128 150,145 120,128" stroke-opacity=".22"/><polygon points="360,40 390,23 420,40 420,74 390,91 360,74" stroke-opacity=".28"/></g>
   <ellipse cx="225" cy="190" rx="185" ry="100" stroke="var(--c1)" stroke-width="3.5" fill="var(--surface)" fill-opacity=".55"/><ellipse cx="225" cy="190" rx="160" ry="76" stroke="var(--c4)" stroke-width="2" stroke-dasharray="6 7"/>
@@ -1221,29 +1256,33 @@ function renderGuide(){
   <g fill="var(--c1)"><circle cx="70" cy="250" r="4" opacity=".7"/><circle cx="40" cy="170" r="3" opacity=".5"/><circle cx="250" cy="48" r="4" opacity=".6"/><circle cx="318" cy="290" r="3" opacity=".5"/></g><g fill="var(--c4)"><circle cx="300" cy="60" r="3" opacity=".7"/><circle cx="105" cy="300" r="3" opacity=".5"/><circle cx="440" cy="60" r="4" opacity=".5"/></g></svg></section>
   <p class="eyebrow" style="margin-top:8px">Your route</p><h2 class="rt">A study routine that works</h2>
   <div class="route">
-  <div class="rcard rk1"><span class="tnum" aria-hidden="true">1</span><h3>Read the notes</h3><p>Yellow boxes are things the guide says are on the exam. Blue boxes come from figures, which the guide says are supplemental.</p>${go("notes","Open Notes")}</div>
-  <div class="rcard rk2"><span class="tnum" aria-hidden="true">2</span><h3>Test yourself</h3><p>Say the answer out loud before you flip the card, then mark it Got it or Review again.</p>${go("cards","Open Flashcards")}</div>
-  <div class="rcard rk3"><span class="tnum" aria-hidden="true">3</span><h3>Take the quiz</h3><p>Every answer has an explanation. Retry only the ones you missed.</p>${go("quiz","Open Quiz")}</div>
-  <div class="rcard rk4"><span class="tnum" aria-hidden="true">4</span><h3>Practice</h3><p>The mitochondrion and chloroplast diagrams, or one of the drills.</p>${go("drills","Open Practice")}</div>
-  <div class="rcard rk5"><span class="tnum" aria-hidden="true">5</span><h3>Check progress</h3><p>See weak concepts, then run the Missed-items mixer drill, which brings back what you got wrong.</p>${go("progress","Open Progress")}</div></div>
+  <div class="rcard rk1"><span class="tnum" aria-hidden="true">1</span><h3>Read the notes</h3><p>Yellow boxes are on the exam. Blue boxes come from pictures and are extra.</p>${go("notes","Open Notes")}</div>
+  <div class="rcard rk2"><span class="tnum" aria-hidden="true">2</span><h3>Test yourself</h3><p>Say the answer out loud. Flip the card. Tap Got it or Review again.</p>${go("cards","Open Flashcards")}</div>
+  <div class="rcard rk3"><span class="tnum" aria-hidden="true">3</span><h3>Take the quiz</h3><p>Pick an answer and read why. Try your missed ones again.</p>${go("quiz","Open Quiz")}</div>
+  <div class="rcard rk4"><span class="tnum" aria-hidden="true">4</span><h3>Practice</h3><p>Diagrams and drills for the concepts that have them.</p>${go("drills","Open Practice")}</div>
+  <div class="rcard rk5"><span class="tnum" aria-hidden="true">5</span><h3>Check progress</h3><p>See your hard concepts. Then use the Missed-items mixer.</p>${go("progress","Open Progress")}</div></div>
+  <div class="panel gp c2"><h3>Guided mode</h3><p>Guided mode shows one step at a time. Tap the Guided mode button at the top of this page and pick a concept. You will read the notes, try the flashcards, then take a quiz. Tap Next to move on.</p></div>
   <div class="panel gp c3"><h3>Choose what to study</h3>
-  <p>On Notes, Flashcards and Quiz, the <b>Choose concepts</b> button lets you pick one concept, a whole set, or everything. Your choice is remembered. Use it to work through one topic at a time or to focus on set 2 first.</p></div>
+  <p>On Notes, Flashcards and Quiz, tap <b>Choose concepts</b>. You can pick one concept, one set, or everything. The site remembers your choice.</p><p>Tip: study one concept at a time.</p></div>
   <div class="panel gp c4"><h3>What each part does</h3><ul>
-  <li><b>Notes:</b> one section per concept with the slide numbers. Tap a section to open it. <i>Open all</i> and <i>Close all</i> are at the top.</li>
-  <li><b>Flashcards:</b> tap the card to flip it. Swipe left or right on a phone, or click the card and use Space and the arrow keys. <i>Play through the cards</i> at the bottom flips and advances automatically, with seconds you choose for the question and the answer.</li>
-  <li><b>Quiz:</b> one question at a time with instant feedback. At the end you can retry only your misses.</li>
-  <li><b>Diagrams:</b> pick Mitochondrion or Chloroplast. <i>Guide me</i> walks you through the steps with an explanation for each blank. <i>Test your knowledge</i> hides the answers so you fill them in. On a wide screen the menu hides itself here to give the diagram more room.</li>
-  <li><b>Practice:</b> choose the diagrams or one of the drills. ${go("print","Print and handouts")} has optional PDFs: a practice test builder with answer keys, printable flashcards, blank diagram worksheets and premade tests.</li>
-  <li><b>Drills:</b> ${DRILLS.map(d=>d.title).join(", ")}. Each one says which slides it covers.</li>
-  <li><b>Progress:</b> your flashcard and quiz results by concept, plus drill scores.</li>
+  <li><b>Notes:</b> one section for each concept, with slide numbers. Tap a section to open it.</li>
+  <li><b>Flashcards:</b> tap the card to flip it. On a phone, swipe to go to the next card. <i>Play through the cards</i> flips and moves on for you. You choose how many seconds.</li>
+  <li><b>Quiz:</b> one question at a time. You see the answer right away. At the end you can retry the ones you missed.</li>
+  <li><b>Practice:</b> diagrams and drills. ${go("print","Print and handouts")} has optional PDFs, like practice tests and answer keys.</li>
+  <li><b>Diagrams:</b> pick Mitochondrion or Chloroplast. <i>Guide me</i> shows the steps. <i>Test your knowledge</i> hides the answers so you can fill them in.</li>
+  <li><b>Drills:</b> ${DRILLS.map(d=>d.title).join(", ")}. Each one tells you which slides it covers.</li>
+  <li><b>Progress:</b> your results for each concept.</li>
   </ul></div>
   <div class="panel gp c5"><h3>Make it easier to read</h3>
-  <p>Open <b>Settings</b> to change the theme (Light, Dark, AMOLED black or High contrast), text size, and reading spacing. Reading spacing adds room between words, letters and lines, and you can turn on reduced motion there too. On a wide screen, the three small icons at the top of the sidebar hide the menu, switch the screen mode, and bring you back to this page.</p></div>
+  <p>Open <b>Settings</b>. You can change the theme, the text size, and the space between words and lines.</p>
+  <p><b>Low-stim mode</b> is a theme with calm colors and no decoration. It also turns off motion.</p>
+  <p>Notes, Flashcards and Quiz have a <b>Read aloud</b> button. It reads the text out loud. You can change the speed in Settings.</p>
+  <p>On a wide screen, the three small icons at the top of the menu hide the menu, change the screen mode, and bring you back to this page.</p></div>
   <div class="panel gp c6"><h3>Your progress and your device</h3><ul>
-  <li>Progress is saved only in this browser on this device. Nothing is sent anywhere.</li>
-  <li>To move to another device, use <b>Export</b> on the Progress tab and <b>Import</b> on the other device.</li>
-  <li>Clearing your browser data erases your progress, so export a copy first if you want to keep it.</li>
-  <li>After your first visit the page works offline.</li></ul></div>
+  <li>Your progress is saved only in this browser on this device. Nothing is sent anywhere.</li>
+  <li>To use another device, tap <b>Export</b> on the Progress tab. Then tap <b>Import</b> on the other device.</li>
+  <li>If you clear your browser data, your progress is erased. Export a copy first.</li>
+  <li>After your first visit, the site works without internet.</li></ul></div>
   <div class="panel gp c1"><h3>Questions, suggestions and mistakes</h3>
   ${CONTACT}</div></div>`;
 }
@@ -1280,13 +1319,14 @@ function noteHTML(t){
 }
 let openT=new Set(P.fold||[]);
 function renderNotes(){
+  stopSay();
   const ts=TOPICS.filter(t=>sel.has(t.id));
-  let h=`<h2>Notes</h2><p class="muted small">One section per concept, written from the typed text of both study guides. Slide numbers match the PDFs. Yellow boxes are exam notes. Blue boxes come from figures, which the guide says are supplemental.</p>`;
+  let h=`<h2>Notes</h2><p class="muted small">One section for each concept. Slide numbers match the PDFs. Yellow boxes are on the exam. Blue boxes come from pictures and are extra.</p>`;
   if(!ts.length)h+=`<div class="panel">No concepts selected. Use <b>Choose concepts</b> above.</div>`;
   else h+=`<div class="row"><button class="btn sm" id="nOpen">Open all</button><button class="btn sm" id="nShut">Close all</button></div>`;
   GROUPS.forEach(G=>{const g=ts.filter(t=>t.set===G.set);if(!g.length)return;
     h+=`<h3><span class="gtitle g${G.set}">${G.title}</span></h3>`+g.map(t=>`<details class="topic" id="n-${t.id}" ${openT.has(t.id)?"open":""}><summary><span class="pill g${t.set}">Slide${/to/.test(t.slides)?"s":""} ${t.slides}</span><span class="tname">${t.name}</span></summary><div class="tbody">${noteHTML(t)}
-    <div class="tact"><button class="btn sm" data-p="cards" data-id="${t.id}">Flashcards for this</button><button class="btn sm" data-p="quiz" data-id="${t.id}">Quiz on this</button>${t.id==="s2-mito"||t.id==="s2-chloro"||t.id==="s2-stages"||t.id==="s2-light"||t.id==="s2-calvin"||t.id==="s2-etc"||t.id==="s2-atps"?`<button class="btn sm" data-p="diagrams">Open the diagrams</button>`:""}</div></div></details>`).join("");
+    <div class="tact">${sayBtnHTML("topic")}<button class="btn sm" data-p="cards" data-id="${t.id}">Flashcards for this</button><button class="btn sm" data-p="quiz" data-id="${t.id}">Quiz on this</button>${t.id==="s2-mito"||t.id==="s2-chloro"||t.id==="s2-stages"||t.id==="s2-light"||t.id==="s2-calvin"||t.id==="s2-etc"||t.id==="s2-atps"?`<button class="btn sm" data-p="diagrams">Open the diagrams</button>`:""}</div></div></details>`).join("");
   });
   $("#main").innerHTML=h;
 }
@@ -1324,6 +1364,7 @@ function autoPanel(){
   <div class="row"><button class="btn primary" id="cPlay" aria-pressed="${playing}">${playing?"Pause":"Play"}</button><span class="small muted" aria-live="polite">${playing?"Playing. Tap the card or use Previous and Next to take over.":autoDone?"Reached the last card.":""}</span></div></div>`;
 }
 function renderCards(){
+  stopSay();
   if(!deck)buildDeck(false);
   const k=Object.values(P.cards).filter(v=>v==="know").length,a=Object.values(P.cards).filter(v=>v==="again").length;
   let h=`<h2>Flashcards</h2><div class="row"><label class="row" style="gap:8px"><input type="checkbox" id="cAgain" ${cOnlyAgain?"checked":""} style="width:24px;height:24px"> Only cards marked "Review again"</label></div>`;
@@ -1332,7 +1373,7 @@ function renderCards(){
   h+=`<p class="small muted" aria-live="polite">Card ${pos+1} of ${deck.length}${m?` (marked: ${m==="know"?"got it":"review again"})`:""}. Tap the card or press Space to flip. Swipe or use the arrow keys to move.</p>
   <div class="meter" aria-hidden="true"><i style="width:${(pos+1)/deck.length*100}%"></i></div><p></p>
   <div class="card ${flipped?"back":""}" id="card" tabindex="0" role="button" aria-label="Flashcard. ${flipped?"Answer side":"Question side"}. Press Space to flip."><div class="corner"><span>${esc(tShort(c.t))}</span><span>${flipped?"answer":"question"}</span></div><div class="txt">${flipped?c.b:c.f}</div><div class="hint">${flipped?"tap to see the question":"tap to see the answer"}</div></div>
-  <div class="fcbtns"><button class="btn" id="cPrev">Previous</button><button class="btn" id="cNext">Next</button><button class="btn primary" id="cKnow">Got it</button><button class="btn" id="cAgainB">Review again</button><button class="btn wide ghost" id="cShuf">Shuffle deck</button></div>
+  <div class="fcbtns"><button class="btn" id="cPrev">Previous</button><button class="btn" id="cNext">Next</button><button class="btn primary" id="cKnow">Got it</button><button class="btn" id="cAgainB">Review again</button><button class="btn wide ghost" id="cShuf">Shuffle deck</button>${sayBtnHTML("card")}</div>
   <p class="small muted">Marked so far across all cards: ${k} got it, ${a} review again, ${CARDS.length-k-a} unmarked.</p>`+autoPanel();
   $("#main").innerHTML=h;resched();
 }
@@ -1364,19 +1405,20 @@ function buildQuiz(){
   qstate={pool:shuffle(pool),i:0,right:0,done:0,missed:[],ans:null};
 }
 function renderQuiz(){
+  stopSay();
   if(!qstate)buildQuiz();const S=qstate;
   let h=`<h2>Quiz</h2><label class="row" style="gap:8px"><input type="checkbox" id="qMissed" ${qOnlyMissed?"checked":""} style="width:24px;height:24px"> Only questions I missed last time</label>`;
   if(!S.pool.length){$("#main").innerHTML=h+`<div class="panel">${qOnlyMissed?"No missed questions in these concepts yet.":"No questions in the selected concepts."}</div>`;return}
   if(S.i>=S.pool.length){
-    h+=`<div class="panel"><h3>Finished</h3><p class="score">${S.right} of ${S.pool.length} correct</p>${S.missed.length?`<p>Review these:</p><ul>${S.missed.map(q=>`<li><b>${esc(tShort(q.t))}</b>: ${q.q}<br><span class="muted">Answer: ${q.a}</span></li>`).join("")}</ul>`:"<p>No misses. Nice run.</p>"}<div class="row"><button class="btn primary" id="qAgain">New round</button>${S.missed.length?`<button class="btn" id="qRetry">Retry the ones I missed</button>`:""}</div></div>`;
+    h+=`<div class="panel"><h3>Finished</h3><p class="score"><span class="scoreline">${S.right} of ${S.pool.length} correct</span><span class="noscore">You answered ${S.pool.length} questions.</span></p>${S.missed.length?`<p>Review these:</p><ul>${S.missed.map(q=>`<li><b>${esc(tShort(q.t))}</b>: ${q.q}<br><span class="muted">Answer: ${q.a}</span></li>`).join("")}</ul>`:"<p>No misses. Nice run.</p>"}<div class="row"><button class="btn primary" id="qAgain">New round</button>${S.missed.length?`<button class="btn" id="qRetry">Retry the ones I missed</button>`:""}</div></div>`;
     $("#main").innerHTML=h;return}
   const q=S.pool[S.i];if(!q.opts)q.opts=shuffle([q.a,...q.w]);
   const A=S.ans;
-  h+=`<p class="small muted" aria-live="polite">Question ${S.i+1} of ${S.pool.length}. Score so far: ${S.right} of ${S.done}.</p><div class="meter" aria-hidden="true"><i style="width:${S.i/S.pool.length*100}%"></i></div>
-  <div class="panel"><span class="pill g${topicById[q.t].set}">${esc(tShort(q.t))}</span><p class="qtext" id="qq">${q.q}</p><div class="opts" role="group" aria-labelledby="qq">${q.opts.map((o,i)=>{
+  h+=`<p class="small muted" aria-live="polite">Question ${S.i+1} of ${S.pool.length}.<span class="scoreline"> Score so far: ${S.right} of ${S.done}.</span></p><div class="meter" aria-hidden="true"><i style="width:${S.i/S.pool.length*100}%"></i></div>
+  <div class="panel"><span class="pill g${topicById[q.t].set}">${esc(tShort(q.t))}</span><p class="qtext" id="qq">${q.q}</p><div class="row" style="margin:0 0 8px">${sayBtnHTML("quiz")}</div><div class="opts" role="group" aria-labelledby="qq">${q.opts.map((o,i)=>{
     let c="";if(A){if(o===q.a)c="ok";else if(A.pick===o)c="no"}
     return `<button class="opt ${c}" data-o="${i}" ${A?"disabled":""}><span class="k">${String.fromCharCode(65+i)}.</span><span>${o}</span></button>`}).join("")}</div>
-  ${A?`<div class="fb ${A.ok?"good":"bad"}" role="status"><b>${A.ok?"Correct.":"Not quite."}</b> ${A.ok?"":`The answer is ${q.a}. `}${q.e}</div><div class="row" style="margin-top:10px"><button class="btn primary" id="qNext">${S.i+1>=S.pool.length?"See results":"Next question"}</button></div>`:""}</div>`;
+  ${A?`<div class="fb ${A.ok?"good":"bad"}" role="status"><b>${A.ok?"Correct.":`The answer is ${q.a}.`}</b> ${q.e}</div><div class="row" style="margin-top:10px"><button class="btn primary" id="qNext">${S.i+1>=S.pool.length?"See results":"Next question"}</button></div>`:""}</div>`;
   $("#main").innerHTML=h;
   if(A){const nb=$("#qNext");nb&&nb.focus({preventScroll:true})}
 }
@@ -1422,11 +1464,11 @@ const drillName=k=>{if(k.startsWith("diag-"))return "Diagram: "+(k==="diag-mito"
 $("#main").addEventListener("click",e=>{
   if(cur!=="progress")return;const t=e.target;
   if(t.id==="pExp"){const b=new Blob([JSON.stringify({app:"bio20-final",v:1,data:P},null,1)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="bio20-final-progress.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);$("#pMsg").textContent="Exported."}
-  if(t.id==="pReset"){if(confirm("Erase all saved progress and settings on this device? This cannot be undone.")){P={cards:{},quiz:{},drills:{},sel:null,set:{theme:"auto",size:"m",space:"roomy",motion:"auto"},fold:[]};localStorage.removeItem(KEY);location.reload()}}
+  if(t.id==="pReset"){if(confirm("Erase all saved progress and settings on this device? This cannot be undone.")){P={cards:{},quiz:{},drills:{},sel:null,set:{theme:"auto",size:"m",space:"roomy",motion:"auto",scores:"show",rate:"1"},fold:[]};localStorage.removeItem(KEY);location.reload()}}
 });
 $("#main").addEventListener("change",e=>{
   if(e.target.id!=="pImp")return;const f=e.target.files[0];if(!f)return;const r=new FileReader();
-  r.onload=()=>{try{const j=JSON.parse(r.result);if(!j||j.app!=="bio20-final"||!j.data)throw 0;P=Object.assign(P,j.data);P.set=Object.assign({theme:"auto",size:"m",space:"roomy",motion:"auto"},j.data.set||{});save();$("#pMsg").textContent="Imported. Reloading...";setTimeout(()=>location.reload(),600)}catch(x){$("#pMsg").textContent="That file is not a progress export from this page."}};r.readAsText(f);
+  r.onload=()=>{try{const j=JSON.parse(r.result);if(!j||j.app!=="bio20-final"||!j.data)throw 0;P=Object.assign(P,j.data);P.set=Object.assign({theme:"auto",size:"m",space:"roomy",motion:"auto",scores:"show",rate:"1"},j.data.set||{});save();$("#pMsg").textContent="Imported. Reloading...";setTimeout(()=>location.reload(),600)}catch(x){$("#pMsg").textContent="That file is not a progress export from this page."}};r.readAsText(f);
 });
 
 /* ===== start ===== */
@@ -1908,18 +1950,18 @@ function buildCardsPDF(fonts,cards){const d=newDoc(fonts),M=36,cw=270,ch=180;
 function ptOptions(){return{layout:($("#ptLay")||{}).value||"std",expl:!$("#ptExp")||$("#ptExp").checked}}
 function renderPrint(){
   const nq=QUIZ.filter(q=>sel.has(q.t)).length,nc=CARDS.filter(c=>sel.has(c.t)).length;
-  $("#main").innerHTML=`<h2>Print and handouts</h2><p class="muted small">Optional paper copies. They are made from this site's own notes and questions. None of the professor's files are used. The tests follow the format of Prof. Shane's practice test: 12 point body text, 16 point titles, black only. Aptos is not free to share, so Carlito is used in its place.</p>
+  $("#main").innerHTML=`<h2>Print and handouts</h2><p class="muted small">These are optional paper copies. They are made from this site's own notes and questions. No files from the professor are used. The tests look like Prof. Shane's practice test: 12 point text, 16 point titles, and black only. Aptos is not free to share, so Carlito is used instead.</p>
   <div class="panel"><h3>Build a practice test</h3><p>Uses the concepts you chose. ${whereChoose()} Right now that is ${sel.size} of ${TOPICS.length} concepts and ${nq} questions.</p>
   <div class="row" style="gap:12px;align-items:center"><label for="ptN">Questions</label><select id="ptN" class="sel"><option>10</option><option selected>20</option><option>30</option><option>40</option><option value="999">All</option></select>
   <button class="btn primary" id="ptMake" ${nq?"":"disabled"}>Make a new test</button></div>
   <div id="ptOut" aria-live="polite" class="ptout">${ptTest?ptReady():""}</div>
   <details class="more"><summary>More options</summary><div class="row" style="gap:12px;align-items:center;margin-top:8px"><label for="ptLay">Layout</label><select id="ptLay" class="sel"><option value="std">Standard</option><option value="dys">Easier to read (larger, double spaced)</option></select></div>
   <label class="row" style="gap:8px;margin-top:8px"><input type="checkbox" id="ptExp" checked style="width:24px;height:24px"> Include explanations in the answer key</label></details></div>
-  <div class="panel"><h3>Print flashcards</h3><p>Two sided sheets with eight cards each, cut along the dashed lines. Uses the concepts you chose, which is ${nc} cards right now.</p>
+  <div class="panel"><h3>Print flashcards</h3><p>Two-sided sheets with eight cards on each. Cut along the dashed lines. This uses the concepts you chose. Right now that is ${nc} cards.</p>
   <label class="row" style="gap:8px"><input type="checkbox" id="pcAgain" style="width:24px;height:24px"> Only cards I marked "Review again"</label>
   <div class="row" style="margin-top:10px"><button class="btn primary" id="pcMake" ${nc?"":"disabled"}>Download flashcard sheets</button></div><p class="small muted" id="pcMsg" aria-live="polite"></p></div>
   <div class="panel"><h3>Ready to download</h3><p>Blank diagrams and premade practice tests. The arrow button downloads the worksheet or test, and the key button downloads its answer key.</p>
-  <div class="hlist">${HANDOUTS.map((h,i)=>{const f=h[0].replace(".pdf","");return `<div class="hbar hk${i%5+1}"><a class="hbtn" href="handouts/${h[0]}" download aria-label="Download ${h[1]}" title="Download ${h[1]}"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10.5l5 5 5-5"/><path d="M4 20h16"/></svg></a><a class="hbtn" href="handouts/${f}-key.pdf" download aria-label="Download the answer key for ${h[1]}" title="Download the answer key for ${h[1]}"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4.5"/><path d="M11.3 11.7L20 3"/><path d="M16.5 6.5l3 3"/><path d="M14 9l2 2"/></svg></a><span class="htitle">${h[1]}</span></div>`}).join("")}</div></div>`}
+  <div class="hlist">${HANDOUTS.map((h,i)=>{const f=h[0].replace(".pdf","");return `<div class="hbar hk${i%5+1}"><a class="hbtn" href="handouts/${h[0]}" download aria-label="Download ${h[1]}" title="Download ${h[1]}"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10.5l5 5 5-5"/><path d="M4 20h16"/></svg><span>Download</span></a><a class="hbtn" href="handouts/${f}-key.pdf" download aria-label="Download the answer key for ${h[1]}" title="Download the answer key for ${h[1]}"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4.5"/><path d="M11.3 11.7L20 3"/><path d="M16.5 6.5l3 3"/><path d="M14 9l2 2"/></svg><span>Answer key</span></a><span class="htitle">${h[1]}</span></div>`}).join("")}</div></div>`}
 const K=f=>`answer key: <a href="handouts/${f}-key.pdf" download>download</a>`;
 const HANDOUTS=[["Blank-diagram-mitochondrion.pdf","Mitochondrion blank worksheet with word bank",K("Blank-diagram-mitochondrion")],["Blank-diagram-chloroplast.pdf","Chloroplast blank worksheet with word bank",K("Blank-diagram-chloroplast")],
  ["Practice-test-A.pdf","Practice test A, 30 questions, all concepts",K("Practice-test-A")],["Practice-test-B.pdf","Practice test B, 30 questions, all concepts",K("Practice-test-B")],
@@ -1937,6 +1979,12 @@ document.addEventListener("click",e=>{if(cur!=="print")return;const id=e.target.
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "Read aloud buttons on Notes, Flashcards and Quiz, with a speed setting. They use your device's built-in voice.",
+  "Guided mode: pick one concept and go through the notes, flashcards and quiz one step at a time, with a single Next button.",
+  "New Low-stim mode theme with calm colors, no gradient or illustration, and no motion.",
+  "Quiz feedback is calmer: wrong answers no longer use red, and the Settings now has an option to hide quiz scores.",
+  "Instructions on the How to use page, the step banners and the Print page are reworded in shorter, plainer sentences.",
+  "Handout bars now have the Download and Answer key buttons at the left edge, full height, with a visible label under each icon, and the color stripe on the right.",
   "The handout buttons are now icons, an arrow for the download and a key for the answer key, with a hover description on each.",
   "Ready to download is now a list of bars, each with a Download button, an Answer key button and the title, in the teal to purple colors.",
   "On phones, the note about choosing concepts now has its own Choose concepts button right in it, because the main button scrolls out of view.",
@@ -1983,6 +2031,75 @@ const CHANGELOG=[
   "Settings: theme, text size, reading spacing, reduced motion. Works on phones. Progress saves on your device, with export and import.",
   "Answer keys for the diagrams were checked against Prof. Shane's key."]}
 ];
+/* ===== read aloud, guided mode, calm settings ===== */
+const CAN_SAY=!!window.speechSynthesis&&typeof SpeechSynthesisUtterance!=="undefined";
+const SAYICON='<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6"/><path d="M18 6.5a8 8 0 0 1 0 11"/></svg>';
+const sayBtnHTML=kind=>CAN_SAY?`<button type="button" class="btn sm say" data-say="${kind}" aria-pressed="false">${SAYICON}<span>Read aloud</span></button>`:"";
+let sayBtn=null,sayTok=0;
+function htmlText(h){const d=document.createElement("div");d.innerHTML=h;return d.textContent.replace(/\s+/g," ").trim()}
+function sayReset(b){if(!b)return;b.setAttribute("aria-pressed","false");const s=b.querySelector("span");if(s)s.textContent="Read aloud"}
+function stopSay(){if(!CAN_SAY)return;sayTok++;speechSynthesis.cancel();sayReset(sayBtn);sayBtn=null}
+function sayText(text,btn){
+  stopSay();const tok=sayTok;sayBtn=btn;btn.setAttribute("aria-pressed","true");btn.querySelector("span").textContent="Stop reading";
+  const parts=text.match(/[^.!?;:]+[.!?;:]*\s*/g)||[text],chunks=[];let cur="";
+  parts.forEach(p=>{if((cur+p).length>170&&cur){chunks.push(cur);cur=p}else cur+=p});if(cur)chunks.push(cur);
+  const rate=+P.set.rate||1;
+  chunks.forEach((c,i)=>{const u=new SpeechSynthesisUtterance(c);u.rate=rate;u.lang="en-US";
+    if(i===chunks.length-1){u.onend=u.onerror=()=>{if(tok===sayTok){sayReset(btn);sayBtn=null}}}
+    speechSynthesis.speak(u)});
+}
+function sayFor(btn){
+  const k=btn.dataset.say;
+  if(k==="topic"){const t=btn.closest(".topic"),b=t.querySelector(".tbody").cloneNode(true);
+    b.querySelectorAll(".tact").forEach(n=>n.remove());b.querySelectorAll("li,div.keynote,div.fignote,p,h3").forEach(n=>n.append(". "));b.querySelectorAll("td,th").forEach(n=>n.append(", "));
+    return htmlText(t.querySelector(".tname").innerHTML)+". "+b.textContent.replace(/\s+/g," ")}
+  if(k==="card"){const c=deck&&deck[pos];if(!c)return"";return (flipped?"Answer. ":"Question. ")+htmlText(flipped?c.b:c.f)}
+  if(k==="quiz"){const S=qstate;if(!S||!S.pool[S.i])return"";const q=S.pool[S.i],A=S.ans;
+    let s=htmlText(q.q)+". "+q.opts.map((o,i)=>"Option "+String.fromCharCode(65+i)+". "+htmlText(o)+".").join(" ");
+    if(A)s+=" "+(A.ok?"Correct. ":"The answer is "+htmlText(q.a)+". ")+htmlText(q.e);return s}
+  return"";
+}
+
+/* ===== guided mode ===== */
+const GSTEPS=[["notes","Read the notes","Next: Flashcards"],["cards","Try the flashcards","Next: Quiz"],["quiz","Take the quiz","Finish this concept"]];
+function guidedBars(){
+  const sb=$("#stepbar"),nb=$("#nextbar"),T=G.id&&topicById[G.id];
+  const exit=`<button type="button" class="btn" data-gexit>Leave guided mode</button>`;
+  if(G.step<0||G.step>2){sb.hidden=true;nb.innerHTML=exit;nb.hidden=false;return}
+  const s=GSTEPS[G.step];sb.style.setProperty("--sk","var(--c"+(G.step+1)+")");
+  sb.innerHTML=`<span class="pill stepno">Guided mode</span> <b>${esc(T.name)}.</b> Step ${G.step+1} of 3: ${s[1]}.`;sb.hidden=false;
+  nb.innerHTML=`<span class="nlab">Done with this step?</span><button type="button" class="btn primary big" data-gnext>${s[2]}</button>${exit}`;nb.hidden=false;
+}
+function renderGuidedPage(){
+  if(G.step<0){
+    $("#main").innerHTML=`<h2>Guided mode</h2><p>Pick one concept. You will go through it in three steps: read the notes, try the flashcards, then take a short quiz. Tap Next when you finish each step.</p>`+
+    GROUPS.map(g=>`<h3><span class="gtitle g${g.set}">${g.title}</span></h3><div class="gpick">${TOPICS.filter(t=>t.set===g.set).map(t=>`<button type="button" class="btn" data-gpick="${t.id}">${esc(t.name)}</button>`).join("")}</div>`).join("");
+  }else{
+    const T=topicById[G.id];
+    $("#main").innerHTML=`<h2>You finished this concept</h2><p><b>${esc(T.name)}</b> is done.</p><div class="row"><button type="button" class="btn primary big" data-gagain>Pick another concept</button><button type="button" class="btn big" data-gexit>Leave guided mode</button></div>`;
+  }
+}
+function startGuided(){
+  if(!G){G={prev:[...sel],step:-1,id:null};P.gprev=G.prev;save()}else{G.step=-1;G.id=null}
+  document.documentElement.dataset.guided="1";go("guide");
+}
+function gstep(n){G.step=n;if(n>2){go("guide");return}go(GSTEPS[n][0])}
+function leaveGuided(){
+  if(!G)return;const prev=G.prev;G=null;delete P.gprev;delete document.documentElement.dataset.guided;
+  sel.clear();prev.forEach(id=>sel.add(id));saveSel();renderFilters();deck=null;qstate=null;go("guide");
+}
+if(P.gprev){sel.clear();P.gprev.forEach(id=>sel.add(id));delete P.gprev;saveSel();renderFilters()}
+document.addEventListener("click",e=>{
+  const t=e.target;
+  const sy=t.closest("[data-say]");
+  if(sy){if(sy.getAttribute("aria-pressed")==="true")stopSay();else{const tx=sayFor(sy);if(tx)sayText(tx,sy)}return}
+  if(t.closest("#gStart")){startGuided();return}
+  const p=t.closest("[data-gpick]");
+  if(p&&G){G.id=p.dataset.gpick;only(G.id);openT.add(G.id);P.fold=[...openT];save();gstep(0);return}
+  if(t.closest("[data-gnext]")&&G){gstep(G.step+1);return}
+  if(t.closest("[data-gagain]")&&G){G.step=-1;G.id=null;go("guide");return}
+  if(t.closest("[data-gexit]")){leaveGuided()}
+});
 /* ===== footer: about, changelog, report an error ===== */
 const CONTACT=`<p><b class="hl">Do you have a question or a suggestion? Did you find a mistake, or does something look wrong?</b> Contact me, in order of preference. If it is about a mistake, please tell me which tab and item it was.</p><ol class="steps contact"><li>Send me a message through Canvas. My name is spelled <button class="btn sm" data-rv="name">Show my name</button></li><li>Send me an email outside of Canvas: <button class="btn sm" data-rv="mail">Show my email</button></li></ol>`;
 const ABOUT=`<p>A free study tool for the BIOSC-020 final exam, shared with permission of Prof. Shane. Content follows the typed text of the two final exam study guide slide sets. Figures on the slides are supplemental.</p>

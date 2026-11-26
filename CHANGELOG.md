@@ -1,6 +1,12 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- Read aloud buttons on Notes, Flashcards and Quiz, with a speed setting. They use your device's built-in voice.
+- Guided mode: pick one concept and go through the notes, flashcards and quiz one step at a time, with a single Next button.
+- New Low-stim mode theme with calm colors, no gradient or illustration, and no motion.
+- Quiz feedback is calmer: wrong answers no longer use red, and the Settings now has an option to hide quiz scores.
+- Instructions on the How to use page, the step banners and the Print page are reworded in shorter, plainer sentences.
+- Handout bars now have the Download and Answer key buttons at the left edge, full height, with a visible label under each icon, and the color stripe on the right.
 - The handout buttons are now icons, an arrow for the download and a key for the answer key, with a hover description on each.
 - Ready to download is now a list of bars, each with a Download button, an Answer key button and the title, in the teal to purple colors.
 - On phones, the note about choosing concepts now has its own Choose concepts button right in it, because the main button scrolls out of view.
