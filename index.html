@@ -220,7 +220,7 @@ main p,main li,.qtext,.keynote,.fignote,.note{max-width:75ch}
   .top #fbar{display:flex;flex-direction:column;align-items:stretch;gap:6px;padding:0;margin:0;grid-column:auto;grid-row:auto}
   .top #fbar .btn{width:100%;text-align:left}
   .top #fbar .fsum{flex:none}
-  .fbar.off .fsum{visibility:hidden}.fbar.off .btn{opacity:.45}
+  .fbar.off .btn{opacity:.45}
   #filters{grid-row:1}#filters:not([hidden]){margin-top:20px}
   #main{padding-top:24px}
 }
@@ -291,13 +291,15 @@ table.mini .aa{padding:0 6px}
 .pfillcol .fill{line-height:2.05;padding:10px 14px}
 .pfillcol .fill input[type=text]{width:7.5em;min-height:32px;padding:2px 8px;font-size:.95rem;margin:0 2px}
 .pfillcol .fill p{margin:.3em 0}
+
+.fwhy{font-size:.88em;line-height:1.4;color:var(--muted)}.fwhy[hidden],.fsum[hidden]{display:none}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
 <header class="top"><div class="tools" id="tools"><button class="ibtn" id="btnHide" aria-label="Hide menu" title="Hide menu" aria-expanded="true" aria-controls="tabs"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/><path d="M16 9l-3 3 3 3"/></svg></button><div class="thwrap"><button class="ibtn" id="btnTheme" aria-label="Screen mode" title="Screen mode" aria-haspopup="menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button><div class="thmenu" id="thmenu" role="menu" hidden></div></div><button class="ibtn" id="btnHome" aria-label="How to use (home)" title="How to use (home)"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg></button></div><div class="brand"><h1>BIOSC-020 Final Exam Review<span class="sub">Study guide sets 1 and 2</span></h1><button class="iconbtn" id="btnLog" aria-haspopup="dialog">Changelog</button><button class="iconbtn" id="btnSet" aria-haspopup="dialog">Settings</button></div>
 <nav aria-label="Study modes"><div class="tabs" role="tablist" id="tabs"></div></nav>
 </header>
-<div class="fbar" id="fbar"><button class="btn sm" id="btnFilt" aria-expanded="false" aria-controls="filters">Choose concepts (<span id="fcount">All</span>)</button><span class="fsum" id="fsum"></span></div>
+<div class="fbar" id="fbar"><button class="btn sm" id="btnFilt" aria-expanded="false" aria-controls="filters">Choose concepts (<span id="fcount">All</span>)</button><span class="fsum" id="fsum"></span><span class="fwhy" id="fwhy" hidden>Not used on this tab. Concept choices apply to Notes, Flashcards and Quiz.</span></div>
 <div class="filters" id="filters" hidden></div>
 <main id="main" tabindex="-1"></main>
 <footer id="foot" style="margin-top:28px"></footer>
@@ -1088,7 +1090,7 @@ wide.addEventListener&&wide.addEventListener("change",applySide);
 function go(t,keep){
   if(t!=="cards")stopAuto();cur=t;$$(".tab").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t));
   try{history.replaceState(null,"","#"+t)}catch(e){}
-  document.documentElement.setAttribute("data-tab",t);sideTemp=t==="diagrams"?true:null;applySide();$("#btnFilt").disabled=!!NOFILTER[t];$("#fbar").classList.toggle("off",!!NOFILTER[t]);if(NOFILTER[t]){$("#filters").hidden=true;$("#btnFilt").setAttribute("aria-expanded","false")}
+  document.documentElement.setAttribute("data-tab",t);sideTemp=t==="diagrams"?true:null;applySide();$("#btnFilt").disabled=!!NOFILTER[t];$("#fwhy").hidden=!NOFILTER[t];$("#fsum").hidden=!!NOFILTER[t];if(NOFILTER[t])$("#btnFilt").setAttribute("aria-describedby","fwhy");else $("#btnFilt").removeAttribute("aria-describedby");$("#fbar").classList.toggle("off",!!NOFILTER[t]);if(NOFILTER[t]){$("#filters").hidden=true;$("#btnFilt").setAttribute("aria-expanded","false")}
   render();if(!keep)window.scrollTo({top:0,behavior:"auto"});
 }
 function render(){({guide:renderGuide,notes:renderNotes,cards:renderCards,quiz:renderQuiz,diagrams:renderDiagrams,drills:renderDrills,progress:renderProgress})[cur]()}
@@ -1689,6 +1691,7 @@ $("#main").addEventListener("click",e=>{if(cur!=="drills")return;
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "When Choose concepts is dimmed, a short note under it explains that it only applies to Notes, Flashcards and Quiz.",
   "Mutation lab: every amino acid has its own color in the answers, the explanations and the genetic code table, so silent changes keep a color and missense changes switch it.",
   "Na⁺/K⁺ pump drill: smaller stepper that stays on screen beside the slide 9 paragraph on wide screens, and centered above it on narrow ones.",
   "On wide screens every page except Diagrams now uses a centered, narrower column instead of stretching across the whole window.",

@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- When Choose concepts is dimmed, a short note under it explains that it only applies to Notes, Flashcards and Quiz.
 - Mutation lab: every amino acid has its own color in the answers, the explanations and the genetic code table, so silent changes keep a color and missense changes switch it.
 - Na+/K+ pump drill: smaller stepper that stays on screen beside the slide 9 paragraph on wide screens, and centered above it on narrow ones.
 - On wide screens every page except Diagrams now uses a centered, narrower column instead of stretching across the whole window.
