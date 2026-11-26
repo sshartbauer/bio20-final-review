@@ -49,7 +49,7 @@ button{cursor:pointer}
 .tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:8px 0 2px;-webkit-overflow-scrolling:touch}
 .tabs::-webkit-scrollbar{display:none}
 .tab{flex:none;min-height:44px;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:10px;padding:6px 14px;font-weight:700;white-space:nowrap}
-.tab[aria-selected="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.tab[aria-current="page"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 .fbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding-top:10px}
 .fsum{flex:1;min-width:0;font-size:.88em;color:var(--muted)}
 .btn{min-height:44px;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 14px;font-weight:700}
@@ -217,7 +217,7 @@ main p,main li,.qtext,.keynote,.fignote,.note{max-width:75ch}
 }
 
 @media (min-width:900px){
-  .top #fbar{display:flex;flex-direction:column;align-items:stretch;gap:6px;padding:0;margin:0;grid-column:auto;grid-row:auto}
+  #tabs #fbar,.top #fbar{display:flex;flex-direction:column;align-items:stretch;gap:6px;padding:0;margin:0;grid-column:auto;grid-row:auto}
   .top #fbar .btn{width:100%;text-align:left}
   .top #fbar .fsum{flex:none}
   .fbar.off .btn{opacity:.45}
@@ -297,7 +297,7 @@ table.mini .aa{padding:0 6px}
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
 <header class="top"><div class="tools" id="tools"><button class="ibtn" id="btnHide" aria-label="Hide menu" title="Hide menu" aria-expanded="true" aria-controls="tabs"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/><path d="M16 9l-3 3 3 3"/></svg></button><div class="thwrap"><button class="ibtn" id="btnTheme" aria-label="Screen mode" title="Screen mode" aria-haspopup="menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button><div class="thmenu" id="thmenu" role="menu" hidden></div></div><button class="ibtn" id="btnHome" aria-label="How to use (home)" title="How to use (home)"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg></button></div><div class="brand"><h1>BIOSC-020 Final Exam Review<span class="sub">Study guide sets 1 and 2</span></h1><button class="iconbtn" id="btnLog" aria-haspopup="dialog">Changelog</button><button class="iconbtn" id="btnSet" aria-haspopup="dialog">Settings</button></div>
-<nav aria-label="Study modes"><div class="tabs" role="tablist" id="tabs"></div></nav>
+<nav aria-label="Study modes"><div class="tabs" id="tabs"></div></nav>
 </header>
 <div class="fbar" id="fbar"><button class="btn sm" id="btnFilt" aria-expanded="false" aria-controls="filters">Choose concepts (<span id="fcount">All</span>)</button><span class="fsum" id="fsum"></span><span class="fwhy" id="fwhy" hidden>Select a mode below to choose concepts</span></div>
 <div class="filters" id="filters" hidden></div>
@@ -1061,13 +1061,13 @@ $("#btnSet").onclick=openSettings;
 const TABS=[["guide","How to use"],["notes","Notes"],["cards","Flashcards"],["quiz","Quiz"],["diagrams","Diagrams"],["drills","Drills"],["progress","Progress"]];
 const NOFILTER={guide:1,diagrams:1,progress:1,drills:1};
 let cur="notes";
-$("#tabs").innerHTML=TABS.map(t=>`<button class="tab" role="tab" id="tab-${t[0]}" data-t="${t[0]}" aria-selected="false" aria-controls="main">${t[1]}</button>`).join("");
+$("#tabs").innerHTML=TABS.map(t=>`<button class="tab" id="tab-${t[0]}" data-t="${t[0]}" aria-current="false" aria-controls="main">${t[1]}</button>`).join("");
 $("#tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(b)go(b.dataset.t)});
 $("#tabs").addEventListener("keydown",e=>{if(e.key!=="ArrowRight"&&e.key!=="ArrowLeft")return;const i=TABS.findIndex(t=>t[0]===cur),n=(i+(e.key==="ArrowRight"?1:-1)+TABS.length)%TABS.length;go(TABS[n][0]);$("#tab-"+TABS[n][0]).focus()});
 const wide=matchMedia("(min-width:900px)");
 let sideTemp=null;
 const sideHidden=()=>wide.matches&&(sideTemp!==null?sideTemp:!!P.sbHide);
-function placeFbar(){const f=$("#fbar"),top=$(".top");if(wide.matches&&!sideHidden()){if(f.parentNode!==top)top.insertBefore(f,$(".top nav"))}else if(f.parentNode===top)top.after(f)}
+function placeFbar(){const f=$("#fbar"),top=$(".top");if(wide.matches&&!sideHidden()){const tabs=$("#tabs"),n=$("#tab-notes");if(f.parentNode!==tabs)tabs.insertBefore(f,n)}else if(f.parentNode===$("#tabs")||f.parentNode===top)top.after(f)}
 function applySide(){
   const h=sideHidden();document.documentElement.setAttribute("data-side",h?"hide":"show");
   placeFbar();$("#btnHide").setAttribute("aria-expanded",String(!h));$("#btnShow").hidden=!h;
@@ -1088,7 +1088,7 @@ document.addEventListener("click",e=>{if(!$("#thmenu").hidden&&!e.target.closest
 $("#btnHome").onclick=()=>go("guide");
 wide.addEventListener&&wide.addEventListener("change",applySide);
 function go(t,keep){
-  if(t!=="cards")stopAuto();cur=t;$$(".tab").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t));
+  if(t!=="cards")stopAuto();cur=t;$$(".tab").forEach(b=>b.setAttribute("aria-current",b.dataset.t===t?"page":"false"));
   try{history.replaceState(null,"","#"+t)}catch(e){}
   document.documentElement.setAttribute("data-tab",t);sideTemp=t==="diagrams"?true:null;applySide();$("#btnFilt").disabled=!!NOFILTER[t];$("#fwhy").hidden=!NOFILTER[t];$("#fsum").hidden=!!NOFILTER[t];if(NOFILTER[t])$("#btnFilt").setAttribute("aria-describedby","fwhy");else $("#btnFilt").removeAttribute("aria-describedby");$("#fbar").classList.toggle("off",!!NOFILTER[t]);if(NOFILTER[t]){$("#filters").hidden=true;$("#btnFilt").setAttribute("aria-expanded","false")}
   render();if(!keep)window.scrollTo({top:0,behavior:"auto"});
@@ -1691,6 +1691,7 @@ $("#main").addEventListener("click",e=>{if(cur!=="drills")return;
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "Sidebar order is now How to use, Choose concepts, then Notes, Flashcards and the rest. How to use is the page the tool opens on.",
   "When Choose concepts is dimmed, a short note under it says to select a mode below to choose concepts.",
   "Mutation lab: every amino acid has its own color in the answers, the explanations and the genetic code table, so silent changes keep a color and missense changes switch it.",
   "Na⁺/K⁺ pump drill: smaller stepper that stays on screen beside the slide 9 paragraph on wide screens, and centered above it on narrow ones.",
@@ -1729,6 +1730,6 @@ function openAbout(){$("#about").innerHTML=`<div class="sheet" role="dialog" ari
 $("#btnLog").onclick=openAbout;
 $("#about").addEventListener("click",e=>{if(e.target.id==="about"||e.target.id==="aclose"){$("#about").hidden=true;$("#btnLog").focus()}});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#about").hidden){$("#about").hidden=true;$("#btnLog").focus()}});
-const h0=location.hash.slice(1);go(TABS.some(t=>t[0]===h0)?h0:(P.seen?"notes":"guide"),true);
+const h0=location.hash.slice(1);go(TABS.some(t=>t[0]===h0)?h0:"guide",true);
 if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
 </script></body></html>

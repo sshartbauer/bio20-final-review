@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- Sidebar order is now How to use, Choose concepts, then Notes, Flashcards and the rest. How to use is the page the tool opens on.
 - When Choose concepts is dimmed, a short note under it says to select a mode below to choose concepts.
 - Mutation lab: every amino acid has its own color in the answers, the explanations and the genetic code table, so silent changes keep a color and missense changes switch it.
 - Na+/K+ pump drill: smaller stepper that stays on screen beside the slide 9 paragraph on wide screens, and centered above it on narrow ones.
