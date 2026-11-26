@@ -337,6 +337,13 @@ table.mini .aa{padding:0 6px}
   html:not([data-tab="diagrams"]) #stepbar,html:not([data-tab="diagrams"]) #nextbar{width:100%;max-width:960px;justify-self:center;box-sizing:border-box}
   html[data-side=hide] #fbar[hidden]~#stepbar{margin-top:64px}
 }
+@media (max-width:899px){
+  .tabs{display:grid;grid-template-columns:1fr 1fr;overflow:visible;gap:8px;padding:10px 0 4px}
+  .stepsh{display:block;grid-column:1/-1;font-weight:700;font-size:.8em;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin:6px 2px 0}
+  .tab{padding:6px 10px;min-height:52px;text-align:left}
+  .tlab small{display:block;opacity:.85}
+  .tab[data-t=guide]{grid-column:1/-1}
+}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -1790,6 +1797,7 @@ $("#main").addEventListener("click",e=>{if(cur!=="drills")return;
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "On phones, all the study steps are now shown as a grid of buttons at the top instead of a strip you had to swipe sideways.",
   "The sidebar now shows the study routine as numbered steps: 1 Notes, 2 Flashcards, 3 Quiz, 4 Diagrams or Drills, 5 Progress, each with a short description.",
   "Each page has a Step banner at the top saying what to do, a reminder to choose more or fewer concepts where that matters, and a Next step button at the bottom.",
   "Metric prefix table: smaller text boxes and narrower columns.",

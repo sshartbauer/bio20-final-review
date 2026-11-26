@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- On phones, all the study steps are now shown as a grid of buttons at the top instead of a strip you had to swipe sideways.
 - The sidebar now shows the study routine as numbered steps: 1 Notes, 2 Flashcards, 3 Quiz, 4 Diagrams or Drills, 5 Progress, each with a short description.
 - Each page has a Step banner at the top saying what to do, a reminder to choose more or fewer concepts where that matters, and a Next step button at the bottom.
 - Metric prefix table: smaller text boxes and narrower columns.
