@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- Missed-items mixer now explains what it is, which modes it pulls from, how chosen concepts limit it, and how your answers change what comes up.
 - Choose concepts is now available on every page (except Diagrams) and the explanatory note is gone.
 - On phones, all the study steps are now shown as a grid of buttons at the top instead of a strip you had to swipe sideways.
 - The sidebar now shows the study routine as numbered steps: 1 Notes, 2 Flashcards, 3 Quiz, 4 Diagrams or Drills, 5 Progress, each with a short description.
