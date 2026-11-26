@@ -1,6 +1,8 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- The sidebar now shows the study routine as numbered steps: 1 Notes, 2 Flashcards, 3 Quiz, 4 Diagrams or Drills, 5 Progress, each with a short description.
+- Each page has a Step banner at the top saying what to do, a reminder to choose more or fewer concepts where that matters, and a Next step button at the bottom.
 - Metric prefix table: smaller text boxes and narrower columns.
 - Mutation lab: the template DNA is color coded by base (A, C, G, T and U each have their own color), and the codon table is replaced by a codon wheel in the style of slide 24.
 - Na+/K+ pump drill: the slide 9 heading moved into its frame so the two frames line up.

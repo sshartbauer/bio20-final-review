@@ -48,7 +48,7 @@ button{cursor:pointer}
 .iconbtn{min-height:44px;min-width:44px;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:6px 12px;font-weight:700}
 .tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:8px 0 2px;-webkit-overflow-scrolling:touch}
 .tabs::-webkit-scrollbar{display:none}
-.tab{flex:none;min-height:44px;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:10px;padding:6px 14px;font-weight:700;white-space:nowrap}
+.tab{flex:none;min-height:44px;border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:10px;padding:6px 14px;font-weight:700;white-space:nowrap}
 .tab[aria-current="page"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 .fbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding-top:10px}
 .fsum{flex:1;min-width:0;font-size:.88em;color:var(--muted)}
@@ -187,18 +187,18 @@ svg text{font-family:var(--sans)}
 /* wide screens: left sidebar for the study modes, full-width content */
 main p,main li,.qtext,.keynote,.fignote,.note{max-width:75ch}
 @media (min-width:900px){
-  .wrap{max-width:none;padding:0;display:grid;grid-template-columns:240px minmax(0,1fr);grid-template-rows:auto auto 1fr auto;align-items:start}
+  .wrap{max-width:none;padding:0;display:grid;grid-template-columns:240px minmax(0,1fr);grid-template-rows:auto auto auto minmax(0,1fr) auto auto;align-items:start}
   .top{grid-column:1;grid-row:1/-1;position:sticky;top:0;height:100vh;overflow-y:auto;border-bottom:0;border-right:1px solid var(--line);padding:18px 14px;display:flex;flex-direction:column;gap:16px}
   .brand{display:contents}
   .brand h1{font-size:1.2em;line-height:1.25}
   .top nav{order:1}.tabs{flex-direction:column;overflow:visible;padding:0;gap:8px}
   .tab{width:100%;text-align:left;font-size:1.02em}
   #btnSet{order:2;margin-top:auto;width:100%}
-  #fbar,#filters,#main,#foot{grid-column:2;margin-left:0;margin-right:0;padding-left:28px;padding-right:28px}
+  #fbar,#filters,#stepbar,#main,#nextbar,#foot{grid-column:2;margin-left:0;margin-right:0;padding-left:28px;padding-right:28px}
   #fbar{grid-row:1;padding-top:16px}
   #filters{grid-row:2}#filters:not([hidden]){margin:10px 28px;padding:10px;width:auto}
-  #main{grid-row:3;padding-bottom:40px}
-  #foot{grid-row:4;padding-bottom:60px}
+  #stepbar{grid-row:3}#main{grid-row:4;padding-bottom:24px}#nextbar{grid-row:5}
+  #foot{grid-row:6;padding-bottom:60px}
   .dframe{height:calc(100vh - 150px)}
 }
 
@@ -221,7 +221,7 @@ main p,main li,.qtext,.keynote,.fignote,.note{max-width:75ch}
   .top #fbar .btn{width:100%;text-align:left}
   .top #fbar .fsum{flex:none}
   .fbar.off .btn{opacity:.45}
-  #filters{grid-row:1}#filters:not([hidden]){margin-top:20px}
+  #filters:not([hidden]){margin-top:20px}
   #main{padding-top:24px}
 }
 
@@ -311,6 +311,32 @@ table.mini .aa{padding:0 6px}
 .howto{margin:6px 0 10px}.howto h4,#rpath~h4{margin:.4em 0}
 .howto .steps li{margin:.35em 0}
 .pstep,.pfillcol .panel{margin-top:0}
+
+/* numbered steps */
+.tab{display:flex;align-items:center;gap:8px}
+.tnum{flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:800;font-size:.9em}
+.tab[aria-current="page"] .tnum{background:var(--bg);color:var(--fg)}
+.tlab{display:flex;flex-direction:column;align-items:flex-start;line-height:1.2}
+.tlab small{display:none;font-weight:400;font-size:.8em}
+.stepsh{display:none}
+.stepbar{margin:12px 0 4px;padding:10px 14px;border-left:8px solid var(--accent);background:var(--accent-soft);border-radius:10px;color:var(--fg);line-height:1.5}
+.stepbar .stepno{background:var(--accent);color:var(--accent-ink)}
+.cnote{display:block;margin-top:4px;font-weight:700}
+.cn-side{display:none}
+.stepbar[hidden],.nextbar[hidden]{display:none}
+.nextbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:8px 0 28px}
+.nextbar .nlab{font-weight:700}
+.nextbar .btn{text-decoration:none;display:inline-flex;align-items:center}
+@media (min-width:900px){
+  .stepbar{margin:14px 28px 0}.nextbar{margin:8px 28px 24px}
+  .tab{padding:6px 10px;min-height:48px}
+  .tlab small{display:block;color:inherit;opacity:.85}
+  .stepsh{display:block;font-weight:700;font-size:.8em;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin:10px 2px 0}
+  .tabs{gap:6px!important}
+  html[data-side=show] .cn-side{display:inline}html[data-side=show] .cn-above{display:none}
+  html:not([data-tab="diagrams"]) #stepbar,html:not([data-tab="diagrams"]) #nextbar{width:100%;max-width:960px;justify-self:center;box-sizing:border-box}
+  html[data-side=hide] #fbar[hidden]~#stepbar{margin-top:64px}
+}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -319,7 +345,9 @@ table.mini .aa{padding:0 6px}
 </header>
 <div class="fbar" id="fbar"><button class="btn sm" id="btnFilt" aria-expanded="false" aria-controls="filters">Choose concepts (<span id="fcount">All</span>)</button><span class="fsum" id="fsum"></span><span class="fwhy" id="fwhy" hidden>Select a mode below to choose concepts</span></div>
 <div class="filters" id="filters" hidden></div>
+<div class="stepbar" id="stepbar" hidden></div>
 <main id="main" tabindex="-1"></main>
+<div class="nextbar" id="nextbar" hidden></div>
 <footer id="foot" style="margin-top:28px"></footer>
 </div>
 <button class="ibtn sidebtn" id="btnShow" aria-label="Show menu" title="Show menu" aria-expanded="false" aria-controls="tabs" hidden><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/><path d="M13 9l3 3-3 3"/></svg></button>
@@ -1077,15 +1105,31 @@ $("#btnSet").onclick=openSettings;
 
 /* ===== tabs ===== */
 const TABS=[["guide","How to use"],["notes","Notes"],["cards","Flashcards"],["quiz","Quiz"],["diagrams","Diagrams"],["drills","Drills"],["progress","Progress"]];
+const STEPS={notes:[1,"Read the notes","Read one concept","Open one concept and read it all the way through. Yellow boxes are exam notes."],
+  cards:[2,"Test yourself with flashcards","Test yourself","Say the answer out loud before you flip the card, then mark it Got it or Review again."],
+  quiz:[3,"Take the quiz","Check what you know","Answer each question, then read the explanation. Retry the ones you miss."],
+  diagrams:[4,"Practice with a diagram","Practice with a diagram",""],
+  drills:[4,"Practice with a tool","Practice with a tool","Pick a drill below. Each one tells you what to do, step by step."],
+  progress:[5,"Check your progress","See your weak spots","Find your weak concepts, then run the Missed-items mixer in Drills on them."]};
+const NEXT={notes:[["cards","Step 2: Flashcards"]],cards:[["quiz","Step 3: Quiz"]],quiz:[["diagrams","Step 4: Diagrams"],["drills","Step 4: Drills"]],drills:[["progress","Step 5: Progress"]],progress:[["notes","Back to step 1: Notes for the next concept"]]};
+const USESEL={notes:1,cards:1,quiz:1};
+const whereChoose=()=>`Choose more or fewer concepts <span class="cn-side">on the left</span><span class="cn-above">with the Choose concepts button above</span>.`;
+function updateBars(t){
+  const sb=$("#stepbar"),nb=$("#nextbar"),st=STEPS[t];
+  if(!st||t==="diagrams"){sb.hidden=true;nb.hidden=true;return}
+  sb.innerHTML=`<span class="pill stepno">Step ${st[0]} of 5</span> <b>${st[1]}.</b> ${st[3]}${USESEL[t]?` <span class="cnote">${whereChoose()}</span>`:""}`;sb.hidden=false;
+  nb.innerHTML=`<span class="nlab">Done with this step?</span>${NEXT[t].map(n=>`<a href="#${n[0]}" class="btn primary" data-go="${n[0]}">${n[1]}</a>`).join("")}`;nb.hidden=false}
 const NOFILTER={guide:1,diagrams:1,progress:1,drills:1};
 let cur="notes";
-$("#tabs").innerHTML=TABS.map(t=>`<button class="tab" id="tab-${t[0]}" data-t="${t[0]}" aria-current="false" aria-controls="main">${t[1]}</button>`).join("");
+$("#tabs").innerHTML=TABS.map(t=>{const st=STEPS[t[0]];
+  const b=`<button class="tab" id="tab-${t[0]}" data-t="${t[0]}" aria-current="false" aria-controls="main">${st?`<span class="tnum" aria-hidden="true">${st[0]}</span><span class="tlab">${t[1]}<small>${st[2]}</small></span>`:`<span class="tlab">${t[1]}<small>Start here</small></span>`}</button>`;
+  return t[0]==="notes"?`<div class="stepsh" id="stepsH">Then follow these steps in order</div>`+b:b}).join("");
 $("#tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(b)go(b.dataset.t)});
 $("#tabs").addEventListener("keydown",e=>{if(e.key!=="ArrowRight"&&e.key!=="ArrowLeft")return;const i=TABS.findIndex(t=>t[0]===cur),n=(i+(e.key==="ArrowRight"?1:-1)+TABS.length)%TABS.length;go(TABS[n][0]);$("#tab-"+TABS[n][0]).focus()});
 const wide=matchMedia("(min-width:900px)");
 let sideTemp=null;
 const sideHidden=()=>wide.matches&&(sideTemp!==null?sideTemp:!!P.sbHide);
-function placeFbar(){const f=$("#fbar"),top=$(".top");if(wide.matches&&!sideHidden()){const tabs=$("#tabs"),n=$("#tab-notes");if(f.parentNode!==tabs)tabs.insertBefore(f,n)}else if(f.parentNode===$("#tabs")||f.parentNode===top)top.after(f)}
+function placeFbar(){const f=$("#fbar"),top=$(".top");if(wide.matches&&!sideHidden()){const tabs=$("#tabs"),n=$("#stepsH");if(f.parentNode!==tabs)tabs.insertBefore(f,n)}else if(f.parentNode===$("#tabs")||f.parentNode===top)top.after(f)}
 function applySide(){
   const h=sideHidden();document.documentElement.setAttribute("data-side",h?"hide":"show");
   placeFbar();$("#btnHide").setAttribute("aria-expanded",String(!h));$("#btnShow").hidden=!h;
@@ -1108,7 +1152,7 @@ wide.addEventListener&&wide.addEventListener("change",applySide);
 function go(t,keep){
   if(t!=="cards")stopAuto();cur=t;$$(".tab").forEach(b=>b.setAttribute("aria-current",b.dataset.t===t?"page":"false"));
   try{history.replaceState(null,"","#"+t)}catch(e){}
-  document.documentElement.setAttribute("data-tab",t);sideTemp=t==="diagrams"?true:null;applySide();$("#btnFilt").disabled=!!NOFILTER[t];$("#fwhy").hidden=!NOFILTER[t];$("#fsum").hidden=!!NOFILTER[t];if(NOFILTER[t])$("#btnFilt").setAttribute("aria-describedby","fwhy");else $("#btnFilt").removeAttribute("aria-describedby");$("#fbar").classList.toggle("off",!!NOFILTER[t]);if(NOFILTER[t]){$("#filters").hidden=true;$("#btnFilt").setAttribute("aria-expanded","false")}
+  document.documentElement.setAttribute("data-tab",t);updateBars(t);sideTemp=t==="diagrams"?true:null;applySide();$("#btnFilt").disabled=!!NOFILTER[t];$("#fwhy").hidden=!NOFILTER[t];$("#fsum").hidden=!!NOFILTER[t];if(NOFILTER[t])$("#btnFilt").setAttribute("aria-describedby","fwhy");else $("#btnFilt").removeAttribute("aria-describedby");$("#fbar").classList.toggle("off",!!NOFILTER[t]);if(NOFILTER[t]){$("#filters").hidden=true;$("#btnFilt").setAttribute("aria-expanded","false")}
   render();if(!keep)window.scrollTo({top:0,behavior:"auto"});
 }
 function render(){({guide:renderGuide,notes:renderNotes,cards:renderCards,quiz:renderQuiz,diagrams:renderDiagrams,drills:renderDrills,progress:renderProgress})[cur]()}
@@ -1702,7 +1746,7 @@ function drillMixer(host){
     shuffle(cp).slice(0,3).forEach(c=>items.push({k:"c",c}));
     S={items:shuffle(items),i:0,right:0,done:0,ans:null,rev:false};draw()}
   function draw(){clearInterval(timer);
-    if(!S){host.innerHTML=`<div class="panel"><p>A mixed round of up to 11 items. Questions you missed before come up more often, and any flashcards you marked "Review again" are mixed in as self-graded recall.</p><label class="row" style="gap:8px"><input type="checkbox" id="mt" style="width:24px;height:24px" ${timed?"checked":""}> Show a 45 second countdown (off by default)</label><div class="row" style="margin-top:10px"><button class="btn primary" id="ms">Start a round</button></div></div>`;
+    if(!S){host.innerHTML=`<p class="note">This round uses the concepts you chose. ${whereChoose()}</p><div class="panel"><p>A mixed round of up to 11 items. Questions you missed before come up more often, and any flashcards you marked "Review again" are mixed in as self-graded recall.</p><label class="row" style="gap:8px"><input type="checkbox" id="mt" style="width:24px;height:24px" ${timed?"checked":""}> Show a 45 second countdown (off by default)</label><div class="row" style="margin-top:10px"><button class="btn primary" id="ms">Start a round</button></div></div>`;
       $("#ms",host).onclick=()=>{timed=$("#mt",host).checked;start()};return}
     if(S.i>=S.items.length){host.innerHTML=`<div class="panel"><h3>Round complete</h3><p class="score">${S.right} of ${S.done} correct</p><div class="row"><button class="btn primary" id="mr">Another round</button></div></div>`;$("#mr",host).onclick=()=>{S=null;start()};recDrill("mixer",S.right,S.done);return}
     const it=S.items[S.i];let h=`<p class="small muted" aria-live="polite">Item ${S.i+1} of ${S.items.length}. Score: ${S.right} of ${S.done}.${timed&&!S.ans&&!S.rev?` <b id="mclock">45</b> s left.`:""}</p><div class="meter" aria-hidden="true"><i style="width:${S.i/S.items.length*100}%"></i></div>`;
@@ -1746,6 +1790,8 @@ $("#main").addEventListener("click",e=>{if(cur!=="drills")return;
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "The sidebar now shows the study routine as numbered steps: 1 Notes, 2 Flashcards, 3 Quiz, 4 Diagrams or Drills, 5 Progress, each with a short description.",
+  "Each page has a Step banner at the top saying what to do, a reminder to choose more or fewer concepts where that matters, and a Next step button at the bottom.",
   "Metric prefix table: smaller text boxes and narrower columns.",
   "Mutation lab: the template DNA is color coded by base (A, C, G, T and U each have their own color), and the codon table is replaced by a codon wheel in the style of slide 24.",
   "Na⁺/K⁺ pump drill: the slide 9 heading moved into its frame so the two frames line up.",
