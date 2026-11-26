@@ -344,6 +344,12 @@ table.mini .aa{padding:0 6px}
   .tlab small{display:block;opacity:.85}
   .tab[data-t=guide]{grid-column:1/-1}
 }
+.sel{font:inherit;min-height:44px;padding:6px 10px;border:2px solid var(--line);border-radius:10px;background:var(--surface);color:var(--fg)}
+.ptout{margin:12px 0}.ptout p{margin:6px 0}
+.more{margin-top:12px}.more summary{cursor:pointer;font-weight:700;min-height:32px}
+.plist{padding-left:20px}.plist li{margin:8px 0}
+.tab[data-t=print]{border-style:dashed}
+@media (max-width:899px){.tab[data-t=print]{grid-column:1/-1}}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -1111,25 +1117,25 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#settings").hid
 $("#btnSet").onclick=openSettings;
 
 /* ===== tabs ===== */
-const TABS=[["guide","How to use"],["notes","Notes"],["cards","Flashcards"],["quiz","Quiz"],["diagrams","Diagrams"],["drills","Drills"],["progress","Progress"]];
+const TABS=[["guide","How to use"],["notes","Notes"],["cards","Flashcards"],["quiz","Quiz"],["diagrams","Diagrams"],["drills","Practice"],["progress","Progress"],["print","Print and handouts"]];
 const STEPS={notes:[1,"Read the notes","Read one concept","Open one concept and read it all the way through. Yellow boxes are exam notes."],
   cards:[2,"Test yourself with flashcards","Test yourself","Say the answer out loud before you flip the card, then mark it Got it or Review again."],
   quiz:[3,"Take the quiz","Check what you know","Answer each question, then read the explanation. Retry the ones you miss."],
   diagrams:[4,"Practice with a diagram","Practice with a diagram",""],
-  drills:[4,"Practice with a tool","Practice with a tool","Pick a drill below. Each one tells you what to do, step by step."],
-  progress:[5,"Check your progress","See your weak spots","Find your weak concepts, then run the Missed-items mixer in Drills on them."]};
-const NEXT={notes:[["cards","Step 2: Flashcards"]],cards:[["quiz","Step 3: Quiz"]],quiz:[["diagrams","Step 4: Diagrams"],["drills","Step 4: Drills"]],drills:[["progress","Step 5: Progress"]],progress:[["notes","Back to step 1: Notes for the next concept"]]};
+  drills:[4,"Practice","Diagrams and drills","Pick a diagram or a drill below. Each one tells you what to do, step by step."],
+  progress:[5,"Check your progress","See your weak spots","Find your weak concepts, then run the Missed-items mixer in Practice on them."]};
+const NEXT={notes:[["cards","Step 2: Flashcards"]],cards:[["quiz","Step 3: Quiz"]],quiz:[["drills","Step 4: Practice"],["print","Optional: print a practice test","btn"]],drills:[["progress","Step 5: Progress"]],progress:[["notes","Back to step 1: Notes for the next concept"]]};
 const USESEL={notes:1,cards:1,quiz:1};
 const whereChoose=()=>`Choose more or fewer concepts <span class="cn-side">on the left</span><span class="cn-above">with the Choose concepts button above</span>.`;
 function updateBars(t){
   const sb=$("#stepbar"),nb=$("#nextbar"),st=STEPS[t];
   if(!st||t==="diagrams"){sb.hidden=true;nb.hidden=true;return}
   sb.innerHTML=`<span class="pill stepno">Step ${st[0]} of 5</span> <b>${st[1]}.</b> ${st[3]}${USESEL[t]?` <span class="cnote">${whereChoose()}</span>`:""}`;sb.hidden=false;
-  nb.innerHTML=`<span class="nlab">Done with this step?</span>${NEXT[t].map(n=>`<a href="#${n[0]}" class="btn primary" data-go="${n[0]}">${n[1]}</a>`).join("")}`;nb.hidden=false}
+  nb.innerHTML=`<span class="nlab">Done with this step?</span>${NEXT[t].map(n=>`<a href="#${n[0]}" class="btn${n[2]?"":" primary"}" data-go="${n[0]}">${n[1]}</a>`).join("")}`;nb.hidden=false}
 const NOFILTER={diagrams:1};
 let cur="notes";
-$("#tabs").innerHTML=TABS.map(t=>{const st=STEPS[t[0]];
-  const b=`<button class="tab" id="tab-${t[0]}" data-t="${t[0]}" aria-current="false" aria-controls="main">${st?`<span class="tnum" aria-hidden="true">${st[0]}</span><span class="tlab">${t[1]}<small>${st[2]}</small></span>`:`<span class="tlab">${t[1]}<small>Start here</small></span>`}</button>`;
+$("#tabs").innerHTML=TABS.map(t=>{const st=STEPS[t[0]];if(t[0]==="diagrams")return"";
+  const b=`<button class="tab" id="tab-${t[0]}" data-t="${t[0]}" aria-current="false" aria-controls="main">${st?`<span class="tnum" aria-hidden="true">${st[0]}</span><span class="tlab">${t[1]}<small>${st[2]}</small></span>`:`<span class="tlab">${t[1]}<small>${t[0]==="print"?"Optional PDFs":"Start here"}</small></span>`}</button>`;
   return t[0]==="notes"?`<div class="stepsh" id="stepsH">Study steps, in order</div>`+b:b}).join("");
 $("#tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(b)go(b.dataset.t)});
 $("#tabs").addEventListener("keydown",e=>{if(e.key!=="ArrowRight"&&e.key!=="ArrowLeft")return;const i=TABS.findIndex(t=>t[0]===cur),n=(i+(e.key==="ArrowRight"?1:-1)+TABS.length)%TABS.length;go(TABS[n][0]);$("#tab-"+TABS[n][0]).focus()});
@@ -1157,12 +1163,12 @@ document.addEventListener("click",e=>{if(!$("#thmenu").hidden&&!e.target.closest
 $("#btnHome").onclick=()=>go("guide");
 wide.addEventListener&&wide.addEventListener("change",applySide);
 function go(t,keep){
-  if(t!=="cards")stopAuto();cur=t;$$(".tab").forEach(b=>b.setAttribute("aria-current",b.dataset.t===t?"page":"false"));
+  if(t!=="cards")stopAuto();cur=t;$$(".tab").forEach(b=>b.setAttribute("aria-current",(b.dataset.t===t||(t==="diagrams"&&b.dataset.t==="drills"))?"page":"false"));
   try{history.replaceState(null,"","#"+t)}catch(e){}
   document.documentElement.setAttribute("data-tab",t);updateBars(t);sideTemp=t==="diagrams"?true:null;applySide();if(NOFILTER[t]){$("#filters").hidden=true;$("#btnFilt").setAttribute("aria-expanded","false")}
   render();if(!keep)window.scrollTo({top:0,behavior:"auto"});
 }
-function render(){({guide:renderGuide,notes:renderNotes,cards:renderCards,quiz:renderQuiz,diagrams:renderDiagrams,drills:renderDrills,progress:renderProgress})[cur]()}
+function render(){({guide:renderGuide,notes:renderNotes,cards:renderCards,quiz:renderQuiz,diagrams:renderDiagrams,drills:renderDrills,progress:renderProgress,print:renderPrint})[cur]()}
 
 document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g){e.preventDefault();go(g.dataset.go)}});
 function renderGuide(){
@@ -1175,7 +1181,7 @@ function renderGuide(){
   <li><b>Read the notes</b> for one concept. Yellow boxes are things the guide says are on the exam. Blue boxes come from figures, which the guide says are supplemental. ${go("notes","Open Notes")}.</li>
   <li><b>Test yourself with flashcards.</b> Say the answer out loud before you flip the card, then mark it <i>Got it</i> or <i>Review again</i>. ${go("cards","Open Flashcards")}.</li>
   <li><b>Take the quiz</b> on the same concept. Every answer comes with an explanation, and you can retry only the ones you missed. ${go("quiz","Open Quiz")}.</li>
-  <li><b>Practice with a tool</b> if the concept has one: the mitochondrion and chloroplast diagrams, or one of the drills. ${go("diagrams","Open Diagrams")} or ${go("drills","Open Drills")}.</li>
+  <li><b>Practice with a tool</b> if the concept has one: the mitochondrion and chloroplast diagrams, or one of the drills. ${go("drills","Open Practice")}.</li>
   <li><b>Check Progress</b> to see weak concepts, then run the <i>Missed-items mixer</i> drill, which brings back what you got wrong. ${go("progress","Open Progress")}.</li>
   </ol></div>
   <div class="panel gp c3"><h3>Choose what to study</h3>
@@ -1185,6 +1191,7 @@ function renderGuide(){
   <li><b>Flashcards:</b> tap the card to flip it. Swipe left or right on a phone, or click the card and use Space and the arrow keys. <i>Play through the cards</i> at the bottom flips and advances automatically, with seconds you choose for the question and the answer.</li>
   <li><b>Quiz:</b> one question at a time with instant feedback. At the end you can retry only your misses.</li>
   <li><b>Diagrams:</b> pick Mitochondrion or Chloroplast. <i>Guide me</i> walks you through the steps with an explanation for each blank. <i>Test your knowledge</i> hides the answers so you fill them in. On a wide screen the menu hides itself here to give the diagram more room.</li>
+  <li><b>Practice:</b> choose the diagrams or one of the drills. ${go("print","Print and handouts")} has optional PDFs: a practice test builder with answer keys, printable flashcards, blank diagram worksheets and premade tests.</li>
   <li><b>Drills:</b> ${DRILLS.map(d=>d.title).join(", ")}. Each one says which slides it covers.</li>
   <li><b>Progress:</b> your flashcard and quiz results by concept, plus drill scores.</li>
   </ul></div>
@@ -1785,18 +1792,111 @@ const DRILLS=[
 let activeDrill=null;
 function renderDrills(){
   if(!activeDrill){
-    $("#main").innerHTML=`<h2>Drills</h2><p class="muted small">Interactive practice for the exam formats the slides describe. The mitochondrion and chloroplast diagrams are in the Diagrams tab.</p><div class="dgrid">${DRILLS.map(d=>`<button class="dcard" data-d="${d.id}"><b>${d.title}</b><span>${d.desc}</span></button>`).join("")}<button class="dcard" data-p="diagrams"><b>Mitochondrion and chloroplast diagrams</b><span>Guide me and Test your knowledge modes.</span></button></div>`;return}
+    $("#main").innerHTML=`<h2>Practice</h2><p class="muted small">Interactive practice for the exam formats the slides describe. Pick one.</p><div class="dgrid"><button class="dcard" data-p="diagrams"><b>Mitochondrion and chloroplast diagrams</b><span>Guide me and Test your knowledge modes. Blank printable copies are in Print and handouts.</span></button>${DRILLS.map(d=>`<button class="dcard" data-d="${d.id}"><b>${d.title}</b><span>${d.desc}</span></button>`).join("")}</div>`;return}
   const d=DRILLS.find(x=>x.id===activeDrill);
-  $("#main").innerHTML=`<div class="row"><button class="btn" id="dback">All drills</button></div><h2>${d.title}</h2><div id="dhost"></div>`;
+  $("#main").innerHTML=`<div class="row"><button class="btn" id="dback">Back to Practice</button></div><h2>${d.title}</h2><div id="dhost"></div>`;
   d.run($("#dhost"));
 }
 $("#main").addEventListener("click",e=>{if(cur!=="drills")return;
   const c=e.target.closest(".dcard");if(c){if(c.dataset.p)return go(c.dataset.p);activeDrill=c.dataset.d;renderDrills();window.scrollTo({top:0})}
   if(e.target.id==="dback"){activeDrill=null;renderDrills();window.scrollTo({top:0})}});
+/* ---------- Print and handouts: PDFs are made in the browser with jsPDF (loaded only when needed) ---------- */
+let pdfAssets=null,ptTest=null;
+const FIXCH=s=>s.replace(/⇌/g,"↔");
+function loadScript(src){return new Promise((ok,no)=>{if(window.jspdf)return ok();const s=document.createElement("script");s.src=src;s.onload=ok;s.onerror=()=>no(new Error("script"));document.head.appendChild(s)})}
+function ab2bin(buf){let s="";const u=new Uint8Array(buf);for(let i=0;i<u.length;i+=8192)s+=String.fromCharCode.apply(null,u.subarray(i,i+8192));return s}
+function pdfReady(){if(!pdfAssets)pdfAssets=(async()=>{await loadScript("lib/jspdf.umd.min.js");
+  return Promise.all(["Regular","Bold","Italic"].map(n=>fetch("fonts/Carlito-"+n+".ttf").then(r=>{if(!r.ok)throw new Error("font");return r.arrayBuffer()}).then(ab2bin)))})().catch(e=>{pdfAssets=null;throw e});return pdfAssets}
+function newDoc(fonts){const d=new window.jspdf.jsPDF({unit:"pt",format:"letter"});
+  [["Regular","normal"],["Bold","bold"],["Italic","italic"]].forEach((f,i)=>{const fn="Carlito-"+f[0]+".ttf";d.addFileToVFS(fn,fonts[i]);d.addFont(fn,"Carlito",f[1])});
+  d.setFont("Carlito","normal");d.setTextColor(0,0,0);return d}
+/* Tokenise html with sup and sub into words, then wrap into lines */
+function toks(html,bold){const out=[];let st="";html=FIXCH(html);
+  html.split(/(<\/?(?:sup|sub)>)/).forEach(p=>{if(p==="<sup>")st="sup";else if(p==="<sub>")st="sub";else if(p==="</sup>"||p==="</sub>")st="";
+    else if(p){const parts=p.replace(/<[^>]+>/g,"").split(/(\s+)/);parts.forEach(w=>{if(!w)return;if(/^\s+$/.test(w))out.push({sp:1});else out.push({w,st,b:bold})})}});
+  return out}
+function lay(d,html,width,size,wsp,bold){const tk=toks(html,bold);const lines=[];let line=[],x=0;d.setFont("Carlito",bold?"bold":"normal");
+  const sw=d.setFontSize(size).getTextWidth(" ")*wsp;
+  let pend=false;
+  const wordsToks=[];let cur=[];tk.forEach(t=>{if(t.sp){if(cur.length)wordsToks.push(cur);cur=[]}else cur.push(t)});if(cur.length)wordsToks.push(cur);
+  wordsToks.forEach(wt=>{let ww=0;wt.forEach(t=>{const sz=t.st?size*0.66:size;d.setFont("Carlito",t.b?"bold":"normal").setFontSize(sz);t.sz=sz;t.wd=d.getTextWidth(t.w);ww+=t.wd});
+    if(line.length&&x+sw+ww>width){lines.push(line);line=[];x=0}
+    const gap=line.length?sw:0;line.push({x:x+gap,t:wt});x+=gap+ww});
+  if(line.length)lines.push(line);return lines}
+function drawLines(d,lines,x,y,size,lh){lines.forEach((ln,i)=>{ln.forEach(w=>{let xx=x+w.x;w.t.forEach(t=>{d.setFont("Carlito",t.b?"bold":"normal").setFontSize(t.sz);
+    const dy=t.st==="sup"?-size*0.34:t.st==="sub"?size*0.14:0;d.text(t.w,xx,y+i*lh+dy);xx+=t.wd})})});return lines.length*lh}
+function mkTestSpec(n){const pool=QUIZ.filter(q=>sel.has(q.t));const picks=shuffle(pool).slice(0,Math.min(n,pool.length));
+  return picks.map(q=>{const opts=shuffle([q.a,...q.w]);return{q,opts,k:opts.indexOf(q.a)}})}
+function buildTestPDF(fonts,spec,o){const d=newDoc(fonts),M=54,W=612-2*M,H=792-M-46;const dys=o.layout==="dys";
+  const size=dys?14:12,lh=size*(dys?1.9:1.38),wsp=dys?1.7:1.0;let y=M;
+  const hdr=(t)=>{d.setFont("Carlito","bold").setFontSize(16);d.text(t,M,y);y+=22;d.setFont("Carlito","normal").setFontSize(12);
+    d.text("Unofficial student-made practice, written from the study guides. Not from the professor.",M,y);y+=18};
+  const foot=()=>{const n=d.getNumberOfPages();for(let p=1;p<=n;p++){d.setPage(p);d.setFont("Carlito","normal").setFontSize(10);d.text("BIOSC-020 final review site  |  page "+p+" of "+n,M,792-30)}};
+  const ensure=h=>{if(y+h>H){d.addPage();y=M}};
+  if(o.key){hdr("BIOSC-020 Final Practice Test: Answer Key");
+    d.setFontSize(12);const ans=spec.map((s,i)=>(i+1)+". "+"ABCD"[s.k]).join("     ");
+    const L=lay(d,ans,W,12,1.4,false);y+=drawLines(d,L,M,y,12,20)+8;
+    spec.forEach((s,i)=>{const t=(i+1)+".  "+"ABCD"[s.k]+".  "+s.q.a;const A=lay(d,t,W-6,size,wsp,true);
+      const E=o.expl?lay(d,s.q.e,W-26,size-1,wsp,false):[];const C=lay(d,tShort(s.q.t),W-26,size-3,1,false);
+      const h=A.length*lh+(E.length?E.length*lh:0)+lh*0.9+8;ensure(h);
+      y+=drawLines(d,A,M,y,size,lh);y+=drawLines(d,C,M+20,y,size-3,lh*0.9);d.setTextColor(0,0,0);
+      if(E.length)y+=drawLines(d,E,M+20,y,size-1,lh);y+=8});
+    foot();return d}
+  hdr("BIOSC-020 Final Practice Test");
+  d.setFontSize(12);d.text("Name: ____________________________      Date: ______________",M,y);y+=20;
+  d.setFontSize(12);d.text(spec.length+" multiple choice questions. Choose the best answer.",M,y);y+=12;
+  d.setDrawColor(0).setLineWidth(0.8).line(M,y,612-M,y);y+=18;
+  spec.forEach((s,i)=>{const Q=lay(d,s.q.q,W-26,size,wsp,false);const O=s.opts.map(op=>lay(d,op,W-52,size,wsp,false));
+    const h=Q.length*lh+O.reduce((a,b)=>a+b.length*lh+(dys?4:2),0)+(dys?16:12);ensure(Math.min(h,260));
+    d.setFont("Carlito","bold").setFontSize(size);d.text((i+1)+".",M,y);
+    y+=drawLines(d,Q,M+26,y,size,lh)+2;
+    O.forEach((L,j)=>{ensure(L.length*lh);d.setFont("Carlito","bold").setFontSize(size);d.text("ABCD"[j]+".",M+26,y);y+=drawLines(d,L,M+52,y,size,lh)+(dys?4:2)});
+    y+=dys?16:12});
+  foot();return d}
+function buildCardsPDF(fonts,cards){const d=newDoc(fonts),M=36,cw=270,ch=180;
+  const fit=(txt,w,h,bold)=>{for(let sz=15;sz>=7;sz-=0.5){const L=lay(d,txt,w-20,sz,1.15,bold);if(L.length*sz*1.3<=h-26)return{L,sz}}return{L:lay(d,txt,w-20,7,1.1,bold),sz:7}};
+  const sheet=(items,back)=>{d.addPage();items.forEach((c,i)=>{const col=i%2,row=Math.floor(i/2);const cx=M+(back?1-col:col)*cw,cy=M+row*ch;
+    d.setDrawColor(150).setLineDash([3,3],0).setLineWidth(0.6).rect(cx,cy,cw,ch);d.setLineDash([],0);
+    d.setFont("Carlito","italic").setFontSize(9);d.text(FIXCH(tShort(c.t)).slice(0,60),cx+10,cy+14);
+    const f=fit(back?c.b:c.f,cw,ch,!back);const th=f.L.length*f.sz*1.3;const y0=cy+16+(ch-16-th)/2+f.sz*0.9;drawLines(d,f.L,cx+10,y0,f.sz,f.sz*1.3)})};
+  d.setFont("Carlito","bold").setFontSize(16);d.text("BIOSC-020 flashcards",M,M+30);
+  d.setFont("Carlito","normal").setFontSize(12);d.text(cards.length+" cards. Print double sided, flip on the long edge, then cut along the dashed lines.",M,M+52);
+  d.text("Fronts are on the odd pages and the matching backs are on the next page.",M,M+70);d.text("Unofficial student-made review, written from the study guides.",M,M+88);
+  for(let i=0;i<cards.length;i+=8){const g=cards.slice(i,i+8);sheet(g,false);sheet(g,true)}return d}
+function ptOptions(){return{layout:($("#ptLay")||{}).value||"std",expl:!$("#ptExp")||$("#ptExp").checked}}
+function renderPrint(){
+  const nq=QUIZ.filter(q=>sel.has(q.t)).length,nc=CARDS.filter(c=>sel.has(c.t)).length;
+  $("#main").innerHTML=`<h2>Print and handouts</h2><p class="muted small">Optional paper copies. They are made from this site's own notes and questions. None of the professor's files are used. The tests follow the format of Prof. Shane's practice test: 12 point body text, 16 point titles, black only. Aptos is not free to share, so Carlito is used in its place.</p>
+  <div class="panel"><h3>Build a practice test</h3><p>Uses the concepts you chose. ${whereChoose()} Right now that is ${sel.size} of ${TOPICS.length} concepts and ${nq} questions.</p>
+  <div class="row" style="gap:12px;align-items:center"><label for="ptN">Questions</label><select id="ptN" class="sel"><option>10</option><option selected>20</option><option>30</option><option>40</option><option value="999">All</option></select>
+  <button class="btn primary" id="ptMake" ${nq?"":"disabled"}>Make a new test</button></div>
+  <div id="ptOut" aria-live="polite" class="ptout">${ptTest?ptReady():""}</div>
+  <details class="more"><summary>More options</summary><div class="row" style="gap:12px;align-items:center;margin-top:8px"><label for="ptLay">Layout</label><select id="ptLay" class="sel"><option value="std">Standard</option><option value="dys">Easier to read (larger, double spaced)</option></select></div>
+  <label class="row" style="gap:8px;margin-top:8px"><input type="checkbox" id="ptExp" checked style="width:24px;height:24px"> Include explanations in the answer key</label></details></div>
+  <div class="panel"><h3>Print flashcards</h3><p>Two sided sheets with eight cards each, cut along the dashed lines. Uses the concepts you chose, which is ${nc} cards right now.</p>
+  <label class="row" style="gap:8px"><input type="checkbox" id="pcAgain" style="width:24px;height:24px"> Only cards I marked "Review again"</label>
+  <div class="row" style="margin-top:10px"><button class="btn primary" id="pcMake" ${nc?"":"disabled"}>Download flashcard sheets</button></div><p class="small muted" id="pcMsg" aria-live="polite"></p></div>
+  <div class="panel"><h3>Ready to download</h3><p>Blank diagrams and premade practice tests. Each test has its own answer key.</p>
+  <ul class="plist">${HANDOUTS.map(h=>`<li><a href="handouts/${h[0]}" download>${h[1]}</a> <span class="muted small">${h[2]}</span></li>`).join("")}</ul></div>`}
+const K=f=>`answer key: <a href="handouts/${f}-key.pdf" download>download</a>`;
+const HANDOUTS=[["Blank-diagram-mitochondrion.pdf","Mitochondrion blank worksheet with word bank",K("Blank-diagram-mitochondrion")],["Blank-diagram-chloroplast.pdf","Chloroplast blank worksheet with word bank",K("Blank-diagram-chloroplast")],
+ ["Practice-test-A.pdf","Practice test A, 30 questions, all concepts",K("Practice-test-A")],["Practice-test-B.pdf","Practice test B, 30 questions, all concepts",K("Practice-test-B")],
+ ["Practice-test-set1-only.pdf","Practice test, set 1 only (old material), 25 questions",K("Practice-test-set1-only")],["Practice-test-set2-only.pdf","Practice test, set 2 only (new material), 25 questions",K("Practice-test-set2-only")]];
+function ptReady(){return `<p><b>Test ready:</b> ${ptTest.length} questions from ${new Set(ptTest.map(s=>s.q.t)).size} concepts.</p><div class="row"><button class="btn primary" id="ptDl">Download the test (PDF)</button><button class="btn" id="ptKey">Download the answer key (PDF)</button></div>`}
+async function ptRun(fn,btn,msgEl,name){const old=btn.textContent;btn.disabled=true;btn.textContent="Making the PDF...";msgEl.textContent="";
+  try{const f=await pdfReady();const d=fn(f);d.save(name)}catch(e){msgEl.textContent="The PDF could not be made. Check your connection and try again."}
+  btn.disabled=false;btn.textContent=old}
+document.addEventListener("click",e=>{if(cur!=="print")return;const id=e.target.id;
+  if(id==="ptMake"){ptTest=mkTestSpec(+$("#ptN").value);$("#ptOut").innerHTML=ptReady()}
+  else if(id==="ptDl"||id==="ptKey"){const k=id==="ptKey",o=ptOptions();o.key=k;ptRun(f=>buildTestPDF(f,ptTest,o),e.target,$("#ptOut").appendChild(Object.assign(document.createElement("p"),{className:"small"})),k?"BIOSC-020-practice-test-key.pdf":"BIOSC-020-practice-test.pdf")}
+  else if(id==="pcMake"){let c=CARDS.filter(c=>sel.has(c.t));if($("#pcAgain").checked)c=c.filter(x=>P.cards[x.id]==="again");
+    if(!c.length){$("#pcMsg").textContent="No cards match yet. Mark some cards Review again in Flashcards first.";return}ptRun(f=>buildCardsPDF(f,c),e.target,$("#pcMsg"),"BIOSC-020-flashcards.pdf")}});
 /* Newest first. Add an entry here and in CHANGELOG.md for every release. */
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "New Print and handouts page: build a practice test with an answer key from your chosen concepts, print flashcard sheets, and download blank diagrams and premade tests as PDFs.",
+  "Diagrams and Drills are now one step called Practice, so the routine has five steps.",
   "Missed-items mixer now explains what it is, which modes it pulls from, how chosen concepts limit it, and how your answers change what comes up.",
   "Choose concepts is now available on every page (except Diagrams) and the explanatory note is gone.",
   "On phones, all the study steps are now shown as a grid of buttons at the top instead of a strip you had to swipe sideways.",

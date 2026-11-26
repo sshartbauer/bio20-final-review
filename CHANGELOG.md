@@ -1,6 +1,8 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- New Print and handouts page: build a practice test with an answer key from your chosen concepts, print flashcard sheets, and download blank diagrams and premade tests as PDFs.
+- Diagrams and Drills are now one step called Practice, so the routine has five steps.
 - Missed-items mixer now explains what it is, which modes it pulls from, how chosen concepts limit it, and how your answers change what comes up.
 - Choose concepts is now available on every page (except Diagrams) and the explanatory note is gone.
 - On phones, all the study steps are now shown as a grid of buttons at the top instead of a strip you had to swipe sideways.
