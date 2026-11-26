@@ -351,6 +351,7 @@ table.mini .aa{padding:0 6px}
 .tab[data-t=print]{border-style:dashed}
 @media (max-width:899px){.tab[data-t=print]{grid-column:1/-1}}
 .hl{background:#ffd84d;color:#000;padding:2px 6px;border-radius:4px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.contact li{padding-left:0}.contact li::before{content:none}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -1937,7 +1938,7 @@ const CHANGELOG=[
   "Answer keys for the diagrams were checked against Prof. Shane's key."]}
 ];
 /* ===== footer: about, changelog, report an error ===== */
-const CONTACT=`<p><b class="hl">Do you have a question or a suggestion? Did you find a mistake, or does something look wrong?</b> Contact me, in order of preference. If it is about a mistake, please tell me which tab and item it was.</p><ol class="steps"><li>Send me a message through Canvas. My name is spelled <button class="btn sm" data-rv="name">Show my name</button></li><li>Send me an email outside of Canvas: <button class="btn sm" data-rv="mail">Show my email</button></li></ol>`;
+const CONTACT=`<p><b class="hl">Do you have a question or a suggestion? Did you find a mistake, or does something look wrong?</b> Contact me, in order of preference. If it is about a mistake, please tell me which tab and item it was.</p><ol class="steps contact"><li>Send me a message through Canvas. My name is spelled <button class="btn sm" data-rv="name">Show my name</button></li><li>Send me an email outside of Canvas: <button class="btn sm" data-rv="mail">Show my email</button></li></ol>`;
 const ABOUT=`<p>A free study tool for the BIOSC-020 final exam, shared with permission of Prof. Shane. Content follows the typed text of the two final exam study guide slide sets. Figures on the slides are supplemental.</p>
 ${CONTACT}
 <h3>Changelog</h3>${CHANGELOG.map(c=>`<p><b>Version ${c.v}</b> <span class="muted">${c.date}</span></p><ul>${c.items.map(i=>`<li>${i}</li>`).join("")}</ul>`).join("")}
