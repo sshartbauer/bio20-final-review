@@ -1,6 +1,8 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- New look for the How to use page: a header with a diagram illustration, concept, quiz and flashcard counts, and a route of five cards, one per study step.
+- The five study steps now use a teal to purple color scheme in the menu, the step banners and the route cards, in every theme.
 - Reporting a mistake now points to a Canvas message, with a show-my-name and show-my-email button, instead of GitHub.
 - New Print and handouts page: build a practice test with an answer key from your chosen concepts, print flashcard sheets, and download blank diagrams and premade tests as PDFs.
 - Diagrams and Drills are now one step called Practice, so the routine has five steps.

@@ -236,9 +236,9 @@ main p,main li,.qtext,.keynote,.fignote,.note{max-width:75ch}
 }
 
 /* colorful guide */
-:root{--c1:#1F66A8;--c2:#8A3F9E;--c3:#B34A12;--c4:#2C7A4B;--c5:#B0412B;--c6:#0E7C86}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--c1:#6DB6F2;--c2:#D49AE6;--c3:#F2A36B;--c4:#6FD39A;--c5:#F29A85;--c6:#5CC8D0}}
-:root[data-theme="dark"],:root[data-theme="amoled"],:root[data-theme="hc"]{--c1:#6DB6F2;--c2:#D49AE6;--c3:#F2A36B;--c4:#6FD39A;--c5:#F29A85;--c6:#5CC8D0}
+:root{--c1:#0E7C86;--c2:#2B63B0;--c3:#5A4DB5;--c4:#8A3F9E;--c5:#B03A8C;--c6:#2B63B0;--kink:#FFFFFF;--hg:linear-gradient(135deg,#D6F4EF 0%,#E6E1FA 55%,#D7E7F8 100%)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--c1:#4FD1D9;--c2:#7FB0F5;--c3:#A9A3F5;--c4:#D49AE6;--c5:#F28FCB;--c6:#7FB0F5;--kink:#06121D;--hg:linear-gradient(135deg,#0F2B30 0%,#1F1B3D 55%,#10233D 100%)}}
+:root[data-theme="dark"],:root[data-theme="amoled"],:root[data-theme="hc"]{--c1:#4FD1D9;--c2:#7FB0F5;--c3:#A9A3F5;--c4:#D49AE6;--c5:#F28FCB;--c6:#7FB0F5;--kink:#06121D;--hg:linear-gradient(135deg,#0F2B30 0%,#1F1B3D 55%,#10233D 100%)}
 .guide>h2{color:var(--c1);font-size:1.7em}
 .guide p,.guide li{color:var(--fg)}
 .gp{border-left:8px solid var(--gc)}.gp h3{color:var(--gc);font-size:1.3em}
@@ -315,12 +315,13 @@ table.mini .aa{padding:0 6px}
 /* numbered steps */
 .tab{display:flex;align-items:center;gap:8px}
 .tnum{flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:800;font-size:.9em}
-.tab[aria-current="page"] .tnum{background:var(--bg);color:var(--fg)}
+.tab[data-t=notes] .tnum{background:var(--c1);color:var(--kink)}.tab[data-t=cards] .tnum{background:var(--c2);color:var(--kink)}.tab[data-t=quiz] .tnum{background:var(--c3);color:var(--kink)}.tab[data-t=drills] .tnum{background:var(--c4);color:var(--kink)}.tab[data-t=progress] .tnum{background:var(--c5);color:var(--kink)}
+.tab[aria-current="page"] .tnum{background:var(--bg)!important;color:var(--fg)!important}
 .tlab{display:flex;flex-direction:column;align-items:flex-start;line-height:1.2}
 .tlab small{display:none;font-weight:400;font-size:.8em}
 .stepsh{display:none}
-.stepbar{margin:12px 0 4px;padding:10px 14px;border-left:8px solid var(--accent);background:var(--accent-soft);border-radius:10px;color:var(--fg);line-height:1.5}
-.stepbar .stepno{background:var(--accent);color:var(--accent-ink)}
+.stepbar{margin:12px 0 4px;padding:10px 14px;border-left:8px solid var(--sk,var(--accent));background:var(--accent-soft);border-radius:10px;color:var(--fg);line-height:1.5}
+.stepbar .stepno{background:var(--sk,var(--accent));color:var(--kink)}
 .cnote{display:block;margin-top:4px;font-weight:700}
 .cn-side{display:none}
 .stepbar[hidden],.nextbar[hidden]{display:none}
@@ -352,6 +353,27 @@ table.mini .aa{padding:0 6px}
 @media (max-width:899px){.tab[data-t=print]{grid-column:1/-1}}
 .hl{background:#ffd84d;color:#000;padding:2px 6px;border-radius:4px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .contact li{padding-left:0}.contact li::before{content:none}
+
+/* front page redesign */
+.hero{position:relative;overflow:hidden;border-radius:24px;background:var(--hg);border:1px solid var(--line);padding:32px 34px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;margin:6px 0 22px}
+.hero-t{flex:1 1 340px;min-width:0}
+.eyebrow{font-size:.78em;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--c1);margin:0 0 6px}
+.hero h2{font-size:2.3em;line-height:1.12;margin:0 0 12px;color:var(--fg)}
+.hero p{max-width:34em}
+.hero .btn.big{background:var(--c1);color:var(--kink);border-color:var(--c1);font-weight:800;padding:12px 22px;border-radius:14px;font-size:1.05em;text-decoration:none;display:inline-flex;align-items:center}
+.hchips{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.hchip{border:1px solid var(--line);border-radius:14px;padding:6px 14px;background:var(--surface);line-height:1.3}
+.hchip b{display:block;font-size:1.5em;color:var(--c1)}.hchip span{font-size:.85em;color:var(--muted)}
+.hero svg{flex:1 1 260px;max-width:400px;height:auto;position:relative}
+.route{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:10px 0 20px}
+.rcard{background:var(--surface);border:1px solid var(--line);border-top:6px solid var(--kc);border-radius:16px;padding:16px;display:flex;flex-direction:column;min-width:0}
+.rcard .tnum{background:var(--kc);color:var(--kink)}
+.rcard h3{margin:10px 0 4px;font-size:1.2em}.rcard p{margin:0;font-size:.92em}
+.rcard .golink{margin-top:auto;padding-top:12px}
+.rk1{--kc:var(--c1)}.rk2{--kc:var(--c2)}.rk3{--kc:var(--c3)}.rk4{--kc:var(--c4)}.rk5{--kc:var(--c5)}
+.guide h2.rt{font-size:1.6em;color:var(--fg);margin:18px 0 4px}
+:root[data-theme="hc"] .hero{background:var(--surface);border-width:2px}
+@media (max-width:600px){.hero{padding:20px 16px}.hero h2{font-size:1.8em}.route{grid-template-columns:1fr 1fr}}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -1132,7 +1154,7 @@ const whereChoose=()=>`Choose more or fewer concepts <span class="cn-side">on th
 function updateBars(t){
   const sb=$("#stepbar"),nb=$("#nextbar"),st=STEPS[t];
   if(!st||t==="diagrams"){sb.hidden=true;nb.hidden=true;return}
-  sb.innerHTML=`<span class="pill stepno">Step ${st[0]} of 5</span> <b>${st[1]}.</b> ${st[3]}${USESEL[t]?` <span class="cnote">${whereChoose()}</span>`:""}`;sb.hidden=false;
+  sb.style.setProperty("--sk","var(--c"+st[0]+")");sb.innerHTML=`<span class="pill stepno">Step ${st[0]} of 5</span> <b>${st[1]}.</b> ${st[3]}${USESEL[t]?` <span class="cnote">${whereChoose()}</span>`:""}`;sb.hidden=false;
   nb.innerHTML=`<span class="nlab">Done with this step?</span>${NEXT[t].map(n=>`<a href="#${n[0]}" class="btn${n[2]?"":" primary"}" data-go="${n[0]}">${n[1]}</a>`).join("")}`;nb.hidden=false}
 const NOFILTER={diagrams:1};
 let cur="notes";
@@ -1176,16 +1198,22 @@ document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g
 function renderGuide(){
   P.seen=1;save();
   const go=(t,l)=>`<a href="#${t}" class="golink" data-go="${t}">${l}</a>`;
-  $("#main").innerHTML=`<div class="guide"><h2>How to use this tool</h2>
+  $("#main").innerHTML=`<div class="guide"><section class="hero"><div class="hero-t"><p class="eyebrow">Final exam review</p><h2>How to use this tool</h2>
   <p>This page covers everything on both final exam study guides. Set 1 is the old material and set 2 is the new material. Every concept has notes, flashcards and quiz questions, and some also have a diagram or a practice tool.</p>
-  <div class="panel gp c2"><h3>A study routine that works</h3>
-  <ol class="steps">
-  <li><b>Read the notes</b> for one concept. Yellow boxes are things the guide says are on the exam. Blue boxes come from figures, which the guide says are supplemental. ${go("notes","Open Notes")}.</li>
-  <li><b>Test yourself with flashcards.</b> Say the answer out loud before you flip the card, then mark it <i>Got it</i> or <i>Review again</i>. ${go("cards","Open Flashcards")}.</li>
-  <li><b>Take the quiz</b> on the same concept. Every answer comes with an explanation, and you can retry only the ones you missed. ${go("quiz","Open Quiz")}.</li>
-  <li><b>Practice with a tool</b> if the concept has one: the mitochondrion and chloroplast diagrams, or one of the drills. ${go("drills","Open Practice")}.</li>
-  <li><b>Check Progress</b> to see weak concepts, then run the <i>Missed-items mixer</i> drill, which brings back what you got wrong. ${go("progress","Open Progress")}.</li>
-  </ol></div>
+  <a href="#notes" class="btn big" data-go="notes">Start with step 1: Notes</a>
+  <div class="hchips"><div class="hchip"><b>${TOPICS.length}</b><span>concepts</span></div><div class="hchip"><b>${QUIZ.length}</b><span>quiz questions</span></div><div class="hchip"><b>${CARDS.length}</b><span>flashcards</span></div></div></div>
+  <svg viewBox="0 0 460 330" aria-hidden="true"><g fill="none" stroke-linecap="round"><g stroke="var(--c1)"><polygon points="60,60 90,43 120,60 120,94 90,111 60,94" stroke-opacity=".3"/><polygon points="120,94 150,77 180,94 180,128 150,145 120,128" stroke-opacity=".22"/><polygon points="360,40 390,23 420,40 420,74 390,91 360,74" stroke-opacity=".28"/></g>
+  <ellipse cx="225" cy="190" rx="185" ry="100" stroke="var(--c1)" stroke-width="3.5" fill="var(--surface)" fill-opacity=".55"/><ellipse cx="225" cy="190" rx="160" ry="76" stroke="var(--c4)" stroke-width="2" stroke-dasharray="6 7"/>
+  <path d="M90 190 C120 105 142 105 162 190 S204 275 224 190 S266 105 286 190 S328 275 348 190" stroke="var(--c1)" stroke-width="3"/><path d="M120 190 C140 140 152 140 166 190 S196 238 208 190" stroke="var(--c4)" stroke-width="1.5" stroke-opacity=".7"/>
+  <path d="M398 120 C358 150 428 180 388 210 S428 270 398 300" stroke="var(--c4)" stroke-width="3"/><path d="M420 120 C460 150 390 180 430 210 S390 270 420 300" stroke="var(--c1)" stroke-width="3"/><path d="M404 135H416M396 158H424M392 182H428M398 206H422M404 230H416M398 254H422" stroke="var(--c2)" stroke-width="2"/></g>
+  <g fill="var(--c1)"><circle cx="70" cy="250" r="4" opacity=".7"/><circle cx="40" cy="170" r="3" opacity=".5"/><circle cx="250" cy="48" r="4" opacity=".6"/><circle cx="318" cy="290" r="3" opacity=".5"/></g><g fill="var(--c4)"><circle cx="300" cy="60" r="3" opacity=".7"/><circle cx="105" cy="300" r="3" opacity=".5"/><circle cx="440" cy="60" r="4" opacity=".5"/></g></svg></section>
+  <p class="eyebrow" style="margin-top:8px">Your route</p><h2 class="rt">A study routine that works</h2>
+  <div class="route">
+  <div class="rcard rk1"><span class="tnum" aria-hidden="true">1</span><h3>Read the notes</h3><p>Yellow boxes are things the guide says are on the exam. Blue boxes come from figures, which the guide says are supplemental.</p>${go("notes","Open Notes")}</div>
+  <div class="rcard rk2"><span class="tnum" aria-hidden="true">2</span><h3>Test yourself</h3><p>Say the answer out loud before you flip the card, then mark it Got it or Review again.</p>${go("cards","Open Flashcards")}</div>
+  <div class="rcard rk3"><span class="tnum" aria-hidden="true">3</span><h3>Take the quiz</h3><p>Every answer has an explanation. Retry only the ones you missed.</p>${go("quiz","Open Quiz")}</div>
+  <div class="rcard rk4"><span class="tnum" aria-hidden="true">4</span><h3>Practice</h3><p>The mitochondrion and chloroplast diagrams, or one of the drills.</p>${go("drills","Open Practice")}</div>
+  <div class="rcard rk5"><span class="tnum" aria-hidden="true">5</span><h3>Check progress</h3><p>See weak concepts, then run the Missed-items mixer drill, which brings back what you got wrong.</p>${go("progress","Open Progress")}</div></div>
   <div class="panel gp c3"><h3>Choose what to study</h3>
   <p>On Notes, Flashcards and Quiz, the <b>Choose concepts</b> button lets you pick one concept, a whole set, or everything. Your choice is remembered. Use it to work through one topic at a time or to focus on set 2 first.</p></div>
   <div class="panel gp c4"><h3>What each part does</h3><ul>
@@ -1896,6 +1924,8 @@ document.addEventListener("click",e=>{if(cur!=="print")return;const id=e.target.
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "New look for the How to use page: a header with a diagram illustration, concept, quiz and flashcard counts, and a route of five cards, one per study step.",
+  "The five study steps now use a teal to purple color scheme in the menu, the step banners and the route cards, in every theme.",
   "Reporting a mistake now points to a Canvas message, with a show-my-name and show-my-email button, instead of GitHub.",
   "New Print and handouts page: build a practice test with an answer key from your chosen concepts, print flashcard sheets, and download blank diagrams and premade tests as PDFs.",
   "Diagrams and Drills are now one step called Practice, so the routine has five steps.",
