@@ -9,7 +9,7 @@ body{margin:0;font-family:Carlito,Calibri,sans-serif;font-size:18px;color:#0B1A2
 .card{background:#fff;border:1px solid #D3DEEB;border-radius:18px;padding:22px 24px;box-sizing:border-box}
 .h{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#0E7C86;margin:0 0 6px}
 .go{display:inline-block;margin-top:10px;font-weight:700;color:#0B1A2E;text-decoration:underline;text-underline-offset:3px}
-.step{position:relative;flex:1 1 150px;min-width:0;padding:18px 16px!important}
+.route{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}.step{position:relative;min-width:0;padding:18px 16px!important;display:flex;flex-direction:column}.step .go{margin-top:auto;padding-top:12px}.step p{margin-bottom:0}
 b,h1,h2,h3{font-weight:700}
 img,svg{max-width:100%}
 .note{background:#FFD84D;color:#000;padding:8px 14px;font-size:15px;text-align:center}
@@ -63,7 +63,7 @@ img,svg{max-width:100%}
 <section aria-labelledby="route">
 <p class="h">Your route</p>
 <h2 id="route" style="margin:0 0 16px;font-size:28px">A study routine that works</h2>
-<div style="display:flex;flex-wrap:wrap;gap:14px">
+<div class="route">
 <div class="card step" style="border-top:6px solid #1F66A8"><span class="n" style="background:#1F66A8;color:#fff">1</span><h3 style="margin:10px 0 4px;font-size:20px">Read the notes</h3><p style="margin:0;font-size:15px">Yellow boxes are things the guide says are on the exam.</p><a class="go" href="#">Open Notes</a></div>
 <div class="card step" style="border-top:6px solid #8A3F9E"><span class="n" style="background:#8A3F9E;color:#fff">2</span><h3 style="margin:10px 0 4px;font-size:20px">Test yourself</h3><p style="margin:0;font-size:15px">Say the answer out loud before you flip the card.</p><a class="go" href="#">Open Flashcards</a></div>
 <div class="card step" style="border-top:6px solid #B34A12"><span class="n" style="background:#B34A12;color:#fff">3</span><h3 style="margin:10px 0 4px;font-size:20px">Take the quiz</h3><p style="margin:0;font-size:15px">Every answer has an explanation. Retry only your misses.</p><a class="go" href="#">Open Quiz</a></div>
