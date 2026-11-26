@@ -1202,8 +1202,8 @@ function renderGuide(){
   <li>To move to another device, use <b>Export</b> on the Progress tab and <b>Import</b> on the other device.</li>
   <li>Clearing your browser data erases your progress, so export a copy first if you want to keep it.</li>
   <li>After your first visit the page works offline.</li></ul></div>
-  <div class="panel gp c1"><h3>Found a mistake?</h3>
-  <p>Open <b>Changelog</b> in the sidebar (on a phone, the <b>About, changelog and reporting errors</b> section at the bottom of the page). Send me a message on Canvas and tell me the tab and the item so it can be checked against the slides. ${REACH}</p></div></div>`;
+  <div class="panel gp c1"><h3>Questions, suggestions and mistakes</h3>
+  ${CONTACT}</div></div>`;
 }
 /* ===== topic filter ===== */
 function renderFilters(){
@@ -1936,9 +1936,9 @@ const CHANGELOG=[
   "Answer keys for the diagrams were checked against Prof. Shane's key."]}
 ];
 /* ===== footer: about, changelog, report an error ===== */
-const REACH=`<span class="reach"><button class="btn sm" data-rv="name">Show my name</button> <button class="btn sm" data-rv="mail">Show my email</button></span>`;
+const CONTACT=`<p>Do you have a question or a suggestion? Did you find a mistake, or does something look wrong? Contact me, in order of preference. If it is about a mistake, please tell me which tab and item it was.</p><ol class="steps"><li>Send me a message through Canvas. My name is spelled <button class="btn sm" data-rv="name">Show my name</button></li><li>Send me an email outside of Canvas: <button class="btn sm" data-rv="mail">Show my email</button></li></ol>`;
 const ABOUT=`<p>A free study tool for the BIOSC-020 final exam, shared with permission of Prof. Shane. Content follows the typed text of the two final exam study guide slide sets. Figures on the slides are supplemental.</p>
-<p>Found a mistake? Send me a message on Canvas and say which tab and item it was. ${REACH}</p>
+${CONTACT}
 <h3>Changelog</h3>${CHANGELOG.map(c=>`<p><b>Version ${c.v}</b> <span class="muted">${c.date}</span></p><ul>${c.items.map(i=>`<li>${i}</li>`).join("")}</ul>`).join("")}
 <p class="small muted">Fonts: Carlito (SIL Open Font License). Progress and settings are stored only in your browser.</p>`;
 $("#foot").innerHTML=`<details class="topic"><summary><span class="tname">About, changelog and reporting errors</span></summary><div class="tbody">${ABOUT}</div></details>`;
@@ -1951,5 +1951,5 @@ if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.
 
 document.addEventListener("click",e=>{const b=e.target.closest("[data-rv]");if(!b)return;
   if(b.dataset.rv==="name")b.outerHTML='<b>Seanna Hartbauer</b>';
-  else{const m=["ssegatti","gmail.com"].join("@");b.outerHTML='Email works too: <a href="mailto:'+m+'">'+m+'</a>'}});
+  else{const m=["ssegatti","gmail.com"].join("@");b.outerHTML='<a href="mailto:'+m+'">'+m+'</a>'}});
 </script></body></html>
