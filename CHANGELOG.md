@@ -1,6 +1,10 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- Metric prefix table: smaller text boxes and narrower columns.
+- Mutation lab: the template DNA is color coded by base (A, C, G, T and U each have their own color), and the codon table is replaced by a codon wheel in the style of slide 24.
+- Na+/K+ pump drill: the slide 9 heading moved into its frame so the two frames line up.
+- Protein destination router: instructions rewritten as five numbered steps.
 - Sidebar order is now How to use, Choose concepts, then Notes, Flashcards and the rest. How to use is the page the tool opens on.
 - When Choose concepts is dimmed, a short note under it says to select a mode below to choose concepts.
 - Mutation lab: every amino acid has its own color in the answers, the explanations and the genetic code table, so silent changes keep a color and missense changes switch it.

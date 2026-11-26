@@ -285,7 +285,7 @@ table.mini .aa{padding:0 6px}
 .pumpgrid{display:block}
 @media (min-width:860px){
   .pumpgrid{display:grid;grid-template-columns:minmax(0,370px) minmax(0,1fr);gap:18px;align-items:start}
-  .pstep{position:sticky;top:12px;margin:10px 0}
+  .pstep{position:sticky;top:12px;margin:0}
   .pstep .qtext{font-size:1em}
 }
 .pfillcol .fill{line-height:2.05;padding:10px 14px}
@@ -293,6 +293,24 @@ table.mini .aa{padding:0 6px}
 .pfillcol .fill p{margin:.3em 0}
 
 .fwhy{font-size:.88em;line-height:1.4;color:var(--muted)}.fwhy[hidden],.fsum[hidden]{display:none}
+
+/* metric table */
+.mtbl{width:auto;margin:6px auto}
+.mtbl th,.mtbl td{padding:6px 12px}
+.mtbl input[type=text]{width:7.5em;min-height:38px;padding:3px 8px;font-size:.98rem}
+/* base colors */
+:root{--bA:#C2185B;--bC:#946B00;--bG:#1565C0;--bU:#2E7D32;--bT:#7B3FA0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bA:#F48FB1;--bC:#F0C75A;--bG:#64B5F6;--bU:#81C784;--bT:#CE93D8}}
+:root[data-theme="dark"],:root[data-theme="amoled"],:root[data-theme="hc"]{--bA:#F48FB1;--bC:#F0C75A;--bG:#64B5F6;--bU:#81C784;--bT:#CE93D8}
+.seq .a{color:var(--bA)!important}.seq .c{color:var(--bC)!important}.seq .g{color:var(--bG)!important}.seq .u{color:var(--bU)!important}.seq .t{color:var(--bT)!important}
+/* codon wheel */
+.wheelbox{max-width:620px;margin:6px auto}
+.wheel{width:100%;height:auto;display:block}
+.wheel .ws{stroke:#fff;stroke-width:.8}
+.sr{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.howto{margin:6px 0 10px}.howto h4,#rpath~h4{margin:.4em 0}
+.howto .steps li{margin:.35em 0}
+.pstep,.pfillcol .panel{margin-top:0}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -1373,7 +1391,7 @@ function drillMetric(host){
     const cells=[];PFX.forEach((p,r)=>{cells.push({r,c:0});cells.push({r,c:1});if(p[0]!=="unit")cells.push({r,c:2})});
     const blank=new Set(shuffle(cells).slice(0,12).map(c=>c.r+"-"+c.c));
     const inp=(k,l)=>`<input type="text" data-k="${k}" aria-label="${l}" autocomplete="off" autocapitalize="off" spellcheck="false">`;
-    let h=`<div class="panel"><p class="small muted">Slide 2 says the exam has a partly filled table with 12 blanks. Type powers like 10^-3 (or 10⁻³, or 1e-3). Type prefixes as words, like milli.</p><div class="tblw"><table><thead><tr><th>Metric prefix</th><th>Power of prefix</th><th>Conversion factor</th></tr></thead><tbody>`;
+    let h=`<div class="panel"><p class="small muted">Slide 2 says the exam has a partly filled table with 12 blanks. Type powers like 10^-3 (or 10⁻³, or 1e-3). Type prefixes as words, like milli.</p><div class="tblw"><table class="mtbl"><thead><tr><th>Metric prefix</th><th>Power of prefix</th><th>Conversion factor</th></tr></thead><tbody>`;
     PFX.forEach((p,r)=>{const u=p[0]==="unit";
       h+=`<tr><td>${blank.has(r+"-0")?inp(r+"-0","Prefix, row "+(r+1)):p[0]+(u?"":"- ("+p[1]+")")}</td><td>${blank.has(r+"-1")?inp(r+"-1","Power of prefix, row "+(r+1)):(u?"10<sup>0</sup> or 1":"10<sup>"+p[2]+"</sup>")}</td><td>${u?"1 gram":(blank.has(r+"-2")?`1 ${p[1]}g = ${inp(r+"-2","Conversion factor, row "+(r+1))} g`:`1 ${p[1]}g = 10<sup>${p[2]}</sup> g`)}</td></tr>`});
     h+=`</tbody></table></div><div class="row" style="margin-top:10px"><button class="btn primary" data-a="chk">Check</button><button class="btn" data-a="new">New table</button><span class="score" role="status"></span></div><div id="mfb"></div></div>`;
@@ -1437,8 +1455,9 @@ function mkRandomMut(){
 function drillMut(host){
   const SLIDE=["CTACCCTTTACAGGG","CTACCCTTTGCAGGG","CTACCCTTTCCAGGG","CTACCCTTTTCAGGG"];
   host.innerHTML=`<p class="note">Slide 24 practice: transcribe and translate each template strand, then say how it differs from the first strand. mRNA is written 5' to 3', the reverse complement of the template. Type amino acids as three-letter names separated by spaces (Pro Cys Lys Gly Stop). Each amino acid has its own color in the answers, so a silent mutation keeps the same color and a missense mutation changes it.</p>
+  <p class="small">Base colors: <span class="seq"><span class="a">A</span> <span class="c">C</span> <span class="g">G</span> <span class="t">T</span> <span class="u">U</span></span></p>
   <div class="row"><button class="btn primary" data-m="slide" aria-pressed="true">Slide 24 strands</button><button class="btn" data-m="rand">Random strands</button></div>
-  <details class="topic" style="margin-top:10px"><summary><span class="tname">Genetic code (like the codon wheel on slide 24)</span></summary><div class="tbody tblw">${aaLegend()}${codonTable()}</div></details><div id="mutbody"></div>`;
+  <details class="topic" style="margin-top:10px"><summary><span class="tname">Genetic code (codon wheel, like slide 24)</span></summary><div class="tbody">${codonWheel()}${aaLegend()}</div></details><div id="mutbody"></div>`;
   const body=$("#mutbody",host);
   function item(tpl,refMRNA,label,i){
     const mRNA=revCompRNA(tpl),aa=translate(mRNA),refAA=refMRNA?translate(refMRNA):[];
@@ -1446,7 +1465,8 @@ function drillMut(host){
     if(refMRNA){let k=0;while(k<mRNA.length&&mRNA[k]===refMRNA[k])k++;
       if(k>=mRNA.length)cat="no change";else{const ci=Math.floor(k/3),oa=refAA[ci],na=aa[ci];cat=na==="*"?"nonsense":na===oa?"silent":"missense"}}
     const w=document.createElement("div");w.className="panel";
-    const diff=refMRNA?[...tpl].map((b,k)=>b!==rnaToDna(dnaRev(refMRNA))[k]?`<mark style="background:var(--warn-soft);color:inherit;border-radius:3px">${b}</mark>`:b).join(""):tpl;
+    const sp=b=>`<span class="${b.toLowerCase()}">${b}</span>`;
+    const diff=refMRNA?[...tpl].map((b,k)=>b!==rnaToDna(dnaRev(refMRNA))[k]?`<mark style="background:var(--warn-soft);color:inherit;border-radius:3px">${sp(b)}</mark>`:sp(b)).join(""):[...tpl].map(sp).join("");
     w.innerHTML=`<span class="pill">${label}</span><p>Template DNA, 5'-<span class="seq">${diff}</span>-3'</p>
     <label for="m${i}a">mRNA, 5' to 3'</label><input type="text" id="m${i}a" autocomplete="off" autocapitalize="characters" spellcheck="false">
     <label for="m${i}b">Amino acid sequence</label><input type="text" id="m${i}b" autocomplete="off" autocapitalize="off" spellcheck="false">
@@ -1477,10 +1497,38 @@ function drillMut(host){
   host.addEventListener("click",e=>{const m=e.target.dataset.m;if(!m)return;$$("[data-m]",host).forEach(b=>b.className="btn"+(b===e.target?" primary":""));m==="slide"?slide():rand()});
   slide();
 }
-function codonTable(){
-  let h=`<table class="mini"><thead><tr><th>1st</th>${[...BASES].map(b=>`<th>2nd ${b}</th>`).join("")}</tr></thead><tbody>`;
-  for(const a of BASES){h+=`<tr><th>${a}</th>`;for(const b of BASES){h+=`<td>${[...BASES].map(c=>a+b+c+" "+aaPill(codonAA(a+b+c))).join("<br>")}</td>`}h+="</tr>"}
-  return h+"</tbody></table>"}
+function codonWheel(){
+  const ORD="UCAG",FILL={A:"#F4A6C0",C:"#FFF09A",G:"#86C5EC",U:"#96CB9C"},CX=320,CY=320;
+  const pt=(r,a)=>{const t=a*Math.PI/180;return [CX+r*Math.sin(t),CY-r*Math.cos(t)]};
+  const sector=(r1,r2,a1,a2)=>{const p1=pt(r2,a1),p2=pt(r2,a2),p3=pt(r1,a2),p4=pt(r1,a1),f=x=>x.map(n=>n.toFixed(1)).join(" ");
+    return `M${f(p1)}A${r2} ${r2} 0 0 1 ${f(p2)}L${f(p3)}A${r1} ${r1} 0 0 0 ${f(p4)}Z`};
+  const txt=(r,a,t,size,extra="")=>{const [x,y]=pt(r,a);return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle" dominant-baseline="central" font-size="${size}" font-weight="700" ${extra}>${t}</text>`};
+  let g="";
+  for(let q=0;q<4;q++){const b1=ORD[q];
+    g+=`<path d="${sector(16,90,q*90,q*90+90)}" style="fill:${FILL[b1]}" class="ws"/>${txt(54,q*90+45,b1,54,'style="fill:#111"')}`;
+    for(let s2=0;s2<4;s2++){const b2=ORD[s2],a0=q*90+s2*22.5;
+      g+=`<path d="${sector(90,150,a0,a0+22.5)}" style="fill:${FILL[b2]}" class="ws"/>${txt(121,a0+11.25,b2,36,'style="fill:#111"')}`;
+      let grp=[];
+      for(let t=0;t<4;t++){const b3=ORD[t],a1=a0+t*5.625,aa=codonAA(b1+b2+b3);
+        g+=`<path d="${sector(150,205,a1,a1+5.625)}" style="fill:${FILL[b3]}" class="ws"/>${txt(178,a1+2.8125,b3,16,'style="fill:#111"')}`;
+        if(grp.length&&grp[grp.length-1].aa===aa)grp[grp.length-1].n++;else grp.push({aa,a:a1,n:1})}
+      grp.forEach(G=>{const a1=G.a,a2=G.a+G.n*5.625,am=(a1+a2)/2;
+        g+=`<line x1="${pt(205,a1)[0].toFixed(1)}" y1="${pt(205,a1)[1].toFixed(1)}" x2="${pt(312,a1)[0].toFixed(1)}" y2="${pt(312,a1)[1].toFixed(1)}" style="stroke:var(--fg);stroke-width:1"/>`;
+        if(G.aa==="*"){const [x,y]=pt(262,am);g+=`<rect x="${(x-6).toFixed(1)}" y="${(y-6).toFixed(1)}" width="12" height="12" style="fill:var(--fg)"/>`}
+        else{const rot=am<180?am-90:am+90,[x,y]=pt(258,am);
+          g+=`<text transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${rot.toFixed(1)})" text-anchor="middle" dominant-baseline="central" font-size="15" style="fill:var(--fg)">${A3[G.aa]} (${G.aa})</text>`;
+          if(G.aa==="M"){const [tx,ty]=pt(298,am);g+=`<polygon points="${(tx-6).toFixed(1)},${(ty-6).toFixed(1)} ${(tx+6).toFixed(1)},${ty.toFixed(1)} ${(tx-6).toFixed(1)},${(ty+6).toFixed(1)}" transform="rotate(${am-90} ${tx.toFixed(1)} ${ty.toFixed(1)})" style="fill:var(--fg)"/>`}}});
+    }}
+  g+=`<circle cx="${CX}" cy="${CY}" r="312" style="fill:none;stroke:var(--fg);stroke-width:1.5"/>`;
+  g+=`<line x1="${CX}" y1="${CY-312}" x2="${CX}" y2="${CY+312}" style="stroke:#D32F2F;stroke-width:2"/><line x1="${CX-312}" y1="${CY}" x2="${CX+312}" y2="${CY}" style="stroke:#D32F2F;stroke-width:2"/>`;
+  g+=`<circle cx="${CX}" cy="${CY}" r="16" style="fill:#fff;stroke:#D32F2F;stroke-width:2"/><text x="${CX}" y="${CY}" text-anchor="middle" dominant-baseline="central" font-size="16" font-weight="700" style="fill:#D32F2F">5′</text>`;
+  [[CX,CY-326],[CX,CY+328],[CX-326,CY],[CX+328,CY]].forEach(p=>g+=`<text x="${p[0]}" y="${p[1]}" text-anchor="middle" dominant-baseline="central" font-size="18" font-weight="700" style="fill:#D32F2F">3′</text>`);
+  g+=`<polygon points="548,606 566,615 548,624" style="fill:var(--fg)"/><text x="574" y="615" dominant-baseline="central" font-size="20" style="fill:var(--fg)">Start</text><rect x="548" y="632" width="16" height="16" style="fill:var(--fg)"/><text x="574" y="640" dominant-baseline="central" font-size="20" style="fill:var(--fg)">Stop</text>`;
+  let tbl='<table><caption>Codons and amino acids</caption><tbody>';
+  for(const a of ORD)for(const b of ORD){tbl+=`<tr><th>${a}${b}</th><td>${[...ORD].map(c=>a+b+c+" "+A3[codonAA(a+b+c)]).join(", ")}</td></tr>`}
+  tbl+="</tbody></table>";
+  return `<div class="wheelbox"><svg class="wheel" viewBox="-30 -30 700 700" role="img" aria-label="Codon wheel. Read from the center outward: first base, second base, third base, then the amino acid. A full table follows for screen readers.">${g}</svg><div class="sr">${tbl}</div></div>
+  <p class="small">Read from the center outward: first base, second base, third base, then the amino acid. Every strand is read 5′ to 3′.</p>`}
 
 /* ================= 3. Na+/K+ pump stepper + fill in ================= */
 const PUMP=[
@@ -1506,7 +1554,7 @@ function pumpSVG(s){
   return g+"</svg>"}
 function drillPump(host){
   let s=0;
-  host.innerHTML=`<div class="pumpgrid"><div class="panel pstep"><h3 style="margin-top:0">Pump stepper</h3><div class="diagram" id="psvg"></div><p id="pcap" class="qtext" aria-live="polite"></p><p id="ptxt" class="small muted"></p><div class="row"><button class="btn" id="pb">Back</button><button class="btn primary" id="pn">Next step</button><button class="btn ghost" id="pr">Restart</button></div></div><div class="pfillcol"><h3 style="margin-top:0">Fill in the blanks (slide 9)</h3><p class="note">19 blanks. Blanks 9 to 11 are the three mechanisms and can go in any order.</p><div id="pfill"></div></div></div>`;
+  host.innerHTML=`<div class="pumpgrid"><div class="panel pstep"><h3 style="margin-top:0">Pump stepper</h3><div class="diagram" id="psvg"></div><p id="pcap" class="qtext" aria-live="polite"></p><p id="ptxt" class="small muted"></p><div class="row"><button class="btn" id="pb">Back</button><button class="btn primary" id="pn">Next step</button><button class="btn ghost" id="pr">Restart</button></div></div><div class="pfillcol"><div id="pfill"></div></div></div>`;
   function draw(){$("#psvg",host).innerHTML=pumpSVG(s);$("#pcap",host).textContent=PUMP[s].t;$("#ptxt",host).textContent="Pump position: "+NAWHY[s];$("#pb",host).disabled=s===0;$("#pn",host).disabled=s===PUMP.length-1}
   $("#pb",host).onclick=()=>{s--;draw()};$("#pn",host).onclick=()=>{s++;draw()};$("#pr",host).onclick=()=>{s=0;draw()};draw();
   const NA=["na+","na","sodium","sodium ions","na+ ions"],K=["k+","k","potassium"];
@@ -1517,6 +1565,7 @@ function drillPump(host){
     {g:1,a:["r-groups","r groups","r-group","r group","rgroups"]},{g:1,a:["oriented","orientated"]},{g:1,a:["stretched"]},
     {a:["conformational shape change","conformational change","conformation change","conformational shape"]},{a:NA},{a:["extracellular","extracellular side","outside"]},{a:K},{a:["dephosphorylation"]},{a:["conformational shape change","conformational change","conformation change","conformational shape"]},{a:K},{a:["cytoplasmic","cytoplasm","cytosolic","intracellular"]}],
    answers:["Na⁺","ATP","active site","induced fit","hydrolyzed","phosphorylation","exergonic","activation energy","R-groups","oriented","stretched","conformational shape change","Na⁺","extracellular","K⁺","dephosphorylation","conformational shape change","K⁺","cytoplasmic"]});
+  $("#pfill .panel",host).insertAdjacentHTML("afterbegin",`<h3 style="margin-top:0">Fill in the blanks (slide 9)</h3><p class="note">19 blanks. Blanks 9 to 11 are the three mechanisms and can go in any order.</p>`);
 }
 
 /* ================= 4. Action potential grapher ================= */
@@ -1573,8 +1622,14 @@ const SCEN=[
 const ROUTE_WHY={"Free ribosome":"Free ribosomes in the cytosol make proteins that function in the cytosol.","Bound ribosome":"Bound ribosomes on the ER make membrane proteins and secreted proteins.","Rough ER":"The rough ER is studded with ribosomes and folds proteins in its lumen, then sends transport vesicles to the Golgi.","Transport vesicle":"Vesicles carry the protein between compartments.","Golgi apparatus":"The Golgi receives vesicles from the ER, attaches polysaccharides (glycosylation), and sorts and repackages proteins for the new destination.","Cytosol":"Cytosolic proteins stay in the cytosol.","Plasma membrane":"Membrane proteins end up in the plasma membrane.","Outside the cell (secreted)":"Secreted proteins leave the cell."};
 function drillRouter(host){
   let si=0,path=[];
-  host.innerHTML=`<div class="panel"><h3 style="margin-top:0">Build the route</h3><div class="row" id="rsc"></div><p class="qtext" id="rq"></p><p class="small muted">Tap the steps in order, from where the protein is made to where it ends up. Smooth ER is in the list as a distractor.</p>
-  <ol id="rpath" class="small" style="min-height:2.2em" aria-live="polite"></ol><div class="row" id="rpal"></div><div class="row" style="margin-top:10px"><button class="btn" id="run">Undo</button><button class="btn" id="rcl">Clear</button><button class="btn primary" id="rch">Check route</button></div><div id="rfb"></div></div><div id="rmatch"></div>`;
+  host.innerHTML=`<div class="panel"><h3 style="margin-top:0">Build the route</h3><div class="row" id="rsc"></div><p class="qtext" id="rq"></p><div class="howto"><h4>How to use this drill</h4><ol class="steps">
+    <li><b>Pick a protein</b> from the buttons at the top.</li>
+    <li><b>Read</b> what it is and where it ends up.</li>
+    <li><b>Tap the steps below</b> in the order the protein travels, starting where it is made. Each tap adds a step to your route.</li>
+    <li><b>Fix mistakes</b> with Undo (removes the last step) or Clear (starts over).</li>
+    <li><b>Press Check route</b> to see whether your order is right.</li></ol>
+    <p class="small muted">Smooth ER is in the list as a distractor.</p></div>
+  <h4>Your route</h4><ol id="rpath" class="small" style="min-height:2.2em" aria-live="polite"></ol><div class="row" id="rpal"></div><div class="row" style="margin-top:10px"><button class="btn" id="run">Undo</button><button class="btn" id="rcl">Clear</button><button class="btn primary" id="rch">Check route</button></div><div id="rfb"></div></div><div id="rmatch"></div>`;
   function draw(){const S=SCEN[si];
     $("#rsc",host).innerHTML=SCEN.map((s,i)=>`<button class="chip" data-s="${i}" aria-pressed="${i===si}">${s.n}</button>`).join("");
     $("#rq",host).innerHTML=`<b>${S.n}.</b> ${S.d}`;
@@ -1691,6 +1746,10 @@ $("#main").addEventListener("click",e=>{if(cur!=="drills")return;
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "Metric prefix table: smaller text boxes and narrower columns.",
+  "Mutation lab: the template DNA is color coded by base (A, C, G, T and U each have their own color), and the codon table is replaced by a codon wheel in the style of slide 24.",
+  "Na⁺/K⁺ pump drill: the slide 9 heading moved into its frame so the two frames line up.",
+  "Protein destination router: instructions rewritten as five numbered steps.",
   "Sidebar order is now How to use, Choose concepts, then Notes, Flashcards and the rest. How to use is the page the tool opens on.",
   "When Choose concepts is dimmed, a short note under it says to select a mode below to choose concepts.",
   "Mutation lab: every amino acid has its own color in the answers, the explanations and the genetic code table, so silent changes keep a color and missense changes switch it.",
