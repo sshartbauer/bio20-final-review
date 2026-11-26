@@ -1829,9 +1829,8 @@ function mkTestSpec(n){const pool=QUIZ.filter(q=>sel.has(q.t));const picks=shuff
   return picks.map(q=>{const opts=shuffle([q.a,...q.w]);return{q,opts,k:opts.indexOf(q.a)}})}
 function buildTestPDF(fonts,spec,o){const d=newDoc(fonts),M=54,W=612-2*M,H=792-M-46;const dys=o.layout==="dys";
   const size=dys?14:12,lh=size*(dys?1.9:1.38),wsp=dys?1.7:1.0;let y=M;
-  const hdr=(t)=>{d.setFont("Carlito","bold").setFontSize(16);d.text(t,M,y);y+=22;d.setFont("Carlito","normal").setFontSize(12);
-    d.text("Unofficial student-made practice, written from the study guides. Not from the professor.",M,y);y+=18};
-  const foot=()=>{const n=d.getNumberOfPages();for(let p=1;p<=n;p++){d.setPage(p);d.setFont("Carlito","normal").setFontSize(10);d.text("BIOSC-020 final review site  |  page "+p+" of "+n,M,792-30)}};
+  const hdr=(t)=>{d.setFont("Carlito","bold").setFontSize(16);d.text(t,M,y);y+=26;d.setFont("Carlito","normal").setFontSize(12)};
+  const foot=()=>{const n=d.getNumberOfPages();for(let p=1;p<=n;p++){d.setPage(p);d.setFont("Carlito","normal").setFontSize(12);d.text("Unofficial student-made practice, written from the study guides. Not from the professor.",M,792-46);d.text("BIOSC-020 final review site  |  page "+p+" of "+n,M,792-30)}};
   const ensure=h=>{if(y+h>H){d.addPage();y=M}};
   if(o.key){hdr("BIOSC-020 Final Practice Test: Answer Key");
     d.setFontSize(12);const ans=spec.map((s,i)=>(i+1)+". "+"ABCD"[s.k]).join("     ");
