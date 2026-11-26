@@ -1203,7 +1203,7 @@ function renderGuide(){
   <li>Clearing your browser data erases your progress, so export a copy first if you want to keep it.</li>
   <li>After your first visit the page works offline.</li></ul></div>
   <div class="panel gp c1"><h3>Found a mistake?</h3>
-  <p>Open <b>Changelog</b> in the sidebar (on a phone, the <b>About, changelog and reporting errors</b> section at the bottom of the page). Tell us the tab and the item so it can be checked against the slides.</p></div></div>`;
+  <p>Open <b>Changelog</b> in the sidebar (on a phone, the <b>About, changelog and reporting errors</b> section at the bottom of the page). Send me a message on Canvas and tell me the tab and the item so it can be checked against the slides. ${REACH}</p></div></div>`;
 }
 /* ===== topic filter ===== */
 function renderFilters(){
@@ -1894,6 +1894,7 @@ document.addEventListener("click",e=>{if(cur!=="print")return;const id=e.target.
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "Reporting a mistake now points to a Canvas message, with a show-my-name and show-my-email button, instead of GitHub.",
   "New Print and handouts page: build a practice test with an answer key from your chosen concepts, print flashcard sheets, and download blank diagrams and premade tests as PDFs.",
   "Diagrams and Drills are now one step called Practice, so the routine has five steps.",
   "Missed-items mixer now explains what it is, which modes it pulls from, how chosen concepts limit it, and how your answers change what comes up.",
@@ -1935,8 +1936,9 @@ const CHANGELOG=[
   "Answer keys for the diagrams were checked against Prof. Shane's key."]}
 ];
 /* ===== footer: about, changelog, report an error ===== */
+const REACH=`<span class="reach"><button class="btn sm" data-rv="name">Show my name</button> <button class="btn sm" data-rv="mail">Show my email</button></span>`;
 const ABOUT=`<p>A free study tool for the BIOSC-020 final exam, shared with permission of Prof. Shane. Content follows the typed text of the two final exam study guide slide sets. Figures on the slides are supplemental.</p>
-<p>Found a mistake? <a href="${REPO}/issues/new" target="_blank" rel="noopener">Report it on GitHub</a> and say which tab and item it was.</p>
+<p>Found a mistake? Send me a message on Canvas and say which tab and item it was. ${REACH}</p>
 <h3>Changelog</h3>${CHANGELOG.map(c=>`<p><b>Version ${c.v}</b> <span class="muted">${c.date}</span></p><ul>${c.items.map(i=>`<li>${i}</li>`).join("")}</ul>`).join("")}
 <p class="small muted">Fonts: Carlito (SIL Open Font License). Progress and settings are stored only in your browser.</p>`;
 $("#foot").innerHTML=`<details class="topic"><summary><span class="tname">About, changelog and reporting errors</span></summary><div class="tbody">${ABOUT}</div></details>`;
@@ -1946,4 +1948,8 @@ $("#about").addEventListener("click",e=>{if(e.target.id==="about"||e.target.id==
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#about").hidden){$("#about").hidden=true;$("#btnLog").focus()}});
 const h0=location.hash.slice(1);go(TABS.some(t=>t[0]===h0)?h0:"guide",true);
 if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
+
+document.addEventListener("click",e=>{const b=e.target.closest("[data-rv]");if(!b)return;
+  if(b.dataset.rv==="name")b.outerHTML='<b>Seanna</b> (S-E-A-N-N-A, said see-ah-na)';
+  else{const m=["ssegatti","gmail.com"].join("@");b.outerHTML='Email works too: <a href="mailto:'+m+'">'+m+'</a>'}});
 </script></body></html>
