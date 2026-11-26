@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- The handout buttons are now icons, an arrow for the download and a key for the answer key, with a hover description on each.
 - Ready to download is now a list of bars, each with a Download button, an Answer key button and the title, in the teal to purple colors.
 - On phones, the note about choosing concepts now has its own Choose concepts button right in it, because the main button scrolls out of view.
 - New look for the How to use page: a header with a diagram illustration, concept, quiz and flashcard counts, and a route of five cards, one per study step.
