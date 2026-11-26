@@ -1,6 +1,15 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- On phones, only a slim bar with the current step and a Menu button stays at the top while you scroll, instead of the whole step menu.
+- The step banner now lines up with the page content, and the active menu item uses its step color.
+- Set 1 and Set 2 labels use one slate color, filled for Set 1 and outlined for Set 2. The leftover orange is gone.
+- Quiz feedback skips the explanation when it only repeats the answer.
+- Progress now groups concepts by set and shows a small bar for cards and for the quiz.
+- Practice cards have a colored top edge and an arrow. Flashcard buttons line up. Small flashcard labels are larger.
+- Diagram page: buttons use the site's blue, blanks have stronger outlines and fills, labels have a background so lines do not cross them, and the panels fit their content.
+- On phones the diagram can be swiped sideways at a readable size, and Guide me scrolls to the step.
+- Removed a stray Show menu button that appeared at the bottom of the page on phones.
 - Read aloud buttons on Notes, Flashcards and Quiz, with a speed setting. They use your device's built-in voice.
 - Guided mode: pick one concept and go through the notes, flashcards and quiz one step at a time, with a single Next button.
 - New Low-stim mode theme with calm colors, no gradient or illustration, and no motion.

@@ -7,19 +7,18 @@
 @font-face{font-family:"Carlito";src:url("fonts/Carlito-Bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
 @font-face{font-family:"Carlito";src:url("fonts/Carlito-Italic.woff2") format("woff2");font-weight:400;font-style:italic;font-display:swap}
 .emb #theme{display:none!important}
-:root{--bg:#F2F5F8;--surface:#FFFFFF;--surface-2:#E7ECF1;--fg:#141C24;--muted:#566370;--line:#CBD6E0;--accent:#1F66A8;--accent-soft:#D6E5F5;--accent-ink:#FFFFFF;--good:#2C7A4B;--good-soft:#DCEFE3;--bad:#B0412B;--bad-soft:#F6E0DA;--sans:Calibri,"Carlito","Segoe UI",system-ui,sans-serif;--r:10px;--g1:#e4e4e4;--g2:#8c8c8c;--hl:#00D93A;--hl-bg:rgba(0,217,58,.2);--hl-ink:#04210B;--cs-p:#6B4FB8;--cf-p:#E9E3F7;--cs-d:#9A6208;--cf-d:#F8EACB;--cs-n:#0E7C86;--cf-n:#D5EEF0;--src:#C2185B}
-:root[data-theme=dark],:root[data-theme=amoled],:root[data-theme=hc]{--bg:#0B121B;--surface:#131D29;--surface-2:#1B2736;--fg:#E3EBF2;--muted:#93A5B8;--line:#2A3A4D;--accent:#62AEEA;--accent-soft:#1B2F42;--accent-ink:#0A1413;--good:#63C48D;--good-soft:#173326;--bad:#EC8670;--bad-soft:#3A1F19;--g1:#4a5a6c;--g2:#9fb0c2;--hl:#1FC45A;--hl-ink:#04210B;--cs-p:#A99BF0;--cf-p:#2A2347;--cs-d:#E3AA4F;--cf-d:#3A2D12;--cs-n:#5CC8D0;--cf-n:#12343A;--src:#F07FB0;color-scheme:dark;--hl-bg:rgba(31,196,90,.24)}
+:root{--bg:#F2F5F8;--surface:#FFFFFF;--surface-2:#E7ECF1;--fg:#141C24;--muted:#566370;--line:#CBD6E0;--accent:#1F66A8;--accent-soft:#D6E5F5;--accent-ink:#FFFFFF;--good:#2C7A4B;--good-soft:#DCEFE3;--bad:#B0412B;--bad-soft:#F6E0DA;--sans:Calibri,"Carlito","Segoe UI",system-ui,sans-serif;--r:12px;--g1:#e4e4e4;--g2:#8c8c8c;--hl:#00D93A;--hl-bg:rgba(0,217,58,.2);--hl-ink:#04210B;--cs-p:#6B4FB8;--cf-p:#E0D6F5;--cs-d:#9A6208;--cf-d:#F7E0A8;--cs-n:#0E7C86;--cf-n:#BFE6EA;--src:#C2185B;--tl:#2B63B0;--tl-ink:#FFFFFF}
+:root[data-theme=dark],:root[data-theme=amoled],:root[data-theme=hc]{--bg:#0B121B;--surface:#131D29;--surface-2:#1B2736;--fg:#E3EBF2;--muted:#93A5B8;--line:#2A3A4D;--accent:#62AEEA;--accent-soft:#1B2F42;--accent-ink:#0A1413;--good:#63C48D;--good-soft:#173326;--bad:#EC8670;--bad-soft:#3A1F19;--g1:#4a5a6c;--g2:#9fb0c2;--hl:#1FC45A;--hl-ink:#04210B;--cs-p:#A99BF0;--cf-p:#2A2347;--cs-d:#E3AA4F;--cf-d:#3A2D12;--cs-n:#5CC8D0;--cf-n:#12343A;--src:#F07FB0;color-scheme:dark;--hl-bg:rgba(31,196,90,.24);--tl:#7FB0F5;--tl-ink:#06121D}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:17px;line-height:1.5;margin:0}
 .wrap{padding:0 10px 56px;max-width:1500px;margin:0 auto}
 .top{padding:14px 0 10px;border-bottom:1px solid var(--line);margin-bottom:14px}
 h1{font-size:1.45rem;margin:0 0 8px;line-height:1.2}
-.startpill{display:inline-flex;align-items:center;gap:8px;background:var(--hl);color:var(--hl-ink);font-weight:700;font-size:1rem;padding:7px 14px;border-radius:999px;white-space:nowrap;flex:none;box-shadow:0 0 0 3px var(--hl-bg);animation:sp 1.8s ease-in-out infinite}
-@keyframes sp{0%,100%{box-shadow:0 0 0 3px var(--hl-bg)}50%{box-shadow:0 0 0 8px var(--hl-bg)}}
+.startpill{display:inline-flex;align-items:center;gap:8px;background:var(--tl);color:var(--tl-ink);font-weight:700;font-size:1rem;padding:7px 14px;border-radius:999px;white-space:nowrap;flex:none}
 @media (prefers-reduced-motion:reduce){.startpill{animation:none}}
 .tabs{display:flex;gap:6px;flex-wrap:wrap}
 .tab{border:1px solid var(--line);background:transparent;padding:7px 14px;border-radius:8px;color:var(--muted);font-weight:700;font-family:inherit;font-size:1rem;cursor:pointer}
-.tab[aria-selected="true"]{background:var(--fg);color:var(--bg)}
+.tab[aria-selected="true"]{background:var(--tl);color:var(--tl-ink);border-color:var(--tl)}
 button{font:inherit;color:inherit;cursor:pointer}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:14px;align-items:start}
@@ -29,7 +28,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .small{font-size:.88rem}.muted{color:var(--muted)}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .btn{border:1px solid var(--line);background:var(--surface-2);border-radius:8px;padding:6px 12px;font-weight:700}
-.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.primary{background:var(--tl);color:var(--tl-ink);border-color:var(--tl)}
 .btn.ghost{background:transparent}
 .btn.small{padding:3px 9px;font-size:.88rem}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
@@ -41,7 +40,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .fb.bad{background:var(--bad-soft);border-color:var(--bad)}
 .g{color:var(--good)}.b{color:var(--bad)}
 input[type=text]{font:inherit;padding:7px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg);width:7rem}
-.hq{display:flex;width:100%;margin-top:10px;align-items:center;gap:10px;border:3px solid var(--accent);background:var(--surface);border-radius:10px;padding:10px 14px;font-weight:700;font-size:1.1rem;text-align:left}
+.hq{display:flex;width:100%;margin-top:10px;align-items:center;gap:10px;border:3px solid var(--tl);background:var(--surface);border-radius:10px;padding:10px 14px;font-weight:700;font-size:1.1rem;text-align:left}
 .hq.solved{border-color:var(--good);background:var(--good-soft)}
 .hq.tried{border-color:var(--bad)}
 .hq.sel{outline:6px solid var(--hl);outline-offset:2px;background:var(--hl-bg,rgba(0,217,58,.2))}
@@ -68,10 +67,11 @@ h2{font-size:1.1rem;margin:0}
 select{font:inherit;padding:6px 8px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg);max-width:100%}
 .step{font-weight:700;color:var(--muted);font-size:.9rem}
 
+.panshint{display:none;font-size:.88rem;color:var(--muted);margin:0 0 6px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:6px 0;margin-bottom:8px}
 .top{gap:22px}
-.grp{display:flex;align-items:center;gap:8px;flex-wrap:nowrap;padding:2px 8px;border:2px solid var(--muted);border-radius:12px;background:var(--surface)}
+.grp{display:flex;align-items:center;gap:8px;flex-wrap:nowrap;padding:2px 8px;border:2px solid var(--line);border-radius:12px;background:var(--surface)}
 .grp .lab,.top>.grp .lab{font-weight:700;color:var(--fg);font-size:.95rem;margin-right:4px;white-space:nowrap}
 .sep{width:1px;height:26px;background:var(--line)}
 .hp ul{columns:2;column-gap:28px}.hp li{break-inside:avoid}
@@ -83,8 +83,8 @@ html,body{height:100%;overflow:hidden}
 .lc{display:flex;flex-direction:column;gap:10px;min-height:0}
 .dg{flex:none;display:flex;flex-direction:column}
 #svgbox svg{width:100%;height:auto;max-height:calc(100dvh - 330px)}
-.hp{flex:1;min-height:0;overflow:auto}
-.rp{min-height:0;overflow:auto}
+.hp{flex:0 1 auto;min-height:0;overflow:auto}
+.rp{min-height:0;overflow:auto;align-self:start;max-height:100%}
 .hq{margin-top:6px;padding:7px 14px}
 }
 @media(min-width:961px) and (max-height:820px){.rp{font-size:14.5px;line-height:1.32;padding:9px 12px}.rp .sec{margin-top:.4rem}.rp .spk{padding:5px 10px;margin-bottom:6px;gap:2px 16px;font-size:.76rem}.rp .sec b{margin-bottom:.2rem}.rp .eq{padding:2px 8px;margin:.15rem 0;font-size:1rem}.rp ul.bl li{margin:.14rem 0}.rp .srcl{margin-top:.2rem}.rp .ans{font-size:1.2rem;margin:.2rem 0}.hp{font-size:15px}#svgbox svg{max-height:calc(100dvh - 330px)}.hp{padding:8px 14px}.hp ul{margin-top:.2rem}.hp details{margin-top:4px}}
@@ -102,17 +102,19 @@ ul.bl{margin:.25rem 0 0 1.1rem;padding:0}ul.bl li{margin:.28rem 0}
 .spk{display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;border:1px solid var(--line);background:var(--surface-2);border-radius:8px;padding:7px 10px;margin-bottom:10px;font-size:.8rem;font-weight:700}
 .spk span{display:flex;align-items:center;gap:8px;white-space:nowrap}.spk hr{grid-column:1/-1;width:100%;border:0;border-top:1px solid var(--line);margin:2px 0}.spk .kk{color:var(--fg);font-weight:600}.spk .kk::before{display:none}.spk .kk i{flex:none;width:12px;height:12px;border-radius:3px;border:3px solid;display:inline-block}.spk .kk:last-child{grid-column:1/-1}
 .spk span::before{content:"";flex:none;width:10px;height:10px;border-radius:50%;background:currentColor}
-.sec b{font-size:.84rem!important;color:var(--accent)!important;letter-spacing:.07em;border-bottom:2px solid var(--line);padding-bottom:3px}
+.sec b{font-size:.84rem!important;color:var(--tl)!important;letter-spacing:.07em;border-bottom:2px solid var(--line);padding-bottom:3px}
 .fb .eq{background:rgba(127,127,127,.15)}
+@media(max-width:600px){#svgbox{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:8px}#svgbox svg{min-width:760px;max-height:none}.panshint{display:block}.top{gap:10px}.grp{width:100%;flex-wrap:wrap;padding:6px 8px}.grp .lab{flex:1 1 100%}.grp .tabs,.grp.modes{gap:6px}.grp .tab{flex:1 1 0;text-align:center;padding:8px 6px;white-space:normal;line-height:1.2}#theme{margin-left:0!important}}
 @media(max-width:960px){.lc,.dg,.panel,#svgbox,.grid>*{min-width:0;max-width:100%}.lgrow{flex-wrap:wrap}.lgrow .legend{flex:1 1 100%}.legend span{white-space:normal}.nav{margin-left:auto}}
 :root[data-theme=amoled]{--bg:#000;--surface:#080808;--surface-2:#131313;--line:#2C2C2C;--accent-soft:#10202F;--accent-ink:#000;--good-soft:#0C2219;--bad-soft:#2A120D;--cf-p:#1C1733;--cf-d:#2A200B;--cf-n:#0B2428;color-scheme:dark}
 :root[data-theme=hc]{--bg:#000;--surface:#000;--surface-2:#1A1A1A;--fg:#FFF;--muted:#E6E6E6;--line:#FFF;--accent:#FFE45C;--accent-soft:#2B2600;--accent-ink:#000;--good:#7CFFA8;--good-soft:#00330F;--bad:#FF9E94;--bad-soft:#4A0A04;--g1:#333;--g2:#fff;--cs-p:#D7C9FF;--cs-d:#FFD27A;--cs-n:#8FF0F7;--src:#FF9FC8;--sp-e:#FFE45C;--sp-h:#FF9E94;--sp-n:#9AD0FF;--sp-a:#FFC088;--sp-w:#7FEFFA;--sp-c:#D7C9FF;color-scheme:dark}
+:root[data-theme=hc]{--tl:#FFE45C;--tl-ink:#000}
 :root[data-theme=hc] :focus-visible{outline:3px solid #FFE45C;outline-offset:2px}
 </style></head>
 <body><div class="wrap">
 <h1 class="sr">Mitochondrion and Chloroplast Diagrams</h1>
 <div class="top"><span class="startpill">Start here <span aria-hidden="true">&#10140;</span></span><div class="grp"><span class="lab">1. Pick a diagram</span><div class="tabs" role="tablist" id="tabs" aria-label="Diagram"></div></div><div class="grp modes" id="modes"></div><button class="tab" id="theme" style="margin-left:auto" aria-pressed="false"></button></div>
-<div class="grid"><div class="lc"><div class="panel dg"><div class="lgrow"><div class="legend" id="legend"></div><div class="nav" id="nav"></div></div><div id="svgbox"></div><button class="hq" id="hq"></button></div>
+<div class="grid"><div class="lc"><div class="panel dg"><div class="lgrow"><div class="legend" id="legend"></div><div class="nav" id="nav"></div></div><p class="panshint" id="panshint">Swipe sideways to see the whole diagram.</p><div id="svgbox"></div><button class="hq" id="hq"></button></div>
 <div class="panel hp"><h2>Helpful information</h2><ul class="t small" id="help"></ul>
 <details><summary>Layout description (for screen readers and text only use)</summary><ol class="t small" id="lay"></ol></details></div></div>
 <div class="panel rp"><div class="row ihead" style="justify-content:space-between"><b id="info"></b><button class="btn ghost small" id="reset">Reset this diagram</button></div><div class="spk" id="spk" aria-label="Color key for equations"></div><div id="bar" style="margin-top:8px"></div></div></div>
@@ -199,7 +201,7 @@ const DG={};
   ${thin(1187,88,1062,82)}${thin(1187,120,1062,176)}${thin(1145,358,1062,340)}${thin(1140,402,1062,418)}${thin(1148,598,1062,538)}${thin(1140,640,1062,622)}${thin(1140,712,1062,715)}${thin(1140,780,1062,800)}${thin(217,393,217,360)}
   ${dotted(806,190,646,388)}${dotted(806,424,694,424)}${dotted(815,700,694,466)}${dotted(822,775,644,466)}
   ${printedProd(595,392,88,61)}${TX(645,422,'e-',34)}${printedRect(1495,62,200,66)}${printedCirc(1470,92,43)}${TX(1470,92,'1',40)}${TX(1595,95,'Glucose',36)}
-  ${LBL(88,225,'Mitochondrion',40)}${BLU(1500,222,'Cytoplasm').replace('font-style','font-weight="700" font-style').replace('var(--accent)','var(--fg)')}${BLU(1500,270,'Intermembrane space').replace('font-style','font-weight="700" font-style').replace('var(--accent)','var(--ims-t)')}${BLU(1500,314,'Matrix').replace('font-style','font-weight="700" font-style').replace('var(--accent)','var(--mtx-t)')}`},
+  ${LBL(88,225,'Mitochondrion',40)}${BLU(1500,222,'Cytoplasm').replace('font-style','font-weight="700" font-style').replace('var(--accent)','var(--fg)')}${BLU(1500,270,'Intermembrane space').replace('font-style','font-weight="700" font-style').replace('var(--accent)','var(--ims-t)').replace('<text','<text paint-order="stroke" stroke="var(--ims)" stroke-width="10" stroke-linejoin="round"')}${BLU(1500,314,'Matrix').replace('font-style','font-weight="700" font-style').replace('var(--accent)','var(--mtx-t)').replace('<text','<text paint-order="stroke" stroke="var(--mtx)" stroke-width="10" stroke-linejoin="round"')}`},
   top(){return `<g stroke="var(--muted)" stroke-width="3" stroke-dasharray="4 5" style="pointer-events:none"><line x1="148" y1="530" x2="455" y2="530"/><line x1="148" y1="592" x2="455" y2="592"/><line x1="142" y1="672" x2="372" y2="672"/><line x1="142" y1="732" x2="372" y2="732"/></g>${LBL(70,568,'H⁺',34)}`},
   text:['Glucose (1) is printed at the top right, in the cytoplasm.','Glycolysis is the first process box. Two product boxes sit to its left.','Pyruvate sits below glycolysis, then the matrix begins.','Pyruvate oxidation has two product boxes. Acetyl-CoA sits below it.','The citric acid cycle has four product boxes.','Dotted arrows carry electrons from the NADH and FADH₂ boxes to the electron box at the left.','The electron box feeds the electron transport chain, which has H₂O above it and an H⁺ arrow pointing out of the matrix.','Below it, ATP synthase has an H⁺ arrow pointing back into the matrix and an ATP product box to its right.']};
 })();
@@ -241,7 +243,7 @@ const DG={};
   ${printedProd(545,282,68,60)}${TX(580,312,'e-',34)}
   ${LBL(460,394,'2 electrons yield:',28,'font-weight="400"')}${LBL(460,422,'1 NADPH &amp; 1.5 ATP',28,'font-weight="400"')}
   ${LBL(1085,312,'e⁻',32)}${LBL(872,497,'Phase I: Fixation',30,'font-style="italic"')}${LBL(1460,497,'Phase II: Reduction',30,'font-style="italic"')}${LBL(1452,590,'Phase III: Regeneration',30,'font-style="italic"')}
-  ${LBL(478,725,'Chloroplast',40)}${BLU(1568,85,'Stroma',38).replace('font-style','font-weight="700" font-style').replace('var(--accent)','var(--stroma-t)')}${BLU(1568,141,'Thylakoid Space',38).replace('font-style','font-weight="700" font-style')}`},
+  ${LBL(478,725,'Chloroplast',40)}${BLU(1568,85,'Stroma',38).replace('font-style','font-weight="700" font-style').replace('var(--accent)','var(--stroma-t)').replace('<text','<text paint-order="stroke" stroke="var(--stroma)" stroke-width="10" stroke-linejoin="round"')}${BLU(1568,141,'Thylakoid Space',33).replace('font-style','font-weight="700" font-style').replace('<text','<text paint-order="stroke" stroke="var(--thy)" stroke-width="10" stroke-linejoin="round"')}`},
   top(){return `<g stroke="var(--muted)" stroke-width="3" stroke-dasharray="4 5" style="pointer-events:none"><line x1="955" y1="205" x2="955" y2="345"/><line x1="1018" y1="205" x2="1018" y2="345"/><line x1="1503" y1="212" x2="1503" y2="308"/><line x1="1560" y1="212" x2="1560" y2="308"/></g>${LBL(965,186,'H⁺',30)}`},
   text:['The chloroplast has an outer envelope, the stroma, and a thylakoid space (the white band across the top).','From left to right inside the thylakoid are four boxes: photosystem II, the electron transport chain, photosystem I and ATP synthase.','Water enters from outside at the bottom left and goes up to the first box. O₂ is released below it.','Electrons (an electron circle) travel from the first box to the second, then to the third. An H⁺ arrow points up at the second box and a larger H⁺ arrow points down at the fourth box.','Photosystem I gives a product below it; ATP synthase gives another.','Along the bottom of the stroma, CO₂ enters phase I (fixation), then phase II (reduction), then phase III (regeneration) returns to RuBP.','The line from phase II turns down to a G3P box that leads to 1 glucose at the bottom right.']};
 })();
@@ -345,11 +347,11 @@ function blankSvg(b){const S=ST[cur],G=gmode(),cat=CAT[b.k];let v=null,solved=fa
  if(G){solved=vis(b.id);v=solved?b.ans:null}
  else{v=S.S[b.id];solved=v!=null;tried=!!(S.T[b.id]&&S.T[b.id].size)}
  const st=tried?'var(--bad)':`var(--cs-${cat})`,fill=`var(--cf-${cat})`;let body='';
- if(b.sh==='wavy')body=`<path class="sh" d="${wavy(b.x,b.y,b.w,b.h,b.seed)}" fill="${fill}" stroke="${st}" stroke-width="4.5" stroke-linejoin="round" style="--hw:6.5"/>`;
- else if(b.sh==='rect')body=`<rect class="sh" x="${b.x}" y="${b.y}" width="${b.w}" height="${b.h}" fill="${fill}" stroke="${st}" stroke-width="3.2" style="--hw:5"/>`;
- else body=`<circle class="sh" cx="${b.cx}" cy="${b.cy}" r="${b.r}" fill="${fill}" stroke="${st}" stroke-width="2.4" style="--hw:4"/>`;
+ if(b.sh==='wavy')body=`<path class="sh" d="${wavy(b.x,b.y,b.w,b.h,b.seed)}" fill="${fill}" stroke="${st}" stroke-width="5.2" stroke-linejoin="round" style="--hw:7"/>`;
+ else if(b.sh==='rect')body=`<rect class="sh" x="${b.x}" y="${b.y}" width="${b.w}" height="${b.h}" fill="${fill}" stroke="${st}" stroke-width="4" style="--hw:5.6"/>`;
+ else body=`<circle class="sh" cx="${b.cx}" cy="${b.cy}" r="${b.r}" fill="${fill}" stroke="${st}" stroke-width="3.4" style="--hw:4.6"/>`;
  if(!G&&solved){const r=boxOf(b);body+=`<circle cx="${r[0]+r[2]-6}" cy="${r[1]+6}" r="17" fill="var(--good)" style="pointer-events:none"/><text x="${r[0]+r[2]-6}" y="${r[1]+14}" text-anchor="middle" font-size="24" font-weight="700" fill="#fff" style="pointer-events:none">✓</text>`}
- return `<g class="bk" data-id="${b.id}" tabindex="0" role="button" ${G&&!solved?'opacity=".5"':''} aria-label="${esc(b.d)}${solved?', answer '+esc(b.ans):', blank'}">${body}</g>`}
+ return `<g class="bk" data-id="${b.id}" tabindex="0" role="button" ${G&&!solved?'opacity=".82"':''} aria-label="${esc(b.d)}${solved?', answer '+esc(b.ans):', blank'}">${body}</g>`}
 function blankText(b){const S=ST[cur],G=gmode();let v=null,solved=false;
  if(G){solved=vis(b.id);v=solved?b.ans:null}else{v=S.S[b.id];solved=v!=null}
  if(!solved)return '';
@@ -404,7 +406,7 @@ function render(){const S=ST[cur],D=DG[cur],L=all(),G=gmode(),done=L.filter(b=>S
  $('#legend').innerHTML=legend();
  $('#modes').innerHTML=D.guide?`<span class="lab">2. Pick a mode</span>`+[['guide','Guide me'],['test','Test your knowledge']].map(m=>`<button class="tab" role="tab" aria-selected="${S.mode===m[0]}" data-m="${m[0]}">${m[1]}</button>`).join(''):'';
  $$('[data-m]').forEach(x=>x.onclick=()=>{S.mode=x.dataset.m;render()});
- $('#spk').innerHTML=Object.keys(SPN).map(k=>`<span class="sp-${k}" title="${SPT[k]||''}">${SPN[k]}</span>`).join('')+(G?`<hr><span class="kk"><i style="background:var(--hl);border-color:var(--hl)"></i>This step</span><span class="kk"><i style="border-color:var(--src)"></i>Where it comes from</span><span class="kk"><i style="background:var(--hpc);border-color:var(--hpc)"></i>Used from Helpful information</span>`:'');$('#nav').innerHTML=G?`<button class="btn" id="gprev" ${S.step===0?'disabled':''}>Back</button><button class="btn primary" id="gnext" ${S.step===D.guide.length-1?'disabled':''}>Next step</button>`:'';$('#svgbox').innerHTML=svg();$('#bar').innerHTML=G?guideBar():bar();
+ $('#spk').innerHTML=Object.keys(SPN).map(k=>`<span class="sp-${k}" title="${SPT[k]||''}">${SPN[k]}</span>`).join('')+(G?`<hr><span class="kk"><i style="background:var(--hl);border-color:var(--hl)"></i>This step</span><span class="kk"><i style="border-color:var(--src)"></i>Where it comes from</span><span class="kk"><i style="background:var(--hpc);border-color:var(--hpc)"></i>Used from Helpful information</span>`:'');$('#nav').innerHTML=G?`<button class="btn" id="gprev" ${S.step===0?'disabled':''}>Back</button><button class="btn primary" id="gnext" ${S.step===D.guide.length-1?'disabled':''}>Next step</button>`:'';$('#svgbox').innerHTML=svg();if(matchMedia('(max-width:600px)').matches){const bx=$('#svgbox'),t=bx.querySelector('rect[style*="var(--hl)"],rect[style*="var(--src)"]');if(t)setTimeout(()=>{const r=t.getBoundingClientRect(),b=bx.getBoundingClientRect();bx.scrollLeft+=r.left+r.width/2-(b.left+b.width/2)},0);else if(!bx.dataset.s){bx.dataset.s=1}}$('#bar').innerHTML=G?guideBar():bar();
  $('#info').textContent=G?'Guide me':`${done} of ${L.length} blanks finished, ${ft} right on the first try`;
  $('#reset').textContent=G?'Restart guide':'Reset this diagram';
  const hq=$('#hq'),gi=D.gi||{};let hs=false,hsrc=false,hsel=false;

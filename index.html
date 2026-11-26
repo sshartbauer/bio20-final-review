@@ -417,12 +417,49 @@ html[data-guided] #tabs,html[data-guided] #fbar,html[data-guided] #btnShow,html[
 .hbtn+.hbtn{box-shadow:inset 1px 0 0 rgba(255,255,255,.4)}
 .htitle{align-self:center;padding:8px 12px}
 @media (max-width:600px){.hbar{padding:0;gap:0}.hbtn{width:68px;padding:6px 2px}.htitle{padding:6px 10px}}
+
+/* design audit */
+.minibar{display:none}
+@media (max-width:899px){
+  .top{position:static}
+  html{scroll-padding-top:64px}
+  html[data-mini=on] .minibar{display:flex;position:fixed;top:0;left:0;right:0;z-index:30;align-items:center;gap:10px;padding:6px 12px;background:var(--bg);border-bottom:1px solid var(--line);min-height:54px}
+  .minibar .tnum[hidden]{display:none}
+  .minibar b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .tab[data-t=print]{grid-column:auto}
+}
+@media (min-width:900px){
+  html:not([data-tab="diagrams"]) #stepbar{width:min(904px,calc(100% - 56px));max-width:none;margin-left:auto;margin-right:auto;padding:10px 14px 10px 22px}
+}
+.stepbar{border-left:0;box-shadow:inset 8px 0 0 var(--sk,var(--accent));padding-left:22px}
+.tab[data-t=notes]{--tc:var(--c1)}.tab[data-t=cards]{--tc:var(--c2)}.tab[data-t=quiz]{--tc:var(--c3)}.tab[data-t=drills]{--tc:var(--c4)}.tab[data-t=progress]{--tc:var(--c5)}
+:root:not([data-theme="hc"]) .tab[aria-current="page"]:is([data-t=notes],[data-t=cards],[data-t=quiz],[data-t=drills],[data-t=progress]){background:var(--tc);border-color:var(--tc);color:var(--kink)}
+:root:not([data-theme="hc"]) .tab[aria-current="page"]:is([data-t=notes],[data-t=cards],[data-t=quiz],[data-t=drills],[data-t=progress]) .tnum{background:var(--kink)!important;color:var(--tc)!important}
+:root{--set:#3B4A63;--set-ink:#FFFFFF}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--set:#A9BAD3;--set-ink:#10151B}}
+:root[data-theme="dark"],:root[data-theme="amoled"],:root[data-theme="hc"]{--set:#A9BAD3;--set-ink:#10151B}
+:root[data-theme="lowstim"]{--set:#3B4A63;--set-ink:#FFFFFF}
+:root .pill.g1,:root .gtitle.g1{background:var(--set);color:var(--set-ink);border:2px solid var(--set)}
+:root .pill.g2,:root .gtitle.g2{background:transparent;color:var(--set);border:2px solid var(--set)}
+.sethead{margin:14px 0 6px}
+.prow .pb{display:flex;flex-direction:column;gap:3px;min-width:0}.prow .pl{font-size:.92em}
+.bar{display:block;height:8px;border-radius:99px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--c1)}.bar.q i{background:var(--c3)}
+.fcbtns #cShuf:last-child{grid-column:1/-1}
+.dcard{border-top:4px solid var(--c4);position:relative;padding-right:36px}
+.dcard::after{content:"";position:absolute;right:16px;top:50%;width:9px;height:9px;margin-top:-6px;border-right:3px solid var(--c4);border-top:3px solid var(--c4);transform:rotate(45deg)}
+.dcard:hover{background:var(--accent-soft)}
+.card .corner{font-size:.8em}.card .hint{font-size:.78em}
+.meter{border:1px solid var(--line)}
+
+@media (max-width:899px){.sidebtn,.tools{display:none!important}}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
 <header class="top"><div class="tools" id="tools"><button class="ibtn" id="btnHide" aria-label="Hide menu" title="Hide menu" aria-expanded="true" aria-controls="tabs"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/><path d="M16 9l-3 3 3 3"/></svg></button><div class="thwrap"><button class="ibtn" id="btnTheme" aria-label="Screen mode" title="Screen mode" aria-haspopup="menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button><div class="thmenu" id="thmenu" role="menu" hidden></div></div><button class="ibtn" id="btnHome" aria-label="How to use (home)" title="How to use (home)"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg></button></div><div class="brand"><h1>BIOSC-020 Final Exam Review<span class="sub">Study guide sets 1 and 2</span></h1><button class="iconbtn" id="btnLog" aria-haspopup="dialog">Changelog</button><button class="iconbtn" id="btnSet" aria-haspopup="dialog">Settings</button></div>
 <nav aria-label="Study modes"><div class="tabs" id="tabs"></div></nav>
 </header>
+<div class="minibar" id="minibar"><span class="tnum" id="mbBadge" aria-hidden="true"></span><b id="mbTitle"></b><button type="button" class="btn sm" id="mbMenu">Menu</button></div>
 <div class="fbar" id="fbar"><button class="btn sm" id="btnFilt" aria-expanded="false" aria-controls="filters">Choose concepts (<span id="fcount">All</span>)</button><span class="fsum" id="fsum"></span></div>
 <div class="filters" id="filters" hidden></div>
 <div class="stepbar" id="stepbar" hidden></div>
@@ -1197,6 +1234,7 @@ const NEXT={notes:[["cards","Step 2: Flashcards"]],cards:[["quiz","Step 3: Quiz"
 const USESEL={notes:1,cards:1,quiz:1};
 const whereChoose=()=>`Choose more or fewer concepts <span class="cn-side">on the left</span><span class="cn-above">with this button: <button type="button" class="btn sm" data-openfilt>Choose concepts</button></span>.`;
 function updateBars(t){
+  setMini(t);
   const sb=$("#stepbar"),nb=$("#nextbar"),st=STEPS[t];
   if(G){guidedBars();return}
   if(!st||t==="diagrams"){sb.hidden=true;nb.hidden=true;return}
@@ -1373,7 +1411,7 @@ function renderCards(){
   h+=`<p class="small muted" aria-live="polite">Card ${pos+1} of ${deck.length}${m?` (marked: ${m==="know"?"got it":"review again"})`:""}. Tap the card or press Space to flip. Swipe or use the arrow keys to move.</p>
   <div class="meter" aria-hidden="true"><i style="width:${(pos+1)/deck.length*100}%"></i></div><p></p>
   <div class="card ${flipped?"back":""}" id="card" tabindex="0" role="button" aria-label="Flashcard. ${flipped?"Answer side":"Question side"}. Press Space to flip."><div class="corner"><span>${esc(tShort(c.t))}</span><span>${flipped?"answer":"question"}</span></div><div class="txt">${flipped?c.b:c.f}</div><div class="hint">${flipped?"tap to see the question":"tap to see the answer"}</div></div>
-  <div class="fcbtns"><button class="btn" id="cPrev">Previous</button><button class="btn" id="cNext">Next</button><button class="btn primary" id="cKnow">Got it</button><button class="btn" id="cAgainB">Review again</button><button class="btn wide ghost" id="cShuf">Shuffle deck</button>${sayBtnHTML("card")}</div>
+  <div class="fcbtns"><button class="btn" id="cPrev">Previous</button><button class="btn" id="cNext">Next</button><button class="btn primary" id="cKnow">Got it</button><button class="btn" id="cAgainB">Review again</button><button class="btn ghost" id="cShuf">Shuffle deck</button>${sayBtnHTML("card")}</div>
   <p class="small muted">Marked so far across all cards: ${k} got it, ${a} review again, ${CARDS.length-k-a} unmarked.</p>`+autoPanel();
   $("#main").innerHTML=h;resched();
 }
@@ -1418,7 +1456,7 @@ function renderQuiz(){
   <div class="panel"><span class="pill g${topicById[q.t].set}">${esc(tShort(q.t))}</span><p class="qtext" id="qq">${q.q}</p><div class="row" style="margin:0 0 8px">${sayBtnHTML("quiz")}</div><div class="opts" role="group" aria-labelledby="qq">${q.opts.map((o,i)=>{
     let c="";if(A){if(o===q.a)c="ok";else if(A.pick===o)c="no"}
     return `<button class="opt ${c}" data-o="${i}" ${A?"disabled":""}><span class="k">${String.fromCharCode(65+i)}.</span><span>${o}</span></button>`}).join("")}</div>
-  ${A?`<div class="fb ${A.ok?"good":"bad"}" role="status"><b>${A.ok?"Correct.":`The answer is ${q.a}.`}</b> ${q.e}</div><div class="row" style="margin-top:10px"><button class="btn primary" id="qNext">${S.i+1>=S.pool.length?"See results":"Next question"}</button></div>`:""}</div>`;
+  ${A?`<div class="fb ${A.ok?"good":"bad"}" role="status"><b>${A.ok?"Correct.":`The answer is ${q.a}.`}</b>${qAdds(q)?" "+q.e:""}</div><div class="row" style="margin-top:10px"><button class="btn primary" id="qNext">${S.i+1>=S.pool.length?"See results":"Next question"}</button></div>`:""}</div>`;
   $("#main").innerHTML=h;
   if(A){const nb=$("#qNext");nb&&nb.focus({preventScroll:true})}
 }
@@ -1455,8 +1493,8 @@ function renderProgress(){
     return {t,k,cn:cs.length,r,n,miss,qn:qs.length}});
   const dr=Object.entries(P.drills).filter(([k,v])=>v.t);
   $("#main").innerHTML=`<h2>Progress</h2><p class="muted small">Saved in this browser only. Use Export to move it to another device.</p>
-  <div class="stat"><div class="box"><b>${cardKnown}/${CARDS.length}</b>cards marked got it</div><div class="box"><b>${cardAgain}</b>cards to review again</div><div class="box"><b>${qt?Math.round(qr/qt*100)+"%":"none yet"}</b>quiz accuracy (${qt} answers)</div><div class="box"><b>${qseen}/${QUIZ.length}</b>questions tried</div></div>
-  <h3>By concept</h3><div class="panel">${per.map(p=>`<div class="prow"><span class="pn"><span class="pill g${p.t.set}">${p.t.set===1?"Set 1":"Set 2"}</span> ${esc(p.t.name)}</span><span>Cards: ${p.k}/${p.cn}</span><span>Quiz: ${p.n?Math.round(p.r/p.n*100)+"%":"not tried"}${p.miss?`, ${p.miss} missed`:""}</span></div>`).join("")}</div>
+  <div class="stat"><div class="box"><b>${cardKnown}/${CARDS.length}</b>cards marked got it</div><div class="box"><b>${cardAgain}</b>cards to review again</div><div class="box"><b>${qt?Math.round(qr/qt*100)+"%":"none yet"}</b>quiz accuracy${qt?` (${qt} answer${qt===1?"":"s"})`:""}</div><div class="box"><b>${qseen}/${QUIZ.length}</b>questions tried</div></div>
+  <h3>By concept</h3>${GROUPS.map(g=>`<h3 class="sethead"><span class="gtitle g${g.set}">${g.title}</span></h3><div class="panel">${per.filter(p=>p.t.set===g.set).map(p=>{const pc=p.n?Math.round(p.r/p.n*100):0;return `<div class="prow"><span class="pn">${esc(p.t.name)}</span><span class="pb"><span class="pl">Cards: ${p.k}/${p.cn}</span><span class="bar"><i style="width:${p.cn?p.k/p.cn*100:0}%"></i></span></span><span class="pb"><span class="pl">Quiz: ${p.n?pc+"%":"not tried"}${p.miss?`, ${p.miss} missed`:""}</span><span class="bar q"><i style="width:${pc}%"></i></span></span></div>`}).join("")}</div>`).join("")}
   <h3>Drills</h3><div class="panel">${dr.length?dr.map(([k,v])=>`<div class="prow"><span class="pn">${esc(drillName(k))}</span><span>${v.r} of ${v.t} correct</span><span>${Math.round(v.r/v.t*100)}%</span></div>`).join(""):"<p>No drill results yet.</p>"}</div>
   <h3>Your data</h3><div class="row"><button class="btn" id="pExp">Export progress</button><label class="btn" for="pImp" style="display:inline-flex;align-items:center">Import progress</label><input type="file" id="pImp" accept="application/json,.json" class="sr"><button class="btn ghost" id="pReset">Reset all progress</button></div><p id="pMsg" class="small" role="status"></p>`;
 }
@@ -1979,6 +2017,15 @@ document.addEventListener("click",e=>{if(cur!=="print")return;const id=e.target.
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "On phones, only a slim bar with the current step and a Menu button stays at the top while you scroll, instead of the whole step menu.",
+  "The step banner now lines up with the page content, and the active menu item uses its step color.",
+  "Set 1 and Set 2 labels use one slate color, filled for Set 1 and outlined for Set 2. The leftover orange is gone.",
+  "Quiz feedback skips the explanation when it only repeats the answer.",
+  "Progress now groups concepts by set and shows a small bar for cards and for the quiz.",
+  "Practice cards have a colored top edge and an arrow. Flashcard buttons line up. Small flashcard labels are larger.",
+  "Diagram page: buttons use the site's blue, blanks have stronger outlines and fills, labels have a background so lines do not cross them, and the panels fit their content.",
+  "On phones the diagram can be swiped sideways at a readable size, and Guide me scrolls to the step.",
+  "Removed a stray Show menu button that appeared at the bottom of the page on phones.",
   "Read aloud buttons on Notes, Flashcards and Quiz, with a speed setting. They use your device's built-in voice.",
   "Guided mode: pick one concept and go through the notes, flashcards and quiz one step at a time, with a single Next button.",
   "New Low-stim mode theme with calm colors, no gradient or illustration, and no motion.",
@@ -2056,7 +2103,7 @@ function sayFor(btn){
   if(k==="card"){const c=deck&&deck[pos];if(!c)return"";return (flipped?"Answer. ":"Question. ")+htmlText(flipped?c.b:c.f)}
   if(k==="quiz"){const S=qstate;if(!S||!S.pool[S.i])return"";const q=S.pool[S.i],A=S.ans;
     let s=htmlText(q.q)+". "+q.opts.map((o,i)=>"Option "+String.fromCharCode(65+i)+". "+htmlText(o)+".").join(" ");
-    if(A)s+=" "+(A.ok?"Correct. ":"The answer is "+htmlText(q.a)+". ")+htmlText(q.e);return s}
+    if(A)s+=" "+(A.ok?"Correct. ":"The answer is "+htmlText(q.a)+". ")+(qAdds(q)?htmlText(q.e):"");return s}
   return"";
 }
 
@@ -2100,6 +2147,19 @@ document.addEventListener("click",e=>{
   if(t.closest("[data-gagain]")&&G){G.step=-1;G.id=null;go("guide");return}
   if(t.closest("[data-gexit]")){leaveGuided()}
 });
+
+function qAdds(q){const f=h=>htmlText(h).replace(/[.\s]+$/,"").toLowerCase(),t=f(q.e),a=f(q.a);return !!t&&t!==a&&t.length>a.length+3}
+/* ===== slim bar on phones ===== */
+const MB={on:matchMedia("(max-width:899px)")};
+function setMini(t){
+  const n=t==="diagrams"?4:(STEPS[t]?STEPS[t][0]:0),lab=t==="guide"?"How to use":t==="print"?"Print and handouts":t==="diagrams"||t==="drills"?"Practice":(TABS.find(x=>x[0]===t)||["",""])[1];
+  const b=$("#mbBadge"),ti=$("#mbTitle");if(!b)return;
+  b.textContent=n||"";b.hidden=!n;b.style.background=n?"var(--c"+n+")":"";b.style.color="var(--kink)";
+  ti.textContent=n?"Step "+n+" of 5: "+lab:lab;syncMini();
+}
+function syncMini(){const top=$(".top");const on=MB.on.matches&&!G&&top&&scrollY>top.offsetHeight-4;document.documentElement.dataset.mini=on?"on":"off"}
+addEventListener("scroll",syncMini,{passive:true});addEventListener("resize",syncMini);
+document.addEventListener("click",e=>{if(e.target.closest("#mbMenu"))scrollTo({top:0})});
 /* ===== footer: about, changelog, report an error ===== */
 const CONTACT=`<p><b class="hl">Do you have a question or a suggestion? Did you find a mistake, or does something look wrong?</b> Contact me, in order of preference. If it is about a mistake, please tell me which tab and item it was.</p><ol class="steps contact"><li>Send me a message through Canvas. My name is spelled <button class="btn sm" data-rv="name">Show my name</button></li><li>Send me an email outside of Canvas: <button class="btn sm" data-rv="mail">Show my email</button></li></ol>`;
 const ABOUT=`<p>A free study tool for the BIOSC-020 final exam, shared with permission of Prof. Shane. Content follows the typed text of the two final exam study guide slide sets. Figures on the slides are supplemental.</p>
