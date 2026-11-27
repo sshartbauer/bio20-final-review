@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- Every color theme now works in every screen mode: Follow device, Light, Dark, AMOLED black, and Low-stim. Pick a theme and a mode in the color pop-up. High contrast looks the same for every theme.
 - Theme names in the color pop-up are centered under their pictures.
 - The color themes now open in a pop-up window with a picture of each theme. Pick one and it changes right away.
 - New color theme: Shane's Ducati 996, black and charcoal with silver, a little gold, and one touch of red.

@@ -530,6 +530,8 @@ button.hbtn{border:0;margin:0;font-family:inherit;font-size:.78em;font-weight:80
 .palname{font-weight:700;font-size:.92em;line-height:1.2}
 .paltile[aria-pressed="true"] .palname::before{content:"\2713 ";color:var(--accent)}
 .paltile{align-items:stretch}.palname{text-align:center}.paltile[aria-pressed="true"] .palname::before{content:"\2713 "}
+
+.palmodes{margin:8px 0 6px}.palmodes button{flex:0 1 auto}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -1248,6 +1250,29 @@ const QUIZ = [
 ["s2-drugs","Morphine and fentanyl are","synthetic opioids that mimic a neurotransmitter",["natural opioids","stimulants","enzymes"],"Endorphins are the natural opioids."]
 ];
 const PALS={teddy:{"n": "Kim's teddy bear", "mode": "light", "v": {"bg": "#FFF1F5", "surface": "#FFFFFF", "surface-2": "#FCE3EB", "line": "#E0B4C3", "accent": "#A8325F", "accent-soft": "#FBDCE8", "accent-ink": "#FFFFFF", "c1": "#A8325F", "c2": "#BF4F7D", "c3": "#8F4A78", "c4": "#A3622B", "c5": "#84503E", "c6": "#BF4F7D", "kink": "#FFFFFF", "hg": "linear-gradient(135deg,#FFE3EC 0%,#F9E6D6 55%,#FBDCE8 100%)"}},tommy:{"n": "Tommy's car upholstery", "mode": "dark", "v": {"bg": "#14151A", "surface": "#1D1F26", "surface-2": "#292C35", "line": "#4B505C", "accent": "#D98578", "accent-soft": "#3A2724", "accent-ink": "#14151A", "c1": "#D98578", "c2": "#AEB5C2", "c3": "#E2D5B5", "c4": "#C98F6A", "c5": "#9AA3B3", "c6": "#AEB5C2", "kink": "#14151A", "hg": "linear-gradient(135deg,#2A1F1F 0%,#1F2128 55%,#2B2A25 100%)", "fg": "#ECE9E4", "muted": "#B4B0A8"}},ducati:{"n": "Shane's Ducati 996", "mode": "dark", "v": {"bg": "#121214", "surface": "#1B1B1F", "surface-2": "#26262B", "line": "#4A4A52", "accent": "#B9BDC6", "accent-soft": "#202024", "accent-ink": "#121214", "c1": "#B9BDC6", "c2": "#C9A24B", "c3": "#F0384A", "c4": "#8C919B", "c5": "#E8E4DC", "c6": "#C9A24B", "kink": "#121214", "hg": "linear-gradient(135deg,#1B1B1F 0%,#202024 55%,#2A1517 100%)", "fg": "#F2F0EB", "muted": "#B9BDC6"}},omar:{"n": "Omar's soccer jersey", "mode": "light", "v": {"bg": "#F2F8F0", "surface": "#FFFFFF", "surface-2": "#E0EDDA", "line": "#A9C7A3", "accent": "#1B6B38", "accent-soft": "#D6EBD6", "accent-ink": "#FFFFFF", "c1": "#1B6B38", "c2": "#2D7F4B", "c3": "#8A6500", "c4": "#3E5F45", "c5": "#5F7A1A", "c6": "#2D7F4B", "kink": "#FFFFFF", "hg": "linear-gradient(135deg,#DDF0DA 0%,#F7F1D4 55%,#E4F1E6 100%)"}},cotton:{"n": "Cotton candy", "mode": "light", "v": {"bg": "#FBF3FF", "surface": "#FFFFFF", "surface-2": "#F1E4FA", "line": "#D2BDE3", "accent": "#7A3FB0", "accent-soft": "#EBDCF8", "accent-ink": "#FFFFFF", "c1": "#7A3FB0", "c2": "#B0408F", "c3": "#2A7684", "c4": "#5B5BC0", "c5": "#B03F6E", "c6": "#B0408F", "kink": "#FFFFFF", "hg": "linear-gradient(135deg,#FFE0F0 0%,#E8DDFB 55%,#D9F3EE 100%)"}},lavender:{"n": "Lavender field", "mode": "light", "v": {"bg": "#F5F2FC", "surface": "#FFFFFF", "surface-2": "#E6E0F5", "line": "#C3B8E0", "accent": "#5B3FA6", "accent-soft": "#E3DAF7", "accent-ink": "#FFFFFF", "c1": "#5B3FA6", "c2": "#7A55C0", "c3": "#4A4CA8", "c4": "#8A4A9E", "c5": "#3F6AA6", "c6": "#7A55C0", "kink": "#FFFFFF", "hg": "linear-gradient(135deg,#E6E0F5 0%,#F0E4F6 55%,#DCE6F7 100%)"}},sunrise:{"n": "Sunrise", "mode": "light", "v": {"bg": "#FFF6EC", "surface": "#FFFFFF", "surface-2": "#FDE8D2", "line": "#E6C7A5", "accent": "#A8480F", "accent-soft": "#FDE2C8", "accent-ink": "#FFFFFF", "c1": "#A8480F", "c2": "#9C5A12", "c3": "#9C3F4F", "c4": "#7A5A00", "c5": "#8A4B2A", "c6": "#9C5A12", "kink": "#FFFFFF", "hg": "linear-gradient(135deg,#FFE7C7 0%,#FFD9D0 55%,#FFF0C2 100%)"}},seaglass:{"n": "Sea glass", "mode": "light", "v": {"bg": "#F0F8F7", "surface": "#FFFFFF", "surface-2": "#DDEFEC", "line": "#A9CFC9", "accent": "#0F6E73", "accent-soft": "#D3EFEC", "accent-ink": "#FFFFFF", "c1": "#0F6E73", "c2": "#2A7F9E", "c3": "#3C7A5A", "c4": "#4B6FA8", "c5": "#52762A", "c6": "#2A7F9E", "kink": "#FFFFFF", "hg": "linear-gradient(135deg,#D6F3EE 0%,#DDEAF8 55%,#E3F4DC 100%)"}},sepia:{"n": "Sepia paper", "mode": "light", "v": {"bg": "#F7F0E1", "surface": "#FFFBF2", "surface-2": "#EDE2CB", "line": "#CDBB97", "accent": "#7A4A12", "accent-soft": "#F0E1C4", "accent-ink": "#FFFFFF", "c1": "#7A4A12", "c2": "#8A5A22", "c3": "#6B5A2E", "c4": "#8A3F2F", "c5": "#4F5E3A", "c6": "#8A5A22", "kink": "#FFFFFF", "hg": "linear-gradient(135deg,#F1E6CC 0%,#F3DFC4 55%,#E8E4C8 100%)", "fg": "#2B2118", "muted": "#5E4E3C"}},bwg:{"n": "Black, white and grey", "mode": "light", "v": {"bg": "#F2F2F2", "surface": "#FFFFFF", "surface-2": "#E4E4E4", "line": "#B5B5B5", "accent": "#222222", "accent-soft": "#E0E0E0", "accent-ink": "#FFFFFF", "c1": "#222222", "c2": "#3A3A3A", "c3": "#505050", "c4": "#666666", "c5": "#2D2D2D", "c6": "#3A3A3A", "kink": "#FFFFFF", "hg": "linear-gradient(135deg,#E8E8E8 0%,#F4F4F4 55%,#DADADA 100%)", "fg": "#111111", "muted": "#4D4D4D"}},ocean:{"n": "Deep ocean", "mode": "dark", "v": {"bg": "#0A1620", "surface": "#112433", "surface-2": "#1A3446", "line": "#3A5A72", "accent": "#5CC8D6", "accent-soft": "#15384A", "accent-ink": "#06121D", "c1": "#5CC8D6", "c2": "#6FA8F0", "c3": "#7ED6B8", "c4": "#A99BF0", "c5": "#F0C06F", "c6": "#6FA8F0", "kink": "#06121D", "hg": "linear-gradient(135deg,#0F2B36 0%,#14243D 55%,#0F3030 100%)", "fg": "#E6F1F7", "muted": "#A5BDCB"}},forest:{"n": "Forest ranger", "mode": "dark", "v": {"bg": "#101710", "surface": "#182218", "surface-2": "#223022", "line": "#46604A", "accent": "#8FCB7A", "accent-soft": "#20361F", "accent-ink": "#0C130C", "c1": "#8FCB7A", "c2": "#D2B06A", "c3": "#7FC4B0", "c4": "#C79470", "c5": "#A9C46A", "c6": "#D2B06A", "kink": "#0C130C", "hg": "linear-gradient(135deg,#1A2E1A 0%,#2A2616 55%,#16302A 100%)", "fg": "#EAF1E6", "muted": "#AEBFAA"}},arcade:{"n": "Midnight arcade", "mode": "dark", "v": {"bg": "#120B1F", "surface": "#1B1230", "surface-2": "#281B45", "line": "#54418A", "accent": "#4FD8E0", "accent-soft": "#1E2D4A", "accent-ink": "#120B1F", "c1": "#4FD8E0", "c2": "#F27FC8", "c3": "#B79CFF", "c4": "#F2D15C", "c5": "#7EE08A", "c6": "#F27FC8", "kink": "#120B1F", "hg": "linear-gradient(135deg,#241446 0%,#1B1F4A 55%,#2E1440 100%)", "fg": "#F1EBFF", "muted": "#B9AEDB"}}};
+/* Builds every color theme in every screen mode from its home palette. */
+function _rgb(h){return[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)/255)}
+function _hex(r,g,b){return"#"+[r,g,b].map(x=>Math.round(Math.max(0,Math.min(1,x))*255).toString(16).padStart(2,"0")).join("").toUpperCase()}
+function _toHsl(hex){const[r,g,b]=_rgb(hex),mx=Math.max(r,g,b),mn=Math.min(r,g,b),l=(mx+mn)/2;let h=0,s=0;if(mx!==mn){const d=mx-mn;s=l>.5?d/(2-mx-mn):d/(mx+mn);h=mx===r?(g-b)/d+(g<b?6:0):mx===g?(b-r)/d+2:(r-g)/d+4;h*=60}return[h,s,l]}
+function _fromHsl(h,s,l){h=((h%360)+360)%360/360;if(!s)return _hex(l,l,l);const q=l<.5?l*(1+s):l+s-l*s,p=2*l-q,f=t=>{t=(t+1)%1;return t<1/6?p+(q-p)*6*t:t<.5?q:t<2/3?p+(q-p)*(2/3-t)*6:p};return _hex(f(h+1/3),f(h),f(h-1/3))}
+function _lum(hex){return _rgb(hex).map(c=>c<=.03928?c/12.92:Math.pow((c+.055)/1.055,2.4)).reduce((a,c,i)=>a+c*[.2126,.7152,.0722][i],0)}
+function _cr(a,b){const x=_lum(a),y=_lum(b);return(Math.max(x,y)+.05)/(Math.min(x,y)+.05)}
+function _fit(hex,fam,surf,bg,ink,min,soft){let[h,s,l]=_toHsl(hex),c=hex;for(let i=0;i<90;i++){c=_fromHsl(h,s,l);if(_cr(c,surf)>=min&&_cr(c,bg)>=min&&_cr(ink,c)>=min&&(!soft||_cr(c,soft)>=min))return c;l+=fam==="light"?-.012:.012;if(l<0||l>1)break}return c}
+function palVars(id,mode){
+  const p=PALS[id];if(!p||mode==="hc")return null;
+  const v=p.v,fam=(mode==="dark"||mode==="amoled")?"dark":"light";
+  if(mode===p.mode)return Object.assign({},v);
+  const hb=_toHsl(v.bg),useBg=hb[1]>.1,th=useBg?hb[0]:_toHsl(v.accent)[0],ts0=useBg?hb[1]:.1,ah=_toHsl(v.accent)[0],as=Math.min(.35,_toHsl(v.accent)[1]*.9+.03);
+  let bg,sf,s2,ln,soft,ink,kink,S;
+  if(mode==="light"){S=Math.min(.45,Math.max(.12,ts0));bg=_fromHsl(th,S,.96);sf="#FFFFFF";s2=_fromHsl(th,S,.92);ln=_fromHsl(th,S*.8,.77);soft=_fromHsl(ah,as,.9);ink=kink="#FFFFFF"}
+  else if(mode==="lowstim"){S=Math.min(.45,Math.max(.12,ts0))*.5;bg=_fromHsl(th,S,.91);sf=_fromHsl(th,S,.96);s2=_fromHsl(th,S,.86);ln=_fromHsl(th,S*.8,.72);soft=_fromHsl(ah,as*.5,.88);ink=kink="#FFFFFF"}
+  else{S=Math.min(.3,Math.max(.06,ts0*.6));const am=mode==="amoled";bg=am?"#000000":_fromHsl(th,S,.07);sf=_fromHsl(th,S,am?.035:.105);s2=_fromHsl(th,S,am?.08:.155);ln=_fromHsl(th,S*.8,am?.22:.3);soft=_fromHsl(ah,as,am?.11:.16);ink=kink=bg}
+  const low=mode==="lowstim",adj=c=>{if(low){const[h,s,l]=_toHsl(c);c=_fromHsl(h,s*.5,l)}return _fit(c,fam,sf,bg,ink,4.6,soft)};
+  const cs=[v.c1,v.c2,v.c3,v.c4,v.c5].map(adj),acc=adj(v.accent);
+  const gl=fam==="light"?[.93,.95,.92]:[.13,.16,.12],gs=low?.15:fam==="light"?.5:.3;
+  const hg="linear-gradient(135deg,"+_fromHsl(_toHsl(cs[0])[0],gs,gl[0])+" 0%,"+_fromHsl(_toHsl(cs[1])[0],gs,gl[1])+" 55%,"+_fromHsl(_toHsl(cs[2])[0],gs,gl[2])+" 100%)";
+  return{bg:bg,surface:sf,"surface-2":s2,line:ln,accent:acc,"accent-soft":soft,"accent-ink":ink,c1:cs[0],c2:cs[1],c3:cs[2],c4:cs[3],c5:cs[4],c6:cs[1],kink:kink,hg:hg};
+}
 /* ===== core helpers ===== */
 const $=(s,e=document)=>e.querySelector(s),$$=(s,e=document)=>[...e.querySelectorAll(s)];
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -1279,8 +1304,9 @@ function applySettings(){
   h.dataset.scores=s.scores;if(s.motion==="reduce"||s.theme==="lowstim")h.dataset.motion="reduce";else h.removeAttribute("data-motion");
   const f=$("#dframe");if(f&&f.contentWindow)try{f.contentWindow.postMessage({type:"theme",theme:themeNow()},"*")}catch(e){}
 }
-function applyPal(){const h=document.documentElement,st=h.style;(applyPal.k||[]).forEach(k=>st.removeProperty(k));applyPal.k=[];const p=PALS[P.set.pal];if(!p)return;h.setAttribute("data-theme",p.mode);for(const k in p.v){st.setProperty("--"+k,p.v[k]);applyPal.k.push("--"+k)}}
-const themeNow=()=>PALS[P.set.pal]?PALS[P.set.pal].mode:P.set.theme==="auto"?(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"):P.set.theme==="lowstim"?"light":P.set.theme;
+function applyPal(){const h=document.documentElement,st=h.style;(applyPal.k||[]).forEach(k=>st.removeProperty(k));applyPal.k=[];const v=PALS[P.set.pal]?palVars(P.set.pal,modeNow()):null;if(!v)return;for(const k in v){st.setProperty("--"+k,v[k]);applyPal.k.push("--"+k)}}
+const modeNow=()=>P.set.theme==="auto"?(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"):P.set.theme;
+const themeNow=()=>P.set.theme==="auto"?(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"):P.set.theme==="lowstim"?"light":P.set.theme;
 matchMedia("(prefers-color-scheme:dark)").addEventListener&&matchMedia("(prefers-color-scheme:dark)").addEventListener("change",applySettings);
 function openSettings(){
   const o=(k,v,l)=>`<button data-k="${k}" data-v="${v}" aria-pressed="${P.set[k]===v}">${l}</button>`;
@@ -1295,7 +1321,7 @@ function openSettings(){
 }
 $("#settings").addEventListener("click",e=>{
   if(e.target.id==="settings"||e.target.id==="sclose"){$("#settings").hidden=true;$("#btnSet").focus();return}
-  const b=e.target.closest("button[data-k]");if(!b)return;P.set[b.dataset.k]=b.dataset.v;if(b.dataset.k==="theme")P.set.pal="none";save();applySettings();
+  const b=e.target.closest("button[data-k]");if(!b)return;P.set[b.dataset.k]=b.dataset.v;save();applySettings();
   $$("button[data-k]",$("#settings")).forEach(x=>x.setAttribute("aria-pressed",P.set[x.dataset.k]===x.dataset.v));
 });
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#settings").hidden){$("#settings").hidden=true;$("#btnSet").focus()}});
@@ -1344,21 +1370,24 @@ function closeTheme(focus){$("#thmenu").hidden=true;$("#btnTheme").setAttribute(
 $("#btnTheme").onclick=()=>{const m=$("#thmenu");if(!m.hidden){closeTheme();return}
   m.innerHTML=THEMES.map(t=>`<button role="menuitemradio" data-th="${t[0]}" aria-checked="${P.set.theme===t[0]}">${t[1]}</button>`).join("");
   m.hidden=false;$("#btnTheme").setAttribute("aria-expanded","true");(m.querySelector('[aria-checked="true"]')||m.firstChild).focus()};
-$("#thmenu").addEventListener("click",e=>{const b=e.target.closest("[data-th]");if(!b)return;P.set.theme=b.dataset.th;P.set.pal="none";save();applySettings();closeTheme(true)});
+$("#thmenu").addEventListener("click",e=>{const b=e.target.closest("[data-th]");if(!b)return;P.set.theme=b.dataset.th;save();applySettings();closeTheme(true)});
 $("#thmenu").addEventListener("keydown",e=>{const items=[...$("#thmenu").querySelectorAll("button")],i=items.indexOf(document.activeElement);
   if(e.key==="ArrowDown"){e.preventDefault();items[(i+1)%items.length].focus()}else if(e.key==="ArrowUp"){e.preventDefault();items[(i-1+items.length)%items.length].focus()}else if(e.key==="Escape"){e.preventDefault();closeTheme(true)}});
 document.addEventListener("click",e=>{if(!$("#thmenu").hidden&&!e.target.closest(".thwrap"))closeTheme()});
 $("#btnHome").onclick=()=>go("guide");
 let palBtn=$("#btnPal");
+const PALDEF={light:{bg:"#F3F6F9",surface:"#FFFFFF",c:["#0E7C86","#2B63B0","#5A4DB5","#8A3F9E","#B03A8C"]},dark:{bg:"#0B121B",surface:"#131D29",c:["#4FD1D9","#7FB0F5","#A9A3F5","#D49AE6","#F28FCB"]},amoled:{bg:"#000000",surface:"#080808",c:["#4FD1D9","#7FB0F5","#A9A3F5","#D49AE6","#F28FCB"]},lowstim:{bg:"#EEEBE5",surface:"#F8F6F2",c:["#46636F","#6A6A8C","#6B6A55","#4C6B55","#6B5A4C"]},hc:{bg:"#000000",surface:"#000000",c:["#FFE45C","#7CFFA8","#FF9E94","#F0B6FF","#FFB77A"]}};
+const PALMODES=[["auto","Follow device"],["light","Light"],["dark","Dark"],["amoled","AMOLED black"],["hc","High contrast"],["lowstim","Low-stim"]];
+function palTiles(){const m=modeNow(),tile=(k,n,t)=>`<button type="button" class="paltile" data-pal="${k}" aria-pressed="false"><span class="palsw" style="background:${t.bg}"><i style="background:${t.surface}"></i>${t.c.map(c=>`<b style="background:${c}"></b>`).join("")}</span><span class="palname">${n}</span></button>`;
+  return tile("none","Default colors",PALDEF[m])+Object.keys(PALS).map(k=>{const v=palVars(k,m);const t=v?{bg:v.bg,surface:v.surface,c:[v.c1,v.c2,v.c3,v.c4,v.c5]}:PALDEF.hc;return tile(k,esc(PALS[k].n),t)}).join("")}
 function palDialog(){let d=$("#palDlg");if(d)return d;
   d=document.createElement("dialog");d.id="palDlg";d.className="cddlg";d.setAttribute("aria-labelledby","palT");
-  const tile=(k,n,v)=>`<button type="button" class="paltile" data-pal="${k}" aria-pressed="false"><span class="palsw" style="background:${v.bg}"><i style="background:${v.surface}"></i><b style="background:${v.c1}"></b><b style="background:${v.c2}"></b><b style="background:${v.c3}"></b><b style="background:${v.c4}"></b><b style="background:${v.c5}"></b></span><span class="palname">${n}</span></button>`;
-  d.innerHTML=`<h3 id="palT">Color themes</h3><p>Pick any theme. It changes right away. Tap Done when you like one.</p><div class="palgrid">${tile("none","Default colors",{bg:"#F3F6F9",surface:"#FFFFFF",c1:"#0E7C86",c2:"#2B63B0",c3:"#5A4DB5",c4:"#8A3F9E",c5:"#B03A8C"})}${Object.keys(PALS).map(k=>tile(k,esc(PALS[k].n),PALS[k].v)).join("")}</div><div class="cdfoot"><button type="button" class="btn primary" data-pal-close>Done</button></div>`;
+  d.innerHTML=`<h3 id="palT">Color themes</h3><p>Pick a theme and a screen mode. Both change right away. Tap Done when you like them.</p><div class="seg palmodes" role="group" aria-label="Screen mode">${PALMODES.map(m=>`<button type="button" data-pm="${m[0]}" aria-pressed="false">${m[1]}</button>`).join("")}</div><p class="small muted" id="palHc" hidden>High contrast looks the same for every theme.</p><div class="palgrid" id="palGrid"></div><div class="cdfoot"><button type="button" class="btn primary" data-pal-close>Done</button></div>`;
   document.body.appendChild(d);
-  d.addEventListener("click",e=>{if(e.target===d){d.close();return}if(e.target.closest("[data-pal-close]")){d.close();return}const b=e.target.closest("[data-pal]");if(!b)return;P.set.pal=b.dataset.pal;save();applySettings();palSync()});
+  d.addEventListener("click",e=>{if(e.target===d){d.close();return}if(e.target.closest("[data-pal-close]")){d.close();return}const pm=e.target.closest("[data-pm]");if(pm){P.set.theme=pm.dataset.pm;save();applySettings();palSync(true);return}const b=e.target.closest("[data-pal]");if(!b)return;P.set.pal=b.dataset.pal;save();applySettings();palSync()});
   d.addEventListener("close",()=>{try{palBtn.focus()}catch(x){}});return d}
-function palSync(){const cur=PALS[P.set.pal]?P.set.pal:"none";$$("#palDlg [data-pal]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.pal===cur)))}
-function openPal(btn){palBtn=btn;const d=palDialog();palSync();d.showModal();const on=d.querySelector('[aria-pressed="true"]');if(on)on.focus()}
+function palSync(redraw){const cur=PALS[P.set.pal]?P.set.pal:"none";if(redraw||!$("#palGrid").firstChild)$("#palGrid").innerHTML=palTiles();$$("#palDlg [data-pal]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.pal===cur)));$$("#palDlg [data-pm]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.pm===P.set.theme)));$("#palHc").hidden=P.set.theme!=="hc"}
+function openPal(btn){palBtn=btn;const d=palDialog();palSync(true);d.showModal();const on=d.querySelector('[aria-pressed="true"]');if(on)on.focus()}
 $("#btnPal").onclick=()=>openPal($("#btnPal"));$("#btnPalM").onclick=()=>openPal($("#btnPalM"));
 
 
@@ -2205,6 +2234,7 @@ document.addEventListener("change",e=>{if(e.target.closest("#ptDlg"))ptSync()});
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "Every color theme now works in every screen mode: Follow device, Light, Dark, AMOLED black, and Low-stim. Pick a theme and a mode in the color pop-up. High contrast looks the same for every theme.",
   "Theme names in the color pop-up are centered under their pictures.",
   "The color themes now open in a pop-up window with a picture of each theme. Pick one and it changes right away.",
   "New color theme: Shane's Ducati 996, black and charcoal with silver, a little gold, and one touch of red.",
