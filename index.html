@@ -529,6 +529,7 @@ button.hbtn{border:0;margin:0;font-family:inherit;font-size:.78em;font-weight:80
 .palsw i{width:16px;height:26px;border-radius:4px;display:block;border:1px solid rgba(128,128,128,.35)}.palsw b{width:12px;height:12px;border-radius:50%;display:block}
 .palname{font-weight:700;font-size:.92em;line-height:1.2}
 .paltile[aria-pressed="true"] .palname::before{content:"\2713 ";color:var(--accent)}
+.paltile{align-items:stretch}.palname{text-align:center}.paltile[aria-pressed="true"] .palname::before{content:"\2713 "}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -2204,6 +2205,7 @@ document.addEventListener("change",e=>{if(e.target.closest("#ptDlg"))ptSync()});
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "Theme names in the color pop-up are centered under their pictures.",
   "The color themes now open in a pop-up window with a picture of each theme. Pick one and it changes right away.",
   "New color theme: Shane's Ducati 996, black and charcoal with silver, a little gold, and one touch of red.",
   "The color wheel button is now on the phone and tablet top bar, next to Settings.",

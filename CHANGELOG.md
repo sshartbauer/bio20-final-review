@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- Theme names in the color pop-up are centered under their pictures.
 - The color themes now open in a pop-up window with a picture of each theme. Pick one and it changes right away.
 - New color theme: Shane's Ducati 996, black and charcoal with silver, a little gold, and one touch of red.
 - The color wheel button is now on the phone and tablet top bar, next to Settings.
