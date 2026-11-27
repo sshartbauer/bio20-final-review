@@ -553,9 +553,17 @@ button.hbtn{border:0;margin:0;font-family:inherit;font-size:.78em;font-weight:80
 .card .cside{display:flex;flex-direction:column;gap:8px;width:86px}
 .card .cside .btn{width:100%;min-height:44px;padding:4px 4px;font-size:.7em;line-height:1.15}
 .card.back .btn{background:var(--surface);color:var(--fg);border:2px solid var(--surface)}
-.card.back .btn.primary{border:3px solid var(--accent-ink);font-weight:800}
+.card.back .btn.go{background:var(--go);color:var(--go-ink);border:2px solid var(--accent-ink);font-weight:800}
+.card.back .btn.no{background:var(--no);color:var(--no-ink);border:2px solid var(--accent-ink);font-weight:800}
+.card .cpop{grid-column:1/-1;margin:0 4px 10px;padding:8px 12px;border-radius:10px;background:var(--accent-soft);color:var(--fg);border-left:4px solid var(--accent);font-size:.62em;text-align:left;line-height:1.35}
 @media (min-width:600px){.card .cside{width:116px}.card .cside .btn{font-size:.78em}}
 .card .hint{left:0;right:0;text-align:center}
+
+:root{--go:#1B6E48;--go-ink:#FFFFFF;--no:#B0382C;--no-ink:#FFFFFF}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--go:#7DDBA6;--go-ink:#06180F;--no:#FF9C8A;--no-ink:#2A0905}}
+:root[data-theme="dark"],:root[data-theme="amoled"]{--go:#7DDBA6;--go-ink:#06180F;--no:#FF9C8A;--no-ink:#2A0905}
+:root[data-theme="hc"]{--go:#5CFFA8;--go-ink:#000;--no:#FF8A7A;--no-ink:#000}
+:root[data-theme="lowstim"]{--go:#3F7A5E;--go-ink:#FFFFFF;--no:#9A5A4C;--no-ink:#FFFFFF}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -1563,17 +1571,19 @@ function renderCards(){
   h+=`<p class="small muted" aria-live="polite">Card ${pos+1} of ${deck.length}${m?` (marked: ${m==="know"?"got it":"review again"})`:""}. Tap the card or press Space to flip. Swipe or use the arrow keys to move.</p>
   <div class="meter" aria-hidden="true"><i style="width:${(pos+1)/deck.length*100}%"></i></div><p></p>
   <div class="card ${flipped?"back":""}" id="card" tabindex="0" role="group" aria-label="Flashcard. ${flipped?"Answer side":"Question side"}. Tap the middle of the card or press Space to flip."><div class="corner"><span>${esc(tShort(c.t))}</span><span>${flipped?"answer":"question"}</span></div>
-  <div class="cside"><button type="button" class="btn sm" id="cPrev">Previous</button>${flipped?`<button type="button" class="btn sm" id="cAgainB">Review again</button>`:""}</div>
+  ${cNote&&!flipped?`<div class="cpop" role="status">Read it one more time with the correct answer in your head.</div>`:""}
+  <div class="cside"><button type="button" class="btn sm" id="cPrev">Previous</button></div>
   <div class="txt">${flipped?c.b:c.f}</div>
-  <div class="cside"><button type="button" class="btn sm" id="cNext">Next</button>${flipped?`<button type="button" class="btn sm primary" id="cKnow">Got it</button>`:""}</div>
+  <div class="cside">${flipped?`<button type="button" class="btn sm go" id="cKnow">Got it</button><button type="button" class="btn sm no" id="cAgainB">Review again</button>`:`<button type="button" class="btn sm" id="cNext">Next</button>`}</div>
   <div class="hint">${flipped?"tap the middle of the card to see the question":"tap the middle of the card to see the answer"}</div></div>
   <div class="fcbtns"><button class="btn ghost" id="cShuf">Shuffle deck</button>${sayBtnHTML("card")}</div>
   <p class="small muted">Marked so far across all cards: ${k} got it, ${a} review again, ${CARDS.length-k-a} unmarked.</p>`+autoPanel();
   $("#main").innerHTML=h;resched();
 }
-function cflip(){autoDone=false;flipped=!flipped;renderCards();const c=$("#card");c&&c.focus({preventScroll:true})}
-function cmove(d){autoDone=false;if(!deck.length)return;pos=(pos+d+deck.length)%deck.length;flipped=false;renderCards();const c=$("#card");c&&c.focus({preventScroll:true})}
-function cmark(v){if(!deck.length)return;P.cards[deck[pos].id]=v;save();if(cOnlyAgain&&v==="know"){buildDeck(false);flipped=false;renderCards();return}cmove(1)}
+let cNote=false;
+function cflip(){cNote=false;autoDone=false;flipped=!flipped;renderCards();const c=$("#card");c&&c.focus({preventScroll:true})}
+function cmove(d){cNote=false;autoDone=false;if(!deck.length)return;pos=(pos+d+deck.length)%deck.length;flipped=false;renderCards();const c=$("#card");c&&c.focus({preventScroll:true})}
+function cmark(v){if(!deck.length)return;P.cards[deck[pos].id]=v;save();if(v==="again"){autoDone=false;flipped=false;cNote=true;renderCards();const cc=$("#card");cc&&cc.focus({preventScroll:true});return}if(cOnlyAgain&&v==="know"){buildDeck(false);flipped=false;renderCards();return}cmove(1)}
 $("#main").addEventListener("click",e=>{
   if(cur!=="cards")return;const t=e.target;
   const bid=(t.closest("button")||{}).id;
@@ -2277,7 +2287,7 @@ const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.6",date:"2026-11-27",items:[
   "Settings now has a Read aloud voice picker with a Test voice button. It lists the voices on your device, English first. A small Voice link next to every Read aloud button (Notes, Flashcards, Quiz) opens it.",
-  "Flashcards: Previous and Next are now on the card, on the left and right of the question or answer. When the card is flipped, Review again sits under Previous and Got it sits under Next. Tap the middle of the card to flip it back to the question. Shuffle deck and Read aloud stay below the card.",
+  "Flashcards: Previous is now on the card, on the left. On the right, Next shows on the question side. When the card is flipped, Got it (green) goes to the next card, and Review again (red) flips the card back to the question with a reminder to read it once more with the correct answer in your head. Tap the middle of the card to flip it back to the question. Shuffle deck and Read aloud stay below the card.",
   "Plant sorter 4 (cell wall layers) now has the columns in order: primary wall, middle lamella, secondary wall.",
   "The changed bases and amino acids in the mutation table puzzle are now underlined as well as bold, so they still show after printing.",
   "The mutation table puzzle now has a codon wheel page (also in its answer key). Read from the center outward: first base, second base, third base, then the amino acid. Stop codons are filled black."
