@@ -540,6 +540,9 @@ button.hbtn{border:0;margin:0;font-family:inherit;font-size:.78em;font-weight:80
 .iconlist{list-style:none;padding-left:0;margin:.4em 0 .8em}.iconlist li{display:flex;align-items:center;gap:12px;margin:.35em 0}
 .iex{flex:none;width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:8px}
 .wheelsm{width:18px;height:18px;-webkit-mask:radial-gradient(circle,transparent 0 2.5px,#000 3px);mask:radial-gradient(circle,transparent 0 2.5px,#000 3px)}
+
+.thome{flex:none}
+@media (min-width:900px){.thome{display:none}}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -1359,7 +1362,7 @@ function updateBars(t){
 const NOFILTER={diagrams:1};
 let cur="notes",G=null;
 $("#tabs").innerHTML=TABS.map(t=>{const st=STEPS[t[0]];if(t[0]==="diagrams")return"";
-  const b=`<button class="tab" id="tab-${t[0]}" data-t="${t[0]}" aria-current="false" aria-controls="main">${st?`<span class="tnum" aria-hidden="true">${st[0]}</span><span class="tlab">${t[1]}<small>${st[2]}</small></span>`:`<span class="tlab">${t[1]}<small>${t[0]==="print"?"Optional PDFs":"Start here"}</small></span>`}</button>`;
+  const b=`<button class="tab" id="tab-${t[0]}" data-t="${t[0]}" aria-current="false" aria-controls="main">${st?`<span class="tnum" aria-hidden="true">${st[0]}</span><span class="tlab">${t[1]}<small>${st[2]}</small></span>`:`${t[0]==="guide"?`<svg class="thome" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg>`:""}<span class="tlab">${t[1]}<small>${t[0]==="print"?"Optional PDFs":"Start here"}</small></span>`}</button>`;
   return t[0]==="notes"?`<div class="stepsh" id="stepsH">Study steps, in order</div>`+b:b}).join("");
 $("#tabs").addEventListener("click",e=>{const b=e.target.closest(".tab");if(b)go(b.dataset.t)});
 $("#tabs").addEventListener("keydown",e=>{if(e.key!=="ArrowRight"&&e.key!=="ArrowLeft")return;const i=TABS.findIndex(t=>t[0]===cur),n=(i+(e.key==="ArrowRight"?1:-1)+TABS.length)%TABS.length;go(TABS[n][0]);$("#tab-"+TABS[n][0]).focus()});
@@ -2251,6 +2254,7 @@ document.addEventListener("change",e=>{if(e.target.closest("#ptDlg"))ptSync()});
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "On phones, the How to use button now has a home icon beside it, so it is clear that it takes you back to the start.",
   "The installed app's fixed bar color (the bottom bar on some phones) is now dark gray-blue instead of bright blue.",
   "The phone status bar and bottom bar now match your color theme and screen mode instead of staying blue.",
   "Install directions for computers now mention that Chrome may word the menu item \"Install and create shortcut\" and put it near the bottom of the three-dot menu.",

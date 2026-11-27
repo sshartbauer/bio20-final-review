@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- On phones, the How to use button now has a home icon beside it, so it is clear that it takes you back to the start.
 - The installed app's fixed bar color (the bottom bar on some phones) is now dark gray-blue instead of bright blue.
 - The phone status bar and bottom bar now match your color theme and screen mode instead of staying blue.
 - Install directions for computers now mention that Chrome may word the menu item "Install and create shortcut" and put it near the bottom of the three-dot menu.
