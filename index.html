@@ -1311,7 +1311,9 @@ function applySettings(){
   applyPal();h.dataset.size=s.size;h.dataset.space=s.space;
   h.dataset.scores=s.scores;if(s.motion==="reduce"||s.theme==="lowstim")h.dataset.motion="reduce";else h.removeAttribute("data-motion");
   const f=$("#dframe");if(f&&f.contentWindow)try{f.contentWindow.postMessage({type:"theme",theme:themeNow()},"*")}catch(e){}
+  setBarColor();
 }
+function setBarColor(){try{let m=document.querySelector('meta[name="theme-color"]');if(!m){m=document.createElement("meta");m.name="theme-color";document.head.appendChild(m)}const c=getComputedStyle(document.body).backgroundColor;if(c&&c!=="rgba(0, 0, 0, 0)")m.setAttribute("content",c)}catch(e){}}
 function applyPal(){const h=document.documentElement,st=h.style;(applyPal.k||[]).forEach(k=>st.removeProperty(k));applyPal.k=[];const v=PALS[P.set.pal]?palVars(P.set.pal,modeNow()):null;if(!v)return;for(const k in v){st.setProperty("--"+k,v[k]);applyPal.k.push("--"+k)}}
 const modeNow=()=>P.set.theme==="auto"?(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"):P.set.theme;
 const themeNow=()=>P.set.theme==="auto"?(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"):P.set.theme==="lowstim"?"light":P.set.theme;
@@ -2249,6 +2251,7 @@ document.addEventListener("change",e=>{if(e.target.closest("#ptDlg"))ptSync()});
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "The phone status bar and bottom bar now match your color theme and screen mode instead of staying blue.",
   "Install directions for computers now mention that Chrome may word the menu item \"Install and create shortcut\" and put it near the bottom of the three-dot menu.",
   "New app icon, made from the cell and DNA picture. The Print and handouts page now has directions for installing this site as an app on Android, iPhone, and a computer.",
   "On the How to use page, the line about the small icons is now a list with a picture of each icon.",

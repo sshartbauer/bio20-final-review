@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- The phone status bar and bottom bar now match your color theme and screen mode instead of staying blue.
 - Install directions for computers now mention that Chrome may word the menu item "Install and create shortcut" and put it near the bottom of the three-dot menu.
 - New app icon, made from the cell and DNA picture. The Print and handouts page now has directions for installing this site as an app on Android, iPhone, and a computer.
 - On the How to use page, the line about the small icons is now a list with a picture of each icon.
