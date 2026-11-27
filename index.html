@@ -545,6 +545,9 @@ button.hbtn{border:0;margin:0;font-family:inherit;font-size:.78em;font-weight:80
 @media (min-width:900px){.thome{display:none}}
 
 @media (min-width:900px){html[data-side=show] #nextbar .nbchoose{display:none}}
+
+.vlink{background:none;border:0;color:var(--muted);text-decoration:underline;font-size:.85em;min-height:40px;padding:4px 8px;cursor:pointer}
+.vlink:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -1331,10 +1334,13 @@ function openSettings(){
   <div class="sgroup"><b>Reading spacing</b><div class="seg">${o("space","std","Standard")}${o("space","roomy","Roomy")}${o("space","double","Double")}</div><p class="small muted">Adds space between words, letters and lines. Roomy is the default.</p></div>
   <div class="sgroup"><b>Motion</b><div class="seg">${o("motion","auto","Follow device")}${o("motion","reduce","Reduce motion")}</div></div>
   <div class="sgroup"><b>Read aloud speed</b><div class="seg">${o("rate","0.8","Slow")}${o("rate","1","Normal")}${o("rate","1.2","Fast")}</div><p class="small muted">Read aloud buttons are on Notes, Flashcards and Quiz.</p></div>
+  ${CAN_SAY?`<div class="sgroup" id="voiceGroup"><b>Read aloud voice</b><div class="row" style="gap:8px;flex-wrap:wrap"><select id="voiceSel" aria-label="Read aloud voice" style="min-height:44px;max-width:100%;flex:1 1 220px">${voiceOptions()}</select><button type="button" class="btn sm" id="voiceTest">Test voice</button></div><p class="small muted">These are the voices on this device, so they may differ on your phone and your computer. A new voice can be added in your device's text-to-speech settings.</p></div>`:""}
   <div class="sgroup"><b>Scores in the quiz</b><div class="seg">${o("scores","show","Show")}${o("scores","hide","Hide")}</div><p class="small muted">Hide removes the running score and the final score. The Progress tab still shows your results.</p></div></div>`;
   $("#settings").hidden=false;$("#sclose").focus();
 }
+$("#settings").addEventListener("change",e=>{if(e.target.id==="voiceSel"){P.set.voice=e.target.value;save();testVoice()}});
 $("#settings").addEventListener("click",e=>{
+  if(e.target.id==="voiceTest"){testVoice();return}
   if(e.target.id==="settings"||e.target.id==="sclose"){$("#settings").hidden=true;$("#btnSet").focus();return}
   const b=e.target.closest("button[data-k]");if(!b)return;P.set[b.dataset.k]=b.dataset.v;save();applySettings();
   $$("button[data-k]",$("#settings")).forEach(x=>x.setAttribute("aria-pressed",P.set[x.dataset.k]===x.dataset.v));
@@ -2256,6 +2262,7 @@ document.addEventListener("change",e=>{if(e.target.closest("#ptDlg"))ptSync()});
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.6",date:"2026-11-27",items:[
+  "Settings now has a Read aloud voice picker with a Test voice button. It lists the voices on your device, English first. A small Voice link next to every Read aloud button (Notes, Flashcards, Quiz) opens it.",
   "The mutation table puzzle now has a codon wheel page (also in its answer key). Read from the center outward: first base, second base, third base, then the amino acid. Stop codons are filled black."
  ]},
  {v:"1.5",date:"2026-11-26",items:[
@@ -2363,7 +2370,7 @@ const CHANGELOG=[
 /* ===== read aloud, guided mode, calm settings ===== */
 const CAN_SAY=!!window.speechSynthesis&&typeof SpeechSynthesisUtterance!=="undefined";
 const SAYICON='<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6"/><path d="M18 6.5a8 8 0 0 1 0 11"/></svg>';
-const sayBtnHTML=kind=>CAN_SAY?`<button type="button" class="btn sm say" data-say="${kind}" aria-pressed="false">${SAYICON}<span>Read aloud</span></button>`:"";
+const sayBtnHTML=kind=>CAN_SAY?`<button type="button" class="btn sm say" data-say="${kind}" aria-pressed="false">${SAYICON}<span>Read aloud</span></button><button type="button" class="vlink" data-openvoice>Voice</button>`:"";
 let sayBtn=null,sayTok=0;
 function spokenSup(root){root.querySelectorAll("sup").forEach(n=>{const t=n.textContent.trim();let r;
   const ch=t.match(/^(\d*)([+\-\u2212\u2013])$/);
@@ -2406,13 +2413,27 @@ const SAYFIX=[
  [/\bvs\.?(?=\s)/g,"versus"],[/\b([Ii])ntron(s?)\b/g,(m,c,z)=>c+"n tron"+z],[/\b([Ee])xon(s?)\b/g,(m,c,z)=>(c==="E"?"Eck":"eck")+" son"+z],[/ {2,}/g," "]
 ];
 const sayFix=t=>{SAYFIX.forEach(f=>{t=t.replace(f[0],f[1])});return t};
+const allVoices=()=>CAN_SAY?speechSynthesis.getVoices():[];
+const pickVoice=()=>{const n=P.set.voice;return n?allVoices().find(v=>v.voiceURI===n)||null:null};
+function voiceOptions(){
+  const vs=allVoices(),en=vs.filter(v=>/^en/i.test(v.lang)),ot=vs.filter(v=>!/^en/i.test(v.lang));
+  const op=v=>`<option value="${esc(v.voiceURI)}"${P.set.voice===v.voiceURI?" selected":""}>${esc(v.name)} (${esc(v.lang)})</option>`;
+  return `<option value="">Device default</option>`+(en.length?`<optgroup label="English">${en.map(op).join("")}</optgroup>`:"")+(ot.length?`<optgroup label="Other languages">${ot.map(op).join("")}</optgroup>`:"");
+}
+function testVoice(){
+  if(!CAN_SAY)return;stopSay();
+  const vo=pickVoice(),u=new SpeechSynthesisUtterance("Mitochondria make ATP. This is how the voice sounds.");
+  u.rate=+P.set.rate||1;u.lang=vo?vo.lang:"en-US";if(vo)u.voice=vo;speechSynthesis.speak(u);
+}
+if(CAN_SAY)speechSynthesis.addEventListener("voiceschanged",()=>{const s=document.getElementById("voiceSel");if(s)s.innerHTML=voiceOptions()});
 function sayText(text,btn){
   text=sayFix(text);
   stopSay();const tok=sayTok;sayBtn=btn;btn.setAttribute("aria-pressed","true");btn.querySelector("span").textContent="Stop reading";
   const parts=text.match(/[^.!?;:]+[.!?;:]*\s*/g)||[text],chunks=[];let cur="";
   parts.forEach(p=>{if((cur+p).length>170&&cur){chunks.push(cur);cur=p}else cur+=p});if(cur)chunks.push(cur);
   const rate=+P.set.rate||1;
-  chunks.forEach((c,i)=>{const u=new SpeechSynthesisUtterance(c);u.rate=rate;u.lang="en-US";
+  const vo=pickVoice();
+  chunks.forEach((c,i)=>{const u=new SpeechSynthesisUtterance(c);u.rate=rate;u.lang=vo?vo.lang:"en-US";if(vo)u.voice=vo;
     if(i===chunks.length-1){u.onend=u.onerror=()=>{if(tok===sayTok){sayReset(btn);sayBtn=null}}}
     speechSynthesis.speak(u)});
 }
@@ -2459,6 +2480,7 @@ function leaveGuided(){
 if(P.gprev){sel.clear();P.gprev.forEach(id=>sel.add(id));delete P.gprev;saveSel();renderFilters()}
 document.addEventListener("click",e=>{
   const t=e.target;
+  if(t.closest("[data-openvoice]")){openSettings();const g=document.getElementById("voiceGroup");if(g){g.scrollIntoView({block:"center"});const s=document.getElementById("voiceSel");if(s)s.focus()}return}
   const sy=t.closest("[data-say]");
   if(sy){if(sy.getAttribute("aria-pressed")==="true")stopSay();else{const tx=sayFor(sy);if(tx)sayText(tx,sy)}return}
   if(t.closest("#gStart")){startGuided();return}
