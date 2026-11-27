@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- The cystic fibrosis and Huntington's tables in the notes are now half width, centered in the box, with centered cells.
 - Print and handouts now has named flashcard decks in the same bar format as the other downloads: all cards, Set 1, Set 2, and decks by topic. Build a custom deck opens a window where you tick the concepts you want.
 - The notes page now has a short list of ways to study besides reading: put explanations in your own words, rebuild tables like puzzles, use Read aloud, and draw pictures.
 - New Table puzzles section in Print and handouts. Each deck has a blank mat and cards to cut out and rearrange, plus an answer key. Decks: metric prefix table, mutation table, genetics tables, endomembrane sorter, and plant sorters.
