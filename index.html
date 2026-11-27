@@ -2059,8 +2059,11 @@ function renderPrint(){
   <div class="hlist">${PUZZLES.map(hb).join("")}</div></div>
   <div class="panel" id="ankiPanel"><h3 class="phead hk1">Anki decks</h3>
   <p><b>What is Anki?</b> A free flashcard app that shows each card again just before you would forget it. Free on computers, Android, and AnkiWeb. The iPhone app costs money.</p>
+  <details class="more"><summary>Download and install</summary>
+  <ul class="steps"><li>Windows, Mac, or Linux computer, free: <a href="https://apps.ankiweb.net/" target="_blank" rel="noopener">apps.ankiweb.net</a></li><li>Android phone or tablet, free: <a href="https://play.google.com/store/apps/details?id=com.ichi2.anki" target="_blank" rel="noopener">AnkiDroid on Google Play</a></li><li>iPhone or iPad, costs money: <a href="https://apps.apple.com/app/id373493387" target="_blank" rel="noopener">AnkiMobile on the App Store</a></li></ul>
+  <p class="small muted">Start with the computer version if you can. It is free, and you can also study for free in a web browser at AnkiWeb.</p></details>
   <details class="more"><summary>How to use these decks</summary>
-  <ol class="steps"><li>Install Anki from <a href="https://apps.ankiweb.net/" target="_blank" rel="noopener">apps.ankiweb.net</a>. On Android, install AnkiDroid.</li><li>Download a deck below.</li><li>Double-click the file to add it to Anki.</li><li>Click the deck, then Study Now. Click Show Answer, then pick Again, Hard, Good, or Easy.</li></ol>
+  <ol class="steps"><li>Install Anki. The links are in Download and install, above.</li><li>Download a deck below.</li><li>Double-click the file to add it to Anki.</li><li>Click the deck, then Study Now. Click Show Answer, then pick Again, Hard, Good, or Easy.</li></ol>
   <p class="small muted">Add the same card twice and Anki updates it instead of copying it.</p></details>
   <details class="more"><summary>Written guides and videos</summary>
   <ul class="steps"><li><a href="https://docs.ankiweb.net/getting-started.html" target="_blank" rel="noopener">Getting Started, in the Anki manual</a></li><li><a href="https://docs.ankiweb.net/manual/importing/intro" target="_blank" rel="noopener">Importing, in the Anki manual</a></li><li><a href="https://www.youtube.com/watch?v=XYern6KTHTI" target="_blank" rel="noopener">YouTube: How to install Anki and import decks</a></li><li><a href="https://www.youtube.com/watch?v=inO8zR9EAB4" target="_blank" rel="noopener">YouTube: How to import a deck in 20 seconds</a></li></ul>
@@ -2168,6 +2171,7 @@ document.addEventListener("change",e=>{if(e.target.closest("#ptDlg"))ptSync()});
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "The Anki section has a new Download and install menu with links for computer, Android, and iPhone.",
   "More space between the sections on the Print page.",
   "The Anki explainer is shorter. The steps and the guide and video links are now in two open-and-close sections.",
   "Section title bars on the Print page now touch the top and sides of their frames.",

@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- The Anki section has a new Download and install menu with links for computer, Android, and iPhone.
 - More space between the sections on the Print page.
 - The Anki explainer is shorter. The steps and the guide and video links are now in two open-and-close sections.
 - Section title bars on the Print page now touch the top and sides of their frames.
