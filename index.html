@@ -536,6 +536,10 @@ button.hbtn{border:0;margin:0;font-family:inherit;font-size:.78em;font-weight:80
 .panel.gp>h3{display:block;margin:-14px -14px 12px;padding:10px 16px;background:var(--gc);color:var(--kink);border-radius:calc(var(--r) - 1px) calc(var(--r) - 1px) 0 0;font-size:1.15em;line-height:1.3}
 @media (max-width:600px){.panel.gp>h3{margin:-12px -12px 12px}}
 :root[data-theme="hc"] .panel.gp>h3{border-bottom:2px solid var(--line)}
+
+.iconlist{list-style:none;padding-left:0;margin:.4em 0 .8em}.iconlist li{display:flex;align-items:center;gap:12px;margin:.35em 0}
+.iex{flex:none;width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:8px}
+.wheelsm{width:18px;height:18px;-webkit-mask:radial-gradient(circle,transparent 0 2.5px,#000 3px);mask:radial-gradient(circle,transparent 0 2.5px,#000 3px)}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -1441,7 +1445,7 @@ function renderGuide(){
   <p>Open <b>Settings</b>. You can change the theme, the text size, and the space between words and lines.</p>
   <p><b>Low-stim mode</b> is a theme with calm colors and no decoration. It also turns off motion.</p>
   <p>Notes, Flashcards and Quiz have a <b>Read aloud</b> button. It reads the text out loud. You can change the speed in Settings.</p>
-  <p>On a wide screen, the small icons at the top of the menu hide the menu, change the screen mode, bring you back to this page, and open the color themes.</p>
+  <p>On a wide screen, these small icons at the top of the menu do the following:</p><ul class="iconlist"><li><span class="iex"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/><path d="M16 9l-3 3 3 3"/></svg></span><span>Hide the menu.</span></li><li><span class="iex"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></span><span>Change the screen mode.</span></li><li><span class="iex"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg></span><span>Bring you back to this page.</span></li><li><span class="iex"><span class="wheel wheelsm" aria-hidden="true"></span></span><span>Open the color themes.</span></li></ul>
   <p><b>Color themes:</b> tap the color wheel button. It is next to the home button, or next to Settings on a phone. Pick a theme, like Kim's teddy bear or Shane's Ducati 996, and a screen mode. There are thirteen themes. Every theme works in every mode. High contrast looks the same for every theme.</p></div>
   <div class="panel gp c6"><h3>Your progress and your device</h3><ul>
   <li>Your progress is saved only in this browser on this device. Nothing is sent anywhere.</li>
@@ -2239,6 +2243,7 @@ document.addEventListener("change",e=>{if(e.target.closest("#ptDlg"))ptSync()});
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "On the How to use page, the line about the small icons is now a list with a picture of each icon.",
   "The How to use page titles are now colored bars that touch the top and sides of their frames. The color themes are explained in Make it easier to read.",
   "Every color theme now works in every screen mode: Follow device, Light, Dark, AMOLED black, and Low-stim. Pick a theme and a mode in the color pop-up. High contrast looks the same for every theme.",
   "Theme names in the color pop-up are centered under their pictures.",
