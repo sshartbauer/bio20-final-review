@@ -470,6 +470,19 @@ html[data-guided] #tabs,html[data-guided] #fbar,html[data-guided] #btnShow,html[
 .minibar #mbNext{white-space:nowrap}
 @media (max-width:899px){.minibar b{font-size:.95em}}
 @media (max-width:379px){.minibar .tnum{display:none}}
+
+.nbx{display:none}
+@media (min-width:900px){
+  #nextbar .nbx{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;min-height:30px;padding:0;margin-left:2px;border:1px solid var(--line);border-radius:50%;background:var(--surface);color:var(--muted);cursor:pointer;font:inherit}
+  #nextbar .nbx:hover{color:var(--fg);border-color:var(--fg)}
+  html[data-nbx] #nextbar .nbox{display:none}
+}
+
+.stepbar .howto{display:block;margin-top:10px;padding-top:8px;border-top:1px solid var(--line)}
+.stepbar .howto ol{margin:6px 0 0;padding-left:1.4em}
+.stepbar .howto li{margin:.45em 0;max-width:75ch}
+.stepbar .howto a{font-weight:700}
+#nextbar[hidden]{display:none!important}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -1241,7 +1254,7 @@ $("#btnSet").onclick=openSettings;
 
 /* ===== tabs ===== */
 const TABS=[["guide","How to use"],["notes","Notes"],["cards","Flashcards"],["quiz","Quiz"],["diagrams","Diagrams"],["drills","Practice"],["progress","Progress"],["print","Print and handouts"]];
-const STEPS={notes:[1,"Read the notes","Read one concept","Pick one concept. Read it from top to bottom. Yellow boxes are on the exam."],
+const STEPS={notes:[1,"Read the notes","Read one concept","Pick one concept. Read it from top to bottom. Yellow boxes are on the exam.",`<div class="howto"><b>Ways to use these notes besides reading:</b><ol><li><b>Explanations.</b> Write each one down in <i>your own words</i>. Copying it down word for word does nothing. Rewording it helps you understand it and remember it.</li><li><b>Tables.</b> Make paper flashcards and shuffle them. Then put the table back together like a puzzle. You can print flashcards for any concept in <a href="#print" data-go="print">Print and handouts</a>. That tab also has table puzzle decks made for this.</li><li><b>Read aloud.</b> Close your eyes and tap the Read aloud button. Listen to the voice instead of reading.</li><li><b>Draw a picture.</b> It does not have to be good, and it does not have to look like the real thing. Try drawing the endomembrane system. Drawing helps you remember where things are much more than reading or writing does.</li></ol></div>`],
   cards:[2,"Test yourself with flashcards","Test yourself","Read the question. Say the answer out loud. Flip the card. Then tap Got it or Review again."],
   quiz:[3,"Take the quiz","Check what you know","Pick an answer. Then read why. You can try the ones you missed again."],
   diagrams:[4,"Practice with a diagram","Practice with a diagram",""],
@@ -1249,14 +1262,15 @@ const STEPS={notes:[1,"Read the notes","Read one concept","Pick one concept. Rea
   progress:[5,"Check your progress","See your weak spots","See which concepts are hard for you. Then use the Missed-items mixer in Practice."]};
 const NEXT={notes:[["cards","Step 2: Flashcards"]],cards:[["quiz","Step 3: Quiz"]],quiz:[["drills","Step 4: Practice"],["print","Optional: print a practice test","btn"]],drills:[["progress","Step 5: Progress"]],progress:[["notes","Back to Step 1: Notes"]]};
 const USESEL={notes:1,cards:1,quiz:1};
+const NBX=`<button type="button" class="nbx" aria-label="Hide this banner until the next step" title="Hide until the next step"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>`;
 const whereChoose=()=>`Choose more or fewer concepts <span class="cn-side">on the left</span><span class="cn-above">with this button: <button type="button" class="btn sm" data-openfilt>Choose concepts</button></span>.`;
 function updateBars(t){
-  setMini(t);
+  setMini(t);document.documentElement.removeAttribute("data-nbx");
   const sb=$("#stepbar"),nb=$("#nextbar"),st=STEPS[t];
   if(G){guidedBars();return}
   if(!st||t==="diagrams"){sb.hidden=true;nb.hidden=true;return}
-  sb.style.setProperty("--sk","var(--c"+st[0]+")");sb.innerHTML=`<span class="pill stepno">Step ${st[0]} of 5</span> <b>${st[1]}.</b> ${st[3]}${USESEL[t]?` <span class="cnote">${whereChoose()}</span>`:""}`;sb.hidden=false;
-  nb.innerHTML=`<div class="nbox"><span class="nlab">Done with this step?</span>${NEXT[t].map(n=>`<a href="#${n[0]}" class="btn${n[2]?" nbopt":" primary"}" data-go="${n[0]}">${n[1]}</a>`).join("")}</div>`;nb.hidden=false}
+  sb.style.setProperty("--sk","var(--c"+st[0]+")");sb.innerHTML=`<span class="pill stepno">Step ${st[0]} of 5</span> <b>${st[1]}.</b> ${st[3]}${USESEL[t]?` <span class="cnote">${whereChoose()}</span>`:""}${st[4]||""}`;sb.hidden=false;
+  nb.innerHTML=`<div class="nbox"><span class="nlab">Done with this step?</span>${NEXT[t].map(n=>`<a href="#${n[0]}" class="btn${n[2]?" nbopt":" primary"}" data-go="${n[0]}">${n[1]}</a>`).join("")}${NBX}</div>`;nb.hidden=false}
 const NOFILTER={diagrams:1};
 let cur="notes",G=null;
 $("#tabs").innerHTML=TABS.map(t=>{const st=STEPS[t[0]];if(t[0]==="diagrams")return"";
@@ -2016,7 +2030,11 @@ function renderPrint(){
   <label class="row" style="gap:8px"><input type="checkbox" id="pcAgain" style="width:24px;height:24px"> Only cards I marked "Review again"</label>
   <div class="row" style="margin-top:10px"><button class="btn primary" id="pcMake" ${nc?"":"disabled"}>Download flashcard sheets</button></div><p class="small muted" id="pcMsg" aria-live="polite"></p></div>
   <div class="panel"><h3>Ready to download</h3><p>Blank diagrams and premade practice tests. The arrow button downloads the worksheet or test, and the key button downloads its answer key.</p>
-  <div class="hlist">${HANDOUTS.map((h,i)=>{const f=h[0].replace(".pdf","");return `<div class="hbar hk${i%5+1}"><a class="hbtn" href="handouts/${h[0]}" download aria-label="Download ${h[1]}" title="Download ${h[1]}"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10.5l5 5 5-5"/><path d="M4 20h16"/></svg><span>Download</span></a><a class="hbtn" href="handouts/${f}-key.pdf" download aria-label="Download the answer key for ${h[1]}" title="Download the answer key for ${h[1]}"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4.5"/><path d="M11.3 11.7L20 3"/><path d="M16.5 6.5l3 3"/><path d="M14 9l2 2"/></svg><span>Answer key</span></a><span class="htitle">${h[1]}</span></div>`}).join("")}</div></div>`}
+  <div class="hlist">${HANDOUTS.map(hb).join("")}</div></div>
+  <div class="panel"><h3>Table puzzles: cut out and rearrange</h3><p>Print, cut out the cards, shuffle them, and put the table back together. Each file has a blank mat and a page of cards. The arrow button downloads the puzzle, and the key button downloads the finished table.</p>
+  <div class="hlist">${PUZZLES.map(hb).join("")}</div></div>`}
+const hb=(h,i)=>{const f=h[0].replace(".pdf","");return `<div class="hbar hk${i%5+1}"><a class="hbtn" href="handouts/${h[0]}" download aria-label="Download ${h[1]}" title="Download ${h[1]}"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10.5l5 5 5-5"/><path d="M4 20h16"/></svg><span>Download</span></a><a class="hbtn" href="handouts/${f}-key.pdf" download aria-label="Download the answer key for ${h[1]}" title="Download the answer key for ${h[1]}"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4.5"/><path d="M11.3 11.7L20 3"/><path d="M16.5 6.5l3 3"/><path d="M14 9l2 2"/></svg><span>Answer key</span></a><span class="htitle">${h[1]}</span></div>`};
+const PUZZLES=[["Table-puzzle-metric-prefixes.pdf","Metric prefix table puzzle (21 cards)"],["Table-puzzle-mutations.pdf","Mutation table puzzle: DNA, mRNA, amino acids, result (16 cards)"],["Table-puzzle-genetics.pdf","Genetics puzzles: cystic fibrosis, Huntington's, and terms (26 cards)"],["Table-puzzle-endomembrane.pdf","Endomembrane sorter: rough ER, smooth ER, Golgi (11 cards)"],["Table-puzzle-plants.pdf","Plant sorters: tissues, cell types, transport, cell wall (25 cards)"]];
 const K=f=>`answer key: <a href="handouts/${f}-key.pdf" download>download</a>`;
 const HANDOUTS=[["Blank-diagram-mitochondrion.pdf","Mitochondrion blank worksheet with word bank",K("Blank-diagram-mitochondrion")],["Blank-diagram-chloroplast.pdf","Chloroplast blank worksheet with word bank",K("Blank-diagram-chloroplast")],
  ["Practice-test-A.pdf","Practice test A, 30 questions, all concepts",K("Practice-test-A")],["Practice-test-B.pdf","Practice test B, 30 questions, all concepts",K("Practice-test-B")],
@@ -2034,6 +2052,9 @@ document.addEventListener("click",e=>{if(cur!=="print")return;const id=e.target.
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "The notes page now has a short list of ways to study besides reading: put explanations in your own words, rebuild tables like puzzles, use Read aloud, and draw pictures.",
+  "New Table puzzles section in Print and handouts. Each deck has a blank mat and cards to cut out and rearrange, plus an answer key. Decks: metric prefix table, mutation table, genetics tables, endomembrane sorter, and plant sorters.",
+  "On desktop, the Done with this step banner has a small X to hide it until the next step.",
   "On phones, the slim bar at the top now has a Next button for the following step, so you do not have to scroll to the bottom.",
   "On desktop, the \"Done with this step?\" button now sits in a small banner at the top right that stays in view as you scroll, instead of at the very bottom of the page. The optional print link is in the Print and handouts tab.",
   "On phones, only a slim bar with the current step and a Menu button stays at the top while you scroll, instead of the whole step menu.",
@@ -2131,10 +2152,10 @@ const GSTEPS=[["notes","Read the notes","Next: Flashcards"],["cards","Try the fl
 function guidedBars(){
   const sb=$("#stepbar"),nb=$("#nextbar"),T=G.id&&topicById[G.id];
   const exit=`<button type="button" class="btn" data-gexit>Leave guided mode</button>`;
-  if(G.step<0||G.step>2){sb.hidden=true;nb.innerHTML=`<div class="nbox">${exit}</div>`;nb.hidden=false;return}
+  if(G.step<0||G.step>2){sb.hidden=true;nb.innerHTML=`<div class="nbox">${exit}${NBX}</div>`;nb.hidden=false;return}
   const s=GSTEPS[G.step];sb.style.setProperty("--sk","var(--c"+(G.step+1)+")");
   sb.innerHTML=`<span class="pill stepno">Guided mode</span> <b>${esc(T.name)}.</b> Step ${G.step+1} of 3: ${s[1]}.`;sb.hidden=false;
-  nb.innerHTML=`<div class="nbox gbox"><span class="nlab">Done with this step?</span><button type="button" class="btn primary big" data-gnext>${s[2]}</button>${exit}</div>`;nb.hidden=false;
+  nb.innerHTML=`<div class="nbox gbox"><span class="nlab">Done with this step?</span><button type="button" class="btn primary big" data-gnext>${s[2]}</button>${exit}${NBX}</div>`;nb.hidden=false;
 }
 function renderGuidedPage(){
   if(G.step<0){
@@ -2179,6 +2200,7 @@ function setMini(t){
   if(nx){if(N){const g=N[0][0],gn=STEPS[g]?STEPS[g][0]:0;nx.textContent="Next: Step "+gn;nx.dataset.go=g;nx.setAttribute("aria-label","Done with this step. Go to "+N[0][1]);nx.hidden=false}else nx.hidden=true}
   syncMini();
 }
+document.addEventListener("click",e=>{if(e.target.closest(".nbx"))document.documentElement.dataset.nbx="1"});
 function syncMini(){const top=$(".top");const on=MB.on.matches&&!G&&top&&scrollY>top.offsetHeight-4;document.documentElement.dataset.mini=on?"on":"off"}
 addEventListener("scroll",syncMini,{passive:true});addEventListener("resize",syncMini);
 document.addEventListener("click",e=>{if(e.target.closest("#mbMenu"))scrollTo({top:0})});

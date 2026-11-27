@@ -1,6 +1,9 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- The notes page now has a short list of ways to study besides reading: put explanations in your own words, rebuild tables like puzzles, use Read aloud, and draw pictures.
+- New Table puzzles section in Print and handouts. Each deck has a blank mat and cards to cut out and rearrange, plus an answer key. Decks: metric prefix table, mutation table, genetics tables, endomembrane sorter, and plant sorters.
+- On desktop, the Done with this step banner has a small X to hide it until the next step.
 - On phones, the slim bar at the top now has a Next button for the following step, so you do not have to scroll to the bottom.
 - On desktop, the "Done with this step?" button now sits in a small banner at the top right that stays in view as you scroll, instead of at the very bottom of the page. The optional print link is in the Print and handouts tab.
 - On phones, only a slim bar with the current step and a Menu button stays at the top while you scroll, instead of the whole step menu.
