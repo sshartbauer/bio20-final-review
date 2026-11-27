@@ -2,6 +2,7 @@
 
 ## 1.6 (2026-11-27)
 - Settings now has a Read aloud voice picker with a Test voice button. It lists the voices on your device, English first. A small Voice link next to every Read aloud button (Notes, Flashcards, Quiz) opens it.
+- The changed bases and amino acids in the mutation table puzzle are now underlined as well as bold, so they still show after printing.
 - The mutation table puzzle now has a codon wheel page (also in its answer key). Read from the center outward: first base, second base, third base, then the amino acid. Stop codons are filled black.
 
 ## 1.5 (2026-11-26)
