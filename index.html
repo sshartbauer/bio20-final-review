@@ -1455,7 +1455,7 @@ function renderCards(){
   stopSay();
   if(!deck)buildDeck(false);
   const k=Object.values(P.cards).filter(v=>v==="know").length,a=Object.values(P.cards).filter(v=>v==="again").length;
-  let h=`<h2>Flashcards</h2><div class="row"><label class="row" style="gap:8px"><input type="checkbox" id="cAgain" ${cOnlyAgain?"checked":""} style="width:24px;height:24px"> Only cards marked "Review again"</label></div>`;
+  let h=`<h2>Flashcards</h2><p class="small">Want paper cards? <a href="#print" data-decks><b>Print flashcard decks</b></a></p><div class="row"><label class="row" style="gap:8px"><input type="checkbox" id="cAgain" ${cOnlyAgain?"checked":""} style="width:24px;height:24px"> Only cards marked "Review again"</label></div>`;
   if(!deck.length){stopAuto();h+=`<div class="panel">${cOnlyAgain?"No cards are marked Review again in these concepts.":"No cards in the selected concepts."}</div>`;$("#main").innerHTML=h;return}
   if(pos>=deck.length)pos=0;const c=deck[pos],m=P.cards[c.id];
   h+=`<p class="small muted" aria-live="polite">Card ${pos+1} of ${deck.length}${m?` (marked: ${m==="know"?"got it":"review again"})`:""}. Tap the card or press Space to flip. Swipe or use the arrow keys to move.</p>
@@ -2045,7 +2045,7 @@ function renderPrint(){
   <div id="ptOut" aria-live="polite" class="ptout">${ptTest?ptReady():""}</div>
   <details class="more"><summary>More options</summary><div class="row" style="gap:12px;align-items:center;margin-top:8px"><label for="ptLay">Layout</label><select id="ptLay" class="sel"><option value="std">Standard</option><option value="dys">Easier to read (larger, double spaced)</option></select></div>
   <label class="row" style="gap:8px;margin-top:8px"><input type="checkbox" id="ptExp" checked style="width:24px;height:24px"> Include explanations in the answer key</label></details></div>
-  <div class="panel"><h3>Flashcard decks</h3><p>Two-sided sheets with eight cards on each. Print double sided, then cut along the dashed lines. The arrow button downloads the deck. Use Build a custom deck to pick your own concepts.</p>
+  <div class="panel" id="decksPanel"><h3>Flashcard decks</h3><p>Two-sided sheets with eight cards on each. Print double sided, then cut along the dashed lines. The arrow button downloads the deck. Use Build a custom deck to pick your own concepts.</p>
   <div class="hlist">${deckBars()}</div><p class="small muted" id="dkMsg" aria-live="polite"></p></div>
   <div class="panel"><h3>Ready to download</h3><p>Blank diagrams and premade practice tests. The arrow button downloads the worksheet or test, and the key button downloads its answer key.</p>
   <div class="hlist">${HANDOUTS.map(hb).join("")}</div></div>
@@ -2119,10 +2119,13 @@ document.addEventListener("click",e=>{
   else if(a==="close")d.close();
   else if(a==="go"){const c=cdCards();if(!c.length)return;deckSave(c,"BIOSC-020-flashcards-custom.pdf",cd).then(()=>d.close())}});
 document.addEventListener("change",e=>{if(e.target.closest("#cdDlg"))cdSync()});
+
+document.addEventListener("click",e=>{const a=e.target.closest("[data-decks]");if(!a)return;e.preventDefault();go("print");setTimeout(()=>{const p=$("#decksPanel");if(p){p.scrollIntoView({block:"start"});p.setAttribute("tabindex","-1");p.focus({preventScroll:true})}},60)});
 /* Newest first. Add an entry here and in CHANGELOG.md for every release. */
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "The Flashcards page has a link to the printable flashcard decks.",
   "The cystic fibrosis and Huntington's tables in the notes are now half width, centered in the box, with centered cells.",
   "Print and handouts now has named flashcard decks in the same bar format as the other downloads: all cards, Set 1, Set 2, and decks by topic. Build a custom deck opens a window where you tick the concepts you want.",
   "The notes page now has a short list of ways to study besides reading: put explanations in your own words, rebuild tables like puzzles, use Read aloud, and draw pictures.",
