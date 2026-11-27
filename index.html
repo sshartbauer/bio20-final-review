@@ -2254,6 +2254,7 @@ document.addEventListener("change",e=>{if(e.target.closest("#ptDlg"))ptSync()});
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "Read aloud now says exponents and charges out loud: 10 to the power of negative 9, K plus, Ca 2 plus.",
   "On phones, the How to use button now has a home icon beside it, so it is clear that it takes you back to the start.",
   "The installed app's fixed bar color (the bottom bar on some phones) is now dark gray-blue instead of bright blue.",
   "The phone status bar and bottom bar now match your color theme and screen mode instead of staying blue.",
@@ -2352,7 +2353,12 @@ const CAN_SAY=!!window.speechSynthesis&&typeof SpeechSynthesisUtterance!=="undef
 const SAYICON='<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6"/><path d="M18 6.5a8 8 0 0 1 0 11"/></svg>';
 const sayBtnHTML=kind=>CAN_SAY?`<button type="button" class="btn sm say" data-say="${kind}" aria-pressed="false">${SAYICON}<span>Read aloud</span></button>`:"";
 let sayBtn=null,sayTok=0;
-function htmlText(h){const d=document.createElement("div");d.innerHTML=h;return d.textContent.replace(/\s+/g," ").trim()}
+function spokenSup(root){root.querySelectorAll("sup").forEach(n=>{const t=n.textContent.trim();let r;
+  const ch=t.match(/^(\d*)([+\-\u2212\u2013])$/);
+  if(ch)r=" "+(ch[1]?ch[1]+" ":"")+(ch[2]==="+"?"plus":"minus")+" ";
+  else{const m=t.match(/^([+\-\u2212\u2013]?)(\d+)$/);r=m?" to the power of "+(m[1]&&m[1]!=="+"?"negative ":"")+m[2]+" ":" to the power of "+t+" "}
+  n.replaceWith(document.createTextNode(r))})}
+function htmlText(h){const d=document.createElement("div");d.innerHTML=h;spokenSup(d);return d.textContent.replace(/\s+/g," ").trim()}
 function sayReset(b){if(!b)return;b.setAttribute("aria-pressed","false");const s=b.querySelector("span");if(s)s.textContent="Read aloud"}
 function stopSay(){if(!CAN_SAY)return;sayTok++;speechSynthesis.cancel();sayReset(sayBtn);sayBtn=null}
 function sayText(text,btn){
@@ -2367,7 +2373,7 @@ function sayText(text,btn){
 function sayFor(btn){
   const k=btn.dataset.say;
   if(k==="topic"){const t=btn.closest(".topic"),b=t.querySelector(".tbody").cloneNode(true);
-    b.querySelectorAll(".tact").forEach(n=>n.remove());b.querySelectorAll("li,div.keynote,div.fignote,p,h3").forEach(n=>n.append(". "));b.querySelectorAll("td,th").forEach(n=>n.append(", "));
+    b.querySelectorAll(".tact").forEach(n=>n.remove());spokenSup(b);b.querySelectorAll("li,div.keynote,div.fignote,p,h3").forEach(n=>n.append(". "));b.querySelectorAll("td,th").forEach(n=>n.append(", "));
     return htmlText(t.querySelector(".tname").innerHTML)+". "+b.textContent.replace(/\s+/g," ")}
   if(k==="card"){const c=deck&&deck[pos];if(!c)return"";return (flipped?"Answer. ":"Question. ")+htmlText(flipped?c.b:c.f)}
   if(k==="quiz"){const S=qstate;if(!S||!S.pool[S.i])return"";const q=S.pool[S.i],A=S.ans;

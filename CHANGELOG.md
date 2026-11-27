@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- Read aloud now says exponents and charges out loud: 10 to the power of negative 9, K plus, Ca 2 plus.
 - On phones, the How to use button now has a home icon beside it, so it is clear that it takes you back to the start.
 - The installed app's fixed bar color (the bottom bar on some phones) is now dark gray-blue instead of bright blue.
 - The phone status bar and bottom bar now match your color theme and screen mode instead of staying blue.
