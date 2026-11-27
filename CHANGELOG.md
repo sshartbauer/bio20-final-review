@@ -1,7 +1,6 @@
 # Changelog
 
 ## 1.5 (2026-11-26)
-- A small red dot next to the subtitle in the top bar, as a test that the nightly publish worked. It will be removed.
 - Read aloud now pronounces intron and exon correctly.
 - Read aloud now says a plus sign before a number as positive, like negative 100 to positive 50 millivolts.
 - Read aloud now says science text more clearly: acronyms are spelled out (ETC, RMP, NADPH, tRNA and more), ions and formulas are spoken (sodium, H 2 O, bicarbonate), genotypes (AA, Aa, aa) and crosses, fractions, arrows, plus and minus signs, units (millivolts, grams), Roman numerals (complex 2, photosystem 1), vs, and DNA sequences read in groups of three letters.
