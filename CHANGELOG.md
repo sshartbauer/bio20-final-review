@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.6 (2026-11-27)
+- The mutation table puzzle now has a codon wheel page (also in its answer key). Read from the center outward: first base, second base, third base, then the amino acid. Stop codons are filled black.
+
 ## 1.5 (2026-11-26)
 - Read aloud now pronounces intron and exon correctly.
 - Read aloud now says a plus sign before a number as positive, like negative 100 to positive 50 millivolts.

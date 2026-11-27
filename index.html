@@ -2155,7 +2155,7 @@ function renderPrint(){
   <p class="small muted">These are made by other people, so the pictures may look a little different from your version of Anki.</p></details>
   <div class="hlist">${ankiBars()}</div></div>`}
 const hb=(h,i)=>{const f=h[0].replace(".pdf","");return `<div class="hbar hk${i%5+1}"><a class="hbtn" href="handouts/${h[0]}" download aria-label="Download ${h[1]}" title="Download ${h[1]}"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10.5l5 5 5-5"/><path d="M4 20h16"/></svg><span>Download</span></a><a class="hbtn" href="handouts/${f}-key.pdf" download aria-label="Download the answer key for ${h[1]}" title="Download the answer key for ${h[1]}"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4.5"/><path d="M11.3 11.7L20 3"/><path d="M16.5 6.5l3 3"/><path d="M14 9l2 2"/></svg><span>Answer key</span></a><span class="htitle">${h[1]}</span></div>`};
-const PUZZLES=[["Table-puzzle-metric-prefixes.pdf","Metric prefix table puzzle (21 cards)"],["Table-puzzle-mutations.pdf","Mutation table puzzle: DNA, mRNA, amino acids, result (16 cards)"],["Table-puzzle-genetics.pdf","Genetics puzzles: cystic fibrosis, Huntington's, and terms (26 cards)"],["Table-puzzle-endomembrane.pdf","Endomembrane sorter: rough ER, smooth ER, Golgi (11 cards)"],["Table-puzzle-plants.pdf","Plant sorters: tissues, cell types, transport, cell wall (25 cards)"]];
+const PUZZLES=[["Table-puzzle-metric-prefixes.pdf","Metric prefix table puzzle (21 cards)"],["Table-puzzle-mutations.pdf","Mutation table puzzle: DNA, mRNA, amino acids, result (16 cards, plus a codon wheel page)"],["Table-puzzle-genetics.pdf","Genetics puzzles: cystic fibrosis, Huntington's, and terms (26 cards)"],["Table-puzzle-endomembrane.pdf","Endomembrane sorter: rough ER, smooth ER, Golgi (11 cards)"],["Table-puzzle-plants.pdf","Plant sorters: tissues, cell types, transport, cell wall (25 cards)"]];
 const K=f=>`answer key: <a href="handouts/${f}-key.pdf" download>download</a>`;
 const HANDOUTS=[["Blank-diagram-mitochondrion.pdf","Mitochondrion blank worksheet with word bank",K("Blank-diagram-mitochondrion")],["Blank-diagram-chloroplast.pdf","Chloroplast blank worksheet with word bank",K("Blank-diagram-chloroplast")],
  ["Practice-test-A.pdf","Practice test A, 30 questions, all concepts",K("Practice-test-A")],["Practice-test-B.pdf","Practice test B, 30 questions, all concepts",K("Practice-test-B")],
@@ -2255,6 +2255,9 @@ document.addEventListener("change",e=>{if(e.target.closest("#ptDlg"))ptSync()});
 /* Newest first. Add an entry here and in CHANGELOG.md for every release. */
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
+ {v:"1.6",date:"2026-11-27",items:[
+  "The mutation table puzzle now has a codon wheel page (also in its answer key). Read from the center outward: first base, second base, third base, then the amino acid. Stop codons are filled black."
+ ]},
  {v:"1.5",date:"2026-11-26",items:[
   "Read aloud now pronounces intron and exon correctly.",
   "Read aloud now says a plus sign before a number as positive, like negative 100 to positive 50 millivolts.",
