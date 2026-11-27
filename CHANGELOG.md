@@ -1,7 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
-- New color theme: Shane's Ducati 996, black and silver with a little bright red.
+- New color theme: Shane's Ducati 996, light stone and charcoal with a little bright red.
 - The color wheel button is now on the phone and tablet top bar, next to Settings.
 - New: a color wheel button next to the home button opens a list of color themes, including Kim's teddy bear, Tommy's car upholstery, and Omar's soccer jersey. There are thirteen to try, including a plain black, white and grey one.
 - Removed the font and style note from the top of the Print page.
