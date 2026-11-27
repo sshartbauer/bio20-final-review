@@ -486,10 +486,10 @@ html[data-guided] #tabs,html[data-guided] #fbar,html[data-guided] #btnShow,html[
 
 .hbtn:disabled{opacity:.45;cursor:not-allowed}
 .hbtn[aria-busy=true]{opacity:.6}
-#cdDlg{width:min(600px,calc(100vw - 24px));max-height:90vh;padding:16px 18px 0;border:1px solid var(--line);border-radius:16px;background:var(--bg);color:var(--fg);overflow:auto}
-#cdDlg::backdrop{background:rgba(0,0,0,.55)}
-#cdDlg h3{margin:0 0 4px}
-#cdDlg h4{margin:14px 0 6px}
+#cdDlg,#ptDlg{width:min(600px,calc(100vw - 24px));max-height:90vh;padding:16px 18px 0;border:1px solid var(--line);border-radius:16px;background:var(--bg);color:var(--fg);overflow:auto}
+#cdDlg::backdrop,#ptDlg::backdrop{background:rgba(0,0,0,.55)}
+#cdDlg h3,#ptDlg h3{margin:0 0 4px}
+#cdDlg h4,#ptDlg h4{margin:14px 0 6px}
 .cdtools{gap:8px;margin:8px 0}
 .cdagain,.cdrow{display:flex;align-items:center;gap:10px;min-height:44px;padding:4px 2px}
 .cdagain input,.cdrow input{width:24px;height:24px;flex:none}
@@ -2001,7 +2001,7 @@ function lay(d,html,width,size,wsp,bold){const tk=toks(html,bold);const lines=[]
   if(line.length)lines.push(line);return lines}
 function drawLines(d,lines,x,y,size,lh){lines.forEach((ln,i)=>{ln.forEach(w=>{let xx=x+w.x;w.t.forEach(t=>{d.setFont("Carlito",t.b?"bold":"normal").setFontSize(t.sz);
     const dy=t.st==="sup"?-size*0.34:t.st==="sub"?size*0.14:0;d.text(t.w,xx,y+i*lh+dy);xx+=t.wd})})});return lines.length*lh}
-function mkTestSpec(n){const pool=QUIZ.filter(q=>sel.has(q.t));const picks=shuffle(pool).slice(0,Math.min(n,pool.length));
+function mkTestSpec(n,ids){const pool=QUIZ.filter(q=>ids.has(q.t));const picks=shuffle(pool).slice(0,Math.min(n,pool.length));
   return picks.map(q=>{const opts=shuffle([q.a,...q.w]);return{q,opts,k:opts.indexOf(q.a)}})}
 function buildTestPDF(fonts,spec,o){const d=newDoc(fonts),M=54,W=612-2*M,H=792-M-46;const dys=o.layout==="dys";
   const size=dys?14:12,lh=size*(dys?1.9:1.38),wsp=dys?1.7:1.0;let y=M;
@@ -2038,16 +2038,13 @@ function buildCardsPDF(fonts,cards){const d=newDoc(fonts),M=36,cw=270,ch=180;
   d.setFont("Carlito","normal").setFontSize(12);d.text(cards.length+" cards. Print double sided, flip on the long edge, then cut along the dashed lines.",M,M+52);
   d.text("Fronts are on the odd pages and the matching backs are on the next page.",M,M+70);d.text("Unofficial student-made review, written from the study guides.",M,M+88);
   for(let i=0;i<cards.length;i+=8){const g=cards.slice(i,i+8);sheet(g,false);sheet(g,true)}return d}
-function ptOptions(){return{layout:($("#ptLay")||{}).value||"std",expl:!$("#ptExp")||$("#ptExp").checked}}
+let ptIds=new Set(),ptOpt={n:20,layout:"std",expl:true};
+function ptOptions(){return{layout:ptOpt.layout,expl:ptOpt.expl}}
 function renderPrint(){
-  const nq=QUIZ.filter(q=>sel.has(q.t)).length;
   $("#main").innerHTML=`<h2>Print and handouts</h2><p class="muted small">These are optional paper copies. They are made from this site's own notes and questions. No files from the professor are used. The tests look like Prof. Shane's practice test: 12 point text, 16 point titles, and black only. Aptos is not free to share, so Carlito is used instead.</p>
-  <div class="panel"><h3 class="phead hk3">Build a practice test</h3><p>Uses the concepts you chose. ${whereChoose()} Right now that is ${sel.size} of ${TOPICS.length} concepts and ${nq} questions.</p>
-  <div class="row" style="gap:12px;align-items:center"><label for="ptN">Questions</label><select id="ptN" class="sel"><option>10</option><option selected>20</option><option>30</option><option>40</option><option value="999">All</option></select>
-  <button class="btn primary" id="ptMake" ${nq?"":"disabled"}>Make a new test</button></div>
-  <div id="ptOut" aria-live="polite" class="ptout">${ptTest?ptReady():""}</div>
-  <details class="more"><summary>More options</summary><div class="row" style="gap:12px;align-items:center;margin-top:8px"><label for="ptLay">Layout</label><select id="ptLay" class="sel"><option value="std">Standard</option><option value="dys">Easier to read (larger, double spaced)</option></select></div>
-  <label class="row" style="gap:8px;margin-top:8px"><input type="checkbox" id="ptExp" checked style="width:24px;height:24px"> Include explanations in the answer key</label></details></div>
+  <div class="panel"><h3 class="phead hk3">Build a practice test</h3><p>Two steps. First choose your concepts. Then download your test.</p>
+  <div class="row"><button type="button" class="btn primary" id="ptChoose">Step 1: Choose concepts</button></div>
+  <div id="ptOut" aria-live="polite" class="ptout">${ptReady()}</div></div>
   <div class="panel" id="decksPanel"><h3 class="phead hk2">Flashcard decks</h3><p>Two-sided sheets with eight cards on each. Print double sided, then cut along the dashed lines. The arrow button downloads the deck. Use Build a custom deck to pick your own concepts.</p>
   <div class="hlist">${deckBars()}</div><p class="small muted" id="dkMsg" aria-live="polite"></p></div>
   <div class="panel"><h3 class="phead hk4">Worksheets and practice tests</h3><p>Blank diagrams and premade practice tests. The arrow button downloads the worksheet or test, and the key button downloads its answer key.</p>
@@ -2068,12 +2065,12 @@ const K=f=>`answer key: <a href="handouts/${f}-key.pdf" download>download</a>`;
 const HANDOUTS=[["Blank-diagram-mitochondrion.pdf","Mitochondrion blank worksheet with word bank",K("Blank-diagram-mitochondrion")],["Blank-diagram-chloroplast.pdf","Chloroplast blank worksheet with word bank",K("Blank-diagram-chloroplast")],
  ["Practice-test-A.pdf","Practice test A, 30 questions, all concepts",K("Practice-test-A")],["Practice-test-B.pdf","Practice test B, 30 questions, all concepts",K("Practice-test-B")],
  ["Practice-test-set1-only.pdf","Practice test, set 1 only (old material), 25 questions",K("Practice-test-set1-only")],["Practice-test-set2-only.pdf","Practice test, set 2 only (new material), 25 questions",K("Practice-test-set2-only")]];
-function ptReady(){return `<p><b>Test ready:</b> ${ptTest.length} questions from ${new Set(ptTest.map(s=>s.q.t)).size} concepts.</p><div class="row"><button class="btn primary" id="ptDl">Download the test (PDF)</button><button class="btn" id="ptKey">Download the answer key (PDF)</button></div>`}
+function ptReady(){return ptTest?`<p><b>Your test is ready:</b> ${ptTest.length} questions from ${new Set(ptTest.map(s=>s.q.t)).size} concepts.</p><div class="row"><button class="btn primary" id="ptDl">Step 2: Download the test (PDF)</button><button class="btn" id="ptKey">Download the answer key (PDF)</button></div>`:`<p class="muted">Step 2 shows up here after you choose concepts.</p>`}
 async function ptRun(fn,btn,msgEl,name){const old=btn.textContent;btn.disabled=true;btn.textContent="Making the PDF...";msgEl.textContent="";
   try{const f=await pdfReady();const d=fn(f);d.save(name)}catch(e){msgEl.textContent="The PDF could not be made. Check your connection and try again."}
   btn.disabled=false;btn.textContent=old}
 document.addEventListener("click",e=>{if(cur!=="print")return;const id=e.target.id;
-  if(id==="ptMake"){ptTest=mkTestSpec(+$("#ptN").value);$("#ptOut").innerHTML=ptReady()}
+  if(id==="ptChoose"){const d=ptDialog();ptSync();d.showModal()}
   else if(id==="ptDl"||id==="ptKey"){const k=id==="ptKey",o=ptOptions();o.key=k;ptRun(f=>buildTestPDF(f,ptTest,o),e.target,$("#ptOut").appendChild(Object.assign(document.createElement("p"),{className:"small"})),k?"BIOSC-020-practice-test-key.pdf":"BIOSC-020-practice-test.pdf")}});
 
 /* ===== named flashcard decks and custom deck ===== */
@@ -2138,10 +2135,33 @@ function ankiBars(){
   DECKS.forEach(d=>{if(d[0]!=="set1"&&d[0]!=="set2")rows.push([d[0],d[1],deckCards(d).length])});
   return rows.map((r,i)=>`<div class="hbar hk${i%5+1}"><a class="hbtn" href="handouts/Anki-${r[0]}.apkg" download aria-label="Download the Anki deck: ${r[1]}" title="Download the Anki deck: ${r[1]}">${ICON_DL}<span>Download</span></a><span class="htitle">${r[1]} (${r[2]} cards)</span></div>`).join("")}
 document.addEventListener("click",e=>{const a=e.target.closest("[data-anki]");if(!a)return;e.preventDefault();go("print");setTimeout(()=>{const p=$("#ankiPanel");if(p){p.scrollIntoView({block:"start"});p.setAttribute("tabindex","-1");p.focus({preventScroll:true})}},60)});
+
+/* ===== practice test: choose concepts window ===== */
+function ptDialog(){
+  let d=$("#ptDlg");if(d)return d;
+  d=document.createElement("dialog");d.id="ptDlg";d.className="cddlg";d.setAttribute("aria-labelledby","ptT");
+  d.innerHTML=`<h3 id="ptT">Choose concepts for your test</h3><p>Tick the concepts you want questions from. The number in brackets is how many questions each one has.</p>
+  <div class="row cdtools"><button type="button" class="btn sm" data-pt="all">Select all</button><button type="button" class="btn sm" data-pt="none">Clear all</button></div>
+  <div class="row" style="gap:12px;align-items:center;margin:6px 0"><label for="ptN">Questions on the test</label><select id="ptN" class="sel"><option>10</option><option selected>20</option><option>30</option><option>40</option><option value="999">All</option></select></div>
+  <details class="more"><summary>More options</summary><div class="row" style="gap:12px;align-items:center;margin-top:8px"><label for="ptLay">Layout</label><select id="ptLay" class="sel"><option value="std">Standard</option><option value="dys">Easier to read (larger, double spaced)</option></select></div>
+  <label class="cdagain"><input type="checkbox" id="ptExp" checked> Include explanations in the answer key</label></details>
+  <div class="cdlist">${GROUPS.map(g=>`<h4><span class="gtitle g${g.set}">${g.title}</span></h4>`+TOPICS.filter(t=>t.set===g.set).map(t=>`<label class="cdrow"><input type="checkbox" data-ptt="${t.id}"><span>${esc(t.name)} <small>(${QUIZ.filter(q=>q.t===t.id).length})</small></span></label>`).join("")).join("")}</div>
+  <div class="cdfoot"><span id="ptCount" aria-live="polite">0 questions</span><button type="button" class="btn" data-pt="close">Cancel</button><button type="button" class="btn primary" id="ptGo" data-pt="go" disabled>Make my test</button></div>`;
+  document.body.appendChild(d);
+  d.querySelectorAll("[data-ptt]").forEach(x=>x.checked=ptIds.has(x.dataset.ptt));
+  $("#ptN").value=String(ptOpt.n);$("#ptLay").value=ptOpt.layout;$("#ptExp").checked=ptOpt.expl;return d}
+function ptChosen(){return new Set([...$("#ptDlg").querySelectorAll("[data-ptt]:checked")].map(x=>x.dataset.ptt))}
+function ptSync(){const ids=ptChosen(),n=QUIZ.filter(q=>ids.has(q.t)).length;$("#ptCount").textContent=n+(n===1?" question":" questions");$("#ptGo").disabled=!n}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-pt]");if(!b)return;const d=$("#ptDlg"),a=b.dataset.pt;
+  if(a==="all"||a==="none"){d.querySelectorAll("[data-ptt]").forEach(x=>x.checked=a==="all");ptSync()}
+  else if(a==="close")d.close();
+  else if(a==="go"){ptIds=ptChosen();ptOpt={n:+$("#ptN").value,layout:$("#ptLay").value,expl:$("#ptExp").checked};ptTest=mkTestSpec(ptOpt.n,ptIds);d.close();if(cur==="print")$("#ptOut").innerHTML=ptReady()}});
+document.addEventListener("change",e=>{if(e.target.closest("#ptDlg"))ptSync()});
 /* Newest first. Add an entry here and in CHANGELOG.md for every release. */
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "Build a practice test is now two steps. Click Choose concepts, pick your concepts in a window, then download the test and answer key. It no longer uses the concepts chosen on the left.",
   "The Anki decks section is now the last section on the Print and handouts page.",
   "Section titles on the Print and handouts page are now on colored banners. Ready to download is renamed Worksheets and practice tests.",
   "The Anki section now explains what Anki is, how to use it, links to the Anki manual and two YouTube videos, and has one download that holds all the decks.",

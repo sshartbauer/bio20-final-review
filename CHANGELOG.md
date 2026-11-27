@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- Build a practice test is now two steps. Click Choose concepts, pick your concepts in a window, then download the test and answer key. It no longer uses the concepts chosen on the left.
 - The Anki decks section is now the last section on the Print and handouts page.
 - Section titles on the Print and handouts page are now on colored banners. Ready to download is renamed Worksheets and practice tests.
 - The Anki section now explains what Anki is, how to use it, links to the Anki manual and two YouTube videos, and has one download that holds all the decks.
