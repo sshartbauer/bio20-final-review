@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- The Anki section now explains what Anki is, how to use it, links to the Anki manual and two YouTube videos, and has one download that holds all the decks.
 - Print and handouts has Anki decks (.apkg files) for all cards, each set, and each topic. The Flashcards page links to them.
 - The contact note now says you can also share your experience using the site.
 - The Flashcards page has a link to the printable flashcard decks.
