@@ -509,6 +509,8 @@ button.hbtn{border:0;margin:0;font-family:inherit;font-size:.78em;font-weight:80
 @media (max-width:600px){.phead{margin:-12px -12px 12px}}
 
 .panel>h3.phead:first-child{margin-top:-14px}@media (max-width:600px){.panel>h3.phead:first-child{margin-top:-12px}}
+
+.panel:has(>.phead){margin:30px 0}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -2166,6 +2168,7 @@ document.addEventListener("change",e=>{if(e.target.closest("#ptDlg"))ptSync()});
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "More space between the sections on the Print page.",
   "The Anki explainer is shorter. The steps and the guide and video links are now in two open-and-close sections.",
   "Section title bars on the Print page now touch the top and sides of their frames.",
   "Build a practice test is now two steps. Click Choose concepts, pick your concepts in a window, then download the test and answer key. It no longer uses the concepts chosen on the left.",

@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- More space between the sections on the Print page.
 - The Anki explainer is shorter. The steps and the guide and video links are now in two open-and-close sections.
 - Section title bars on the Print page now touch the top and sides of their frames.
 - Build a practice test is now two steps. Click Choose concepts, pick your concepts in a window, then download the test and answer key. It no longer uses the concepts chosen on the left.
