@@ -2256,6 +2256,7 @@ document.addEventListener("change",e=>{if(e.target.closest("#ptDlg"))ptSync()});
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "Read aloud now pronounces intron and exon correctly.",
   "Read aloud now says a plus sign before a number as positive, like negative 100 to positive 50 millivolts.",
   "Read aloud now says science text more clearly: acronyms are spelled out (ETC, RMP, NADPH, tRNA and more), ions and formulas are spoken (sodium, H 2 O, bicarbonate), genotypes (AA, Aa, aa) and crosses, fractions, arrows, plus and minus signs, units (millivolts, grams), Roman numerals (complex 2, photosystem 1), vs, and DNA sequences read in groups of three letters.",
   "Read aloud now spells out ER, so rough ER is no longer read as rougher.",
@@ -2397,7 +2398,7 @@ const SAYFIX=[
  [/\s*\(mV\)/g,""],[/\bmV\b/g,"millivolts"],[/\bmM\b/g,"millimolar"],
  [/(^|[\s(])[-−](?=\d)/g,"$1negative "],[/(^|[\s(])\+(?=\d)/g,"$1positive "],
  [/\s\+\s/g," plus "],[/\s=\s/g," equals "],[/\s*\/\s*/g," and "],[/[\[\]]/g,""],
- [/\bvs\.?(?=\s)/g,"versus"],[/ {2,}/g," "]
+ [/\bvs\.?(?=\s)/g,"versus"],[/\b([Ii])ntron(s?)\b/g,(m,c,z)=>c+"n tron"+z],[/\b([Ee])xon(s?)\b/g,(m,c,z)=>(c==="E"?"Eck":"eck")+" son"+z],[/ {2,}/g," "]
 ];
 const sayFix=t=>{SAYFIX.forEach(f=>{t=t.replace(f[0],f[1])});return t};
 function sayText(text,btn){
