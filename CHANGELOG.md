@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.4 (2026-11-25)
+## 1.5 (2026-11-26)
 - Read aloud now pronounces intron and exon correctly.
 - Read aloud now says a plus sign before a number as positive, like negative 100 to positive 50 millivolts.
 - Read aloud now says science text more clearly: acronyms are spelled out (ETC, RMP, NADPH, tRNA and more), ions and formulas are spoken (sodium, H 2 O, bicarbonate), genotypes (AA, Aa, aa) and crosses, fractions, arrows, plus and minus signs, units (millivolts, grams), Roman numerals (complex 2, photosystem 1), vs, and DNA sequences read in groups of three letters.
@@ -39,6 +39,8 @@
 - On desktop, the Done with this step banner has a small X to hide it until the next step.
 - On phones, the slim bar at the top now has a Next button for the following step, so you do not have to scroll to the bottom.
 - On desktop, the "Done with this step?" button now sits in a small banner at the top right that stays in view as you scroll, instead of at the very bottom of the page. The optional print link is in the Print and handouts tab.
+
+## 1.4 (2026-11-25)
 - On phones, only a slim bar with the current step and a Menu button stays at the top while you scroll, instead of the whole step menu.
 - The step banner now lines up with the page content, and the active menu item uses its step color.
 - Set 1 and Set 2 labels use one slate color, filled for Set 1 and outlined for Set 2. The leftover orange is gone.
