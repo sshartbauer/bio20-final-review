@@ -453,6 +453,19 @@ html[data-guided] #tabs,html[data-guided] #fbar,html[data-guided] #btnShow,html[
 .meter{border:1px solid var(--line)}
 
 @media (max-width:899px){.sidebtn,.tools{display:none!important}}
+
+/* sticky "done with this step" banner, wide screens only */
+.nbox{display:contents}
+@media (min-width:900px){
+  html{scroll-padding-top:76px}
+  html:not([data-tab="diagrams"]) #nextbar{grid-row:1/-1;align-self:start;position:sticky;top:12px;z-index:30;margin:0;padding-top:0;padding-bottom:0;height:0;overflow:visible;pointer-events:none;display:flex;justify-content:flex-end;align-items:flex-start}
+  #nextbar .nbox{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:flex-end;max-width:420px;pointer-events:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:8px 10px 8px 14px;box-shadow:0 4px 14px rgba(0,0,0,.14)}
+  #nextbar .nlab{font-size:.88em}
+  #nextbar .btn{min-height:38px;padding:5px 14px;font-size:.92em}
+  html:not([data-tab="diagrams"]) #stepbar{margin-top:72px}
+}
+
+@media (min-width:900px){#nextbar .nbopt{display:none}#nextbar .gbox .nlab{display:none}}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -1230,7 +1243,7 @@ const STEPS={notes:[1,"Read the notes","Read one concept","Pick one concept. Rea
   diagrams:[4,"Practice with a diagram","Practice with a diagram",""],
   drills:[4,"Practice","Diagrams and drills","Pick a diagram or a drill. Each one tells you what to do."],
   progress:[5,"Check your progress","See your weak spots","See which concepts are hard for you. Then use the Missed-items mixer in Practice."]};
-const NEXT={notes:[["cards","Step 2: Flashcards"]],cards:[["quiz","Step 3: Quiz"]],quiz:[["drills","Step 4: Practice"],["print","Optional: print a practice test","btn"]],drills:[["progress","Step 5: Progress"]],progress:[["notes","Back to step 1: Notes for the next concept"]]};
+const NEXT={notes:[["cards","Step 2: Flashcards"]],cards:[["quiz","Step 3: Quiz"]],quiz:[["drills","Step 4: Practice"],["print","Optional: print a practice test","btn"]],drills:[["progress","Step 5: Progress"]],progress:[["notes","Back to Step 1: Notes"]]};
 const USESEL={notes:1,cards:1,quiz:1};
 const whereChoose=()=>`Choose more or fewer concepts <span class="cn-side">on the left</span><span class="cn-above">with this button: <button type="button" class="btn sm" data-openfilt>Choose concepts</button></span>.`;
 function updateBars(t){
@@ -1239,7 +1252,7 @@ function updateBars(t){
   if(G){guidedBars();return}
   if(!st||t==="diagrams"){sb.hidden=true;nb.hidden=true;return}
   sb.style.setProperty("--sk","var(--c"+st[0]+")");sb.innerHTML=`<span class="pill stepno">Step ${st[0]} of 5</span> <b>${st[1]}.</b> ${st[3]}${USESEL[t]?` <span class="cnote">${whereChoose()}</span>`:""}`;sb.hidden=false;
-  nb.innerHTML=`<span class="nlab">Done with this step?</span>${NEXT[t].map(n=>`<a href="#${n[0]}" class="btn${n[2]?"":" primary"}" data-go="${n[0]}">${n[1]}</a>`).join("")}`;nb.hidden=false}
+  nb.innerHTML=`<div class="nbox"><span class="nlab">Done with this step?</span>${NEXT[t].map(n=>`<a href="#${n[0]}" class="btn${n[2]?" nbopt":" primary"}" data-go="${n[0]}">${n[1]}</a>`).join("")}</div>`;nb.hidden=false}
 const NOFILTER={diagrams:1};
 let cur="notes",G=null;
 $("#tabs").innerHTML=TABS.map(t=>{const st=STEPS[t[0]];if(t[0]==="diagrams")return"";
@@ -2017,6 +2030,7 @@ document.addEventListener("click",e=>{if(cur!=="print")return;const id=e.target.
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "On desktop, the \"Done with this step?\" button now sits in a small banner at the top right that stays in view as you scroll, instead of at the very bottom of the page. The optional print link is in the Print and handouts tab.",
   "On phones, only a slim bar with the current step and a Menu button stays at the top while you scroll, instead of the whole step menu.",
   "The step banner now lines up with the page content, and the active menu item uses its step color.",
   "Set 1 and Set 2 labels use one slate color, filled for Set 1 and outlined for Set 2. The leftover orange is gone.",
@@ -2112,10 +2126,10 @@ const GSTEPS=[["notes","Read the notes","Next: Flashcards"],["cards","Try the fl
 function guidedBars(){
   const sb=$("#stepbar"),nb=$("#nextbar"),T=G.id&&topicById[G.id];
   const exit=`<button type="button" class="btn" data-gexit>Leave guided mode</button>`;
-  if(G.step<0||G.step>2){sb.hidden=true;nb.innerHTML=exit;nb.hidden=false;return}
+  if(G.step<0||G.step>2){sb.hidden=true;nb.innerHTML=`<div class="nbox">${exit}</div>`;nb.hidden=false;return}
   const s=GSTEPS[G.step];sb.style.setProperty("--sk","var(--c"+(G.step+1)+")");
   sb.innerHTML=`<span class="pill stepno">Guided mode</span> <b>${esc(T.name)}.</b> Step ${G.step+1} of 3: ${s[1]}.`;sb.hidden=false;
-  nb.innerHTML=`<span class="nlab">Done with this step?</span><button type="button" class="btn primary big" data-gnext>${s[2]}</button>${exit}`;nb.hidden=false;
+  nb.innerHTML=`<div class="nbox gbox"><span class="nlab">Done with this step?</span><button type="button" class="btn primary big" data-gnext>${s[2]}</button>${exit}</div>`;nb.hidden=false;
 }
 function renderGuidedPage(){
   if(G.step<0){

@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- On desktop, the "Done with this step?" button now sits in a small banner at the top right that stays in view as you scroll, instead of at the very bottom of the page. The optional print link is in the Print and handouts tab.
 - On phones, only a slim bar with the current step and a Menu button stays at the top while you scroll, instead of the whole step menu.
 - The step banner now lines up with the page content, and the active menu item uses its step color.
 - Set 1 and Set 2 labels use one slate color, filled for Set 1 and outlined for Set 2. The leftover orange is gone.
