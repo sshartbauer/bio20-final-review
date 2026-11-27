@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- Read aloud now says a plus sign before a number as positive, like negative 100 to positive 50 millivolts.
 - Read aloud now says science text more clearly: acronyms are spelled out (ETC, RMP, NADPH, tRNA and more), ions and formulas are spoken (sodium, H 2 O, bicarbonate), genotypes (AA, Aa, aa) and crosses, fractions, arrows, plus and minus signs, units (millivolts, grams), Roman numerals (complex 2, photosystem 1), vs, and DNA sequences read in groups of three letters.
 - Read aloud now spells out ER, so rough ER is no longer read as rougher.
 - Choose concepts buttons now appear everywhere your concepts are used: in the Notes, Flashcards, Quiz and Practice step notes, in the floating Done with this step box, in the Practice explainer, and when no concepts, cards or questions match.
