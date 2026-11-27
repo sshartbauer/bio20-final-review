@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- New: a color wheel button next to the home button opens a list of color themes, including Kim's teddy bear, Tommy's car upholstery, and Omar's soccer jersey. There are twelve to try, including a plain black, white and grey one.
 - Removed the font and style note from the top of the Print page.
 - The Anki section has a new Download and install menu with links for computer, Android, and iPhone.
 - More space between the sections on the Print page.
