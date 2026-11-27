@@ -111,7 +111,7 @@ table.mini{margin:.5em 0;font-size:.95em}
 .tact{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 
 /* flashcards */
-.card{min-height:230px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;cursor:pointer;user-select:none;position:relative;padding:34px 18px 40px;border:3px solid var(--accent);border-radius:16px;background:var(--surface);width:100%;font-size:1.2em}
+.card{min-height:230px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;column-gap:10px;align-items:center;text-align:center;cursor:pointer;user-select:none;position:relative;padding:40px 10px 44px;border:3px solid var(--accent);border-radius:16px;background:var(--surface);width:100%;font-size:1.2em}
 .card.back{background:var(--accent);color:var(--accent-ink)}
 .card .corner{position:absolute;top:8px;left:12px;right:12px;display:flex;justify-content:space-between;font-size:.62em;font-weight:700;opacity:.85}
 .card .hint{position:absolute;bottom:8px;font-size:.6em;opacity:.8}
@@ -548,6 +548,14 @@ button.hbtn{border:0;margin:0;font-family:inherit;font-size:.78em;font-weight:80
 
 .vlink{background:none;border:0;color:var(--muted);text-decoration:underline;font-size:.85em;min-height:40px;padding:4px 8px;cursor:pointer}
 .vlink:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+
+.card .txt{justify-self:center;padding:0 4px}
+.card .cside{display:flex;flex-direction:column;gap:8px;width:86px}
+.card .cside .btn{width:100%;min-height:44px;padding:4px 4px;font-size:.7em;line-height:1.15}
+.card.back .btn{background:var(--surface);color:var(--fg);border:2px solid var(--surface)}
+.card.back .btn.primary{border:3px solid var(--accent-ink);font-weight:800}
+@media (min-width:600px){.card .cside{width:116px}.card .cside .btn{font-size:.78em}}
+.card .hint{left:0;right:0;text-align:center}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -1554,8 +1562,12 @@ function renderCards(){
   if(pos>=deck.length)pos=0;const c=deck[pos],m=P.cards[c.id];
   h+=`<p class="small muted" aria-live="polite">Card ${pos+1} of ${deck.length}${m?` (marked: ${m==="know"?"got it":"review again"})`:""}. Tap the card or press Space to flip. Swipe or use the arrow keys to move.</p>
   <div class="meter" aria-hidden="true"><i style="width:${(pos+1)/deck.length*100}%"></i></div><p></p>
-  <div class="card ${flipped?"back":""}" id="card" tabindex="0" role="button" aria-label="Flashcard. ${flipped?"Answer side":"Question side"}. Press Space to flip."><div class="corner"><span>${esc(tShort(c.t))}</span><span>${flipped?"answer":"question"}</span></div><div class="txt">${flipped?c.b:c.f}</div><div class="hint">${flipped?"tap to see the question":"tap to see the answer"}</div></div>
-  <div class="fcbtns"><button class="btn" id="cPrev">Previous</button><button class="btn" id="cNext">Next</button><button class="btn primary" id="cKnow">Got it</button><button class="btn" id="cAgainB">Review again</button><button class="btn ghost" id="cShuf">Shuffle deck</button>${sayBtnHTML("card")}</div>
+  <div class="card ${flipped?"back":""}" id="card" tabindex="0" role="group" aria-label="Flashcard. ${flipped?"Answer side":"Question side"}. Tap the middle of the card or press Space to flip."><div class="corner"><span>${esc(tShort(c.t))}</span><span>${flipped?"answer":"question"}</span></div>
+  <div class="cside"><button type="button" class="btn sm" id="cPrev">Previous</button>${flipped?`<button type="button" class="btn sm" id="cAgainB">Review again</button>`:""}</div>
+  <div class="txt">${flipped?c.b:c.f}</div>
+  <div class="cside"><button type="button" class="btn sm" id="cNext">Next</button>${flipped?`<button type="button" class="btn sm primary" id="cKnow">Got it</button>`:""}</div>
+  <div class="hint">${flipped?"tap the middle of the card to see the question":"tap the middle of the card to see the answer"}</div></div>
+  <div class="fcbtns"><button class="btn ghost" id="cShuf">Shuffle deck</button>${sayBtnHTML("card")}</div>
   <p class="small muted">Marked so far across all cards: ${k} got it, ${a} review again, ${CARDS.length-k-a} unmarked.</p>`+autoPanel();
   $("#main").innerHTML=h;resched();
 }
@@ -1564,7 +1576,9 @@ function cmove(d){autoDone=false;if(!deck.length)return;pos=(pos+d+deck.length)%
 function cmark(v){if(!deck.length)return;P.cards[deck[pos].id]=v;save();if(cOnlyAgain&&v==="know"){buildDeck(false);flipped=false;renderCards();return}cmove(1)}
 $("#main").addEventListener("click",e=>{
   if(cur!=="cards")return;const t=e.target;
-  if(t.closest("#card"))cflip();else if(t.id==="cPrev")cmove(-1);else if(t.id==="cNext")cmove(1);else if(t.id==="cKnow")cmark("know");else if(t.id==="cAgainB")cmark("again");
+  const bid=(t.closest("button")||{}).id;
+  if(bid==="cPrev")cmove(-1);else if(bid==="cNext")cmove(1);else if(bid==="cKnow")cmark("know");else if(bid==="cAgainB")cmark("again");
+  else if(t.closest("#card"))cflip();
   else if(t.id==="cShuf"){buildDeck(true);renderCards()}
   else if(t.id==="cPlay"){if(playing)stopAuto();else{playing=true;autoDone=false}renderCards()}
 });
@@ -2263,6 +2277,7 @@ const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.6",date:"2026-11-27",items:[
   "Settings now has a Read aloud voice picker with a Test voice button. It lists the voices on your device, English first. A small Voice link next to every Read aloud button (Notes, Flashcards, Quiz) opens it.",
+  "Flashcards: Previous and Next are now on the card, on the left and right of the question or answer. When the card is flipped, Review again sits under Previous and Got it sits under Next. Tap the middle of the card to flip it back to the question. Shuffle deck and Read aloud stay below the card.",
   "Plant sorter 4 (cell wall layers) now has the columns in order: primary wall, middle lamella, secondary wall.",
   "The changed bases and amino acids in the mutation table puzzle are now underlined as well as bold, so they still show after printing.",
   "The mutation table puzzle now has a codon wheel page (also in its answer key). Read from the center outward: first base, second base, third base, then the amino acid. Stop codons are filled black."

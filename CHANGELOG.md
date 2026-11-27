@@ -2,6 +2,7 @@
 
 ## 1.6 (2026-11-27)
 - Settings now has a Read aloud voice picker with a Test voice button. It lists the voices on your device, English first. A small Voice link next to every Read aloud button (Notes, Flashcards, Quiz) opens it.
+- Flashcards: Previous and Next are now on the card, on the left and right of the question or answer. When the card is flipped, Review again sits under Previous and Got it sits under Next. Tap the middle of the card to flip it back to the question. Shuffle deck and Read aloud stay below the card.
 - Plant sorter 4 (cell wall layers) now has the columns in order: primary wall, middle lamella, secondary wall.
 - The changed bases and amino acids in the mutation table puzzle are now underlined as well as bold, so they still show after printing.
 - The mutation table puzzle now has a codon wheel page (also in its answer key). Read from the center outward: first base, second base, third base, then the amino acid. Stop codons are filled black.
