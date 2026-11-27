@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- On phones, the slim bar at the top now has a Next button for the following step, so you do not have to scroll to the bottom.
 - On desktop, the "Done with this step?" button now sits in a small banner at the top right that stays in view as you scroll, instead of at the very bottom of the page. The optional print link is in the Print and handouts tab.
 - On phones, only a slim bar with the current step and a Menu button stays at the top while you scroll, instead of the whole step menu.
 - The step banner now lines up with the page content, and the active menu item uses its step color.
