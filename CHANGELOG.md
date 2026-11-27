@@ -1,6 +1,8 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- Read aloud now spells out ER, so rough ER is no longer read as rougher.
+- Choose concepts buttons now appear everywhere your concepts are used: in the Notes, Flashcards, Quiz and Practice step notes, in the floating Done with this step box, in the Practice explainer, and when no concepts, cards or questions match.
 - Read aloud now says exponents and charges out loud: 10 to the power of negative 9, K plus, Ca 2 plus.
 - On phones, the How to use button now has a home icon beside it, so it is clear that it takes you back to the start.
 - The installed app's fixed bar color (the bottom bar on some phones) is now dark gray-blue instead of bright blue.

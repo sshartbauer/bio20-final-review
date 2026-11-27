@@ -543,6 +543,8 @@ button.hbtn{border:0;margin:0;font-family:inherit;font-size:.78em;font-weight:80
 
 .thome{flex:none}
 @media (min-width:900px){.thome{display:none}}
+
+@media (min-width:900px){html[data-side=show] #nextbar .nbchoose{display:none}}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -1351,14 +1353,14 @@ const STEPS={notes:[1,"Read the notes","Read one concept","Pick one concept. Rea
 const NEXT={notes:[["cards","Step 2: Flashcards"]],cards:[["quiz","Step 3: Quiz"]],quiz:[["drills","Step 4: Practice"],["print","Optional: print a practice test","btn"]],drills:[["progress","Step 5: Progress"]],progress:[["notes","Back to Step 1: Notes"]]};
 const USESEL={notes:1,cards:1,quiz:1};
 const NBX=`<button type="button" class="nbx" aria-label="Hide this banner until the next step" title="Hide until the next step"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>`;
-const whereChoose=()=>`Choose more or fewer concepts <span class="cn-side">on the left</span><span class="cn-above">with this button: <button type="button" class="btn sm" data-openfilt>Choose concepts</button></span>.`;
+const whereChoose=()=>`Choose more or fewer concepts with this button: <button type="button" class="btn sm" data-openfilt>Choose concepts</button>`;
 function updateBars(t){
   setMini(t);document.documentElement.removeAttribute("data-nbx");
   const sb=$("#stepbar"),nb=$("#nextbar"),st=STEPS[t];
   if(G){guidedBars();return}
   if(!st||t==="diagrams"){sb.hidden=true;nb.hidden=true;return}
   sb.style.setProperty("--sk","var(--c"+st[0]+")");sb.innerHTML=`<span class="pill stepno">Step ${st[0]} of 5</span> <b>${st[1]}.</b> ${st[3]}${USESEL[t]?` <span class="cnote">${whereChoose()}</span>`:""}${st[4]||""}`;sb.hidden=false;
-  nb.innerHTML=`<div class="nbox"><span class="nlab">Done with this step?</span>${NEXT[t].map(n=>`<a href="#${n[0]}" class="btn${n[2]?" nbopt":" primary"}" data-go="${n[0]}">${n[1]}</a>`).join("")}${NBX}</div>`;nb.hidden=false}
+  nb.innerHTML=`<div class="nbox"><span class="nlab">Done with this step?</span>${(USESEL[t]||t==="drills")?`<button type="button" class="btn nbchoose" data-openfilt>Choose concepts</button>`:""}${NEXT[t].map(n=>`<a href="#${n[0]}" class="btn${n[2]?" nbopt":" primary"}" data-go="${n[0]}">${n[1]}</a>`).join("")}${NBX}</div>`;nb.hidden=false}
 const NOFILTER={diagrams:1};
 let cur="notes",G=null;
 $("#tabs").innerHTML=TABS.map(t=>{const st=STEPS[t[0]];if(t[0]==="diagrams")return"";
@@ -1496,7 +1498,7 @@ function renderNotes(){
   stopSay();
   const ts=TOPICS.filter(t=>sel.has(t.id));
   let h=`<h2>Notes</h2><p class="muted small">One section for each concept. Slide numbers match the PDFs. Yellow boxes are on the exam. Blue boxes come from pictures and are extra.</p>`;
-  if(!ts.length)h+=`<div class="panel">No concepts selected. Use <b>Choose concepts</b> above.</div>`;
+  if(!ts.length)h+=`<div class="panel"><p>No concepts selected.</p><p><button type="button" class="btn primary" data-openfilt>Choose concepts</button></div>`;
   else h+=`<div class="row"><button class="btn sm" id="nOpen">Open all</button><button class="btn sm" id="nShut">Close all</button></div>`;
   GROUPS.forEach(G=>{const g=ts.filter(t=>t.set===G.set);if(!g.length)return;
     h+=`<h3><span class="gtitle g${G.set}">${G.title}</span></h3>`+g.map(t=>`<details class="topic" id="n-${t.id}" ${openT.has(t.id)?"open":""}><summary><span class="pill g${t.set}">Slide${/to/.test(t.slides)?"s":""} ${t.slides}</span><span class="tname">${t.name}</span></summary><div class="tbody">${noteHTML(t)}
@@ -1542,7 +1544,7 @@ function renderCards(){
   if(!deck)buildDeck(false);
   const k=Object.values(P.cards).filter(v=>v==="know").length,a=Object.values(P.cards).filter(v=>v==="again").length;
   let h=`<h2>Flashcards</h2><p class="small">Want paper cards? <a href="#print" data-decks><b>Print flashcard decks</b></a> or <a href="#print" data-anki><b>get Anki decks</b></a></p><div class="row"><label class="row" style="gap:8px"><input type="checkbox" id="cAgain" ${cOnlyAgain?"checked":""} style="width:24px;height:24px"> Only cards marked "Review again"</label></div>`;
-  if(!deck.length){stopAuto();h+=`<div class="panel">${cOnlyAgain?"No cards are marked Review again in these concepts.":"No cards in the selected concepts."}</div>`;$("#main").innerHTML=h;return}
+  if(!deck.length){stopAuto();h+=`<div class="panel"><p>${cOnlyAgain?"No cards are marked Review again in these concepts.":"No cards in the selected concepts."}</p><p><button type="button" class="btn primary" data-openfilt>Choose concepts</button></div>`;$("#main").innerHTML=h;return}
   if(pos>=deck.length)pos=0;const c=deck[pos],m=P.cards[c.id];
   h+=`<p class="small muted" aria-live="polite">Card ${pos+1} of ${deck.length}${m?` (marked: ${m==="know"?"got it":"review again"})`:""}. Tap the card or press Space to flip. Swipe or use the arrow keys to move.</p>
   <div class="meter" aria-hidden="true"><i style="width:${(pos+1)/deck.length*100}%"></i></div><p></p>
@@ -1582,7 +1584,7 @@ function renderQuiz(){
   stopSay();
   if(!qstate)buildQuiz();const S=qstate;
   let h=`<h2>Quiz</h2><label class="row" style="gap:8px"><input type="checkbox" id="qMissed" ${qOnlyMissed?"checked":""} style="width:24px;height:24px"> Only questions I missed last time</label>`;
-  if(!S.pool.length){$("#main").innerHTML=h+`<div class="panel">${qOnlyMissed?"No missed questions in these concepts yet.":"No questions in the selected concepts."}</div>`;return}
+  if(!S.pool.length){$("#main").innerHTML=h+`<div class="panel"><p>${qOnlyMissed?"No missed questions in these concepts yet.":"No questions in the selected concepts."}</p><p><button type="button" class="btn primary" data-openfilt>Choose concepts</button></div>`;return}
   if(S.i>=S.pool.length){
     h+=`<div class="panel"><h3>Finished</h3><p class="score"><span class="scoreline">${S.right} of ${S.pool.length} correct</span><span class="noscore">You answered ${S.pool.length} questions.</span></p>${S.missed.length?`<p>Review these:</p><ul>${S.missed.map(q=>`<li><b>${esc(tShort(q.t))}</b>: ${q.q}<br><span class="muted">Answer: ${q.a}</span></li>`).join("")}</ul>`:"<p>No misses. Nice run.</p>"}<div class="row"><button class="btn primary" id="qAgain">New round</button>${S.missed.length?`<button class="btn" id="qRetry">Retry the ones I missed</button>`:""}</div></div>`;
     $("#main").innerHTML=h;return}
@@ -2254,6 +2256,8 @@ document.addEventListener("change",e=>{if(e.target.closest("#ptDlg"))ptSync()});
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "Read aloud now spells out ER, so rough ER is no longer read as rougher.",
+  "Choose concepts buttons now appear everywhere your concepts are used: in the Notes, Flashcards, Quiz and Practice step notes, in the floating Done with this step box, in the Practice explainer, and when no concepts, cards or questions match.",
   "Read aloud now says exponents and charges out loud: 10 to the power of negative 9, K plus, Ca 2 plus.",
   "On phones, the How to use button now has a home icon beside it, so it is clear that it takes you back to the start.",
   "The installed app's fixed bar color (the bottom bar on some phones) is now dark gray-blue instead of bright blue.",
@@ -2361,7 +2365,9 @@ function spokenSup(root){root.querySelectorAll("sup").forEach(n=>{const t=n.text
 function htmlText(h){const d=document.createElement("div");d.innerHTML=h;spokenSup(d);return d.textContent.replace(/\s+/g," ").trim()}
 function sayReset(b){if(!b)return;b.setAttribute("aria-pressed","false");const s=b.querySelector("span");if(s)s.textContent="Read aloud"}
 function stopSay(){if(!CAN_SAY)return;sayTok++;speechSynthesis.cancel();sayReset(sayBtn);sayBtn=null}
+const SAYFIX=[[/\bER\b/g,"E R"],[/\bRER\b/g,"R E R"],[/\bSER\b/g,"S E R"]];
 function sayText(text,btn){
+  SAYFIX.forEach(f=>{text=text.replace(f[0],f[1])});
   stopSay();const tok=sayTok;sayBtn=btn;btn.setAttribute("aria-pressed","true");btn.querySelector("span").textContent="Stop reading";
   const parts=text.match(/[^.!?;:]+[.!?;:]*\s*/g)||[text],chunks=[];let cur="";
   parts.forEach(p=>{if((cur+p).length>170&&cur){chunks.push(cur);cur=p}else cur+=p});if(cur)chunks.push(cur);
