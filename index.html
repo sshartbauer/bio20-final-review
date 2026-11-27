@@ -483,6 +483,20 @@ html[data-guided] #tabs,html[data-guided] #fbar,html[data-guided] #btnShow,html[
 .stepbar .howto li{margin:.45em 0;max-width:75ch}
 .stepbar .howto a{font-weight:700}
 #nextbar[hidden]{display:none!important}
+
+.hbtn:disabled{opacity:.45;cursor:not-allowed}
+.hbtn[aria-busy=true]{opacity:.6}
+#cdDlg{width:min(600px,calc(100vw - 24px));max-height:90vh;padding:16px 18px 0;border:1px solid var(--line);border-radius:16px;background:var(--bg);color:var(--fg);overflow:auto}
+#cdDlg::backdrop{background:rgba(0,0,0,.55)}
+#cdDlg h3{margin:0 0 4px}
+#cdDlg h4{margin:14px 0 6px}
+.cdtools{gap:8px;margin:8px 0}
+.cdagain,.cdrow{display:flex;align-items:center;gap:10px;min-height:44px;padding:4px 2px}
+.cdagain input,.cdrow input{width:24px;height:24px;flex:none}
+.cdrow small{color:var(--muted)}
+.cdrow{border-bottom:1px solid var(--line)}
+.cdfoot{position:sticky;bottom:0;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:flex-end;background:var(--bg);padding:12px 0;margin-top:8px;border-top:1px solid var(--line)}
+.cdfoot span{margin-right:auto;font-weight:700}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -2018,7 +2032,7 @@ function buildCardsPDF(fonts,cards){const d=newDoc(fonts),M=36,cw=270,ch=180;
   for(let i=0;i<cards.length;i+=8){const g=cards.slice(i,i+8);sheet(g,false);sheet(g,true)}return d}
 function ptOptions(){return{layout:($("#ptLay")||{}).value||"std",expl:!$("#ptExp")||$("#ptExp").checked}}
 function renderPrint(){
-  const nq=QUIZ.filter(q=>sel.has(q.t)).length,nc=CARDS.filter(c=>sel.has(c.t)).length;
+  const nq=QUIZ.filter(q=>sel.has(q.t)).length;
   $("#main").innerHTML=`<h2>Print and handouts</h2><p class="muted small">These are optional paper copies. They are made from this site's own notes and questions. No files from the professor are used. The tests look like Prof. Shane's practice test: 12 point text, 16 point titles, and black only. Aptos is not free to share, so Carlito is used instead.</p>
   <div class="panel"><h3>Build a practice test</h3><p>Uses the concepts you chose. ${whereChoose()} Right now that is ${sel.size} of ${TOPICS.length} concepts and ${nq} questions.</p>
   <div class="row" style="gap:12px;align-items:center"><label for="ptN">Questions</label><select id="ptN" class="sel"><option>10</option><option selected>20</option><option>30</option><option>40</option><option value="999">All</option></select>
@@ -2026,9 +2040,8 @@ function renderPrint(){
   <div id="ptOut" aria-live="polite" class="ptout">${ptTest?ptReady():""}</div>
   <details class="more"><summary>More options</summary><div class="row" style="gap:12px;align-items:center;margin-top:8px"><label for="ptLay">Layout</label><select id="ptLay" class="sel"><option value="std">Standard</option><option value="dys">Easier to read (larger, double spaced)</option></select></div>
   <label class="row" style="gap:8px;margin-top:8px"><input type="checkbox" id="ptExp" checked style="width:24px;height:24px"> Include explanations in the answer key</label></details></div>
-  <div class="panel"><h3>Print flashcards</h3><p>Two-sided sheets with eight cards on each. Cut along the dashed lines. This uses the concepts you chose. Right now that is ${nc} cards.</p>
-  <label class="row" style="gap:8px"><input type="checkbox" id="pcAgain" style="width:24px;height:24px"> Only cards I marked "Review again"</label>
-  <div class="row" style="margin-top:10px"><button class="btn primary" id="pcMake" ${nc?"":"disabled"}>Download flashcard sheets</button></div><p class="small muted" id="pcMsg" aria-live="polite"></p></div>
+  <div class="panel"><h3>Flashcard decks</h3><p>Two-sided sheets with eight cards on each. Print double sided, then cut along the dashed lines. The arrow button downloads the deck. Use Build a custom deck to pick your own concepts.</p>
+  <div class="hlist">${deckBars()}</div><p class="small muted" id="dkMsg" aria-live="polite"></p></div>
   <div class="panel"><h3>Ready to download</h3><p>Blank diagrams and premade practice tests. The arrow button downloads the worksheet or test, and the key button downloads its answer key.</p>
   <div class="hlist">${HANDOUTS.map(hb).join("")}</div></div>
   <div class="panel"><h3>Table puzzles: cut out and rearrange</h3><p>Print, cut out the cards, shuffle them, and put the table back together. Each file has a blank mat and a page of cards. The arrow button downloads the puzzle, and the key button downloads the finished table.</p>
@@ -2045,13 +2058,67 @@ async function ptRun(fn,btn,msgEl,name){const old=btn.textContent;btn.disabled=t
   btn.disabled=false;btn.textContent=old}
 document.addEventListener("click",e=>{if(cur!=="print")return;const id=e.target.id;
   if(id==="ptMake"){ptTest=mkTestSpec(+$("#ptN").value);$("#ptOut").innerHTML=ptReady()}
-  else if(id==="ptDl"||id==="ptKey"){const k=id==="ptKey",o=ptOptions();o.key=k;ptRun(f=>buildTestPDF(f,ptTest,o),e.target,$("#ptOut").appendChild(Object.assign(document.createElement("p"),{className:"small"})),k?"BIOSC-020-practice-test-key.pdf":"BIOSC-020-practice-test.pdf")}
-  else if(id==="pcMake"){let c=CARDS.filter(c=>sel.has(c.t));if($("#pcAgain").checked)c=c.filter(x=>P.cards[x.id]==="again");
-    if(!c.length){$("#pcMsg").textContent="No cards match yet. Mark some cards Review again in Flashcards first.";return}ptRun(f=>buildCardsPDF(f,c),e.target,$("#pcMsg"),"BIOSC-020-flashcards.pdf")}});
+  else if(id==="ptDl"||id==="ptKey"){const k=id==="ptKey",o=ptOptions();o.key=k;ptRun(f=>buildTestPDF(f,ptTest,o),e.target,$("#ptOut").appendChild(Object.assign(document.createElement("p"),{className:"small"})),k?"BIOSC-020-practice-test-key.pdf":"BIOSC-020-practice-test.pdf")}});
+
+/* ===== named flashcard decks and custom deck ===== */
+const DECKS=[
+ ["set1","Set 1: old material",t=>t.set===1],
+ ["set2","Set 2: new material",t=>t.set===2],
+ ["chem","Chemistry and water",["s1-metric","s1-science","s1-philic","s1-water","s1-ph","s1-buffers","s1-metab"]],
+ ["genes","Genes and proteins",["s1-dogma","s1-genes","s1-rnapol","s1-trna","s1-protein","s1-dest","s1-insglu","s1-endo","s1-mut","s1-chrom"]],
+ ["genet","Genetics and inheritance",["s1-cycle","s1-genet","s1-ar","s1-ad"]],
+ ["enz","Enzymes and energy",["s2-enz","s2-ea","s2-energy","s2-redox"]],
+ ["resp","Cellular respiration",["s2-mito","s2-stages","s2-etc","s2-atps","s2-endo"]],
+ ["plant","Plants and photosynthesis",["s2-wall","s2-tissue","s2-xylem","s2-photo","s2-chloro","s2-light","s2-calvin"]],
+ ["nerve","Nerves and the sodium potassium pump",["s2-pump","s2-rmp","s2-neuron","s2-channels","s2-ap","s2-synapse","s2-drugs"]]];
+const deckCards=d=>{const f=d[2],ids=typeof f==="function"?TOPICS.filter(f).map(t=>t.id):f;return CARDS.filter(c=>ids.includes(c.t))};
+const ICON_DL='<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10.5l5 5 5-5"/><path d="M4 20h16"/></svg>';
+const ICON_PICK='<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4" width="17" height="16" rx="3"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>';
+function deckBars(){
+  const again=CARDS.filter(c=>P.cards[c.id]==="again"),chosen=CARDS.filter(c=>sel.has(c.t));
+  const rows=[["custom","Build a custom deck: choose your own concepts",null,ICON_PICK,"Choose"],
+   ["again","Cards I marked Review again ("+again.length+" cards)",again],
+   ["chosen","Concepts chosen on the left ("+chosen.length+" cards)",chosen],
+   ["all","Everything: all concepts ("+CARDS.length+" cards)",CARDS]];
+  DECKS.forEach(d=>{const c=deckCards(d);if(c.length)rows.push([d[0],d[1]+" ("+c.length+" cards)",c])});
+  return rows.map((r,i)=>{const dis=r[0]!=="custom"&&!r[2].length;
+    return `<div class="hbar hk${i%5+1}"><button type="button" class="hbtn" data-deck="${r[0]}" ${dis?"disabled":""} aria-label="${r[0]==="custom"?"Build a custom deck. Opens a window to choose concepts.":"Download "+r[1]}" title="${r[0]==="custom"?"Choose concepts for your own deck":"Download this deck"}">${r[3]||ICON_DL}<span>${r[4]||"Download"}</span></button><span class="htitle">${r[1]}</span></div>`}).join("")}
+function deckList(id){
+  if(id==="again")return CARDS.filter(c=>P.cards[c.id]==="again");
+  if(id==="chosen")return CARDS.filter(c=>sel.has(c.t));
+  if(id==="all")return CARDS;
+  const d=DECKS.find(x=>x[0]===id);return d?deckCards(d):[]}
+async function deckSave(cards,name,btn){
+  const msg=$("#dkMsg");if(btn)btn.setAttribute("aria-busy","true");if(msg)msg.textContent="Making the PDF...";
+  try{const f=await pdfReady();buildCardsPDF(f,cards).save(name);if(msg)msg.textContent="Done. Your deck was downloaded."}
+  catch(e){if(msg)msg.textContent="The PDF could not be made. Check your connection and try again."}
+  if(btn)btn.removeAttribute("aria-busy")}
+function cdDialog(){
+  let d=$("#cdDlg");if(d)return d;
+  d=document.createElement("dialog");d.id="cdDlg";d.setAttribute("aria-labelledby","cdT");
+  d.innerHTML=`<h3 id="cdT">Build a custom deck</h3><p>Tick the concepts you want. Your deck will have every card from them.</p>
+  <div class="row cdtools"><button type="button" class="btn sm" data-cd="all">Select all</button><button type="button" class="btn sm" data-cd="none">Clear all</button></div>
+  <label class="cdagain"><input type="checkbox" id="cdAgain"> Only cards I marked "Review again"</label>
+  <div class="cdlist">${GROUPS.map(g=>`<h4><span class="gtitle g${g.set}">${g.title}</span></h4>`+TOPICS.filter(t=>t.set===g.set).map(t=>`<label class="cdrow"><input type="checkbox" data-cdt="${t.id}"><span>${esc(t.name)} <small>(${CARDS.filter(c=>c.t===t.id).length})</small></span></label>`).join("")).join("")}</div>
+  <div class="cdfoot"><span id="cdCount" aria-live="polite">0 cards</span><button type="button" class="btn" data-cd="close">Cancel</button><button type="button" class="btn primary" id="cdGo" data-cd="go" disabled>Download deck</button></div>`;
+  document.body.appendChild(d);return d}
+function cdCards(){const d=$("#cdDlg"),ids=new Set([...d.querySelectorAll("[data-cdt]:checked")].map(x=>x.dataset.cdt));let c=CARDS.filter(x=>ids.has(x.t));if($("#cdAgain").checked)c=c.filter(x=>P.cards[x.id]==="again");return c}
+function cdSync(){const c=cdCards();$("#cdCount").textContent=c.length+(c.length===1?" card":" cards");$("#cdGo").disabled=!c.length}
+document.addEventListener("click",e=>{
+  const dk=e.target.closest("[data-deck]");
+  if(dk&&cur==="print"){const id=dk.dataset.deck;
+    if(id==="custom"){const d=cdDialog();cdSync();d.showModal();return}
+    const c=deckList(id);if(!c.length)return;deckSave(c,"BIOSC-020-flashcards-"+id+".pdf",dk);return}
+  const cd=e.target.closest("[data-cd]");if(!cd)return;const d=$("#cdDlg"),a=cd.dataset.cd;
+  if(a==="all"||a==="none"){d.querySelectorAll("[data-cdt]").forEach(x=>x.checked=a==="all");cdSync()}
+  else if(a==="close")d.close();
+  else if(a==="go"){const c=cdCards();if(!c.length)return;deckSave(c,"BIOSC-020-flashcards-custom.pdf",cd).then(()=>d.close())}});
+document.addEventListener("change",e=>{if(e.target.closest("#cdDlg"))cdSync()});
 /* Newest first. Add an entry here and in CHANGELOG.md for every release. */
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "Print and handouts now has named flashcard decks in the same bar format as the other downloads: all cards, Set 1, Set 2, and decks by topic. Build a custom deck opens a window where you tick the concepts you want.",
   "The notes page now has a short list of ways to study besides reading: put explanations in your own words, rebuild tables like puzzles, use Read aloud, and draw pictures.",
   "New Table puzzles section in Print and handouts. Each deck has a blank mat and cards to cut out and rearrange, plus an answer key. Decks: metric prefix table, mutation table, genetics tables, endomembrane sorter, and plant sorters.",
   "On desktop, the Done with this step banner has a small X to hide it until the next step.",
