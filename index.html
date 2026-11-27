@@ -2256,6 +2256,7 @@ document.addEventListener("change",e=>{if(e.target.closest("#ptDlg"))ptSync()});
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "Read aloud now says science text more clearly: acronyms are spelled out (ETC, RMP, NADPH, tRNA and more), ions and formulas are spoken (sodium, H 2 O, bicarbonate), genotypes (AA, Aa, aa) and crosses, fractions, arrows, plus and minus signs, units (millivolts, grams), Roman numerals (complex 2, photosystem 1), vs, and DNA sequences read in groups of three letters.",
   "Read aloud now spells out ER, so rough ER is no longer read as rougher.",
   "Choose concepts buttons now appear everywhere your concepts are used: in the Notes, Flashcards, Quiz and Practice step notes, in the floating Done with this step box, in the Practice explainer, and when no concepts, cards or questions match.",
   "Read aloud now says exponents and charges out loud: 10 to the power of negative 9, K plus, Ca 2 plus.",
@@ -2365,9 +2366,41 @@ function spokenSup(root){root.querySelectorAll("sup").forEach(n=>{const t=n.text
 function htmlText(h){const d=document.createElement("div");d.innerHTML=h;spokenSup(d);return d.textContent.replace(/\s+/g," ").trim()}
 function sayReset(b){if(!b)return;b.setAttribute("aria-pressed","false");const s=b.querySelector("span");if(s)s.textContent="Read aloud"}
 function stopSay(){if(!CAN_SAY)return;sayTok++;speechSynthesis.cancel();sayReset(sayBtn);sayBtn=null}
-const SAYFIX=[[/\bER\b/g,"E R"],[/\bRER\b/g,"R E R"],[/\bSER\b/g,"S E R"]];
+/* Pronunciation fixes so speech voices say science text correctly. Order matters. */
+const SPL=w=>w.split("").join(" ");
+const SAYFIX=[
+ [/²⁺/g," 2 plus"],[/⁺/g," plus"],[/⁻/g," minus"],[/²/g," squared"],
+ [/[₀-₉]/g,c=>String(c.charCodeAt(0)-8320)],
+ [/\bHPO4 2 minus\b/g,"hydrogen phosphate"],[/\bH2PO4 minus\b/g,"dihydrogen phosphate"],[/\bHCO3 minus\b/g,"bicarbonate"],
+ [/\bNa plus/g,"sodium"],[/\bK plus/g,"potassium"],[/\bCa 2 plus/g,"calcium"],[/\bMg 2 plus/g,"magnesium"],
+ [/\bCl minus/g,"chloride"],[/\bH plus( ions?)?/g,(m,x)=>"hydrogen"+(x||" ions")],
+ [/\be minus\b/g,"electrons"],
+ [/\bNaCl\b/g,"sodium chloride"],
+ [/\bC6H12O6\b/g,"C 6 H 12 O 6"],[/\bH2CO3\b/g,"H 2 C O 3"],[/\bH2PO4\b/g,"H 2 P O 4"],[/\bHPO4\b/g,"H P O 4"],[/\bHCO3\b/g,"H C O 3"],
+ [/\bH2O\b/g,"H 2 O"],[/\bCO2\b/g,"C O 2"],[/\bO2\b/g,"O 2"],[/\bFADH2\b/g,"F A D H 2"],[/\bFADH\b/g,"F A D H"],
+ [/\b(H)([234])([AB]?)\b(?=[ ,.)]|$)/g,(m,a,b,c)=>"H "+b+(c?" "+c:"")],
+ [/\bI to IV\b/g,"1 to 4"],[/\bPol (III|II|I)\b/g,(m,r)=>"Pol "+({I:1,II:2,III:3})[r]],[/\bI, II and III\b/g,"1, 2 and 3"],[/(^|[.,] )(III|II|IV|I)(?=: )/g,(m,p,r)=>p+({I:1,II:2,III:3,IV:4})[r]],
+ [/\bPSII\b/g,"photosystem 2"],[/\bPSI\b/g,"photosystem 1"],
+ [/\b(complex(?:es)?|photosystem|polymerase)\s+(IV|III|II|I)\b/gi,(m,w,r)=>w+" "+({I:1,II:2,III:3,IV:4})[r]],
+ [/\b(ETC|RMP|EA|CAC|CNS|NADPH|NADP|NADH|NAD|FAD|RuBP|G3P|3PG|ER|RER|SER)\b/g,(m,w)=>SPL(w)],
+ [/\b([mtr])RNAs\b/g,"$1 R N A's"],[/\b([mtr])RNA\b/g,"$1 R N A"],[/\bATPase\b/g,"A T P ase"],[/\bCoA\b/g,"Co A"],[/\bpH\b/g,"P H"],
+ [/\b[ACGTU]{6,}\b/g,w=>w.match(/.{1,3}/g).map(SPL).join(", ")],
+ [/\bAA\b/g,"big A big A"],[/\bAa\b/g,"big A little a"],[/\baa\b/g,"little a little a"],
+ [/\bHH\b/g,"big H big H"],[/\bHh\b/g,"big H little h"],[/\bhh\b/g,"little h little h"],
+ [/(\d)×/g,"$1 times "],[/\s×\s/g," crossed with "],[/×/g," times "],
+ [/¼/g," one quarter "],[/½/g," one half "],[/¾/g," three quarters "],
+ [/\s*→\s*/g," to "],[/\s*⇌\s*/g," is in equilibrium with "],
+ [/Δ/g,"delta "],
+ [/(\d) ?µg\b/g,"$1 microgram"],[/\(µ\)/g,"(mu)"],[/µ(?=[a-zA-Z])/g,"micro"],[/µ/g,"mu"],
+ [/(\d) Gg\b/g,"$1 gigagram"],[/(\d) Mg\b/g,"$1 megagram"],[/(\d) kg\b/g,"$1 kilogram"],[/(\d) mg\b/g,"$1 milligram"],[/(\d) ng\b/g,"$1 nanogram"],[/(\d) g\b/g,"$1 grams"],
+ [/\s*\(mV\)/g,""],[/\bmV\b/g,"millivolts"],[/\bmM\b/g,"millimolar"],
+ [/(^|[\s(])[-−](?=\d)/g,"$1negative "],[/(^|[\s(])\+(?=\d)/g,"$1plus "],
+ [/\s\+\s/g," plus "],[/\s=\s/g," equals "],[/\s*\/\s*/g," and "],[/[\[\]]/g,""],
+ [/\bvs\.?(?=\s)/g,"versus"],[/ {2,}/g," "]
+];
+const sayFix=t=>{SAYFIX.forEach(f=>{t=t.replace(f[0],f[1])});return t};
 function sayText(text,btn){
-  SAYFIX.forEach(f=>{text=text.replace(f[0],f[1])});
+  text=sayFix(text);
   stopSay();const tok=sayTok;sayBtn=btn;btn.setAttribute("aria-pressed","true");btn.querySelector("span").textContent="Stop reading";
   const parts=text.match(/[^.!?;:]+[.!?;:]*\s*/g)||[text],chunks=[];let cur="";
   parts.forEach(p=>{if((cur+p).length>170&&cur){chunks.push(cur);cur=p}else cur+=p});if(cur)chunks.push(cur);
