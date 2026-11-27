@@ -2050,6 +2050,10 @@ function renderPrint(){
   <label class="row" style="gap:8px;margin-top:8px"><input type="checkbox" id="ptExp" checked style="width:24px;height:24px"> Include explanations in the answer key</label></details></div>
   <div class="panel" id="decksPanel"><h3 class="phead hk2">Flashcard decks</h3><p>Two-sided sheets with eight cards on each. Print double sided, then cut along the dashed lines. The arrow button downloads the deck. Use Build a custom deck to pick your own concepts.</p>
   <div class="hlist">${deckBars()}</div><p class="small muted" id="dkMsg" aria-live="polite"></p></div>
+  <div class="panel"><h3 class="phead hk4">Worksheets and practice tests</h3><p>Blank diagrams and premade practice tests. The arrow button downloads the worksheet or test, and the key button downloads its answer key.</p>
+  <div class="hlist">${HANDOUTS.map(hb).join("")}</div></div>
+  <div class="panel"><h3 class="phead hk5">Table puzzles: cut out and rearrange</h3><p>Print, cut out the cards, shuffle them, and put the table back together. Each file has a blank mat and a page of cards. The arrow button downloads the puzzle, and the key button downloads the finished table.</p>
+  <div class="hlist">${PUZZLES.map(hb).join("")}</div></div>
   <div class="panel" id="ankiPanel"><h3 class="phead hk1">Anki decks</h3>
   <p><b>What is Anki?</b> Anki is a free flashcard app. It shows each card again just before you would forget it, so you study less and remember more. It is free on computers and Android, and free in a web browser at AnkiWeb. The iPhone app costs money.</p>
   <p><b>How to use these decks:</b></p>
@@ -2057,11 +2061,7 @@ function renderPrint(){
   <p><b>Learn more:</b> these are made by other people, so the pictures may look a little different from your version of Anki.</p>
   <ul class="steps"><li>Written guide: <a href="https://docs.ankiweb.net/getting-started.html" target="_blank" rel="noopener">Getting Started, in the Anki manual</a></li><li>Written guide: <a href="https://docs.ankiweb.net/manual/importing/intro" target="_blank" rel="noopener">Importing, in the Anki manual</a></li><li>Video, on YouTube: <a href="https://www.youtube.com/watch?v=XYern6KTHTI" target="_blank" rel="noopener">How to install Anki and import decks (quick guide)</a></li><li>Video, on YouTube: <a href="https://www.youtube.com/watch?v=inO8zR9EAB4" target="_blank" rel="noopener">How to import a deck into Anki in 20 seconds</a></li></ul>
   <p class="small muted">If you add the same card twice, Anki updates it and does not copy it. Each card has the question on the front and the answer on the back.</p>
-  <div class="hlist">${ankiBars()}</div></div>
-  <div class="panel"><h3 class="phead hk4">Worksheets and practice tests</h3><p>Blank diagrams and premade practice tests. The arrow button downloads the worksheet or test, and the key button downloads its answer key.</p>
-  <div class="hlist">${HANDOUTS.map(hb).join("")}</div></div>
-  <div class="panel"><h3 class="phead hk5">Table puzzles: cut out and rearrange</h3><p>Print, cut out the cards, shuffle them, and put the table back together. Each file has a blank mat and a page of cards. The arrow button downloads the puzzle, and the key button downloads the finished table.</p>
-  <div class="hlist">${PUZZLES.map(hb).join("")}</div></div>`}
+  <div class="hlist">${ankiBars()}</div></div>`}
 const hb=(h,i)=>{const f=h[0].replace(".pdf","");return `<div class="hbar hk${i%5+1}"><a class="hbtn" href="handouts/${h[0]}" download aria-label="Download ${h[1]}" title="Download ${h[1]}"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10.5l5 5 5-5"/><path d="M4 20h16"/></svg><span>Download</span></a><a class="hbtn" href="handouts/${f}-key.pdf" download aria-label="Download the answer key for ${h[1]}" title="Download the answer key for ${h[1]}"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4.5"/><path d="M11.3 11.7L20 3"/><path d="M16.5 6.5l3 3"/><path d="M14 9l2 2"/></svg><span>Answer key</span></a><span class="htitle">${h[1]}</span></div>`};
 const PUZZLES=[["Table-puzzle-metric-prefixes.pdf","Metric prefix table puzzle (21 cards)"],["Table-puzzle-mutations.pdf","Mutation table puzzle: DNA, mRNA, amino acids, result (16 cards)"],["Table-puzzle-genetics.pdf","Genetics puzzles: cystic fibrosis, Huntington's, and terms (26 cards)"],["Table-puzzle-endomembrane.pdf","Endomembrane sorter: rough ER, smooth ER, Golgi (11 cards)"],["Table-puzzle-plants.pdf","Plant sorters: tissues, cell types, transport, cell wall (25 cards)"]];
 const K=f=>`answer key: <a href="handouts/${f}-key.pdf" download>download</a>`;
@@ -2142,6 +2142,7 @@ document.addEventListener("click",e=>{const a=e.target.closest("[data-anki]");if
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "The Anki decks section is now the last section on the Print and handouts page.",
   "Section titles on the Print and handouts page are now on colored banners. Ready to download is renamed Worksheets and practice tests.",
   "The Anki section now explains what Anki is, how to use it, links to the Anki manual and two YouTube videos, and has one download that holds all the decks.",
   "Print and handouts has Anki decks (.apkg files) for all cards, each set, and each topic. The Flashcards page links to them.",
