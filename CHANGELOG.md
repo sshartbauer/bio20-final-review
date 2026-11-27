@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.6 (2026-11-27)
+- A new printable plant cell puzzle on the Print and handouts page. Cut out eight cards (nucleus, chloroplast, rough ER, smooth ER, Golgi apparatus, mitochondrion, free ribosomes, transport vesicle) and place them on a cell mat. It has an easy mat with outlines, a hard mat with none, and an answer key.
+
 ## 1.5 (2026-11-26)
 - Read aloud now pronounces intron and exon correctly.
 - Read aloud now says a plus sign before a number as positive, like negative 100 to positive 50 millivolts.
