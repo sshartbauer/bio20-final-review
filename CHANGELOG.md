@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- Section title bars on the Print page now touch the top and sides of their frames.
 - Build a practice test is now two steps. Click Choose concepts, pick your concepts in a window, then download the test and answer key. It no longer uses the concepts chosen on the left.
 - The Anki decks section is now the last section on the Print and handouts page.
 - Section titles on the Print and handouts page are now on colored banners. Ready to download is renamed Worksheets and practice tests.
