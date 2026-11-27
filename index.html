@@ -2125,6 +2125,7 @@ document.addEventListener("click",e=>{const a=e.target.closest("[data-decks]");i
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "The contact note now says you can also share your experience using the site.",
   "The Flashcards page has a link to the printable flashcard decks.",
   "The cystic fibrosis and Huntington's tables in the notes are now half width, centered in the box, with centered cells.",
   "Print and handouts now has named flashcard decks in the same bar format as the other downloads: all cards, Set 1, Set 2, and decks by topic. Build a custom deck opens a window where you tick the concepts you want.",
@@ -2281,7 +2282,7 @@ function syncMini(){const top=$(".top");const on=MB.on.matches&&!G&&top&&scrollY
 addEventListener("scroll",syncMini,{passive:true});addEventListener("resize",syncMini);
 document.addEventListener("click",e=>{if(e.target.closest("#mbMenu"))scrollTo({top:0})});
 /* ===== footer: about, changelog, report an error ===== */
-const CONTACT=`<p><b class="hl">Do you have a question or a suggestion? Did you find a mistake, or does something look wrong?</b> Contact me, in order of preference. If it is about a mistake, please tell me which tab and item it was.</p><ol class="steps contact"><li>Send me a message through Canvas. My name is spelled <button class="btn sm" data-rv="name">Show my name</button></li><li>Send me an email outside of Canvas: <button class="btn sm" data-rv="mail">Show my email</button></li></ol>`;
+const CONTACT=`<p><b class="hl">Do you have a question or a suggestion? Did you find a mistake, or does something look wrong?</b> Contact me, in order of preference. If it is about a mistake, please tell me which tab and item it was. If you just want to tell me about your experience using this site, I would love to hear that too!</p><ol class="steps contact"><li>Send me a message through Canvas. My name is spelled <button class="btn sm" data-rv="name">Show my name</button></li><li>Send me an email outside of Canvas: <button class="btn sm" data-rv="mail">Show my email</button></li></ol>`;
 const ABOUT=`<p>A free study tool for the BIOSC-020 final exam, shared with permission of Prof. Shane. Content follows the typed text of the two final exam study guide slide sets. Figures on the slides are supplemental.</p>
 ${CONTACT}
 <h3>Changelog</h3>${CHANGELOG.map(c=>`<p><b>Version ${c.v}</b> <span class="muted">${c.date}</span></p><ul>${c.items.map(i=>`<li>${i}</li>`).join("")}</ul>`).join("")}
