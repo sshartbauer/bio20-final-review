@@ -507,6 +507,8 @@ table.mini.narrow{font-size:1em}
 button.hbtn{border:0;margin:0;font-family:inherit;font-size:.78em;font-weight:800;cursor:pointer}
 
 @media (max-width:600px){.phead{margin:-12px -12px 12px}}
+
+.panel>h3.phead:first-child{margin-top:-14px}@media (max-width:600px){.panel>h3.phead:first-child{margin-top:-12px}}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -2054,12 +2056,13 @@ function renderPrint(){
   <div class="panel"><h3 class="phead hk5">Table puzzles: cut out and rearrange</h3><p>Print, cut out the cards, shuffle them, and put the table back together. Each file has a blank mat and a page of cards. The arrow button downloads the puzzle, and the key button downloads the finished table.</p>
   <div class="hlist">${PUZZLES.map(hb).join("")}</div></div>
   <div class="panel" id="ankiPanel"><h3 class="phead hk1">Anki decks</h3>
-  <p><b>What is Anki?</b> Anki is a free flashcard app. It shows each card again just before you would forget it, so you study less and remember more. It is free on computers and Android, and free in a web browser at AnkiWeb. The iPhone app costs money.</p>
-  <p><b>How to use these decks:</b></p>
-  <ol class="steps"><li>Install Anki on your computer from <a href="https://apps.ankiweb.net/" target="_blank" rel="noopener">apps.ankiweb.net</a>. On Android, install AnkiDroid.</li><li>Download a deck below.</li><li>Double-click the file to add it to Anki. Or open Anki and choose File, then Import.</li><li>Click the deck, then click Study Now. Read the front, click Show Answer, then pick how well you knew it: Again, Hard, Good, or Easy. Anki decides when to show the card again.</li><li>Study a little every day. Short and often works best.</li></ol>
-  <p><b>Learn more:</b> these are made by other people, so the pictures may look a little different from your version of Anki.</p>
-  <ul class="steps"><li>Written guide: <a href="https://docs.ankiweb.net/getting-started.html" target="_blank" rel="noopener">Getting Started, in the Anki manual</a></li><li>Written guide: <a href="https://docs.ankiweb.net/manual/importing/intro" target="_blank" rel="noopener">Importing, in the Anki manual</a></li><li>Video, on YouTube: <a href="https://www.youtube.com/watch?v=XYern6KTHTI" target="_blank" rel="noopener">How to install Anki and import decks (quick guide)</a></li><li>Video, on YouTube: <a href="https://www.youtube.com/watch?v=inO8zR9EAB4" target="_blank" rel="noopener">How to import a deck into Anki in 20 seconds</a></li></ul>
-  <p class="small muted">If you add the same card twice, Anki updates it and does not copy it. Each card has the question on the front and the answer on the back.</p>
+  <p><b>What is Anki?</b> A free flashcard app that shows each card again just before you would forget it. Free on computers, Android, and AnkiWeb. The iPhone app costs money.</p>
+  <details class="more"><summary>How to use these decks</summary>
+  <ol class="steps"><li>Install Anki from <a href="https://apps.ankiweb.net/" target="_blank" rel="noopener">apps.ankiweb.net</a>. On Android, install AnkiDroid.</li><li>Download a deck below.</li><li>Double-click the file to add it to Anki.</li><li>Click the deck, then Study Now. Click Show Answer, then pick Again, Hard, Good, or Easy.</li></ol>
+  <p class="small muted">Add the same card twice and Anki updates it instead of copying it.</p></details>
+  <details class="more"><summary>Written guides and videos</summary>
+  <ul class="steps"><li><a href="https://docs.ankiweb.net/getting-started.html" target="_blank" rel="noopener">Getting Started, in the Anki manual</a></li><li><a href="https://docs.ankiweb.net/manual/importing/intro" target="_blank" rel="noopener">Importing, in the Anki manual</a></li><li><a href="https://www.youtube.com/watch?v=XYern6KTHTI" target="_blank" rel="noopener">YouTube: How to install Anki and import decks</a></li><li><a href="https://www.youtube.com/watch?v=inO8zR9EAB4" target="_blank" rel="noopener">YouTube: How to import a deck in 20 seconds</a></li></ul>
+  <p class="small muted">These are made by other people, so the pictures may look a little different from your version of Anki.</p></details>
   <div class="hlist">${ankiBars()}</div></div>`}
 const hb=(h,i)=>{const f=h[0].replace(".pdf","");return `<div class="hbar hk${i%5+1}"><a class="hbtn" href="handouts/${h[0]}" download aria-label="Download ${h[1]}" title="Download ${h[1]}"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10.5l5 5 5-5"/><path d="M4 20h16"/></svg><span>Download</span></a><a class="hbtn" href="handouts/${f}-key.pdf" download aria-label="Download the answer key for ${h[1]}" title="Download the answer key for ${h[1]}"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4.5"/><path d="M11.3 11.7L20 3"/><path d="M16.5 6.5l3 3"/><path d="M14 9l2 2"/></svg><span>Answer key</span></a><span class="htitle">${h[1]}</span></div>`};
 const PUZZLES=[["Table-puzzle-metric-prefixes.pdf","Metric prefix table puzzle (21 cards)"],["Table-puzzle-mutations.pdf","Mutation table puzzle: DNA, mRNA, amino acids, result (16 cards)"],["Table-puzzle-genetics.pdf","Genetics puzzles: cystic fibrosis, Huntington's, and terms (26 cards)"],["Table-puzzle-endomembrane.pdf","Endomembrane sorter: rough ER, smooth ER, Golgi (11 cards)"],["Table-puzzle-plants.pdf","Plant sorters: tissues, cell types, transport, cell wall (25 cards)"]];
@@ -2163,6 +2166,7 @@ document.addEventListener("change",e=>{if(e.target.closest("#ptDlg"))ptSync()});
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "The Anki explainer is shorter. The steps and the guide and video links are now in two open-and-close sections.",
   "Section title bars on the Print page now touch the top and sides of their frames.",
   "Build a practice test is now two steps. Click Choose concepts, pick your concepts in a window, then download the test and answer key. It no longer uses the concepts chosen on the left.",
   "The Anki decks section is now the last section on the Print and handouts page.",
