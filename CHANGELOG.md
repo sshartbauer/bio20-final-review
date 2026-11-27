@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- Install directions for computers now mention that Chrome may word the menu item "Install and create shortcut" and put it near the bottom of the three-dot menu.
 - New app icon, made from the cell and DNA picture. The Print and handouts page now has directions for installing this site as an app on Android, iPhone, and a computer.
 - On the How to use page, the line about the small icons is now a list with a picture of each icon.
 - The How to use page titles are now colored bars that touch the top and sides of their frames. The color themes are explained in Make it easier to read.
