@@ -2047,7 +2047,7 @@ function buildCardsPDF(fonts,cards){const d=newDoc(fonts),M=36,cw=270,ch=180;
 let ptIds=new Set(),ptOpt={n:20,layout:"std",expl:true};
 function ptOptions(){return{layout:ptOpt.layout,expl:ptOpt.expl}}
 function renderPrint(){
-  $("#main").innerHTML=`<h2>Print and handouts</h2><p class="muted small">These are optional paper copies. They are made from this site's own notes and questions. No files from the professor are used. The tests look like Prof. Shane's practice test: 12 point text, 16 point titles, and black only. Aptos is not free to share, so Carlito is used instead.</p>
+  $("#main").innerHTML=`<h2>Print and handouts</h2><p class="muted small">These are optional paper copies. They are made from this site's own notes and questions. No files from the professor are used.</p>
   <div class="panel"><h3 class="phead hk3">Build a practice test</h3><p>Two steps. First choose your concepts. Then download your test.</p>
   <div class="row"><button type="button" class="btn primary" id="ptChoose">Step 1: Choose concepts</button></div>
   <div id="ptOut" aria-live="polite" class="ptout">${ptReady()}</div></div>
@@ -2171,6 +2171,7 @@ document.addEventListener("change",e=>{if(e.target.closest("#ptDlg"))ptSync()});
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "Removed the font and style note from the top of the Print page.",
   "The Anki section has a new Download and install menu with links for computer, Android, and iPhone.",
   "More space between the sections on the Print page.",
   "The Anki explainer is shorter. The steps and the guide and video links are now in two open-and-close sections.",

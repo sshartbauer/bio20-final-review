@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- Removed the font and style note from the top of the Print page.
 - The Anki section has a new Download and install menu with links for computer, Android, and iPhone.
 - More space between the sections on the Print page.
 - The Anki explainer is shorter. The steps and the guide and video links are now in two open-and-close sections.
