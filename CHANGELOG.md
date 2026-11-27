@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- New app icon, made from the cell and DNA picture. The Print and handouts page now has directions for installing this site as an app on Android, iPhone, and a computer.
 - On the How to use page, the line about the small icons is now a list with a picture of each icon.
 - The How to use page titles are now colored bars that touch the top and sides of their frames. The color themes are explained in Make it easier to read.
 - Every color theme now works in every screen mode: Follow device, Light, Dark, AMOLED black, and Low-stim. Pick a theme and a mode in the color pop-up. High contrast looks the same for every theme.

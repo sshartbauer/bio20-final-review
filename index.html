@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>BIOSC-020 Final Exam Review</title><meta name="theme-color" content="#17589B">
 <meta name="description" content="Free study tool for the BIOSC-020 final exam: notes, flashcards, quiz, diagrams and drills.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%2317589B%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-size=%2716%27 text-anchor=%27middle%27 fill=%27white%27 font-family=%27sans-serif%27 font-weight=%27bold%27%3EB20%3C/text%3E%3C/svg%3E"><link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Bio 20 Final"><link rel="manifest" href="manifest.webmanifest">
 <style>@font-face{font-family:"Carlito";src:url("fonts/Carlito-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"Carlito";src:url("fonts/Carlito-Bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
 @font-face{font-family:"Carlito";src:url("fonts/Carlito-Italic.woff2") format("woff2");font-weight:400;font-style:italic;font-display:swap}
@@ -2129,6 +2129,12 @@ function renderPrint(){
   <div class="hlist">${HANDOUTS.map(hb).join("")}</div></div>
   <div class="panel"><h3 class="phead hk5">Table puzzles: cut out and rearrange</h3><p>Print, cut out the cards, shuffle them, and put the table back together. Each file has a blank mat and a page of cards. The arrow button downloads the puzzle, and the key button downloads the finished table.</p>
   <div class="hlist">${PUZZLES.map(hb).join("")}</div></div>
+  <div class="panel" id="appPanel"><h3 class="phead hk4">Install this site as an app</h3>
+  <p>You can put this site on your phone or computer like an app. It opens full screen, and it works without internet after your first visit. It is free.</p>
+  <details class="more"><summary>Android phone or tablet</summary><ol class="steps"><li>Open this site in Chrome.</li><li>Tap the three dots at the top right.</li><li>Tap <b>Install app</b>. If you see <b>Add to Home screen</b> instead, tap that.</li><li>Tap <b>Install</b>. The app icon shows up on your home screen.</li></ol></details>
+  <details class="more"><summary>iPhone or iPad</summary><ol class="steps"><li>Open this site in <b>Safari</b>. Other browsers will not show the option.</li><li>Tap the <b>Share</b> button. It is a square with an arrow pointing up.</li><li>Scroll down the list and tap <b>Add to Home Screen</b>.</li><li>Tap <b>Add</b>. The app icon shows up on your home screen.</li></ol></details>
+  <details class="more"><summary>Computer (Chrome or Edge)</summary><ol class="steps"><li>Open this site in Chrome or Edge.</li><li>Click the small install icon at the right end of the address bar. It looks like a screen with a down arrow.</li><li>Click <b>Install</b>. If you do not see the icon, open the three-dot menu and look for <b>Install</b>.</li></ol></details>
+  <p class="small muted">Your progress is saved on the device where you use the site. On an iPhone, the app and Safari keep separate progress. To move your progress, tap Export on the Progress tab, then tap Import on the other one.</p></div>
   <div class="panel" id="ankiPanel"><h3 class="phead hk1">Anki decks</h3>
   <p><b>What is Anki?</b> A free flashcard app that shows each card again just before you would forget it. Free on computers, Android, and AnkiWeb. The iPhone app costs money.</p>
   <details class="more"><summary>Download and install</summary>
@@ -2243,6 +2249,7 @@ document.addEventListener("change",e=>{if(e.target.closest("#ptDlg"))ptSync()});
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "New app icon, made from the cell and DNA picture. The Print and handouts page now has directions for installing this site as an app on Android, iPhone, and a computer.",
   "On the How to use page, the line about the small icons is now a list with a picture of each icon.",
   "The How to use page titles are now colored bars that touch the top and sides of their frames. The color themes are explained in Make it easier to read.",
   "Every color theme now works in every screen mode: Follow device, Light, Dark, AMOLED black, and Low-stim. Pick a theme and a mode in the color pop-up. High contrast looks the same for every theme.",
