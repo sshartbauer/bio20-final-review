@@ -502,6 +502,8 @@ table.mini.narrow{width:50%;min-width:420px;margin:.7em auto}
 table.mini.narrow th,table.mini.narrow td{text-align:center;vertical-align:middle}
 @media (max-width:600px){table.mini.narrow{width:100%;min-width:0}}
 table.mini.narrow{font-size:1em}
+
+.phead{display:block;margin:0 0 12px;padding:10px 16px;background:var(--hc);color:var(--kink);border-radius:10px;font-size:1.15em;line-height:1.3}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
@@ -2039,15 +2041,15 @@ function ptOptions(){return{layout:($("#ptLay")||{}).value||"std",expl:!$("#ptEx
 function renderPrint(){
   const nq=QUIZ.filter(q=>sel.has(q.t)).length;
   $("#main").innerHTML=`<h2>Print and handouts</h2><p class="muted small">These are optional paper copies. They are made from this site's own notes and questions. No files from the professor are used. The tests look like Prof. Shane's practice test: 12 point text, 16 point titles, and black only. Aptos is not free to share, so Carlito is used instead.</p>
-  <div class="panel"><h3>Build a practice test</h3><p>Uses the concepts you chose. ${whereChoose()} Right now that is ${sel.size} of ${TOPICS.length} concepts and ${nq} questions.</p>
+  <div class="panel"><h3 class="phead hk3">Build a practice test</h3><p>Uses the concepts you chose. ${whereChoose()} Right now that is ${sel.size} of ${TOPICS.length} concepts and ${nq} questions.</p>
   <div class="row" style="gap:12px;align-items:center"><label for="ptN">Questions</label><select id="ptN" class="sel"><option>10</option><option selected>20</option><option>30</option><option>40</option><option value="999">All</option></select>
   <button class="btn primary" id="ptMake" ${nq?"":"disabled"}>Make a new test</button></div>
   <div id="ptOut" aria-live="polite" class="ptout">${ptTest?ptReady():""}</div>
   <details class="more"><summary>More options</summary><div class="row" style="gap:12px;align-items:center;margin-top:8px"><label for="ptLay">Layout</label><select id="ptLay" class="sel"><option value="std">Standard</option><option value="dys">Easier to read (larger, double spaced)</option></select></div>
   <label class="row" style="gap:8px;margin-top:8px"><input type="checkbox" id="ptExp" checked style="width:24px;height:24px"> Include explanations in the answer key</label></details></div>
-  <div class="panel" id="decksPanel"><h3>Flashcard decks</h3><p>Two-sided sheets with eight cards on each. Print double sided, then cut along the dashed lines. The arrow button downloads the deck. Use Build a custom deck to pick your own concepts.</p>
+  <div class="panel" id="decksPanel"><h3 class="phead hk2">Flashcard decks</h3><p>Two-sided sheets with eight cards on each. Print double sided, then cut along the dashed lines. The arrow button downloads the deck. Use Build a custom deck to pick your own concepts.</p>
   <div class="hlist">${deckBars()}</div><p class="small muted" id="dkMsg" aria-live="polite"></p></div>
-  <div class="panel" id="ankiPanel"><h3>Anki decks</h3>
+  <div class="panel" id="ankiPanel"><h3 class="phead hk1">Anki decks</h3>
   <p><b>What is Anki?</b> Anki is a free flashcard app. It shows each card again just before you would forget it, so you study less and remember more. It is free on computers and Android, and free in a web browser at AnkiWeb. The iPhone app costs money.</p>
   <p><b>How to use these decks:</b></p>
   <ol class="steps"><li>Install Anki on your computer from <a href="https://apps.ankiweb.net/" target="_blank" rel="noopener">apps.ankiweb.net</a>. On Android, install AnkiDroid.</li><li>Download a deck below.</li><li>Double-click the file to add it to Anki. Or open Anki and choose File, then Import.</li><li>Click the deck, then click Study Now. Read the front, click Show Answer, then pick how well you knew it: Again, Hard, Good, or Easy. Anki decides when to show the card again.</li><li>Study a little every day. Short and often works best.</li></ol>
@@ -2055,9 +2057,9 @@ function renderPrint(){
   <ul class="steps"><li>Written guide: <a href="https://docs.ankiweb.net/getting-started.html" target="_blank" rel="noopener">Getting Started, in the Anki manual</a></li><li>Written guide: <a href="https://docs.ankiweb.net/manual/importing/intro" target="_blank" rel="noopener">Importing, in the Anki manual</a></li><li>Video, on YouTube: <a href="https://www.youtube.com/watch?v=XYern6KTHTI" target="_blank" rel="noopener">How to install Anki and import decks (quick guide)</a></li><li>Video, on YouTube: <a href="https://www.youtube.com/watch?v=inO8zR9EAB4" target="_blank" rel="noopener">How to import a deck into Anki in 20 seconds</a></li></ul>
   <p class="small muted">If you add the same card twice, Anki updates it and does not copy it. Each card has the question on the front and the answer on the back.</p>
   <div class="hlist">${ankiBars()}</div></div>
-  <div class="panel"><h3>Ready to download</h3><p>Blank diagrams and premade practice tests. The arrow button downloads the worksheet or test, and the key button downloads its answer key.</p>
+  <div class="panel"><h3 class="phead hk4">Worksheets and practice tests</h3><p>Blank diagrams and premade practice tests. The arrow button downloads the worksheet or test, and the key button downloads its answer key.</p>
   <div class="hlist">${HANDOUTS.map(hb).join("")}</div></div>
-  <div class="panel"><h3>Table puzzles: cut out and rearrange</h3><p>Print, cut out the cards, shuffle them, and put the table back together. Each file has a blank mat and a page of cards. The arrow button downloads the puzzle, and the key button downloads the finished table.</p>
+  <div class="panel"><h3 class="phead hk5">Table puzzles: cut out and rearrange</h3><p>Print, cut out the cards, shuffle them, and put the table back together. Each file has a blank mat and a page of cards. The arrow button downloads the puzzle, and the key button downloads the finished table.</p>
   <div class="hlist">${PUZZLES.map(hb).join("")}</div></div>`}
 const hb=(h,i)=>{const f=h[0].replace(".pdf","");return `<div class="hbar hk${i%5+1}"><a class="hbtn" href="handouts/${h[0]}" download aria-label="Download ${h[1]}" title="Download ${h[1]}"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10.5l5 5 5-5"/><path d="M4 20h16"/></svg><span>Download</span></a><a class="hbtn" href="handouts/${f}-key.pdf" download aria-label="Download the answer key for ${h[1]}" title="Download the answer key for ${h[1]}"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4.5"/><path d="M11.3 11.7L20 3"/><path d="M16.5 6.5l3 3"/><path d="M14 9l2 2"/></svg><span>Answer key</span></a><span class="htitle">${h[1]}</span></div>`};
 const PUZZLES=[["Table-puzzle-metric-prefixes.pdf","Metric prefix table puzzle (21 cards)"],["Table-puzzle-mutations.pdf","Mutation table puzzle: DNA, mRNA, amino acids, result (16 cards)"],["Table-puzzle-genetics.pdf","Genetics puzzles: cystic fibrosis, Huntington's, and terms (26 cards)"],["Table-puzzle-endomembrane.pdf","Endomembrane sorter: rough ER, smooth ER, Golgi (11 cards)"],["Table-puzzle-plants.pdf","Plant sorters: tissues, cell types, transport, cell wall (25 cards)"]];
@@ -2139,6 +2141,7 @@ document.addEventListener("click",e=>{const a=e.target.closest("[data-anki]");if
 const REPO="https://github.com/sshartbauer/bio20-final-review";
 const CHANGELOG=[
  {v:"1.4",date:"2026-11-25",items:[
+  "Section titles on the Print and handouts page are now on colored banners. Ready to download is renamed Worksheets and practice tests.",
   "The Anki section now explains what Anki is, how to use it, links to the Anki manual and two YouTube videos, and has one download that holds all the decks.",
   "Print and handouts has Anki decks (.apkg files) for all cards, each set, and each topic. The Flashcards page links to them.",
   "The contact note now says you can also share your experience using the site.",

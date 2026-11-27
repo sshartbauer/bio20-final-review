@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.4 (2026-11-25)
+- Section titles on the Print and handouts page are now on colored banners. Ready to download is renamed Worksheets and practice tests.
 - The Anki section now explains what Anki is, how to use it, links to the Anki manual and two YouTube videos, and has one download that holds all the decks.
 - Print and handouts has Anki decks (.apkg files) for all cards, each set, and each topic. The Flashcards page links to them.
 - The contact note now says you can also share your experience using the site.
